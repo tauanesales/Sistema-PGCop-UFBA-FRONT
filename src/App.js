@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     const fetchHealthCheck = async () => {
       try {
-        const response = await fetch('https://mate85.tauane.artadevs.tech/health-check');
+        const response = await fetch('https://back.mate85.tauane.artadevs.tech/health-check');
         if (!response.ok) {
           throw new Error('Network response was not ok.');
         }
