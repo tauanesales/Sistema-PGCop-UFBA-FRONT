@@ -1,8 +1,44 @@
-# React + Vite
+# FRONT-MATE85-Topicos-em-Sistemas-de-Informacao-e-Web-I
+ 
+## Table of Contents
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- [About](#about)
+- [Authors](#authors)
+- [Languages](#languages)
+- [Gestão de Projeto](#gestão-de-projeto)
+- [Available Scripts](#available-scripts)
+  - [`npm install`](#npm-install)
+  - [`npm run dev`](#npm-run-dev)
 
-Currently, two official plugins are available:
+## About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Atividade relacionada sobre a matéria de Topicos em sistemas de informação web I
+
+## Authors
+
+Tauane Sales
+
+## Languages
+
+React (JavaScript)
+
+## Gestão de Projeto
+**https://trello.com/templates/project-management/gestão-de-projetos-fn73Cyyt**
+
+---
+
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm install`
+
+Installs the necessary dependencies to run the project.
+
+### `npm run dev`
+
+Runs the app in the development mode.\
+Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
+
+The page will reload when you make changes.

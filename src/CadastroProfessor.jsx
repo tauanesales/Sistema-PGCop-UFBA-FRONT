@@ -1,6 +1,6 @@
 function CadastroProfessor(){
 
-    const logoPgcomp = "src/assets/logopgcomp.png" // Logo
+    const logoPgcomp = "assets/logopgcomp.png" // Logo
 
 
     return (

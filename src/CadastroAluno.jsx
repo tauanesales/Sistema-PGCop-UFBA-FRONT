@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'; // Lib atualizar ano
 
 function CadastroAluno(){
 
-    const logoPgcomp = "src/assets/logopgcomp.png" // Logo
+    const logoPgcomp = "assets/logopgcomp.png" // Logo
     const [anoAtual, setAnoAtual] = useState(new Date().getFullYear()); //Função Atualizar ano
     useEffect(() => {
         setAnoAtual(new Date().getFullYear());
