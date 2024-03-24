@@ -1,7 +1,7 @@
 
 function Login() {
 
-    const logoPgcomp = "src/assets/logopgcomp.png"
+    const logoPgcomp = "assets/logopgcomp.png"
 
     const handleCadastroClick = () => {
       // Add código para redirecionar para página de cadastro

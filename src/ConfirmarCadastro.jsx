@@ -1,7 +1,7 @@
 function ConfirmarCadastro(){
 
-    const logoPgcomp = "src/assets/logopgcomp.png" // Img Logo
-    const confirmacao = "src/assets/confirmacao.jpg" // Img confirmação
+    const logoPgcomp = "assets/logopgcomp.png" // Img Logo
+    const confirmacao = "assets/confirmacao.jpg" // Img confirmação
 
 
     return (

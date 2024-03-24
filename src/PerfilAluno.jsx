@@ -4,7 +4,7 @@ import React, { useState } from 'react'; //Lib p/ delimitar tarefas
 
 function PerfilAluno(){
 
-    const logoPgcomp = "src/assets/logopgcomp.png" // Logo
+    const logoPgcomp = "assets/logopgcomp.png" // Logo
 
     // A fazer: Att p/ tarefas adicionadas pelo Coordenador
     // A fazer: Alterar Listagem por ID para listagem por prazo mais próximo
