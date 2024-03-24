@@ -9,7 +9,7 @@ import PerfilAluno from "./PerfilAluno"
 function App(){
   return <div>
 
-    <Login />
+    <PerfilAluno />
 
   </div>
 }

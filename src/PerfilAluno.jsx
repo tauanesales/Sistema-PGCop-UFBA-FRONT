@@ -49,21 +49,22 @@ function PerfilAluno(){
                  {/* Logo*/}
                 <img src = {logoPgcomp}  width={120} style={{ marginRight: '30px'}}/>
                 {/* Informações do perfil */}
-                <div style={{ marginRight: '100px'}}>
+                <div style={{ marginRight: '100px', }}>
                     <h3>José Silva José Silva</h3>
                     <p>Titulação: Mestrado/Doutorado</p>
                     <p>Data de Inicio: dd/mm/aaaa</p>
+                    <p>Status: Ativo</p>
                 </div>
-                <div style={{ marginRight: '250px'}}>
+                <div style={{ marginRight: '250px', marginTop:'-41px'}}>
                     <h3>Matrícula: xxxxxxxxx</h3>
                     <p>Orientador(a): Augusto Carlos</p>
                     <p>Data de Término: dd/mm/aaaa</p>
                 </div>
 
                 {/* Botão Atualizar Dados */}
-                 <button style={{marginRight:'20px',marginBottom:'80px', padding:'5px 10px'}}>Atualizar Dados</button>
+                <button style={{marginRight:'20px',marginBottom:'110px', padding:'5px 10px'}}>Atualizar Dados</button>
                 {/* Botão Sair */}
-                <button style={{marginBottom:'80px', padding:'5px 20px', }}> Sair </button>
+                <button style={{marginBottom:'110px', padding:'5px 20px', }}> Sair </button>
             </div>
 
 
