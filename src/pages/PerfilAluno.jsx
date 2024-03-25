@@ -1,4 +1,4 @@
-import React, { useState } from "react"; //Lib p/ delimitar tarefas
+import { useState } from "react"; //Lib p/ delimitar tarefas
 
 function PerfilAluno() {
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
@@ -39,7 +39,7 @@ function PerfilAluno() {
       }}
     >
       <div
-        class="container"
+        className="container"
         style={{
           width: "100%",
           height: "180px",
@@ -125,7 +125,7 @@ function PerfilAluno() {
             >
               <input
                 type="checkbox"
-                class="checkbox"
+                className="checkbox"
                 checked={tarefa.feita}
                 onChange={() => handleCheckboxChange(tarefa.id)}
               />
@@ -175,7 +175,7 @@ function PerfilAluno() {
             >
               <input
                 type="checkbox"
-                class="checkbox"
+                className="checkbox"
                 checked={tarefa.feita}
                 onChange={() => handleCheckboxChange(tarefa.id)}
               />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; // Lib atualizar ano
+import { useState, useEffect } from "react"; // Lib atualizar ano
 
 function CadastroAluno() {
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
@@ -69,7 +69,7 @@ function CadastroAluno() {
             fontSize: "14px",
             border: "1px solid #ccc",
           }}
-          equired
+          required
         />
       </div>
       {/* Campo Telefone */}
