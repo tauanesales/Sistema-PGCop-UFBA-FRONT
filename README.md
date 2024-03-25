@@ -42,3 +42,7 @@ Runs the app in the development mode.\
 Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
 
 The page will reload when you make changes.
+
+### `Documento de Requisitos`
+
+[https://docs.google.com/spreadsheets/d/1GD8dCz4XSOAW6Iw5xYokrQdVPvO3u-PRiwH2UFwKNOo/edit#gid=1879732803](https://docs.google.com/document/d/1pyL5qi0StpbdY4Hxs0oPhLO5XkQL6UaDdRmx9OWwfYU/edit)https://docs.google.com/document/d/1pyL5qi0StpbdY4Hxs0oPhLO5XkQL6UaDdRmx9OWwfYU/edit
