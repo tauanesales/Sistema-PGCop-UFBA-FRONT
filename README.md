@@ -46,3 +46,6 @@ The page will reload when you make changes.
 ### `Documento de Requisitos`
 
 [https://docs.google.com/spreadsheets/d/1GD8dCz4XSOAW6Iw5xYokrQdVPvO3u-PRiwH2UFwKNOo/edit#gid=1879732803](https://docs.google.com/document/d/1pyL5qi0StpbdY4Hxs0oPhLO5XkQL6UaDdRmx9OWwfYU/edit)https://docs.google.com/document/d/1pyL5qi0StpbdY4Hxs0oPhLO5XkQL6UaDdRmx9OWwfYU/edit
+
+### `Figma`
+https://www.figma.com/file/QzQO76oFpBcMDePKnyhh2b/Figma-basics?type=design&node-id=621-44&mode=design&t=KEnbQcJLPGA2aSEh-0
