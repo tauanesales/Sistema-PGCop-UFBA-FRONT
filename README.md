@@ -14,9 +14,6 @@
 
 Atividade relacionada sobre a matéria de Topicos em sistemas de informação web I
 
-## Authors
-
-Tauane Sales
 
 ## Languages
 
