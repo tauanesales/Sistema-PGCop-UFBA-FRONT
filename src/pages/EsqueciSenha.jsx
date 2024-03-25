@@ -1,4 +1,4 @@
-function Login() {
+function EsqueciSenha() {
     const logoPgcomp = "assets/logopgcomp.png";
   
     return (
@@ -45,5 +45,5 @@ function Login() {
     );
   }
   
-  export default Login;
+  export default EsqueciSenha;
   

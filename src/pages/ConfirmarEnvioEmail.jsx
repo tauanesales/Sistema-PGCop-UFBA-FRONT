@@ -1,4 +1,4 @@
-function ConfirmarCadastro() {
+function ConfirmarEnvioEmail() {
     const logoPgcomp = "assets/logopgcomp.png"; // Img Logo
     const confirmacao = "assets/confirmacao.jpg"; // Img confirmação
   
@@ -40,5 +40,5 @@ function ConfirmarCadastro() {
     );
   }
   
-  export default ConfirmarCadastro;
+  export default ConfirmarEnvioEmail;
   
