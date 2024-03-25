@@ -1,19 +1,7 @@
+import { RouterProvider } from "react-router-dom";
 
-// Import Telas
-import Login from "./Login"
-import CadastroAluno from "./CadastroAluno"
-import CadastroProfessor from "./CadastroProfessor"
-import ConfirmarCadastro from "./ConfirmarCadastro"
-import PerfilAluno from "./PerfilAluno"
+import { router } from "./routes";
 
-function App(){
-  return <div>
-
-    <PerfilAluno />
-
-  </div>
+export default function App() {
+  return <RouterProvider router={router} />;
 }
-
-export default App
-
-
