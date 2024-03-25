@@ -70,15 +70,17 @@ function PerfilAluno() {
         </div>
 
         {/* Botão Atualizar Dados */}
-        <button
-          style={{
-            marginRight: "20px",
-            marginBottom: "110px",
-            padding: "5px 10px",
-          }}
-        >
-          Atualizar Dados
-        </button>
+        <a href="/atualizar-senha">
+          <button
+            style={{
+              marginRight: "20px",
+              marginBottom: "110px",
+              padding: "5px 10px",
+            }}
+          >
+            Atualizar Dados
+          </button>
+        </a>
         {/* Botão Sair */}
         <a href="/">
           <button style={{ marginBottom: "110px", padding: "5px 20px" }}>
