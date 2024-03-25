@@ -5,6 +5,10 @@ import ConfirmarCadastro from "@/pages/ConfirmarCadastro";
 import CadastroProfessor from "@/pages/CadastroProfessor";
 import CadastroAluno from "@/pages/CadastroAluno";
 import Login from "@/pages/Login";
+import EsqueciSenha from "@/pages/EsqueciSenha";
+import ConfirmarEnvioEmail from "@/pages/ConfirmarEnvioEmail";
+import AtualizarSenha from "@/pages/AtualizarSenha";
+import ConfirmarNovaSenha from "@/pages/ConfirmarNovaSenha";
 import Error404 from "@/pages/Error404";
 
 export const router = createBrowserRouter([
@@ -15,4 +19,8 @@ export const router = createBrowserRouter([
   { path: "/confirmar-cadastro", element: <ConfirmarCadastro /> },
   { path: "/cadastro-professor", element: <CadastroProfessor /> },
   { path: "/cadastro-aluno", element: <CadastroAluno /> },
+  { path: "/esqueci-senha", element: <EsqueciSenha /> },
+  { path: "/confirmar-envio-email", element: <ConfirmarEnvioEmail /> },
+  { path: "/atualizar-senha", element: <AtualizarSenha /> },
+  { path: "/confirmar-nova-senha", element: <ConfirmarNovaSenha /> },
 ]);

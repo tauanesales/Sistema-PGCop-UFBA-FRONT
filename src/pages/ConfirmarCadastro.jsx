@@ -27,19 +27,11 @@ function ConfirmarCadastro() {
 
       {/* Botão Voltar a Tela Inicial */}
       {/* Botão Cadastrar */}
-      <a href="/perfil-aluno">
-        <button
-          style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}
-        >
-          Ver Perfil
-        </button>
-      </a>
       <br />
       <a href="/">
         <button
-          style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}
-        >
-          Sair
+          style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}>
+          Voltar a Tela Inicial
         </button>
       </a>
     </div>
