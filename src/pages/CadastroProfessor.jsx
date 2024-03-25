@@ -146,11 +146,13 @@ function CadastroProfessor() {
       </div>
 
       {/* Botão Cadastrar */}
-      <button
-        style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}
-      >
-        Cadastrar
-      </button>
+      <a href="confirmar-cadastro">
+        <button
+          style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}
+        >
+          Cadastrar
+        </button>
+      </a>
     </div>
   );
 }

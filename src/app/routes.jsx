@@ -1,11 +1,11 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import PerfilAluno from "./PerfilAluno";
-import ConfirmarCadastro from "./ConfirmarCadastro";
-import CadastroProfessor from "./CadastroProfessor";
-import CadastroAluno from "./CadastroAluno";
-import Login from "./Login";
-import Error404 from "./Error404";
+import PerfilAluno from "../pages/PerfilAluno";
+import ConfirmarCadastro from "../pages/ConfirmarCadastro";
+import CadastroProfessor from "../pages/CadastroProfessor";
+import CadastroAluno from "../pages/CadastroAluno";
+import Login from "../pages/Login";
+import Error404 from "../pages/Error404";
 
 export const router = createBrowserRouter([
   { path: "*", element: <Error404 /> },
