@@ -1,31 +1,33 @@
-# FRONT-MATE85-Topicos-em-Sistemas-de-Informacao-e-Web-I
- 
-## Table of Contents
+# Sistema de Monitoramento de Alunos do PGCOMP (front-end)
 
-- [About](#about)
-- [Authors](#authors)
-- [Languages](#languages)
-- [Gestão de Projeto](#gestão-de-projeto)
-- [Available Scripts](#available-scripts)
+## Índice
+
+- [Sobre](#sobre)
+- [Links](#links)
+- [Linguagens e Tecnologias](#linguagens-e-tecnologias)
+- [Scripts](#scripts)
   - [`npm install`](#npm-install)
   - [`npm run dev`](#npm-run-dev)
 
-## About
+## Sobre
 
-Atividade relacionada sobre a matéria de Topicos em sistemas de informação web I
+Projeto desenvolvido durante a disciplina de Tópicos em Sistemas de informação e Web I
 
+## Links
 
-## Languages
+### [Repositório do back-end](https://github.com/tauanesales/BACK-MATE85-Topicos-em-sistemas-de-informacao-e-web-i)
+
+### [Gestão de Projeto](https://trello.com/templates/project-management/gestão-de-projetos-fn73Cyyt)
+
+### [Documento de Requisitos](https://docs.google.com/document/d/1pyL5qi0StpbdY4Hxs0oPhLO5XkQL6UaDdRmx9OWwfYU/edit)
+
+### [Figma](https://www.figma.com/file/QzQO76oFpBcMDePKnyhh2b/Figma-basics?type=design&node-id=621-44&mode=design&t=KEnbQcJLPGA2aSEh-0)
+
+## Linguagens e Tecnologias
 
 React (JavaScript)
 
-## Gestão de Projeto
-**https://trello.com/templates/project-management/gestão-de-projetos-fn73Cyyt**
-
----
-
-
-## Available Scripts
+## Scripts
 
 In the project directory, you can run:
 
@@ -39,10 +41,3 @@ Runs the app in the development mode.\
 Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
 
 The page will reload when you make changes.
-
-### `Documento de Requisitos`
-
-[https://docs.google.com/spreadsheets/d/1GD8dCz4XSOAW6Iw5xYokrQdVPvO3u-PRiwH2UFwKNOo/edit#gid=1879732803](https://docs.google.com/document/d/1pyL5qi0StpbdY4Hxs0oPhLO5XkQL6UaDdRmx9OWwfYU/edit)https://docs.google.com/document/d/1pyL5qi0StpbdY4Hxs0oPhLO5XkQL6UaDdRmx9OWwfYU/edit
-
-### `Figma`
-https://www.figma.com/file/QzQO76oFpBcMDePKnyhh2b/Figma-basics?type=design&node-id=621-44&mode=design&t=KEnbQcJLPGA2aSEh-0
