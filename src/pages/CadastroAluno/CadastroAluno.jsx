@@ -1,5 +1,5 @@
 import './styles.css'
-import InputCadastro from '../../components/InputCadastro'
+import Input from '../../components/Input'
 import SelectCadastro from '../../components/SelectCadastro'
 import Button from '../../components/Button';
 const CadastroAluno = () => {
@@ -9,17 +9,17 @@ const CadastroAluno = () => {
       {/* Logo*/}
       <img src={logoPgcomp} width={110} />
       {/* Campo Nome */}
-      <InputCadastro placeholder={"Nome Completo"} type={"text"}/>
+      <Input placeholder={"Nome Completo"} type={"text"}/>
       {/* Campo CPF */}
-      <InputCadastro placeholder={"CPF"} type={"number"}/>
+      <Input placeholder={"CPF"} type={"number"}/>
       {/* Campo Email */}
-      <InputCadastro placeholder={"Email"} type={"email"}/>
+      <Input placeholder={"Email"} type={"email"}/>
       {/* Campo Telefone */}
-      <InputCadastro placeholder={"Telefone"} type={"number"}/>
+      <Input placeholder={"Telefone"} type={"number"}/>
       {/* Campo Matrícula */}
-      <InputCadastro placeholder={"Matrícula"} type={"text"}/>
+      <Input placeholder={"Matrícula"} type={"text"}/>
       {/* Campo Orientador */}
-      <InputCadastro placeholder={"Orientador"} type={"text"}/>
+      <Input placeholder={"Orientador"} type={"text"}/>
       {/* Seleção Titulação */}
         <select
           className="inputCadastro"
@@ -33,9 +33,9 @@ const CadastroAluno = () => {
       <SelectCadastro/>
 
       {/* Campo Criar Senha */}
-      <InputCadastro placeholder={"Crie sua Senha"} type={"password"}/>
+      <Input placeholder={"Crie sua Senha"} type={"password"}/>
       {/* Campo Confirmar Senha */}
-      <InputCadastro placeholder={"Confirmar Senha"} type={"password"}/>
+      <Input placeholder={"Confirmar Senha"} type={"password"}/>
 
       {/* Botão Cadastrar */}
       <Button link={'confirmar-cadastro'} label={"Cadastrar"}/>

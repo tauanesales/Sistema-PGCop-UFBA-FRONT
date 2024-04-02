@@ -11,7 +11,6 @@ function EsqueciSenha() {
         height: "400px",
         textAlign: "center",
       }}
-      className="container"
     >
       {/* Logo*/}
       <img src={logoPgcomp} width={130} />
