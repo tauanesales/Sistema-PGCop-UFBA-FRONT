@@ -1,60 +1,25 @@
-function Login() {
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import './styles.css'
+
+const Login = () => {
   const logoPgcomp = "assets/logopgcomp.png";
 
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        borderRadius: "10px",
-        padding: "20px",
-        width: "350px",
-        height: "400px",
-        textAlign: "center",
-      }}
-      className="container"
-    >
+    <div className='containerLogin'>
       {/* Logo*/}
       <img src={logoPgcomp} width={130} />
       {/* Campo Email */}
       <div style={{ position: "center", marginBottom: "20px" }}>
-        <input
-          type="email"
-          placeholder="Email"
-          style={{
-            width: "90%",
-            padding: "12px",
-            borderRadius: "5px",
-            backgroundColor: "#d3d3d3",
-            color: "#333",
-            fontSize: "14px",
-            border: "1px solid #ccc",
-          }}
-        />
+      <Input placeholder={"Email"} type={"email"}/>
       </div>
       {/* Campo Senha */}
       <div style={{ position: "relative", marginBottom: "20px" }}>
-        <input
-          type="password"
-          placeholder="Senha"
-          style={{
-            width: "90%",
-            padding: "12px",
-            borderRadius: "5px",
-            backgroundColor: "#d3d3d3",
-            color: "#333",
-            fontSize: "14px",
-            border: "1px solid #ccc",
-          }}
-        />
+      <Input placeholder={"Senha"} type={"password"}/>
       </div>
       {/* Botão Login */}
-      <a href="/perfil-aluno">
-        <button
-          style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}
-        >
-          Login
-        </button>
-      </a>
+      <Button link={'/perfil-aluno'} label={"Login"}/>
+
       {/* LInks Cadastro e Recuperação de senha */}
       <p style={{ color: "blue", marginTop: "20px" }}>
         <a

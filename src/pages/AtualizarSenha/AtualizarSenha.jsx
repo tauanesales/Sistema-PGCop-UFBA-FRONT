@@ -11,7 +11,6 @@ function AtualizarSenha() {
         height: "500px",
         textAlign: "center",
       }}
-      className="container"
     >
       {/* Logo*/}
       <img src={logoPgcomp} width={130} />

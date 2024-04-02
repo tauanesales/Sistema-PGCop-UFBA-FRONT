@@ -1,4 +1,6 @@
 import { useState } from "react"; //Lib p/ delimitar tarefas
+import "./styles.css"
+import Button from "../../components/Button";
 
 function PerfilAluno() {
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
@@ -30,64 +32,32 @@ function PerfilAluno() {
   const tarefasFeitas = tarefas.filter((tarefa) => tarefa.feita);
 
   return (
-    <div
-      style={{
-        display: "flex", // Centralizar os containers
-        flexDirection: "column",
-        alignItems: "center",
-        marginBottom: "0px",
-      }}
-    >
-      <div
-        className="container"
-        style={{
-          width: "100%",
-          height: "180px",
-          backgroundColor: "white",
-          borderRadius: "10px",
-          marginBottom: "30px",
-          maxWidth: "1300px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          alignItems: "center",
-          padding: "0 20px",
-          display: "flex",
-        }}
-      >
+    <div className="contain">
+      <div className="container">
         {/* Logo*/}
-        <img src={logoPgcomp} width={120} style={{ marginRight: "30px" }} />
-        {/* Informações do perfil */}
-        <div style={{ marginRight: "100px" }}>
-          <h3>José Silva José Silva</h3>
-          <p>Titulação: Mestrado/Doutorado</p>
-          <p>Data de Inicio: dd/mm/aaaa</p>
-          <p>Status: Ativo</p>
-        </div>
-        <div style={{ marginRight: "250px", marginTop: "-41px" }}>
-          <h3>Matrícula: xxxxxxxxx</h3>
-          <p>Orientador(a): Augusto Carlos</p>
-          <p>Data de Término: dd/mm/aaaa</p>
-        </div>
+          <img src={logoPgcomp}  />
+          {/* Informações do perfil */}
+          <div className="infoAluno">
+            <div className="boxInfoAluno">
+              <h3>José Silva José Silva</h3>
+              <p><span>Titulação:</span> Mestrado/Doutorado</p>
+              <p><span>Data de Inicio:</span> dd/mm/aaaa</p>
+              <p><span>Status:</span> Ativo</p>
+            </div>
+            <div className="boxInfoAluno">
+              <h3><span>Matrícula:</span> xxxxxxxxx</h3>
+              <p><span>Orientador(a): </span>Augusto Carlos</p>
+              <p><span>Data de Término:</span> dd/mm/aaaa</p>
+            </div>
+      </div>
 
-        {/* Botão Atualizar Dados */}
-        <a href="/atualizar-senha">
-          <button
-            style={{
-              marginRight: "20px",
-              marginBottom: "110px",
-              padding: "5px 10px",
-            }}
-          >
-            Atualizar Dados
-          </button>
-        </a>
-        {/* Botão Sair */}
-        <a href="/">
-          <button style={{ marginBottom: "110px", padding: "5px 20px" }}>
-            {" "}
-            Sair{" "}
-          </button>
-        </a>
+        <div className="botoesToolbar">
+          {/* Botão Atualizar Dados */}
+          <Button link={'/atualizar-senha'} label={"Atualizar dados"}/>
+          {/* Botão Sair */}
+          <Button link={'/'} label={"Sair"}/>
+
+        </div>
       </div>
 
       {/* Enquadramento Containers Quadro de Tarefa */}

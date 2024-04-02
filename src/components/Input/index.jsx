@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import './styles.css'
 
-const InputCadastro = ({placeholder, type, onFocus, onBlur}) => {
+const Input = ({placeholder, type, onFocus, onBlur}) => {
   return (
         <input
           type={type}
@@ -14,4 +14,4 @@ const InputCadastro = ({placeholder, type, onFocus, onBlur}) => {
   )
 }
 
-export default InputCadastro;
+export default Input;
