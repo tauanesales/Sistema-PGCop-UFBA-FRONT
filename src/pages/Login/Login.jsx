@@ -15,8 +15,9 @@ function Login() {
   const { signIn } = useAuth();
 
   const handleSignIn = async () => {
-    await signIn();
-    navigate(from, { replace: true });
+    navigate("/perfil-aluno");
+    // await signIn();
+    // navigate(from, { replace: true });
   };
 
   return (

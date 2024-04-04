@@ -21,8 +21,10 @@ const routes = createRoutesFromElements(
   <>
     <Route index path="/" element={<Navigate to="/login" replace={true} />} />
 
+    {/* Mover para dentro de route abaixo após implementar autenticação */}
+    <Route path="/perfil-aluno" element={<PerfilAluno />} />
+
     <Route element={<AuthenticationGuard />}>
-      <Route path="/perfil-aluno" element={<PerfilAluno />} />
       <Route path="/confirmar-cadastro" element={<ConfirmarCadastro />} />
       <Route path="/confirmar-envio-email" element={<ConfirmarEnvioEmail />} />
       <Route path="/atualizar-senha" element={<AtualizarSenha />} />
