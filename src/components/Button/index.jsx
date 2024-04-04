@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import "./styles.css";
 
-const Button = ({ link, label }) => {
+const Button = ({ link, label, ...props }) => {
   return (
     <a href={link}>
-      <button>{label}</button>
+      <button {...props}>{label}</button>
     </a>
   );
 };
