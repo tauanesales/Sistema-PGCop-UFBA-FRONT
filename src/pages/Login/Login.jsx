@@ -1,15 +1,22 @@
 import "./styles.css";
 
+import { useLocation, useNavigate } from "react-router-dom";
+
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-
 import { useAuth } from "../../contexts/auth";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const { signIn } = useAuth();
 
   const handleSignIn = async () => {
     await signIn();
+    navigate(from, { replace: true });
   };
 
   return (
@@ -25,7 +32,7 @@ function Login() {
         <Input placeholder={"Senha"} type={"password"} />
       </div>
       {/* Botão Login */}
-      <Button link={"/perfil-aluno"} label={"Login"} />
+      <Button onClick={handleSignIn} label={"Login"} />
 
       {/* LInks Cadastro e Recuperação de senha */}
       <p style={{ color: "blue", marginTop: "20px" }}>
@@ -57,6 +64,6 @@ function Login() {
       </p>
     </div>
   );
-};
+}
 
 export default Login;
