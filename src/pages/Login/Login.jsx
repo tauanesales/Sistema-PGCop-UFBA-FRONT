@@ -3,13 +3,19 @@ import "./styles.css";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 
-const Login = () => {
-  const logoPgcomp = "assets/logopgcomp.png";
+import { useAuth } from "../../contexts/auth";
+
+function Login() {
+  const { signIn } = useAuth();
+
+  const handleSignIn = async () => {
+    await signIn();
+  };
 
   return (
     <div className="containerLogin">
       {/* Logo*/}
-      <img src={logoPgcomp} width={130} />
+      <img src="assets/logopgcomp.png" width={130} />
       {/* Campo Email */}
       <div style={{ position: "center", marginBottom: "20px" }}>
         <Input placeholder={"Email"} type={"email"} />
