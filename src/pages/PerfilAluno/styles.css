@@ -1,9 +1,10 @@
-.contain{
-  display: flex;  flex-direction: column;
+.contain {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.container{
+.container {
   width: 100%;
   height: 180px;
   background-color: white;
@@ -13,29 +14,27 @@
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
-  
 }
 
-.container img{
- width: 10em;
- height: 10em;
- align-self: center;
- object-fit: cover;
+.container img {
+  width: 10em;
+  height: 10em;
+  align-self: center;
+  object-fit: cover;
 }
 
-.infoAluno{
+.infoAluno {
   display: flex;
   width: 100%;
   justify-content: space-around;
 }
 
-.boxInfoAluno span{
- font-weight: 700;
+.boxInfoAluno span {
+  font-weight: 700;
 }
 
-.botoesToolbar{
+.botoesToolbar {
   display: flex;
   min-width: 25em;
   margin-top: 2em;
 }
-

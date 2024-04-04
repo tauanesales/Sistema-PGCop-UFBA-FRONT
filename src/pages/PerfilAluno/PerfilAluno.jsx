@@ -1,5 +1,5 @@
 import { useState } from "react"; //Lib p/ delimitar tarefas
-import "./styles.css"
+import "./styles.css";
 import Button from "../../components/Button";
 
 function PerfilAluno() {
@@ -35,28 +35,39 @@ function PerfilAluno() {
     <div className="contain">
       <div className="container">
         {/* Logo*/}
-          <img src={logoPgcomp}  />
-          {/* Informações do perfil */}
-          <div className="infoAluno">
-            <div className="boxInfoAluno">
-              <h3>José Silva José Silva</h3>
-              <p><span>Titulação:</span> Mestrado/Doutorado</p>
-              <p><span>Data de Inicio:</span> dd/mm/aaaa</p>
-              <p><span>Status:</span> Ativo</p>
-            </div>
-            <div className="boxInfoAluno">
-              <h3><span>Matrícula:</span> xxxxxxxxx</h3>
-              <p><span>Orientador(a): </span>Augusto Carlos</p>
-              <p><span>Data de Término:</span> dd/mm/aaaa</p>
-            </div>
-      </div>
+        <img src={logoPgcomp} />
+        {/* Informações do perfil */}
+        <div className="infoAluno">
+          <div className="boxInfoAluno">
+            <h3>José Silva José Silva</h3>
+            <p>
+              <span>Titulação:</span> Mestrado/Doutorado
+            </p>
+            <p>
+              <span>Data de Inicio:</span> dd/mm/aaaa
+            </p>
+            <p>
+              <span>Status:</span> Ativo
+            </p>
+          </div>
+          <div className="boxInfoAluno">
+            <h3>
+              <span>Matrícula:</span> xxxxxxxxx
+            </h3>
+            <p>
+              <span>Orientador(a): </span>Augusto Carlos
+            </p>
+            <p>
+              <span>Data de Término:</span> dd/mm/aaaa
+            </p>
+          </div>
+        </div>
 
         <div className="botoesToolbar">
           {/* Botão Atualizar Dados */}
-          <Button link={'/atualizar-senha'} label={"Atualizar dados"}/>
+          <Button link={"/atualizar-senha"} label={"Atualizar dados"} />
           {/* Botão Sair */}
-          <Button link={'/'} label={"Sair"}/>
-
+          <Button link={"/"} label={"Sair"} />
         </div>
       </div>
 
