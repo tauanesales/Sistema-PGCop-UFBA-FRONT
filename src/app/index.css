@@ -1,5 +1,5 @@
 :root {
-  font-family:system-ui,Helvetica, Arial, sans-serif;
+  font-family: system-ui, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: rgba(42, 41, 41, 0.87);
@@ -13,7 +13,7 @@
   height: 100vh;
 }
 
-.container{
+.container {
   background-color: white;
   border-radius: 10px;
 }

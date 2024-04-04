@@ -1,24 +1,24 @@
-import Button from '../../components/Button';
-import Input from '../../components/Input';
-import './styles.css'
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import "./styles.css";
 
 const Login = () => {
   const logoPgcomp = "assets/logopgcomp.png";
 
   return (
-    <div className='containerLogin'>
+    <div className="containerLogin">
       {/* Logo*/}
       <img src={logoPgcomp} width={130} />
       {/* Campo Email */}
       <div style={{ position: "center", marginBottom: "20px" }}>
-      <Input placeholder={"Email"} type={"email"}/>
+        <Input placeholder={"Email"} type={"email"} />
       </div>
       {/* Campo Senha */}
       <div style={{ position: "relative", marginBottom: "20px" }}>
-      <Input placeholder={"Senha"} type={"password"}/>
+        <Input placeholder={"Senha"} type={"password"} />
       </div>
       {/* Botão Login */}
-      <Button link={'/perfil-aluno'} label={"Login"}/>
+      <Button link={"/perfil-aluno"} label={"Login"} />
 
       {/* LInks Cadastro e Recuperação de senha */}
       <p style={{ color: "blue", marginTop: "20px" }}>
@@ -50,6 +50,6 @@ const Login = () => {
       </p>
     </div>
   );
-}
+};
 
 export default Login;

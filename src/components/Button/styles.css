@@ -1,4 +1,4 @@
-a{
+a {
   width: 100%;
   text-align: center;
 }
@@ -9,7 +9,7 @@ button {
   border-radius: 40px;
   border: none;
   font-size: 13px;
-  background-color: #2B2B2B;
+  background-color: #2b2b2b;
   font-family: "Raleway", sans-serif;
   font-weight: 500;
   cursor: pointer;
