@@ -1,5 +1,7 @@
-import { useState } from "react"; //Lib p/ delimitar tarefas
 import "./styles.css";
+
+import { useState } from "react"; //Lib p/ delimitar tarefas
+
 import Button from "../../components/Button";
 
 function PerfilAluno() {
