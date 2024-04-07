@@ -1,9 +1,10 @@
-.contain{
-  display: flex;  flex-direction: column;
+.contain {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.containerAluno{
+.containerAluno {
   width: 100%;
   height: 180px;
   background-color: white;
@@ -15,20 +16,20 @@
   padding: 0 20px;
 }
 
-.containerAluno img{
- width: 10em;
- height: 10em;
- align-self: center;
- object-fit: cover;
+.containerAluno img {
+  width: 10em;
+  height: 10em;
+  align-self: center;
+  object-fit: cover;
 }
 
-.tarefasAluno{
+.tarefasAluno {
   display: flex;
   justify-content: space-around;
   width: 1200px;
 }
 
-.boxTarefas{
+.boxTarefas {
   overflow-y: auto;
   border-radius: 1%;
   background-color: white;
@@ -36,23 +37,23 @@
   width: 40%;
 }
 
-.infoAluno{
+.infoAluno {
   display: flex;
   width: 100%;
   justify-content: space-around;
 }
 
-.boxInfoAluno span{
- font-weight: 700;
+.boxInfoAluno span {
+  font-weight: 700;
 }
 
-.botoesToolbar{
+.botoesToolbar {
   display: flex;
   min-width: 25em;
   margin-top: 2em;
 }
 
-#task{
+#task {
   width: 90%;
   margin: 10px 0;
   margin-left: auto;

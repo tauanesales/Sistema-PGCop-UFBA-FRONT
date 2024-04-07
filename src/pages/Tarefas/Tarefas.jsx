@@ -1,6 +1,8 @@
+import "./styles.css";
+
 import React, { useState } from 'react';
 import { AiFillDelete, AiFillEdit, AiOutlinePlus } from 'react-icons/ai';
-import "./styles.css";
+
 import Button from "../../components/Button";
 
 function Tarefas(){
