@@ -68,9 +68,7 @@ function AtualizarSenha() {
       {/* Botão Login */}
       <a href="/confirmar-nova-senha">
         <button
-          style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}
-        >
-          Atualizar Senha
+          style={{ padding: "5px 5px", borderRadius: "5px", fontSize: "15px" }}>Atualizar Senha
         </button>
       </a>
       {/* LInks Cadastro e Recuperação de senha */}

@@ -6,3 +6,9 @@
   height: 400px;
   text-align: center;
 }
+
+button{
+  font-size: 14px;
+  border-radius: 5px;
+  width: 140px;
+}

@@ -3,7 +3,7 @@
   align-items: center;
 }
 
-.container{
+.containerAluno{
   width: 100%;
   height: 180px;
   background-color: white;
@@ -13,14 +13,27 @@
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
-  
 }
 
-.container img{
+.containerAluno img{
  width: 10em;
  height: 10em;
  align-self: center;
  object-fit: cover;
+}
+
+.tarefasAluno{
+  display: flex;
+  justify-content: space-around;
+  width: 1200px;
+}
+
+.boxTarefas{
+  overflow-y: auto;
+  border-radius: 1%;
+  background-color: white;
+  height: 480px;
+  width: 40%;
 }
 
 .infoAluno{
@@ -39,3 +52,12 @@
   margin-top: 2em;
 }
 
+#task{
+  width: 90%;
+  margin: 10px 0;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid grey;
+  padding: 5px;
+  border-radius: 5px;
+}

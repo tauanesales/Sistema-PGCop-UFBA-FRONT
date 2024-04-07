@@ -32,8 +32,7 @@ function ConfirmarEnvioEmail() {
       <br />
       <a href="/">
         <button
-          style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}
-        >
+          style={{ padding: "5px 10px", borderRadius: "5px", fontSize: "16px" }}>
           Voltar a Tela Inicial
         </button>
       </a>

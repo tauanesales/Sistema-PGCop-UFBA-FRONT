@@ -35,9 +35,8 @@ function EsqueciSenha() {
       {/* Botão Enviar Recuperação de Senha */}
       <a href="/confirmar-envio-email">
         <button
-          style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}
-        >
-          Enviar Email de Recuperação
+          style={{borderRadius: "5px", fontSize: "16px" }}>
+          Enviar Email
         </button>
       </a>
       {/* LInks Cadastro e Recuperação de senha */}

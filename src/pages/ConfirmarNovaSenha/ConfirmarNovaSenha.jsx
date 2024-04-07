@@ -25,16 +25,13 @@ function ConfirmarNovaSenha() {
       <p></p>
       {/* Ícone de confirmação */}
       <img src={confirmacao} width={100} />
-      <p></p>
 
       {/* Botão Voltar a Tela Inicial */}
       {/* Botão Cadastrar */}
       <br />
       <a href="/">
         <button
-          style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}
-        >
-          Voltar a Tela Inicial
+          style={{ padding: "5px 10px", borderRadius: "5px", fontSize: "15px" }} >Voltar a Tela Inicial
         </button>
       </a>
     </div>
