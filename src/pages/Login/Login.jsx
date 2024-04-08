@@ -15,9 +15,28 @@ function Login() {
   const { signIn } = useAuth();
 
   const handleSignIn = async () => {
-    navigate("/perfil-aluno");
-    // await signIn();
-    // navigate(from, { replace: true });
+    const data = {
+      username: document.querySelector("input[type=email]").value,
+      password: document.querySelector("input[type=password]").value
+    };
+    fetch("http://127.0.0.1:3000/token/", {
+      "headers": {
+        "accept": "application/json",
+        "content-type": "application/x-www-form-urlencoded",
+      },
+      "body": `username=${data.username}&password=${data.password}`,
+      "method": "POST",
+      "credentials": "omit"
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.access_token) {
+          navigate("/perfil-aluno");
+        } else {
+          alert("Invalid credentials.");
+        }
+      })
+      .catch(error => alert('Error while loging in. Please try again.'));
   };
 
   return (
