@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { ProtectedRoute } from "./ProtectedRoute";
 import { useAuth } from "../contexts/auth";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export type AuthenticationGuardProps = {
   children?: React.ReactElement;

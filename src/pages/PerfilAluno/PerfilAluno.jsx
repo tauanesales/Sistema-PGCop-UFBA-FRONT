@@ -1,44 +1,113 @@
 import "./styles.css";
 
-import { useState } from "react"; //Lib p/ delimitar tarefas
-
-import Button from "../../components/Button";
+import { useEffect, useState } from "react";
 
 function PerfilAluno() {
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
 
-  // A fazer: Att p/ tarefas adicionadas pelo Coordenador
-  // A fazer: Alterar Listagem por ID para listagem por prazo mais próximo
+  const dataDeInicio = new Date("2023-02-01"); // Data de Início do aluno
+
+  const [dataAtual, setDataAtual] = useState(new Date()); // Data atual
+
   const [tarefas, setTarefas] = useState([
-    { id: 1, descricao: "Qualificacao", prazo: "dd/mm/yyyy", feita: false }, //prazo: (data de inicio + 2y) - data atual
-    { id: 2, descricao: "Artigo", prazo: "dd/mm/yyyy", feita: false },
-    { id: 3, descricao: "Defesa", prazo: "dd/mm/yyyy", feita: false },
-    { id: 4, descricao: "Artigo", prazo: "dd/mm/yyyy", feita: false },
-    { id: 5, descricao: "Defesa", prazo: "dd/mm/yyyy", feita: false },
-    { id: 6, descricao: "Artigo", prazo: "dd/mm/yyyy", feita: false },
-    { id: 7, descricao: "Defesa", prazo: "dd/mm/yyyy", feita: false },
+    {
+      id: 1,
+      nome: "Qualificacao",
+      prazoMeses: 24,
+      descricao: "Apresentação e defesa do projeto de pesquisa.",
+      feita: false,
+    },
+    {
+      id: 2,
+      nome: "Artigo",
+      prazoMeses: 24,
+      descricao: "Elaborar e submeter um artigo científico.",
+      feita: false,
+    },
+    {
+      id: 3,
+      nome: "Estágio",
+      prazoMeses: 18,
+      descricao: "Concluir o estágio obrigatório.",
+      feita: false,
+    },
+    { id: 4, nome: "Defesa", prazoMeses: 24, descricao: "", feita: false },
+    {
+      id: 5,
+      nome: "Exame de Proficiência em Língua Estrangeira",
+      prazoMeses: 16,
+      descricao: "Aprovação em exame de proficiência em língua estrangeira.",
+      feita: false,
+    },
+    {
+      id: 6,
+      nome: "Carga Horária Básica",
+      prazoMeses: 15,
+      descricao: "Cumprir a carga horária mínima de disciplinas obrigatórias.",
+      feita: false,
+    },
   ]);
 
-  // A fazer: Add cores conforme a proximidade do prazo (escala de cor amarelo/laranja/vermelho)
+  const [tarefaEmEdicao, setTarefaEmEdicao] = useState(null);
+  const [dataSelecionada, setDataSelecionada] = useState(null);
+
   const handleCheckboxChange = (id) => {
     const updatedTarefas = tarefas.map((tarefa) => {
       if (tarefa.id === id) {
-        return { ...tarefa, feita: !tarefa.feita };
+        if (tarefa.feita) {
+          return { ...tarefa, feita: false, dataRealizacao: null };
+        } else {
+          setTarefaEmEdicao(id);
+          return tarefa;
+        }
       }
       return tarefa;
     });
     setTarefas(updatedTarefas);
   };
 
-  const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.feita);
-  const tarefasFeitas = tarefas.filter((tarefa) => tarefa.feita);
+  const salvarDataRealizacao = (id) => {
+    const updatedTarefas = tarefas.map((tarefa) => {
+      if (tarefa.id === id) {
+        return { ...tarefa, feita: true, dataRealizacao: dataSelecionada };
+      }
+      return tarefa;
+    });
+    setTarefas(updatedTarefas);
+    setTarefaEmEdicao(null); // Limpa o estado de tarefa em edição
+    setDataSelecionada(null); // Limpa a data selecionada
+  };
+
+  const tarefasOrdenadas = [...tarefas].sort((a, b) => {
+    const prazoA = new Date(
+      dataDeInicio.getFullYear(),
+      dataDeInicio.getMonth() + a.prazoMeses,
+      dataDeInicio.getDate(),
+    );
+    const prazoB = new Date(
+      dataDeInicio.getFullYear(),
+      dataDeInicio.getMonth() + b.prazoMeses,
+      dataDeInicio.getDate(),
+    );
+    return prazoA - prazoB;
+  });
+
+  const tarefasAFazer = tarefasOrdenadas.filter((tarefa) => !tarefa.feita);
+  const tarefasFeitas = tarefasOrdenadas.filter((tarefa) => tarefa.feita);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDataAtual(new Date());
+    }, 86400000); // Atualiza a data atual todos os dias
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   return (
     <div className="contain">
-      <div className="container">
-        {/* Logo*/}
-        <img src={logoPgcomp} />
-        {/* Informações do perfil */}
+      <div className="containerAluno">
+        <img src={logoPgcomp} alt="Logo" />
         <div className="infoAluno">
           <div className="boxInfoAluno">
             <h3>José Silva José Silva</h3>
@@ -46,7 +115,7 @@ function PerfilAluno() {
               <span>Titulação:</span> Mestrado/Doutorado
             </p>
             <p>
-              <span>Data de Inicio:</span> dd/mm/aaaa
+              <span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}
             </p>
             <p>
               <span>Status:</span> Ativo
@@ -60,125 +129,163 @@ function PerfilAluno() {
               <span>Orientador(a): </span>Augusto Carlos
             </p>
             <p>
-              <span>Data de Término:</span> dd/mm/aaaa
+              <span>Término Previsto:</span>{" "}
+              {new Date(
+                dataDeInicio.getFullYear() + 3,
+                dataDeInicio.getMonth(),
+                dataDeInicio.getDate(),
+              ).toLocaleDateString()}
             </p>
           </div>
         </div>
 
         <div className="botoesToolbar">
-          {/* Botão Atualizar Dados */}
-          <Button link={"/atualizar-senha"} label={"Atualizar dados"} />
-          {/* Botão Sair */}
-          <Button link={"/"} label={"Sair"} />
+          <button
+            onClick={() => (window.location.href = "/atualizar-senha")}
+            style={{
+              padding: "10px 10px",
+              marginRight: "5px",
+              borderRadius: "10px",
+              width: "240px",
+            }}
+          >
+            Atualizar Senha
+          </button>
+          <button
+            onClick={() => (window.location.href = "/")}
+            style={{
+              padding: "10px 10px",
+              marginRight: "5px",
+              borderRadius: "10px",
+            }}
+          >
+            Sair
+          </button>
         </div>
       </div>
 
-      {/* Enquadramento Containers Quadro de Tarefa */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around", // Posição container
-          width: "1200px",
-        }}
-      >
-        {/* Container 2 - Quadro de Tarefas A fazer */}
-        <div
-          style={{
-            height: "480px",
-            width: "38%",
-            backgroundColor: "white",
-            borderRadius: "10px",
-            overflowY: "auto", //Barra de rolagem
-          }}
-        >
-          {/* Conteúdo do segundo container */}
+      <div className="tarefasAluno">
+        <div className="boxTarefas">
           <h3 style={{ textAlign: "center" }}>TAREFAS A FAZER</h3>
-          {tarefasAFazer.map((tarefa) => (
-            <div
-              id="task"
-              key={tarefa.id}
-              style={{
-                width: "80%",
-                margin: "10px 0",
-                backgroundColor: "#FFA500",
-                marginLeft: "auto",
-                marginRight: "auto",
-                border: "1px solid grey",
-                padding: "10px",
-                borderRadius: "5px",
-              }}
-            >
-              <input
-                type="checkbox"
-                className="checkbox"
-                checked={tarefa.feita}
-                onChange={() => handleCheckboxChange(tarefa.id)}
-              />
-              <label
-                style={{
-                  marginLeft: "5px",
-                  fontSize: "17px",
-                  fontWeight: "500",
-                }}
+          {tarefasAFazer.map((tarefa) => {
+            const prazo = new Date(
+              dataDeInicio.getFullYear(),
+              dataDeInicio.getMonth() + tarefa.prazoMeses,
+              dataDeInicio.getDate(),
+            );
+            const diasRestantes = Math.ceil(
+              (prazo - dataAtual) / (1000 * 60 * 60 * 24),
+            );
+            let backgroundColor;
+            if (diasRestantes <= 90) {
+              backgroundColor = "#f03b20";
+            } else if (diasRestantes <= 180) {
+              backgroundColor = "#feb24c";
+            } else {
+              backgroundColor = "#ffeda0";
+            }
+
+            return (
+              <div
+                id="task"
+                key={tarefa.id}
+                style={{ backgroundColor: backgroundColor }}
               >
-                {tarefa.descricao}
-              </label>
-              <br></br>
-              <label style={{ marginLeft: "30px", fontSize: "14px" }}>
-                Data Limite: {tarefa.prazo}
-              </label>
-            </div>
-          ))}
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={tarefa.feita}
+                  onChange={() => handleCheckboxChange(tarefa.id)}
+                />
+                <label
+                  style={{
+                    marginLeft: "5px",
+                    fontSize: "17px",
+                    fontWeight: "500",
+                  }}
+                >
+                  {tarefa.nome}
+                </label>
+                {tarefaEmEdicao === tarefa.id && (
+                  <>
+                    <br />
+                    <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                      Data de realização:
+                      <input
+                        type="date"
+                        value={dataSelecionada}
+                        onChange={(e) => setDataSelecionada(e.target.value)}
+                        style={{ marginLeft: "10px" }}
+                      />
+                      <button
+                        onClick={() => salvarDataRealizacao(tarefa.id)}
+                        style={{
+                          marginLeft: "10px",
+                          width: "70px",
+                          height: "25px",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        Salvar
+                      </button>
+                    </label>
+                  </>
+                )}
+                <br></br>
+                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                  {tarefa.descricao}
+                  <br></br>
+                </label>
+                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                  Data Limite: {prazo.toLocaleDateString()} ({diasRestantes}{" "}
+                  dias restantes)
+                </label>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Container 3 - Quadro de Tarefas Feito **/}
-        <div
-          style={{
-            height: "480px",
-            width: "38%",
-            backgroundColor: "white",
-            borderRadius: "10px",
-            overflowY: "auto", //Barra de rolagem
-          }}
-        >
-          {/* Conteúdo do terceiro container */}
-          <h3 style={{ textAlign: "center" }}>TAREFAS FEITAS</h3>
-          {tarefasFeitas.map((tarefa) => (
-            <div
-              id="task"
-              key={tarefa.id}
-              style={{
-                width: "80%",
-                margin: "10px 0",
-                backgroundColor: "#00BFFF",
-                marginLeft: "auto",
-                marginRight: "auto",
-                border: "1px solid grey",
-                padding: "10px",
-                borderRadius: "5px",
-              }}
-            >
-              <input
-                type="checkbox"
-                className="checkbox"
-                checked={tarefa.feita}
-                onChange={() => handleCheckboxChange(tarefa.id)}
-              />
-              <label
-                style={{
-                  marginLeft: "5px",
-                  fontSize: "17px",
-                  fontWeight: "500",
-                }}
+        <div className="boxTarefas">
+          <h3 style={{ textAlign: "center" }}>TAREFAS REALIZADAS</h3>
+          {tarefasFeitas.map((tarefa) => {
+            const prazo = new Date(
+              dataDeInicio.getFullYear(),
+              dataDeInicio.getMonth() + tarefa.prazoMeses,
+              dataDeInicio.getDate(),
+            );
+            return (
+              <div
+                id="task"
+                key={tarefa.id}
+                style={{ backgroundColor: "#92c5de" }}
               >
-                {tarefa.descricao}
-              </label>
-              <br></br>
-              <label style={{ marginLeft: "30px", fontSize: "14px" }}>
-                Data Limite: {tarefa.prazo}
-              </label>
-            </div>
-          ))}
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={tarefa.feita}
+                  onChange={() => handleCheckboxChange(tarefa.id)}
+                />
+                <label
+                  style={{
+                    marginLeft: "5px",
+                    fontSize: "17px",
+                    fontWeight: "500",
+                  }}
+                >
+                  {tarefa.nome}
+                </label>
+                <br></br>
+                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                  {tarefa.descricao}
+                  <br></br>
+                </label>
+                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                  Realizada em:{" "}
+                  {new Date(tarefa.dataRealizacao).toLocaleDateString()}
+                </label>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
