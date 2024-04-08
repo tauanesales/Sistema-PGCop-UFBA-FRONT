@@ -19,7 +19,7 @@ function Login() {
       username: document.querySelector("input[type=email]").value,
       password: document.querySelector("input[type=password]").value
     };
-    fetch("http://127.0.0.1:3000/token/", {
+    fetch("https://back.mate85.tauane.artadevs.tech/token/", {
       "headers": {
         "accept": "application/json",
         "content-type": "application/x-www-form-urlencoded",
