@@ -15,6 +15,9 @@ import Error404 from "@/pages/Erro/Error404";
 import EsqueciSenha from "@/pages/EsqueciSenha/EsqueciSenha";
 import Login from "@/pages/Login/Login";
 import PerfilAluno from "@/pages/PerfilAluno/PerfilAluno";
+import PerfilCoordenador from "@/pages/PerfilCoordenador/PerfilCoordenador";
+import PerfilOrientador from "@/pages/PerfilOrientador/PerfilOrientador";
+import Tarefas from "@/pages/Tarefas/Tarefas";
 import { AuthenticationGuard } from "@/routes/AuthenticationGuard";
 
 const routes = createRoutesFromElements(
@@ -23,6 +26,9 @@ const routes = createRoutesFromElements(
 
     {/* Mover para dentro de route abaixo após implementar autenticação */}
     <Route path="/perfil-aluno" element={<PerfilAluno />} />
+    <Route path="/perfil-orientador" element={<PerfilOrientador />} />
+    <Route path="/perfil-coordenador" element={<PerfilCoordenador />} />
+    <Route path="/perfil-coordenador/tarefas" element={<Tarefas />} />
 
     <Route element={<AuthenticationGuard />}>
       <Route path="/confirmar-cadastro" element={<ConfirmarCadastro />} />
