@@ -5,30 +5,29 @@
   }
   
   .containerCoordenador{
-    width: 1200px;
+    align-items: top;
+    line-height: 1.1;
     height: 130px;
-    margin-top: -10px;
-    background-color: white;
-    border-radius: 10px;
+    width: 210vh;
+    background-color: #DCDCDC;
     display: flex;
-    justify-content: space-between;
-    padding: 5 20px;
+    padding: 10px 20px;
+    box-sizing: border-box; 
 
   }
-
   
   .containerCoordenador img{
     width: 7em;
     height: 7em;
-    align-self: center;
-    object-fit: cover;
+    margin-right: 25px; /* Adiciona uma margem à direita da imagem*/
+    mix-blend-mode: multiply; /*Remove o fundo branco */
    }
 
   .containerOrientandos{
     height: 470px;
     width: 100%;
     margin-right: 50px;
-    max-width:1150px;
+    max-width:1100px;
     background-color: white;
     border-radius: 10px;
     padding: 20px;

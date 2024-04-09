@@ -69,26 +69,26 @@ function PerfilAluno() {
   return (
     <div className="contain">
       <div className="containerAluno">
-        <img src={logoPgcomp} alt="Logo" />
-        <div className="infoAluno">
-          <div className="boxInfoAluno">
-            <h3>José Silva José Silva</h3>
-            <p><span>Titulação:</span> Mestrado/Doutorado</p>
-            <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
-            <p><span>Status:</span> Ativo</p>
-          </div>
-          <div className="boxInfoAluno">
-            <h3><span>Matrícula:</span> xxxxxxxxx</h3>
-            <p><span>Orientador(a): </span>Augusto Carlos</p>
-            <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
-          </div>
-        </div>
+      <div className="infoAluno">
+      <img src={logoPgcomp} alt="Logo" />
+      <div className="boxInfoAluno">
+        <h3>José  Silva José Silva</h3>
+        <p><span>Titulação:</span> Mestrado/Doutorado</p>
+        <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
+        <p><span>Status:</span> Ativo</p>
+      </div>
+      <div className="boxInfoAluno">
+        <h3><span>Matrícula:</span> xxxxxxxxx</h3>
+        <p><span>Orientador(a): </span>Augusto Carlos</p>
+        <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
+      </div>
+    </div>
 
         <div className="botoesToolbar">
           <button onClick={() => window.location.href = "/atualizar-senha"} 
-            style={{padding: "10px 10px", marginRight:"5px", borderRadius: '10px', width:'240px'}}>Atualizar Senha</button>
+            style={{padding: "10px 10px", marginRight:"5px", borderRadius: '5px', width:'150px'}}>Atualizar Senha</button>
           <button onClick={() => window.location.href = "/"} 
-            style={{padding: "10px 10px", marginRight:"5px", borderRadius: '10px'}}>Sair</button>
+            style={{padding: "10px 10px", marginRight:"30px", borderRadius: '5px'}}>Sair</button>
         </div>
       </div>
 
@@ -100,16 +100,16 @@ function PerfilAluno() {
             const diasRestantes = Math.ceil((prazo - dataAtual) / (1000 * 60 * 60 * 24));
             let backgroundColor;
             if (diasRestantes <= 90) {
-              backgroundColor = "#f03b20";
+              backgroundColor = "rgba(240,128,128)"; 
             } else if (diasRestantes <= 180) {
-              backgroundColor = "#feb24c";
+              backgroundColor = "rgba(244,164,96, 0.8)";
             } else {
-              backgroundColor = "#ffeda0";
+              backgroundColor = "rgba(255,237,160, 0.9)";
             }
 
             return (
               <div id="task" key={tarefa.id} style={{ backgroundColor: backgroundColor,}}>
-                <input
+                <input style={{backgroundColor: '#ffffff' }}
                   type="checkbox"
                   className="checkbox"
                   checked={tarefa.feita}
@@ -151,7 +151,7 @@ function PerfilAluno() {
           {tarefasFeitas.map((tarefa) => {
             const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
             return (
-              <div id="task" key={tarefa.id}style={{backgroundColor: "#92c5de",}}>
+              <div id="task" key={tarefa.id}style={{backgroundColor: "rgb(135,206,250,0.8)",}}>
                 <input
                   type="checkbox"
                   className="checkbox"

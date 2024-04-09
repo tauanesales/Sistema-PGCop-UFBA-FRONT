@@ -1,62 +1,73 @@
-.contain{
-  display: flex;  flex-direction: column;
-  align-items: center;
+.contain {
+  flex-direction: column;
+  align-items: top;
+  display: flex;
+  background-color: white;
+  line-height: 1.1;
+  height: 97vh;
+  width: 210vh;
 }
 
-.containerAluno{
+.containerAluno {
   width: 100%;
-  height: 180px;
-  background-color: white;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  max-width: 1300px;
+  height: 150px;
+  background-color: #DCDCDC;
   display: flex;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 10px 20px;
+  box-sizing: border-box;
 }
 
-.containerAluno img{
- width: 10em;
- height: 10em;
- align-self: center;
- object-fit: cover;
+.containerAluno img {
+  width: 8em;
+  height: 8em;
+  align-self: center;
+  margin-right: 25px; /* Adiciona uma margem à direita da imagem*/
+  mix-blend-mode: multiply; /*Remove o fundo branco */
 }
-
-.tarefasAluno{
+.infoAluno {
   display: flex;
-  justify-content: space-around;
-  width: 1200px;
+  align-items: flex-start; /* Ajusta o alinhamento vertical */
+  width: 70%; 
 }
 
-.boxTarefas{
-  overflow-y: auto;
-  border-radius: 1%;
-  background-color: white;
-  height: 480px;
-  width: 40%;
+.boxInfoAluno {
+  line-height: 0.8;
+  padding: 0px 10px; 
+  width: 60%; 
 }
 
-.infoAluno{
-  display: flex;
-  width: 100%;
-  justify-content: space-around;
+.boxInfoAluno span {
+  font-weight: 700;
 }
 
-.boxInfoAluno span{
- font-weight: 700;
-}
-
-.botoesToolbar{
+.botoesToolbar {
   display: flex;
   min-width: 25em;
   margin-top: 2em;
 }
 
-#task{
+.tarefasAluno {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-top: 20px; /* Adiciona espaço entre o containerAluno e as tarefas*/
+}
+
+.boxTarefas {
+  overflow-y: auto;
+  border-radius: 1%;
+  background-color: #f0f0f0;
+  height: 480px;
+  width: 42%;
+  box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.1);
+}
+
+#task {
   width: 90%;
-  margin: 10px 0;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 10px auto;
   border: 1px solid grey;
   padding: 5px;
   border-radius: 5px;
