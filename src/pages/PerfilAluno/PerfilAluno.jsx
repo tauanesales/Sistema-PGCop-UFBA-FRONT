@@ -68,29 +68,32 @@ function PerfilAluno() {
 
   return (
     <div className="contain">
-      <div className="containerAluno">
-      <div className="infoAluno">
-      <img src={logoPgcomp} alt="Logo" />
-      <div className="boxInfoAluno">
-        <h3>José  Silva José Silva</h3>
-        <p><span>Titulação:</span> Mestrado/Doutorado</p>
-        <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
-        <p><span>Status:</span> Ativo</p>
-      </div>
-      <div className="boxInfoAluno">
-        <h3><span>Matrícula:</span> xxxxxxxxx</h3>
-        <p><span>Orientador(a): </span>Augusto Carlos</p>
-        <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
-      </div>
-    </div>
-
-        <div className="botoesToolbar">
-          <button onClick={() => window.location.href = "/atualizar-senha"} 
-            style={{padding: "10px 10px", marginRight:"5px", borderRadius: '5px', width:'150px'}}>Atualizar Senha</button>
-          <button onClick={() => window.location.href = "/"} 
-            style={{padding: "10px 10px", marginRight:"30px", borderRadius: '5px'}}>Sair</button>
+      <header>
+        <div className="containerAluno">
+        <div className="infoAluno">
+        <img src={logoPgcomp} alt="Logo" />
+        <div className="boxInfoAluno">
+          <h3>José  Silva José Silva</h3>
+          <p><span>Titulação:</span> Mestrado/Doutorado</p>
+          <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
+          <p><span>Status:</span> Ativo</p>
         </div>
-      </div>
+          <div className="boxInfoAluno">
+            <h3><span>Matrícula:</span> xxxxxxxxx</h3>
+            <p><span>Orientador(a): </span>Augusto Carlos</p>
+            <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
+          </div>
+        </div>
+
+          <div className="botoesToolbar">
+            <button onClick={() => window.location.href = "/atualizar-senha"} 
+              style={{padding: "10px 10px", marginRight:"5px", borderRadius: '5px', width:'150px'}}>Atualizar Senha</button>
+            <button onClick={() => window.location.href = "/"} 
+              style={{padding: "10px 10px", marginRight:"30px", borderRadius: '5px'}}>Sair</button>
+          </div>
+        </div>
+      </header>
+
 
       <div className="tarefasAluno" >
         <div className="boxTarefas" >

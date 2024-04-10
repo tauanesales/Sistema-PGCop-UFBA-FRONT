@@ -35,31 +35,34 @@ function PerfilCoordenador(){
 
     return (
         <div className='contain'>
-            <div className='containerCoordenador'>
-                {/* Logo*/}
-                <img src={logoPgcomp}/>
-                {/* Informações do perfil */}
-                <div className='infoCoordenador'style={{justifyContent:"space-between", marginRight:"20px"}}>
-                    <div>
-                        <h2 >Augusto Carlos Santos</h2>
-                        <h3>Orientandos: {alunos.length}</h3>
-                    </div>
-                    {/* Botão Vers Solicitações */}
-                    <div className="botoesToolbar">
-                        <button onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
-                            style={{padding: "10px 10px", marginLeft:"0px" , marginRight:"10px", width:'140px',borderRadius: '5px'}}>
-                                Solicitações</button>
-                        {/* Botão Tarefas*/}
-                        <button onClick={() => window.location.href = "/perfil-coordenador/tarefas"} 
-                            style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>
-                                Tarefas</button>
-                        {/* Botão Sair*/}
-                        <button onClick={() => window.location.href = "/"} 
-                            style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>
-                                Sair</button>
+            <header>
+                <div className='containerCoordenador'>
+                    {/* Logo*/}
+                    <img src={logoPgcomp}/>
+                    {/* Informações do perfil */}
+                    <div className='infoCoordenador'style={{justifyContent:"space-between", marginRight:"20px"}}>
+                        <div>
+                            <h2 >Augusto Carlos Santos</h2>
+                            <h3>Orientandos: {alunos.length}</h3>
+                        </div>
+                        {/* Botão Vers Solicitações */}
+                        <div className="botoesToolbar">
+                            <button onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
+                                style={{padding: "10px 10px", marginLeft:"0px" , marginRight:"10px", width:'140px',borderRadius: '5px'}}>
+                                    Solicitações</button>
+                            {/* Botão Tarefas*/}
+                            <button onClick={() => window.location.href = "/perfil-coordenador/tarefas"} 
+                                style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>
+                                    Tarefas</button>
+                            {/* Botão Sair*/}
+                            <button onClick={() => window.location.href = "/"} 
+                                style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>
+                                    Sair</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </header>
+            
 
             <h2 style={{textAlign:'center', marginBottom:'10px'}}>Lista de Orientandos</h2>
             {/* Container de Alunos Orientados */}

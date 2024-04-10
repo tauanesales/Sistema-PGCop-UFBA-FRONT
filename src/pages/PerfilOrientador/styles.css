@@ -6,11 +6,11 @@
   .containerOrientador{
     align-items: top;
     line-height: 1.1;
-    height: 130px;
+    height: 150px;
     width: 210vh;
     background-color: #DCDCDC;
     display: flex;
-    padding: 10px 20px;
+    padding: 20px 20px;
     box-sizing: border-box; 
   }
 
@@ -29,6 +29,7 @@
   .containerOrientadorOrientandos{
     height: 460px;
     width: 210vh;
+    margin-top: 100px;
     margin-left: 5px;
     max-width:1100px;
     background-color: white;
