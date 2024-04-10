@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
-import "./styles.css";
+import './styles.css'
 
-const Button = ({ link, label, ...props }) => {
+const Button = ({link, label}) => {
   return (
     <a href={link}>
-      <button {...props}>{label}</button>
+      <button>
+        {label}
+      </button> 
     </a>
-  );
-};
+  )
+}
 
 export default Button;
