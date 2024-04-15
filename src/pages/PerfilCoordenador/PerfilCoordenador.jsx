@@ -1,7 +1,5 @@
-import "./styles.css"
-
 import { useState } from 'react';
-
+import "./styles.css"
 import Button from "../../components/Button";
 
 function PerfilCoordenador(){
@@ -36,31 +34,37 @@ function PerfilCoordenador(){
     }
 
     return (
-        <div >
-            <div className='containerCoordenador'>
-                {/* Logo*/}
-                <img src={logoPgcomp}/>
-                {/* Informações do perfil */}
-                <div className='infoCoordenador'style={{justifyContent:"space-between", marginRight:"20px"}}>
-                    <div>
-                        <h2 >Augusto Carlos Santos</h2>
-                        <h3>Orientandos: {alunos.length}</h3>
-                    </div>
-                    {/* Botão Vers Solicitações */}
-                    <div className="botoesToolbar">
-                        <button nClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
-                            style={{padding: "10px 10px", marginLeft:"0px" , marginRight:"10px", width:'140px',borderRadius: '10px'}}>Solicitações</button>
-                        {/* Botão Tarefas*/}
-                        <button onClick={() => window.location.href = "/perfil-coordenador/tarefas"} 
-                            style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '10px'}}>Tarefas</button>
-                        {/* Botão Sair*/}
-                        <button onClick={() => window.location.href = "/"} 
-                            style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '10px'}}>Sair</button>
+        <div className='contain'>
+            <header>
+                <div className='containerCoordenador'>
+                    {/* Logo*/}
+                    <img src={logoPgcomp}/>
+                    {/* Informações do perfil */}
+                    <div className='infoCoordenador'style={{justifyContent:"space-between", marginRight:"20px"}}>
+                        <div>
+                            <h2 >Augusto Carlos Santos</h2>
+                            <h3>Orientandos: {alunos.length}</h3>
+                        </div>
+                        {/* Botão Vers Solicitações */}
+                        <div className="botoesToolbar">
+                            <button onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
+                                style={{padding: "10px 10px", marginLeft:"0px" , marginRight:"10px", width:'140px',borderRadius: '5px'}}>
+                                    Solicitações</button>
+                            {/* Botão Tarefas*/}
+                            <button onClick={() => window.location.href = "/perfil-coordenador/tarefas"} 
+                                style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>
+                                    Tarefas</button>
+                            {/* Botão Sair*/}
+                            <button onClick={() => window.location.href = "/"} 
+                                style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>
+                                    Sair</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </header>
+            
 
-            <h2 style={{textAlign:'center', marginBottom:'2px'}}>Lista de Orientandos</h2>
+            <h2 style={{textAlign:'center', marginBottom:'10px'}}>Lista de Orientandos</h2>
             {/* Container de Alunos Orientados */}
             <div className='containerOrientandos'>
                 <ul>
@@ -76,7 +80,7 @@ function PerfilCoordenador(){
                                 <button onClick={() => {
                                     setSelectedAluno(aluno);
                                     setShowModal(true);
-                                }} style={{marginRight: '10px', height:'30px', borderRadius:'10', width:'95px'}}>Remover</button>
+                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5', width:'95px'}}>Remover</button>
                             </div>
                         </li>
                     ))}
