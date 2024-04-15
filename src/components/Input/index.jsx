@@ -3,6 +3,7 @@ import './styles.css'
 
 const Input = ({placeholder, type, onFocus, onBlur}) => {
   return (
+    
         <input
           type={type}
           placeholder={placeholder}
