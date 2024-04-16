@@ -11,7 +11,7 @@ Projeto da disciplina: MATE85 - Tópicos em Sistemas de Informação e Web I
 <hr>
 
 ## Sobre o Projeto:
-Repositório com o back-end da aplicação do sistema de monitoramento de alunos do PGCOMP-UFBA — projeto relacionado à disciplina Tópicos em Sistemas de Informação Web I.
+Repositório com o front-end da aplicação do sistema de monitoramento de alunos do PGCOMP-UFBA — projeto relacionado à disciplina Tópicos em Sistemas de Informação Web I.
 
 ### Autores:
 - Davi Reis
