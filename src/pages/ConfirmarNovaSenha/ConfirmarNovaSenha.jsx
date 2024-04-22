@@ -3,35 +3,23 @@ function ConfirmarNovaSenha() {
   const confirmacao = "assets/confirmacao.jpg"; // Img confirmação
 
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        borderRadius: "10px",
-        padding: "20px",
-        width: "350px",
-        height: "400px",
-        textAlign: "center",
-      }}
-      className="cadastroAluno"
-    >
+    <div className="cadastroAluno" style={{ width: "350px",height: "400px",textAlign: "center",}}>
       {/* Logo*/}
-      <img src={logoPgcomp} width={130} />
+      <img src={logoPgcomp} width={150} />
       <br></br>
       <p></p>
       <a id="date" style={{ fontSize: "17px", fontWeight: 650 }}>
         SENHA ATUALIZADA COM SUCESSO
       </a>
       <br></br>
-      <p></p>
       {/* Ícone de confirmação */}
-      <img src={confirmacao} width={100} />
-
+      <img src={confirmacao} width={90} />
+      
       {/* Botão Voltar a Tela Inicial */}
-      {/* Botão Cadastrar */}
       <br />
-      <a href="/">
+      <a href="/perfil-aluno">
         <button
-          style={{ padding: "5px 10px", borderRadius: "5px", fontSize: "15px" }} >Voltar a Tela Inicial
+          style={{borderRadius: "5px", fontSize: "15px", width:"200px" }} >Voltar a Tela Inicial
         </button>
       </a>
     </div>
