@@ -18,7 +18,7 @@ const Login = () => {
       <Input placeholder={"Senha"} type={"password"}/>
       </div>
       {/* Botão Login */}
-      <Button link={'/perfil-aluno'} label={"Login"}/>
+      <Button className="my-button" link={"/perfil-aluno"} label={"Login"} />
 
       {/* LInks Cadastro e Recuperação de senha */}
       <p style={{ color: "blue", marginTop: "20px" }}>
