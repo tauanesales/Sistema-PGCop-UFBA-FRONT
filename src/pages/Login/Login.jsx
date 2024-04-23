@@ -8,6 +8,9 @@ const Login = () => {
   const logoPgcop = "assets/logoPgcop.png";
   const imagemBarra = "assets/salvador.png";
   const gamboa = "assets/gamboa.jpg";
+  const farol = "assets/farol.jpg"
+  const pelourinho = "assets/pelourinho.jpg"
+  const barra = "assets/barra.jpg"
 
   return (
     <div className="containerLogin">
@@ -49,7 +52,7 @@ const Login = () => {
             </p>
           </div>
         </div>
-        <img  src={imagemBarra} className='imagemLogin'
+        <img  src={farol} className='imagemLogin'
         alt="Imagem do Forte de Santa Maria - Salvador/BA"
         />
       </div>
