@@ -13,8 +13,15 @@
   height: 100vh;
 }
 
+ /* Cor branca dos buttons*/
+ button {
+  color: rgba(246, 245, 245, 0.87);
+  font-size: 14px;
+}
+
 .container{
   background-color: white;
+  color: rgba(42, 41, 41, 0.87);
   border-radius: 10px;
 }
 
@@ -49,6 +56,7 @@ header {
  nav ul li {
   margin-left: 1rem;
  }
+
 
 /*
 :root {
