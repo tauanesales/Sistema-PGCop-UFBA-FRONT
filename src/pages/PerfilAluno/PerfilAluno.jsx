@@ -88,7 +88,7 @@ function PerfilAluno() {
 
           <div className="botoesToolbar">
             <button onClick={() => window.location.href = "/atualizar-senha"} 
-              style={{padding: "10px 10px", marginRight:"5px", borderRadius: '5px', width:'150px'}}>Atualizar Senha</button>
+              style={{padding: "10px 10px", marginRight:"5px", borderRadius: '5px'}}>Atualizar Senha</button>
             <button onClick={() => window.location.href = "/"} 
               style={{padding: "10px 10px", marginRight:"30px", borderRadius: '5px'}}>Sair</button>
           </div>
