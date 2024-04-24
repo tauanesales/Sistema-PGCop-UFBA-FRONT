@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import "./styles.css"
 import Button from "../../components/Button";
+import { AiOutlineUsergroupAdd, AiOutlineLogout } from 'react-icons/ai'; // Importando os ícones
 
 function PerfilOrientador(){
 
@@ -47,10 +48,22 @@ function PerfilOrientador(){
                         </div>
                         {/* Botões */}
                         <div className="botoesToolbar" >
-                            <button onClick={() => window.location.href = "/perfil-orientador/solicitacoes"} 
-                                style={{padding: "10px 10px", marginRight:"10px", width:'140px',borderRadius: '5px'}}>Solicitações</button>
-                            <button onClick={() => window.location.href = "/"} 
-                                style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>Sair</button>
+                        <div >
+                            <AiOutlineUsergroupAdd 
+                            onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
+                            style={{ cursor: 'pointer', marginRight: "30px" }}
+                            size={35} 
+                            title="Solicitações" 
+                            />
+                        </div>
+                        <div >
+                            <AiOutlineLogout 
+                            onClick={() => window.location.href = "/"} 
+                            style={{ cursor: 'pointer', marginRight: "20px" }}
+                            size={35} 
+                            title="Sair" 
+                            />
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +75,7 @@ function PerfilOrientador(){
             <div className='containerOrientadorOrientandos'>
                 <ul>
                     {alunos.map(aluno => (
-                        <li style={{ cursor:'pointer',padding: '3px 20px'}}
+                        <li style={{ cursor:'pointer',padding: '7px 20px'}}
                         key={aluno.id} 
                             onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
                             <div>
