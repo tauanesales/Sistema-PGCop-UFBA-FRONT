@@ -35,7 +35,7 @@ const Login = () => {
             <ButtonSecondary link={'/perfil-aluno'} label={"Entrar"}/>
           </div>
 
-          {/* LInks Cadastro e Recuperação de senha */}
+          {/* Links Cadastro e Recuperação de senha */}
           <div className="links">
             <a
               href="/cadastro-aluno"
@@ -52,7 +52,7 @@ const Login = () => {
             </p>
           </div>
         </div>
-        <img  src={farol} className='imagemLogin'
+        <img  src={imagemBarra} className='imagemLogin'
         alt="Imagem do Forte de Santa Maria - Salvador/BA"
         />
       </div>
