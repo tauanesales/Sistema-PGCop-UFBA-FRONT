@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AiFillDelete, AiFillEdit, AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlineArrowLeft, AiOutlineFileAdd, AiFillDelete, AiFillEdit, AiOutlinePlus } from 'react-icons/ai';
 import "./styles.css";
 import Button from "../../components/Button";
 
@@ -76,15 +76,22 @@ function Tarefas(){
 
     return (
         <div className='contain'>
-            <div className='botoesTarefas'>
-                {/* Botão retornar */}
-                <button onClick={() => window.location.href = "/perfil-coordenador"} 
-                            style={{right: '150px',width:'140px'}}>Voltar</button>
-                {/* Botão Adicionar Tarefa */}
-                <button onClick={() => setShowAddModal(true)} 
-                    style={{ right: '310px',width:'130px'}}> Add Tarefa 
-                </button>
-            </div>
+          <div className='botoesTarefas' style={{marginLeft:'900px'}}>
+            {/* Botão Adicionar Tarefa */}
+            <AiOutlineFileAdd 
+              onClick={() => setShowAddModal(true)} 
+              style={{ cursor: 'pointer', marginRight: "30px" }}
+              size={35} 
+              title="Adicionar Tarefa" 
+            />
+            {/* Botão retornar */}
+            <AiOutlineArrowLeft 
+              onClick={() => window.location.href = "/perfil-coordenador"} 
+              style={{ cursor: 'pointer', marginRight: "10px" }}
+              size={35} 
+              title="Voltar" 
+            />
+          </div>
 
 
             <h3 style={{marginBottom:"10px", marginTop:'50px'}}>Tarefas Mestrado</h3>

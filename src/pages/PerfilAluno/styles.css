@@ -42,7 +42,6 @@
 }
 
 .botoesToolbar {
-  display: flex;
   min-width: 25em;
   margin-top: 2em;
 }
