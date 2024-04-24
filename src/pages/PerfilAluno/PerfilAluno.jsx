@@ -85,10 +85,14 @@ function PerfilAluno() {
           </div>
 
           <div className="botoesToolbar">
-            <ButtonPrimary link="/atualizar-senha" label="Alterar dados" imageUrl="/src/assets/alterarDados.png" 
-            className="alterarDados" />
-            <ButtonPrimary link="/" label="Logout"
-            imageUrl="/src/assets/logout.png" className="logout" />
+            <ButtonPrimary link="/atualizar-senha" 
+              label="Alterar dados" 
+              imageUrl="/src/assets/alterarDados.png" 
+              className="alterarDados" />
+            <ButtonPrimary link="/" 
+              label="Logout"
+              imageUrl="/src/assets/logout.png" ,
+              className="logout" />
           </div>
         </div>
       </header>
@@ -111,37 +115,36 @@ function PerfilAluno() {
 
             return (
               <div id="task" key={tarefa.id} style={{ backgroundColor: backgroundColor,}}>
-                <input style={{backgroundColor: '#ffffff' }}
-                  type="checkbox"
-                  className="checkbox"
-                  checked={tarefa.feita}
-                  onChange={() => handleCheckboxChange(tarefa.id)}
+                <AiTwotoneEdit // Marcador icone
+                  onClick={() => handleCheckboxChange(tarefa.id)}
+                  style={{ cursor: 'pointer', marginLeft: '5px', marginRight: "10px" }}
+                  size={20}  
                 />
-                <label style={{marginLeft: "5px",fontSize: "17px",fontWeight: "500",}}>
+                <label style={{marginLeft: "5px",fontSize: "18px",fontWeight: "500",}}>
                   {tarefa.nome}
                 </label>
                 {tarefaEmEdicao === tarefa.id && (
                   <>
                     <br />
-                    <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                    <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                       Data de realização:
                       <input
                         type="date"
                         value={dataSelecionada}
                         onChange={(e) => setDataSelecionada(e.target.value)}
-                        style={{ marginLeft: "10px" }}
+                        style={{ marginLeft: "25px" }}
                       />
                       <button onClick={() => salvarDataRealizacao(tarefa.id)} 
-                      style={{marginLeft:"10px",width:'70px', height:'25px', borderRadius: '5px'}}>Salvar</button>
+                      style={{marginLeft:"25px",width:'70px', height:'25px', borderRadius: '5px', fontSize: "13px"}}>Salvar</button>
                     </label>
                   </>
                 )}
                 <br></br>
-                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                   {tarefa.descricao}<br></br>
                 </label>
-                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
-                  Data Limite: {prazo.toLocaleDateString()} ({diasRestantes} dias restantes)
+                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
+                  Data Limite: {prazo.toLocaleDateString()} - {diasRestantes} dias restantes
                 </label>
               </div>
             );
@@ -154,20 +157,19 @@ function PerfilAluno() {
             const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
             return (
               <div id="task" key={tarefa.id}style={{backgroundColor: "rgb(135,206,250,0.8)",}}>
-                <input
-                  type="checkbox"
-                  className="checkbox"
-                  checked={tarefa.feita}
-                  onChange={() => handleCheckboxChange(tarefa.id)}
+                <AiTwotoneFileExcel // Marcador icone
+                  onClick={() => handleCheckboxChange(tarefa.id)}
+                  style={{ cursor: 'pointer' , marginLeft: "5px"  }}
+                  size={20} 
                 />
-                <label style={{marginLeft: "5px",fontSize: "17px",fontWeight: "500",}}>
+                <label style={{marginLeft: "15px",fontSize: "18px",fontWeight: "500",}}>
                   {tarefa.nome}
                 </label>
                 <br></br>
-                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                   {tarefa.descricao}<br></br>
                 </label>
-                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                     Realizada em: {new Date(tarefa.dataRealizacao).toLocaleDateString()}
                 </label>
               </div>

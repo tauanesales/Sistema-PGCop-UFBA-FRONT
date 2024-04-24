@@ -73,7 +73,9 @@ function PerfilOrientador(){
                                 <button onClick={() => {
                                     setSelectedAluno(aluno);
                                     setShowModal(true);
-                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5', width:'95px'}}>Remover</button>
+                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                    Remover
+                                </button>
                             </div>
                         </li>
                     ))}
