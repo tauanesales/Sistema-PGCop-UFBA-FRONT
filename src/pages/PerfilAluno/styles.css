@@ -1,11 +1,10 @@
 .contain {
-  flex-direction: column;
-  align-items: top;
   display: flex;
+  flex-direction: column;
   background-color: white;
-  line-height: 1.1;
   height: 97vh;
-  width: 210vh;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
 }
 
 .containerAluno {
@@ -16,6 +15,7 @@
   justify-content: space-between;
   padding: 10px 20px;
   box-sizing: border-box;
+  
 }
 
 .containerAluno img {
@@ -32,7 +32,7 @@
 }
 
 .boxInfoAluno {
-  line-height: 0.8;
+  line-height: 2;
   padding: 0px 10px; 
   width: 60%; 
 }
@@ -42,8 +42,11 @@
 }
 
 .botoesToolbar {
-  min-width: 25em;
-  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+  align-items: flex-end;
 }
 
 button{
@@ -58,7 +61,7 @@ button{
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
-  padding-top: 150px; /* Adiciona espaço entre o containerAluno e as tarefas*/
+  padding-top: 12em; /* Adiciona espaço entre o containerAluno e as tarefas*/
 }
 
 .boxTarefas {

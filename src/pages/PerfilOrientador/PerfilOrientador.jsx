@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import "./styles.css"
-import Button from "../../components/Button";
-import { AiOutlineUsergroupAdd, AiOutlineLogout } from 'react-icons/ai'; // Importando os ícones
+import Button from "../../components/ButtonPrimary";
 
 function PerfilOrientador(){
 

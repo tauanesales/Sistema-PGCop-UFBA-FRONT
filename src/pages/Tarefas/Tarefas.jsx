@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AiOutlineArrowLeft, AiOutlineFileAdd, AiFillDelete, AiFillEdit, AiOutlinePlus } from 'react-icons/ai';
 import "./styles.css";
-import Button from "../../components/Button";
+import Button from "../../components/ButtonPrimary";
 
 function Tarefas(){
 

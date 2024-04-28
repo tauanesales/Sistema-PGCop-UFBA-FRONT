@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import "./styles.css"
 import Button from "../../components/Button";
-import { AiOutlineUsergroupAdd, AiOutlineFileSync, AiOutlineLogout } from 'react-icons/ai'; // Importando os ícones
 
 function PerfilCoordenador(){
 
