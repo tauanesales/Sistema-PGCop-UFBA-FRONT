@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react"; 
 import "./styles.css";
-import ButtonPrimary from "../../components/ButtonPrimary";
+
+//AiOutlineUsergroupAdd (solicitacoes)
+//AiOutlineFileSync (atualizar)
+//AiOutlineLogout (sair)
+
+import Button from "../../components/Button";
+import { AiOutlineFileSync, AiOutlineLogout, AiOutlineEdit, AiOutlineFileExcel } from 'react-icons/ai'; // Importando os ícones
 
 function PerfilAluno() {
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
@@ -70,29 +76,26 @@ function PerfilAluno() {
     <div className="contain">
       <header>
         <div className="containerAluno">
-          <div className="infoAluno">
-            <img src={logoPgcomp} alt="Logo" />
-            <div className="boxInfoAluno">
-            <h3>José  Silva José Silva</h3>
-            <p><span>Titulação:</span> Mestrado/Doutorado</p>
-            <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
-            </div>
-            <div className="boxInfoAluno">
-              <h3><span>Matrícula:</span> xxxxxxxxx</h3>
-              <p><span>Orientador(a): </span>Augusto Carlos</p>
-              <p><span>Qualificação Prevista:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
-            </div>
+        <div className="infoAluno">
+        <img src={logoPgcomp} alt="Logo" />
+        <div className="boxInfoAluno">
+          <h3>José  Silva José Silva</h3>
+          <p><span>Titulação:</span> Mestrado/Doutorado</p>
+          <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
+          <p><span>Status:</span> Ativo</p>
+        </div>
+          <div className="boxInfoAluno">
+            <h3><span>Matrícula:</span> xxxxxxxxx</h3>
+            <p><span>Orientador(a): </span>Augusto Carlos</p>
+            <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
           </div>
+        </div>
 
           <div className="botoesToolbar">
-            <ButtonPrimary link="/atualizar-senha" 
-              label="Alterar dados" 
-              imageUrl="/src/assets/alterarDados.png" 
-              className="alterarDados" />
-            <ButtonPrimary link="/" 
-              label="Logout"
-              imageUrl="/src/assets/logout.png" 
-              className="logout" />
+            <button onClick={() => window.location.href = "/atualizar-senha"} 
+              style={{padding: "10px 10px", marginRight:"5px", borderRadius: '5px'}}>Atualizar Senha</button>
+            <button onClick={() => window.location.href = "/"} 
+              style={{padding: "10px 10px", marginRight:"30px", borderRadius: '5px'}}>Sair</button>
           </div>
         </div>
       </header>
@@ -115,10 +118,11 @@ function PerfilAluno() {
 
             return (
               <div id="task" key={tarefa.id} style={{ backgroundColor: backgroundColor,}}>
-                <AiTwotoneEdit // Marcador icone
+                <AiOutlineEdit // Marcador icone
                   onClick={() => handleCheckboxChange(tarefa.id)}
                   style={{ cursor: 'pointer', marginLeft: '5px', marginRight: "10px" }}
                   size={20}  
+                  title="Editar"
                 />
                 <label style={{marginLeft: "5px",fontSize: "18px",fontWeight: "500",}}>
                   {tarefa.nome}
@@ -157,10 +161,11 @@ function PerfilAluno() {
             const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
             return (
               <div id="task" key={tarefa.id}style={{backgroundColor: "rgb(135,206,250,0.8)",}}>
-                <AiTwotoneFileExcel // Marcador icone
+                <AiOutlineFileExcel // Marcador icone
                   onClick={() => handleCheckboxChange(tarefa.id)}
                   style={{ cursor: 'pointer' , marginLeft: "5px"  }}
                   size={20} 
+                  title="Desfazer"
                 />
                 <label style={{marginLeft: "15px",fontSize: "18px",fontWeight: "500",}}>
                   {tarefa.nome}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import "./styles.css"
-import Button from "../../components/ButtonPrimary";
+import Button from "../../components/Button";
 
 function PerfilCoordenador(){
 
@@ -34,34 +34,47 @@ function PerfilCoordenador(){
     }
 
     return (
-        <div className='contain'>
-            <header>
-                <div className='containerCoordenador'>
-                    {/* Logo*/}
-                    <img src={logoPgcomp}/>
-                    {/* Informações do perfil */}
-                    <div className='infoCoordenador'style={{justifyContent:"space-between", marginRight:"20px"}}>
-                        <div>
-                            <h2 >Augusto Carlos Santos</h2>
-                            <h3>Orientandos: {alunos.length}</h3>
-                        </div>
-                        {/* Botão Vers Solicitações */}
-                        <div className="botoesToolbar">
-                            <button onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
-                                style={{padding: "10px 10px", marginLeft:"0px" , marginRight:"10px", width:'140px',borderRadius: '5px'}}>
-                                    Solicitações</button>
-                            {/* Botão Tarefas*/}
-                            <button onClick={() => window.location.href = "/perfil-coordenador/tarefas"} 
-                                style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>
-                                    Tarefas</button>
-                            {/* Botão Sair*/}
-                            <button onClick={() => window.location.href = "/"} 
-                                style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>
-                                    Sair</button>
-                        </div>
-                    </div>
+        <div className="contain">
+          <header>
+            <div className="containerCoordenador">
+              {/* Logo*/}
+              <img src={logoPgcomp} alt="Logo" />
+              {/* Informações do perfil */}
+              <div className="infoCoordenador" style={{ justifyContent: "space-between", marginRight: "20px" }}>
+                <div>
+                  <h2 >Augusto Carlos Santos</h2>
+                  <h3>Orientandos: {alunos.length}</h3>
                 </div>
-            </header>
+                {/* Botões Toolbar */}
+                <div className="botoesToolbar">
+                  <div >
+                    <AiOutlineUsergroupAdd 
+                      onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
+                      style={{ cursor: 'pointer', marginRight: "30px" }}
+                      size={35} 
+                      title="Solicitações" 
+                    />
+                  </div>
+                  <div >
+                    <AiOutlineFileSync 
+                      onClick={() => window.location.href = "/perfil-coordenador/tarefas"} 
+                      style={{ cursor: 'pointer', marginRight: "30px" }}
+                      size={35} 
+                      title="Tarefas" 
+                    />
+                  </div>
+                  <div>
+                    <AiOutlineLogout 
+                      onClick={() => window.location.href = "/"} 
+                      style={{ cursor: 'pointer', marginRight: "30px" }}
+                      size={35} 
+                      title="Sair" 
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
             
 
             <h2 style={{textAlign:'center', marginBottom:'10px'}}>Lista de Orientandos</h2>
@@ -69,7 +82,7 @@ function PerfilCoordenador(){
             <div className='containerOrientandos'>
                 <ul>
                     {alunos.map(aluno => (
-                        <li style={{cursor:'pointer', padding: '3px 20px', }}
+                        <li style={{cursor:'pointer', padding: '7px 20px', }}
                         key={aluno.id} 
                             onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
                             <div>
