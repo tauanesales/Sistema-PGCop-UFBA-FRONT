@@ -5,7 +5,7 @@ const Input = ({type, onFocus, onBlur, label, id}) => {
   return (
 
       <div className="containInput">
-        <label for={id} className="label">{label}</label>
+        <label htmlFor={id} className="label">{label}</label>
           <input
             type={type}
             id={id}

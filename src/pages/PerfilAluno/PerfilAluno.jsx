@@ -91,7 +91,7 @@ function PerfilAluno() {
               className="alterarDados" />
             <ButtonPrimary link="/" 
               label="Logout"
-              imageUrl="/src/assets/logout.png" ,
+              imageUrl="/src/assets/logout.png" 
               className="logout" />
           </div>
         </div>

@@ -28,7 +28,7 @@ const Login = () => {
 
             <div className='conectado'>
               <input type="checkbox" name="conectado" id="conectado" />
-              <label for="conectado">Matenha-me conectado</label>
+              <label htmlFor="conectado">Matenha-me conectado</label>
             </div>
 
             {/* Botão Login */}
