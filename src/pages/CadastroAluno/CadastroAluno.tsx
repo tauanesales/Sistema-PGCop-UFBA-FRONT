@@ -6,7 +6,6 @@ import { useMask } from "@react-input/mask";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import Button from "@/components/Button";
 import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
 
