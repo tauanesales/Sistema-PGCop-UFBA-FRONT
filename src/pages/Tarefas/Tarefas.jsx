@@ -1,51 +1,52 @@
 import "./styles.css";
 
-import React, { useState } from "react";
-import { AiFillDelete, AiFillEdit, AiOutlinePlus } from "react-icons/ai";
+import { useState } from "react";
+import {
+  AiFillDelete,
+  AiFillEdit,
+  AiOutlineArrowLeft,
+  AiOutlineFileAdd,
+} from "react-icons/ai";
 
-import Button from "../../components/Button";
+const tarefasData = [
+  {
+    id: 1,
+    nome: "Qualificação",
+    prazo: 13,
+    descricao: "Apresentação e defesa do projeto de pesquisa.",
+    titulacao: "Mestrado",
+  },
+  {
+    id: 2,
+    nome: "Carga Horária Básica",
+    prazo: 18,
+    descricao: "Cumprir a carga horária mínima de disciplinas obrigatórias.",
+    titulacao: "Mestrado",
+  },
+  {
+    id: 3,
+    nome: "Artigo",
+    prazo: 24,
+    descricao: "Elaborar e submeter um artigo científico.",
+    titulacao: "Mestrado",
+  },
+  {
+    id: 4,
+    nome: "Exame de Proficiência em Língua Estrangeira",
+    prazo: 24,
+    descricao: "Aprovação em exame de proficiência em língua estrangeira.",
+    titulacao: "Doutorado",
+  },
+  {
+    id: 5,
+    nome: "Estágio",
+    prazo: 18,
+    descricao: "Concluir o estágio obrigatório.",
+    titulacao: "Doutorado",
+  },
+];
 
 function Tarefas() {
-  const logoPgcomp = "/assets/logopgcomp.png"; // Logo
-
-  const tarefasData = [
-    {
-      id: 1,
-      nome: "Qualificação",
-      prazo: 13,
-      descricao: "Apresentação e defesa do projeto de pesquisa.",
-      titulacao: "Mestrado",
-    },
-    {
-      id: 2,
-      nome: "Carga Horária Básica",
-      prazo: 18,
-      descricao: "Cumprir a carga horária mínima de disciplinas obrigatórias.",
-      titulacao: "Mestrado",
-    },
-    {
-      id: 3,
-      nome: "Artigo",
-      prazo: 24,
-      descricao: "Elaborar e submeter um artigo científico.",
-      titulacao: "Mestrado",
-    },
-    {
-      id: 4,
-      nome: "Exame de Proficiência em Língua Estrangeira",
-      prazo: 24,
-      descricao: "Aprovação em exame de proficiência em língua estrangeira.",
-      titulacao: "Doutorado",
-    },
-    {
-      id: 5,
-      nome: "Estágio",
-      prazo: 18,
-      descricao: "Concluir o estágio obrigatório.",
-      titulacao: "Doutorado",
-    },
-  ];
-
   /* Const Att Tarefas */
   const [tarefas, setTarefas] = useState(tarefasData);
   const [showModal, setShowModal] = useState(false);
@@ -113,37 +114,37 @@ function Tarefas() {
 
   return (
     <div className="contain">
-      <div className="botoesTarefas">
-        {/* Botão retornar */}
-        <button
-          onClick={() => (window.location.href = "/perfil-coordenador")}
-          style={{ right: "230px", width: "140px" }}
-        >
-          Voltar
-        </button>
+      <div className="botoesTarefas" style={{ marginLeft: "900px" }}>
         {/* Botão Adicionar Tarefa */}
-        <button
+        <AiOutlineFileAdd
           onClick={() => setShowAddModal(true)}
-          style={{ right: "400px", width: "130px" }}
-        >
-          {" "}
-          Add Tarefa
-        </button>
+          style={{ cursor: "pointer", marginRight: "30px" }}
+          size={35}
+          title="Adicionar Tarefa"
+        />
+        {/* Botão retornar */}
+        <AiOutlineArrowLeft
+          onClick={() => (window.location.href = "/perfil-coordenador")}
+          style={{ cursor: "pointer", marginRight: "10px" }}
+          size={35}
+          title="Voltar"
+        />
       </div>
 
-      <h3 style={{ marginBottom: "3px", marginTop: "-10px" }}>
+      <h3 style={{ marginBottom: "10px", marginTop: "50px" }}>
         Tarefas Mestrado
       </h3>
-      {/* Container de Tarefas de Mestrado */}
-      <div className="container-lista">
+      {/* Container de Tarefas de Mestrado*/}
+      <div className="containerLista">
         <ul>
           {tarefasMestrado.map((tarefa) => (
             <li key={tarefa.id}>
-              {/* Edição das tarefas */}
+              {/* Edição das tarefas*/}
               <div>
                 {" "}
                 {isEditing && selectedTarefa.id === tarefa.id ? (
                   <>
+                    <label>Nome da Tarefa</label>
                     <input
                       type="text"
                       value={editTarefaNome}
@@ -155,6 +156,7 @@ function Tarefas() {
                         padding: "8px",
                       }}
                     />
+                    <label>Prazo em meses</label>
                     <input
                       type="number"
                       value={editTarefaPrazo}
@@ -168,6 +170,7 @@ function Tarefas() {
                         padding: "8px",
                       }}
                     />
+                    <label>Descrição</label>
                     <textarea
                       value={editTarefaDescricao}
                       onChange={(e) => setEditTarefaDescricao(e.target.value)}
@@ -179,6 +182,7 @@ function Tarefas() {
                         height: "80px",
                       }}
                     />
+                    <label>Curso</label>
                     <select
                       value={editTarefaTitulacao}
                       onChange={(e) => setEditTarefaTitulacao(e.target.value)}
@@ -218,7 +222,7 @@ function Tarefas() {
                     <AiFillEdit
                       style={{
                         color: "#000000",
-                        padding: "20px",
+                        padding: "15px",
                         cursor: "pointer",
                       }}
                       onClick={() => {
@@ -232,7 +236,11 @@ function Tarefas() {
                       size={20}
                     />
                     <AiFillDelete
-                      style={{ color: "#000000", cursor: "pointer" }}
+                      style={{
+                        color: "#000000",
+                        cursor: "pointer",
+                        padding: "15px",
+                      }}
                       onClick={() => {
                         setSelectedTarefa(tarefa);
                         setShowModal(true);
@@ -247,9 +255,9 @@ function Tarefas() {
         </ul>
       </div>
 
-      <h3 style={{ marginBottom: "3px" }}>Tarefas Doutorado</h3>
-      {/* Container de Tarefas de Doutorado */}
-      <div className="container-lista">
+      <h3 style={{ marginBottom: "10px" }}>Tarefas Doutorado</h3>
+      {/*Container de Tarefas de Doutorado */}
+      <div className="containerLista">
         <ul>
           {tarefasDoutorado.map((tarefa) => (
             <li key={tarefa.id}>
@@ -258,6 +266,7 @@ function Tarefas() {
                 {" "}
                 {isEditing && selectedTarefa.id === tarefa.id ? (
                   <>
+                    <label>Nome da Tarefa</label>
                     <input
                       type="text"
                       value={editTarefaNome}
@@ -269,6 +278,7 @@ function Tarefas() {
                         padding: "8px",
                       }}
                     />
+                    <label>Prazo em meses</label>
                     <input
                       type="number"
                       value={editTarefaPrazo}
@@ -282,6 +292,7 @@ function Tarefas() {
                         padding: "8px",
                       }}
                     />
+                    <label>Descrição</label>
                     <textarea
                       value={editTarefaDescricao}
                       onChange={(e) => setEditTarefaDescricao(e.target.value)}
@@ -293,6 +304,7 @@ function Tarefas() {
                         height: "80px",
                       }}
                     />
+                    <label>Curso</label>
                     <select
                       value={editTarefaTitulacao}
                       onChange={(e) => setEditTarefaTitulacao(e.target.value)}
@@ -316,7 +328,7 @@ function Tarefas() {
                   </>
                 )}
               </div>
-              {/* Ação dos botões e ícones - salvar, editar e deletar*/}
+              {/*Ação dos botões e ícones - salvar, editar e deletar*/}
               <div>
                 {isEditing && selectedTarefa.id === tarefa.id ? (
                   <button
@@ -334,7 +346,7 @@ function Tarefas() {
                     <AiFillEdit
                       style={{
                         color: "#000000",
-                        padding: "20px",
+                        padding: "15px",
                         cursor: "pointer",
                       }}
                       onClick={() => {
@@ -348,7 +360,11 @@ function Tarefas() {
                       size={20}
                     />
                     <AiFillDelete
-                      style={{ color: "#000000", cursor: "pointer" }}
+                      style={{
+                        color: "#000000",
+                        cursor: "pointer",
+                        padding: "15px",
+                      }}
                       onClick={() => {
                         setSelectedTarefa(tarefa);
                         setShowModal(true);
@@ -363,11 +379,12 @@ function Tarefas() {
         </ul>
       </div>
 
-      {/* Modal de Adicionar Tarefa */}
+      {/* Modal de Adicionar Tarefa*/}
       {showAddModal && (
         <div className="confirmationBox">
           <div className="modal" style={{ backgroundColor: "#fff" }}>
-            <p>Adicionar Nova Tarefa</p>
+            <p style={{ fontWeight: "bold" }}>Adicionar Nova Tarefa</p>
+            <label>Nome da Tarefa</label>
             <input
               type="text"
               value={novaTarefaNome}
@@ -375,6 +392,7 @@ function Tarefas() {
               placeholder="Nome da tarefa"
               style={{ marginBottom: "10px", width: "100%", padding: "8px" }}
             />
+            <label>Prazo em meses</label>
             <input
               type="number"
               value={novaTarefaPrazo}
@@ -382,6 +400,7 @@ function Tarefas() {
               placeholder="Prazo em meses"
               style={{ marginBottom: "10px", width: "100%", padding: "8px" }}
             />
+            <label>Descrição</label>
             <textarea
               value={novaTarefaDescricao}
               onChange={(e) => setNovaTarefaDescricao(e.target.value)}
@@ -393,6 +412,7 @@ function Tarefas() {
                 height: "80px",
               }}
             />
+            <label>Curso</label>
             <select
               value={novaTarefaTitulacao}
               onChange={(e) => setNovaTarefaTitulacao(e.target.value)}
@@ -421,8 +441,16 @@ function Tarefas() {
 
       {/* Modal de confirmação exclusão*/}
       {showModal && (
-        <div className="confirmation-box">
-          <div className="modal" style={{ backgroundColor: "#fff" }}>
+        <div className="confirmationBox">
+          <div
+            style={{
+              backgroundColor: "#fff",
+              padding: "20px",
+              borderRadius: "10px",
+              width: "300px",
+              textAlign: "center",
+            }}
+          >
             <p>Tem certeza que deseja remover essa tarefa da lista?</p>
             <ul style={{ display: "flex" }}>
               <button

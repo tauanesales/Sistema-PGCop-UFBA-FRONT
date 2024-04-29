@@ -1,37 +1,69 @@
 .contain {
-  display: flex;
-  flex-direction: column;
   align-items: center;
 }
 
 .containerOrientador {
-  width: 1200px;
-  height: 130px;
-  margin-top: -20px;
-  background-color: white;
-  border-radius: 10px;
+  align-items: top;
+  line-height: 1.1;
+  height: 150px;
+  width: 210vh;
+  background-color: #f0f0f9;
   display: flex;
-  justify-content: space-between;
-  padding: 5 20px;
-}
-
-.containerOrientadorOrientandos {
-  height: 460px;
-  width: 130%;
-  margin-right: 50px;
-  max-width: 1150px;
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  overflow-y: auto;
-  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px 20px;
+  box-sizing: border-box;
 }
 
 .containerOrientador img {
   width: 7em;
   height: 7em;
-  align-self: center;
-  object-fit: cover;
+  margin-right: 25px; /* Adiciona uma margem à direita da imagem*/
+  mix-blend-mode: multiply; /*Remove o fundo branco */
+}
+
+.infoOrientador {
+  margin-right: 20px;
+  display: flex;
+}
+
+.containerOrientadorOrientandos {
+  height: 460px;
+  width: 210vh;
+  margin-top: 100px;
+  margin-left: 5px;
+  max-width: 1100px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 3px;
+  overflow-y: auto;
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.botoesToolbar {
+  display: flex;
+  min-width: 5em;
+  margin-top: 1em;
+}
+
+button {
+  background-color: rgba(42, 41, 41, 0.77);
+  width: 130px;
+  height: 40px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+li {
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: #f0f0f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .infoOrientador {

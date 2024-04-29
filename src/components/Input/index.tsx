@@ -3,10 +3,17 @@ import "./styles.css";
 
 import { InputHTMLAttributes } from "react";
 
-type Props = InputHTMLAttributes<HTMLInputElement>;
+type Props = { label: string } & InputHTMLAttributes<HTMLInputElement>;
 
-const Input = (props: Props) => {
-  return <input {...props} className="inputCadastro" required />;
+const Input = ({ label, ...props }: Props) => {
+  return (
+    <div className="containInput">
+      <label htmlFor={props.id} className="label">
+        {label}
+      </label>
+      <input name={props.id} className="inputCadastro" required {...props} />
+    </div>
+  );
 };
 
 export default Input;

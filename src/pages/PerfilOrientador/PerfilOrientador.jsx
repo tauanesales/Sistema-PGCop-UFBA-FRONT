@@ -1,10 +1,9 @@
 import "./styles.css";
 
 import { useState } from "react";
+import { AiOutlineLogout, AiOutlineUsergroupAdd } from "react-icons/ai";
 
 import { useUserQueries } from "@/queries/user";
-
-import Button from "../../components/Button";
 
 function PerfilOrientador() {
   const { signOut } = useUserQueries();
@@ -83,52 +82,46 @@ function PerfilOrientador() {
   };
 
   return (
-    <div>
-      <div className="containerOrientador">
-        {/* Logo */}
-        <img src={logoPgcomp} />
-        {/* Informações do perfil */}
-        <div
-          className="infoOrientador"
-          style={{ justifyContent: "space-between", marginRight: "20px" }}
-        >
-          <div>
-            <h2>Augusto Carlos Santos</h2>
-            <h3>Orientandos: {alunos.length}</h3>
-          </div>
-
-          {/* Botões */}
-          <div className="botoesToolbar">
-            <button
-              onClick={() =>
-                (window.location.href = "/perfil-coordenador/solicitacoes")
-              }
-              style={{
-                padding: "10px 10px",
-                marginRight: "10px",
-                width: "140px",
-                borderRadius: "10px",
-              }}
-            >
-              Solicitações
-            </button>
-
-            <button
-              onClick={signOut}
-              style={{
-                padding: "10px 10px",
-                marginRight: "5px",
-                width: "110px",
-                borderRadius: "10px",
-              }}
-            >
-              Sair
-            </button>
+    <div className="contain">
+      <header>
+        <div className="containerOrientador">
+          {/* Logo */}
+          <img src={logoPgcomp} />
+          {/* Informações do perfil */}
+          <div
+            className="infoOrientador"
+            style={{ justifyContent: "space-between" }}
+          >
+            <div>
+              <h2>Augusto Carlos Santos</h2>
+              <h3>Orientandos: {alunos.length}</h3>
+            </div>
+            {/* Botões */}
+            <div className="botoesToolbar">
+              <div>
+                <AiOutlineUsergroupAdd
+                  onClick={() =>
+                    (window.location.href = "/perfil-coordenador/solicitacoes")
+                  }
+                  style={{ cursor: "pointer", marginRight: "30px" }}
+                  size={35}
+                  title="Solicitações"
+                />
+              </div>
+              <div>
+                <AiOutlineLogout
+                  onClick={signOut}
+                  style={{ cursor: "pointer", marginRight: "20px" }}
+                  size={35}
+                  title="Sair"
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      <h2 style={{ textAlign: "center", marginBottom: "2px" }}>
+      <h2 style={{ textAlign: "center", marginBottom: "10px" }}>
         Lista de Orientandos
       </h2>
 
@@ -137,7 +130,7 @@ function PerfilOrientador() {
         <ul>
           {alunos.map((aluno) => (
             <li
-              style={{ cursor: "pointer", padding: "3px 20px" }}
+              style={{ cursor: "pointer", padding: "7px 20px" }}
               key={aluno.id}
               onDoubleClick={() => handleDoubleClick(aluno.matricula)}
             >
@@ -156,8 +149,9 @@ function PerfilOrientador() {
                   style={{
                     marginRight: "10px",
                     height: "30px",
-                    borderRadius: "10",
+                    borderRadius: "5px",
                     width: "95px",
+                    fontSize: "13px",
                   }}
                 >
                   Remover

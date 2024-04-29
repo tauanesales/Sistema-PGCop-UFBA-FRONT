@@ -1,8 +1,11 @@
 import "./styles.css";
 
 import { useState } from "react";
-
-import Button from "../../components/Button";
+import {
+  AiOutlineFileSync,
+  AiOutlineLogout,
+  AiOutlineUsergroupAdd,
+} from "react-icons/ai";
 
 function PerfilCoordenador() {
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
@@ -79,66 +82,55 @@ function PerfilCoordenador() {
   };
 
   return (
-    <div>
-      <div className="containerCoordenador">
-        {/* Logo*/}
-        <img src={logoPgcomp} />
-        {/* Informações do perfil */}
-        <div
-          className="infoCoordenador"
-          style={{ justifyContent: "space-between", marginRight: "20px" }}
-        >
-          <div>
-            <h2>Augusto Carlos Santos</h2>
-            <h3>Orientandos: {alunos.length}</h3>
-          </div>
-          {/* Botão Vers Solicitações */}
-          <div className="botoesToolbar">
-            <button
-              nClick={() =>
-                (window.location.href = "/perfil-coordenador/solicitacoes")
-              }
-              style={{
-                padding: "10px 10px",
-                marginLeft: "0px",
-                marginRight: "10px",
-                width: "140px",
-                borderRadius: "10px",
-              }}
-            >
-              Solicitações
-            </button>
-            {/* Botão Tarefas*/}
-            <button
-              onClick={() =>
-                (window.location.href = "/perfil-coordenador/tarefas")
-              }
-              style={{
-                padding: "10px 10px",
-                marginRight: "10px",
-                width: "110px",
-                borderRadius: "10px",
-              }}
-            >
-              Tarefas
-            </button>
-            {/* Botão Sair*/}
-            <button
-              onClick={() => (window.location.href = "/")}
-              style={{
-                padding: "10px 10px",
-                marginRight: "10px",
-                width: "110px",
-                borderRadius: "10px",
-              }}
-            >
-              Sair
-            </button>
+    <div className="contain">
+      <header>
+        <div className="containerCoordenador">
+          {/* Logo*/}
+          <img src={logoPgcomp} alt="Logo" />
+          {/* Informações do perfil */}
+          <div
+            className="infoCoordenador"
+            style={{ justifyContent: "space-between", marginRight: "20px" }}
+          >
+            <div>
+              <h2>Augusto Carlos Santos</h2>
+              <h3>Orientandos: {alunos.length}</h3>
+            </div>
+            {/* Botões Toolbar */}
+            <div className="botoesToolbar">
+              <div>
+                <AiOutlineUsergroupAdd
+                  onClick={() =>
+                    (window.location.href = "/perfil-coordenador/solicitacoes")
+                  }
+                  style={{ cursor: "pointer", marginRight: "30px" }}
+                  size={35}
+                  title="Solicitações"
+                />
+              </div>
+              <div>
+                <AiOutlineFileSync
+                  onClick={() =>
+                    (window.location.href = "/perfil-coordenador/tarefas")
+                  }
+                  style={{ cursor: "pointer", marginRight: "30px" }}
+                  size={35}
+                  title="Tarefas"
+                />
+              </div>
+              <div>
+                <AiOutlineLogout
+                  onClick={() => (window.location.href = "/")}
+                  style={{ cursor: "pointer", marginRight: "30px" }}
+                  size={35}
+                  title="Sair"
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <h2 style={{ textAlign: "center", marginBottom: "2px" }}>
+      </header>
+      <h2 style={{ textAlign: "center", marginBottom: "10px" }}>
         Lista de Orientandos
       </h2>
       {/* Container de Alunos Orientados */}
@@ -146,7 +138,7 @@ function PerfilCoordenador() {
         <ul>
           {alunos.map((aluno) => (
             <li
-              style={{ cursor: "pointer", padding: "3px 20px" }}
+              style={{ cursor: "pointer", padding: "7px 20px" }}
               key={aluno.id}
               onDoubleClick={() => handleDoubleClick(aluno.matricula)}
             >
@@ -165,8 +157,9 @@ function PerfilCoordenador() {
                   style={{
                     marginRight: "10px",
                     height: "30px",
-                    borderRadius: "10",
+                    borderRadius: "5px",
                     width: "95px",
+                    fontSize: "13px",
                   }}
                 >
                   Remover
@@ -176,7 +169,6 @@ function PerfilCoordenador() {
           ))}
         </ul>
       </div>
-
       {/* Modal de confirmação */}
       {showModal && (
         <div className="confirmationBox">

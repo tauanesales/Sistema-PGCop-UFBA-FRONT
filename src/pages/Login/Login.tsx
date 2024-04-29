@@ -2,12 +2,20 @@ import "./styles.css";
 
 import { useState } from "react";
 
+import ButtonSecondary from "@/components/ButtonSecondary";
+import InputPassword from "@/components/InputPassword";
 import { useUserQueries } from "@/queries/user";
 
-import Button from "../../components/Button";
 import Input from "../../components/Input";
 
-function Login() {
+const Login = () => {
+  const logoPgcop = "assets/logoPgcop.png";
+  const imagemBarra = "assets/salvador.png";
+  const gamboa = "assets/gamboa.jpg";
+  const farol = "assets/farol.jpg";
+  const pelourinho = "assets/pelourinho.jpg";
+  const barra = "assets/barra.jpg";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -21,59 +29,61 @@ function Login() {
 
   return (
     <div className="containerLogin">
-      {/* Logo*/}
-      <img src="assets/logopgcomp.png" width={130} />
-      {/* Campo Email */}
-      <div style={{ position: "center", marginBottom: "20px" }}>
-        <Input
-          placeholder={"Email"}
-          type={"email"}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      {/* Campo Senha */}
-      <div style={{ position: "relative", marginBottom: "20px" }}>
-        <Input
-          placeholder={"Senha"}
-          type={"password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      {/* Botão Login */}
-      <Button onClick={handleSignIn} label={"Login"} disabled={disabled} />
+      <div className="containerCardImg">
+        <div className="cardLogin">
+          {/* Logo*/}
+          <img src={logoPgcop} width={130} />
 
-      {/* LInks Cadastro e Recuperação de senha */}
-      <p style={{ color: "blue", marginTop: "20px" }}>
-        <a
-          href="/cadastro-aluno"
-          style={{
-            color: "blue",
-            textDecoration: "underline",
-            cursor: "pointer",
-            opacity: "0.9",
-          }}
-        >
-          {" "}
-          CADASTRE-SE{" "}
-        </a>{" "}
-        OU
-        <a
-          href="/esqueci-senha"
-          style={{
-            color: "blue",
-            textDecoration: "underline",
-            cursor: "pointer",
-            opacity: "0.9",
-          }}
-        >
-          {" "}
-          ESQUECI A SENHA{" "}
-        </a>
-      </p>
+          <h1>Bem vindo de volta ao PGCop</h1>
+          <div className="inputs">
+            {/* Campo Email */}
+            <Input
+              label="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {/* Campo Senha */}
+            <InputPassword
+              label="Senha"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <div className="conectado">
+              <input type="checkbox" name="conectado" id="conectado" />
+              <label htmlFor="conectado">Matenha-me conectado</label>
+            </div>
+
+            {/* Botão Login */}
+            <ButtonSecondary
+              disabled={disabled}
+              onClick={handleSignIn}
+              label={"Entrar"}
+            />
+          </div>
+
+          {/* Links Cadastro e Recuperação de senha */}
+          <div className="links">
+            <a href="/cadastro-aluno" className="text">
+              Cadastre-se
+            </a>
+
+            <p className="text">
+              Esqueceu a senha? Clique
+              <a href="/esqueci-senha"> aqui.</a>
+            </p>
+          </div>
+        </div>
+        <img
+          src={imagemBarra}
+          className="imagemLogin"
+          alt="Imagem do Forte de Santa Maria - Salvador/BA"
+        />
+      </div>
     </div>
   );
-}
+};
 
 export default Login;
