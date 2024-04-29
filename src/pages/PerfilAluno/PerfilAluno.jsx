@@ -2,6 +2,9 @@ import "./styles.css";
 
 import { useEffect, useState } from "react";
 
+import { useUserQueries } from "@/queries/user";
+import api from "@/services/api/config";
+
 function PerfilAluno() {
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
 
@@ -152,7 +155,7 @@ function PerfilAluno() {
             Atualizar Senha
           </button>
           <button
-            onClick={() => (window.location.href = "/")}
+            onClick={signOut}
             style={{
               padding: "10px 10px",
               marginRight: "5px",

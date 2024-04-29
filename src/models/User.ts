@@ -1,3 +1,6 @@
-export interface User {
-  name: string;
-}
+export type User = {
+  UserID: number;
+  Nome: string;
+  Email: string;
+  Role: "aluno" | "professor" | "coordenador";
+};

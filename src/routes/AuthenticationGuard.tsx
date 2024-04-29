@@ -1,22 +1,29 @@
-import * as React from "react";
+import React from "react";
 
-import { useAuth } from "../contexts/auth";
+import { useUserQueries } from "@/queries/user";
+import { useTokensStore } from "@/store/tokens";
+
 import { ProtectedRoute } from "./ProtectedRoute";
 
 export type AuthenticationGuardProps = {
   children?: React.ReactElement;
   redirectPath?: string;
-  guardType?: "authenticated" | "unauthenticated";
+  allowedRoles?: string[];
 };
 
 export const AuthenticationGuard = ({
   redirectPath = "/login",
-  guardType = "authenticated",
+  allowedRoles,
   ...props
 }: AuthenticationGuardProps) => {
-  const { user } = useAuth();
+  const { tokens } = useTokensStore();
 
-  const isAllowed = guardType === "authenticated" ? !!user : !user;
+  const { useGetUser } = useUserQueries();
+
+  const { data: user } = useGetUser(false);
+
+  const isAllowed =
+    !!tokens?.accessToken && !!user && !!allowedRoles?.includes(user.Role);
 
   return (
     <ProtectedRoute

@@ -4,15 +4,16 @@ import { create } from "./helpers";
 
 interface Tokens {
   accessToken?: string;
-  refreshToken?: string;
-  expiresIn?: number;
   tokenType?: string;
 }
 
-export const useTokensStore = create<Tokens>()(
-  persist(() => ({}), {
+interface TokensStore {
+  tokens: Tokens;
+  saveTokens: (tokens: Tokens) => void;
+}
+
+export const useTokensStore = create<TokensStore>()(
+  persist((set) => ({ tokens: {}, saveTokens: (tokens) => set({ tokens }) }), {
     name: "tokens",
   }),
 );
-
-export const saveTokens = (tokens: Tokens) => useTokensStore.setState(tokens);

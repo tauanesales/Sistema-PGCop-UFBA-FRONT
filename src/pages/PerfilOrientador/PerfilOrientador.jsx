@@ -2,9 +2,13 @@ import "./styles.css";
 
 import { useState } from "react";
 
+import { useUserQueries } from "@/queries/user";
+
 import Button from "../../components/Button";
 
 function PerfilOrientador() {
+  const { signOut } = useUserQueries();
+
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
 
   const alunosData = [
@@ -110,7 +114,7 @@ function PerfilOrientador() {
             </button>
 
             <button
-              onClick={() => (window.location.href = "/")}
+              onClick={signOut}
               style={{
                 padding: "10px 10px",
                 marginRight: "5px",
