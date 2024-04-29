@@ -1,7 +1,5 @@
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RouterProvider } from "react-router-dom";
 
-import { AuthProvider } from "@/providers/auth";
 import { DataProvider } from "@/providers/data";
 import { router } from "@/routes";
 
@@ -12,7 +10,6 @@ export default function App() {
     <LoadingProvider>
       <DataProvider>
         <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
       </DataProvider>
     </LoadingProvider>
   );
