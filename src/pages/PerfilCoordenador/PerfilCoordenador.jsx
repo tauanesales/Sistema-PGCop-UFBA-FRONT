@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import "./styles.css"
 import Button from "../../components/Button";
+import { MdGroupAdd, MdOutlineLibraryBooks, MdLogout } from 'react-icons/md'; // Importando os ícones
 
 function PerfilCoordenador(){
 
@@ -46,25 +47,25 @@ function PerfilCoordenador(){
                   <h3>Orientandos: {alunos.length}</h3>
                 </div>
                 {/* Botões Toolbar */}
-                <div className="botoesToolbar">
-                  <div >
-                    <AiOutlineUsergroupAdd 
+                <div >
+                  <div className='botoesToolbar'>
+                    <MdGroupAdd 
                       onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
-                      style={{ cursor: 'pointer', marginRight: "30px" }}
+                      style={{ cursor: 'pointer', marginRight: "40px" }}
                       size={35} 
                       title="Solicitações" 
                     />
                   </div>
                   <div >
-                    <AiOutlineFileSync 
+                    <MdOutlineLibraryBooks 
                       onClick={() => window.location.href = "/perfil-coordenador/tarefas"} 
-                      style={{ cursor: 'pointer', marginRight: "30px" }}
+                      style={{ cursor: 'pointer', marginRight: "40px" }}
                       size={35} 
                       title="Tarefas" 
                     />
                   </div>
                   <div>
-                    <AiOutlineLogout 
+                    <MdLogout 
                       onClick={() => window.location.href = "/"} 
                       style={{ cursor: 'pointer', marginRight: "30px" }}
                       size={35} 

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import "./styles.css"
 import Button from "../../components/ButtonPrimary";
 
+import { MdGroupAdd, MdLogout } from 'react-icons/md'; // Importando os ícones
+
 function PerfilOrientador(){
 
     const logoPgcomp = "assets/logopgcomp.png"; // Logo
@@ -48,17 +50,17 @@ function PerfilOrientador(){
                         {/* Botões */}
                         <div className="botoesToolbar" >
                         <div >
-                            <AiOutlineUsergroupAdd 
+                            <MdGroupAdd 
                             onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
-                            style={{ cursor: 'pointer', marginRight: "30px" }}
+                            style={{ cursor: 'pointer', marginRight: "40px" }}
                             size={35} 
                             title="Solicitações" 
                             />
                         </div>
                         <div >
-                            <AiOutlineLogout 
+                            <MdLogout 
                             onClick={() => window.location.href = "/"} 
-                            style={{ cursor: 'pointer', marginRight: "20px" }}
+                            style={{ cursor: 'pointer', marginRight: "40px" }}
                             size={35} 
                             title="Sair" 
                             />

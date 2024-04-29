@@ -24,7 +24,13 @@
   .infoOrientador{
     margin-right: 20px;
     display: flex;
+    line-height: 2;
+    width: 400px;
   }
+  .infoOrientador h2 {
+    white-space: nowrap;
+  }
+  
   
   .containerOrientadorOrientandos{
     height: 460px;

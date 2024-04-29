@@ -34,8 +34,12 @@
 .boxInfoAluno {
   line-height: 2;
   padding: 0px 10px; 
-  width: 60%; 
+  width: 400px; 
 }
+.boxInfoAluno h2 {
+  white-space: nowrap;
+}
+
 
 .boxInfoAluno span {
   font-weight: 700;

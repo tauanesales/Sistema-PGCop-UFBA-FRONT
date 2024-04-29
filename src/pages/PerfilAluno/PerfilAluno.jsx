@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react"; 
 import "./styles.css";
 
-//AiOutlineUsergroupAdd (solicitacoes)
-//AiOutlineFileSync (atualizar)
-//AiOutlineLogout (sair)
-
-import Button from "../../components/Button";
-import { AiOutlineFileSync, AiOutlineLogout, AiOutlineEdit, AiOutlineFileExcel } from 'react-icons/ai'; // Importando os ícones
+import { MdEditNote, MdLogout } from 'react-icons/md'; // Importando os ícones
+import { AiOutlineEdit , AiOutlineFileExcel } from 'react-icons/ai'; // Importando os ícones
 
 function PerfilAluno() {
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
@@ -76,27 +72,33 @@ function PerfilAluno() {
     <div className="contain">
       <header>
         <div className="containerAluno">
-        <div className="infoAluno">
-        <img src={logoPgcomp} alt="Logo" />
-        <div className="boxInfoAluno">
-          <h3>José  Silva José Silva</h3>
-          <p><span>Titulação:</span> Mestrado/Doutorado</p>
-          <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
-          <p><span>Status:</span> Ativo</p>
-        </div>
+          <div className="infoAluno">
+          <img src={logoPgcomp} alt="Logo" />
           <div className="boxInfoAluno">
-            <h3><span>Matrícula:</span> xxxxxxxxx</h3>
-            <p><span>Orientador(a): </span>Augusto Carlos</p>
-            <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
+            <h3>José  Silva José Silva</h3>
+            <p><span>Titulação:</span> Mestrado/Doutorado</p>
+            <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
+            <p><span>Status:</span> Ativo</p>
           </div>
-        </div>
+            <div className="boxInfoAluno">
+              <h3><span>Matrícula:</span> xxxxxxxxx</h3>
+              <p><span>Orientador(a): </span>Augusto Carlos</p>
+              <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
+            </div>
+          </div>
 
-          <div className="botoesToolbar">
-            <button onClick={() => window.location.href = "/atualizar-senha"} 
-              style={{padding: "10px 10px", marginRight:"5px", borderRadius: '5px'}}>Atualizar Senha</button>
-            <button onClick={() => window.location.href = "/"} 
-              style={{padding: "10px 10px", marginRight:"30px", borderRadius: '5px'}}>Sair</button>
-          </div>
+            <div className="botoesToolbar">
+              <MdEditNote onClick={() => window.location.href = "/atualizar-senha"} 
+                style={{ cursor: 'pointer', marginRight:"40px" }} 
+                size={35} 
+                title="Atualizar dados" 
+              />
+              <MdLogout onClick={() => window.location.href = "/"} 
+                style={{ cursor: 'pointer', marginRight:"40px" }} 
+                size={35} 
+                title="Sair" 
+              />
+            </div>
         </div>
       </header>
 
