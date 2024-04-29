@@ -31,7 +31,9 @@ function ConfirmarNovaSenha() {
       <br />
       <a href="/">
         <button
-          style={{ padding: "5px 10px", borderRadius: "5px", fontSize: "15px" }} >Voltar a Tela Inicial
+          style={{ padding: "5px 10px", borderRadius: "5px", fontSize: "15px" }}
+        >
+          Voltar a Tela Inicial
         </button>
       </a>
     </div>
