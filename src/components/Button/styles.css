@@ -1,0 +1,16 @@
+a{
+  width: 100%;
+  text-align: center;
+}
+.my-button {
+  text-transform: uppercase;
+  width: 13em;
+  height: 2.5em;
+  border-radius: 40px;
+  border: none;
+  font-size: 13px;
+  background-color: #2B2B2B;
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+}
