@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { AiOutlineArrowLeft, AiOutlineFileAdd, AiFillDelete, AiFillEdit, AiOutlinePlus } from 'react-icons/ai';
+import { MdOutlineLibraryAdd, MdArrowBack, MdCreate, MdDelete } from 'react-icons/md'; // Importando os ícones
 import "./styles.css";
-import Button from "../../components/Button";
+import Button from "../../components/ButtonPrimary";
 
 function Tarefas(){
 
@@ -76,16 +76,16 @@ function Tarefas(){
 
     return (
         <div className='contain'>
-          <div className='botoesTarefas' style={{marginLeft:'900px'}}>
+          <div className='botoesTarefas' style={{marginLeft:'1000px'}}>
             {/* Botão Adicionar Tarefa */}
-            <AiOutlineFileAdd 
+            <MdOutlineLibraryAdd 
               onClick={() => setShowAddModal(true)} 
               style={{ cursor: 'pointer', marginRight: "30px" }}
               size={35} 
               title="Adicionar Tarefa" 
             />
             {/* Botão retornar */}
-            <AiOutlineArrowLeft 
+            <MdArrowBack 
               onClick={() => window.location.href = "/perfil-coordenador"} 
               style={{ cursor: 'pointer', marginRight: "10px" }}
               size={35} 
@@ -145,7 +145,7 @@ function Tarefas(){
                                 </button>
                             ) : (
                                 <>
-                                    <AiFillEdit style={{color: "#000000", padding:  '15px', cursor: 'pointer'}}
+                                    <MdCreate style={{padding:  '15px', cursor: 'pointer'}}
                                         onClick={() => {
                                             setIsEditing(true);
                                             setEditTarefaNome(tarefa.nome);
@@ -154,14 +154,14 @@ function Tarefas(){
                                             setEditTarefaTitulacao(tarefa.titulacao);
                                             setSelectedTarefa(tarefa);
                                         }}  
-                                        size={20}
+                                        size={55}
                                     />
-                                    <AiFillDelete style={{color: "#000000", cursor: 'pointer',padding:  '15px',}}
+                                    <MdDelete style={{cursor: 'pointer',padding:  '15px',}}
                                         onClick={() => {
                                             setSelectedTarefa(tarefa);
                                             setShowModal(true);
                                         }}
-                                        size={20}  
+                                        size={55}  
                                     />
                                 </>
                             )}
@@ -223,7 +223,7 @@ function Tarefas(){
                                     <button onClick={handleEdit} style={{ marginRight: '10px', width:'120px',height:'30px' }}>Salvar</button>
                                 ) : (
                                     <>
-                                        <AiFillEdit style={{color: "#000000", padding: '15px', cursor: 'pointer'}}
+                                        <MdCreate style={{padding: '15px', cursor: 'pointer'}}
                                             onClick={() => {
                                                 setIsEditing(true);
                                                 setEditTarefaNome(tarefa.nome);
@@ -232,14 +232,14 @@ function Tarefas(){
                                                 setEditTarefaTitulacao(tarefa.titulacao);
                                                 setSelectedTarefa(tarefa);
                                             }}  
-                                            size={20}
+                                            size={55}
                                         />
-                                        <AiFillDelete style={{color: "#000000", cursor: 'pointer', padding: '15px',}}
+                                        <MdDelete style={{cursor: 'pointer', padding: '15px',}}
                                             onClick={() => {
                                                 setSelectedTarefa(tarefa);
                                                 setShowModal(true);
                                             }}
-                                            size={20}  
+                                            size={55}  
                                         />
                                     </>
                                 )}
