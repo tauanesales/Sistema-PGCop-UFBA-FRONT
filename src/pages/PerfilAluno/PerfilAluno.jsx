@@ -5,7 +5,7 @@ import "./styles.css";
 //AiOutlineFileSync (atualizar)
 //AiOutlineLogout (sair)
 
-import Button from "../../components/Button";
+import ButtonPrimary from "../../components/ButtonPrimary";
 import { AiOutlineFileSync, AiOutlineLogout, AiOutlineEdit, AiOutlineFileExcel } from 'react-icons/ai'; // Importando os ícones
 
 function PerfilAluno() {
