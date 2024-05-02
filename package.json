@@ -12,7 +12,6 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@material-ui/icons": "^4.11.3",
     "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.8",
     "lucide-react": "^0.364.0",
