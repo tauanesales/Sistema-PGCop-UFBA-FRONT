@@ -1,17 +1,16 @@
-import { useState, useEffect } from "react"; 
 import "./styles.css";
 
+import { useEffect, useState } from "react";
 //AiOutlineUsergroupAdd (solicitacoes)
 //AiOutlineFileSync (atualizar)
 //AiOutlineLogout (sair)
-
-import Button from "../../components/Button";
-import { AiOutlineFileSync, AiOutlineLogout, AiOutlineEdit, AiOutlineFileExcel } from 'react-icons/ai'; // Importando os ícones
+import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai"; // Importando os ícones
 
 import { useUserQueries } from "@/queries/user";
-import api from "@/services/api/config";
 
 function PerfilAluno() {
+  const { signOut } = useUserQueries();
+
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
 
   const dataDeInicio = new Date("2023-02-01"); // Data de Início do aluno
@@ -19,12 +18,42 @@ function PerfilAluno() {
   const [dataAtual, setDataAtual] = useState(new Date()); // Data atual
 
   const [tarefas, setTarefas] = useState([
-    { id: 1, nome: "Qualificacao", prazoMeses: 24, descricao: "Apresentação e defesa do projeto de pesquisa.", feita: false },
-    { id: 2, nome: "Artigo", prazoMeses: 24, descricao: "Elaborar e submeter um artigo científico.", feita: false },
-    { id: 3, nome: "Estágio", prazoMeses: 18, descricao: "Concluir o estágio obrigatório.", feita: false },
+    {
+      id: 1,
+      nome: "Qualificacao",
+      prazoMeses: 24,
+      descricao: "Apresentação e defesa do projeto de pesquisa.",
+      feita: false,
+    },
+    {
+      id: 2,
+      nome: "Artigo",
+      prazoMeses: 24,
+      descricao: "Elaborar e submeter um artigo científico.",
+      feita: false,
+    },
+    {
+      id: 3,
+      nome: "Estágio",
+      prazoMeses: 18,
+      descricao: "Concluir o estágio obrigatório.",
+      feita: false,
+    },
     { id: 4, nome: "Defesa", prazoMeses: 24, descricao: "", feita: false },
-    { id: 5, nome: "Exame de Proficiência em Língua Estrangeira", prazoMeses: 16, descricao: "Aprovação em exame de proficiência em língua estrangeira.", feita: false },
-    { id: 6, nome: "Carga Horária Básica", prazoMeses: 15, descricao: "Cumprir a carga horária mínima de disciplinas obrigatórias.", feita: false },
+    {
+      id: 5,
+      nome: "Exame de Proficiência em Língua Estrangeira",
+      prazoMeses: 16,
+      descricao: "Aprovação em exame de proficiência em língua estrangeira.",
+      feita: false,
+    },
+    {
+      id: 6,
+      nome: "Carga Horária Básica",
+      prazoMeses: 15,
+      descricao: "Cumprir a carga horária mínima de disciplinas obrigatórias.",
+      feita: false,
+    },
   ]);
 
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState(null);
@@ -58,8 +87,16 @@ function PerfilAluno() {
   };
 
   const tarefasOrdenadas = [...tarefas].sort((a, b) => {
-    const prazoA = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + a.prazoMeses, dataDeInicio.getDate());
-    const prazoB = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + b.prazoMeses, dataDeInicio.getDate());
+    const prazoA = new Date(
+      dataDeInicio.getFullYear(),
+      dataDeInicio.getMonth() + a.prazoMeses,
+      dataDeInicio.getDate(),
+    );
+    const prazoB = new Date(
+      dataDeInicio.getFullYear(),
+      dataDeInicio.getMonth() + b.prazoMeses,
+      dataDeInicio.getDate(),
+    );
     return prazoA - prazoB;
   });
 
@@ -79,56 +116,79 @@ function PerfilAluno() {
     <div className="contain">
       <header>
         <div className="containerAluno">
-        <div className="infoAluno">
-        <img src={logoPgcomp} alt="Logo" />
-        <div className="boxInfoAluno">
-          <h3>José  Silva José Silva</h3>
-          <p><span>Titulação:</span> Mestrado/Doutorado</p>
-          <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
-          <p><span>Status:</span> Ativo</p>
-        </div>
-          <div className="boxInfoAluno">
-            <h3><span>Matrícula:</span> xxxxxxxxx</h3>
-            <p><span>Orientador(a): </span>Augusto Carlos</p>
-            <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
+          <div className="infoAluno">
+            <img src={logoPgcomp} alt="Logo" />
+            <div className="boxInfoAluno">
+              <h3>José Silva José Silva</h3>
+              <p>
+                <span>Titulação:</span> Mestrado/Doutorado
+              </p>
+              <p>
+                <span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}
+              </p>
+              <p>
+                <span>Status:</span> Ativo
+              </p>
+            </div>
+            <div className="boxInfoAluno">
+              <h3>
+                <span>Matrícula:</span> xxxxxxxxx
+              </h3>
+              <p>
+                <span>Orientador(a): </span>Augusto Carlos
+              </p>
+              <p>
+                <span>Término Previsto:</span>{" "}
+                {new Date(
+                  dataDeInicio.getFullYear() + 3,
+                  dataDeInicio.getMonth(),
+                  dataDeInicio.getDate(),
+                ).toLocaleDateString()}
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="botoesToolbar">
-          <button
-            onClick={() => (window.location.href = "/atualizar-senha")}
-            style={{
-              padding: "10px 10px",
-              marginRight: "5px",
-              borderRadius: "10px",
-              width: "240px",
-            }}
-          >
-            Atualizar Senha
-          </button>
-          <button
-            onClick={signOut}
-            style={{
-              padding: "10px 10px",
-              marginRight: "5px",
-              borderRadius: "10px",
-            }}
-          >
-            Sair
-          </button>
+          <div className="botoesToolbar">
+            <button
+              onClick={() => (window.location.href = "/atualizar-senha")}
+              style={{
+                padding: "10px 10px",
+                marginRight: "5px",
+                borderRadius: "10px",
+                width: "240px",
+              }}
+            >
+              Atualizar Senha
+            </button>
+            <button
+              onClick={signOut}
+              style={{
+                padding: "10px 10px",
+                marginRight: "5px",
+                borderRadius: "10px",
+              }}
+            >
+              Sair
+            </button>
+          </div>
         </div>
       </header>
 
-
-      <div className="tarefasAluno" >
-        <div className="boxTarefas" >
+      <div className="tarefasAluno">
+        <div className="boxTarefas">
           <h3 style={{ textAlign: "center" }}>TAREFAS A FAZER</h3>
           {tarefasAFazer.map((tarefa) => {
-            const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
-            const diasRestantes = Math.ceil((prazo - dataAtual) / (1000 * 60 * 60 * 24));
+            const prazo = new Date(
+              dataDeInicio.getFullYear(),
+              dataDeInicio.getMonth() + tarefa.prazoMeses,
+              dataDeInicio.getDate(),
+            );
+            const diasRestantes = Math.ceil(
+              (prazo - dataAtual) / (1000 * 60 * 60 * 24),
+            );
             let backgroundColor;
             if (diasRestantes <= 90) {
-              backgroundColor = "rgba(240,128,128)"; 
+              backgroundColor = "rgba(240,128,128)";
             } else if (diasRestantes <= 180) {
               backgroundColor = "rgba(244,164,96, 0.8)";
             } else {
@@ -136,14 +196,28 @@ function PerfilAluno() {
             }
 
             return (
-              <div id="task" key={tarefa.id} style={{ backgroundColor: backgroundColor,}}>
+              <div
+                id="task"
+                key={tarefa.id}
+                style={{ backgroundColor: backgroundColor }}
+              >
                 <AiOutlineEdit // Marcador icone
                   onClick={() => handleCheckboxChange(tarefa.id)}
-                  style={{ cursor: 'pointer', marginLeft: '5px', marginRight: "10px" }}
-                  size={20}  
+                  style={{
+                    cursor: "pointer",
+                    marginLeft: "5px",
+                    marginRight: "10px",
+                  }}
+                  size={20}
                   title="Editar"
                 />
-                <label style={{marginLeft: "5px",fontSize: "18px",fontWeight: "500",}}>
+                <label
+                  style={{
+                    marginLeft: "5px",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                  }}
+                >
                   {tarefa.nome}
                 </label>
                 {tarefaEmEdicao === tarefa.id && (
@@ -157,17 +231,29 @@ function PerfilAluno() {
                         onChange={(e) => setDataSelecionada(e.target.value)}
                         style={{ marginLeft: "25px" }}
                       />
-                      <button onClick={() => salvarDataRealizacao(tarefa.id)} 
-                      style={{marginLeft:"25px",width:'70px', height:'25px', borderRadius: '5px', fontSize: "13px"}}>Salvar</button>
+                      <button
+                        onClick={() => salvarDataRealizacao(tarefa.id)}
+                        style={{
+                          marginLeft: "25px",
+                          width: "70px",
+                          height: "25px",
+                          borderRadius: "5px",
+                          fontSize: "13px",
+                        }}
+                      >
+                        Salvar
+                      </button>
                     </label>
                   </>
                 )}
                 <br></br>
                 <label style={{ marginLeft: "40px", fontSize: "15px" }}>
-                  {tarefa.descricao}<br></br>
+                  {tarefa.descricao}
+                  <br></br>
                 </label>
                 <label style={{ marginLeft: "40px", fontSize: "15px" }}>
-                  Data Limite: {prazo.toLocaleDateString()} - {diasRestantes} dias restantes
+                  Data Limite: {prazo.toLocaleDateString()} - {diasRestantes}{" "}
+                  dias restantes
                 </label>
               </div>
             );
@@ -177,24 +263,40 @@ function PerfilAluno() {
         <div className="boxTarefas">
           <h3 style={{ textAlign: "center" }}>TAREFAS REALIZADAS</h3>
           {tarefasFeitas.map((tarefa) => {
-            const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
+            const prazo = new Date(
+              dataDeInicio.getFullYear(),
+              dataDeInicio.getMonth() + tarefa.prazoMeses,
+              dataDeInicio.getDate(),
+            );
             return (
-              <div id="task" key={tarefa.id}style={{backgroundColor: "rgb(135,206,250,0.8)",}}>
+              <div
+                id="task"
+                key={tarefa.id}
+                style={{ backgroundColor: "rgb(135,206,250,0.8)" }}
+              >
                 <AiOutlineFileExcel // Marcador icone
                   onClick={() => handleCheckboxChange(tarefa.id)}
-                  style={{ cursor: 'pointer' , marginLeft: "5px"  }}
-                  size={20} 
+                  style={{ cursor: "pointer", marginLeft: "5px" }}
+                  size={20}
                   title="Desfazer"
                 />
-                <label style={{marginLeft: "15px",fontSize: "18px",fontWeight: "500",}}>
+                <label
+                  style={{
+                    marginLeft: "15px",
+                    fontSize: "18px",
+                    fontWeight: "500",
+                  }}
+                >
                   {tarefa.nome}
                 </label>
                 <br></br>
                 <label style={{ marginLeft: "40px", fontSize: "15px" }}>
-                  {tarefa.descricao}<br></br>
+                  {tarefa.descricao}
+                  <br></br>
                 </label>
                 <label style={{ marginLeft: "40px", fontSize: "15px" }}>
-                    Realizada em: {new Date(tarefa.dataRealizacao).toLocaleDateString()}
+                  Realizada em:{" "}
+                  {new Date(tarefa.dataRealizacao).toLocaleDateString()}
                 </label>
               </div>
             );

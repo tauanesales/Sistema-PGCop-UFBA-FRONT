@@ -11,7 +11,7 @@ const Input = ({ label, ...props }: Props) => {
       <label htmlFor={props.id} className="label">
         {label}
       </label>
-      <input name={props.id} className="inputCadastro" required {...props} />
+      <input name={props.id} className="inputGeral" required {...props} />
     </div>
   );
 };
