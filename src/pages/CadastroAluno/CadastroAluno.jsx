@@ -1,7 +1,7 @@
 import './styles.css'
 import Input from '../../components/Input'
 import SelectCadastro from '../../components/SelectCadastro'
-import Button from '../../components/Button';
+import Button from '../../components/ButtonPrimary';
 const CadastroAluno = () => {
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
   return (

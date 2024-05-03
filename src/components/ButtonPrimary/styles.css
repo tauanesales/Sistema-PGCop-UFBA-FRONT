@@ -1,0 +1,32 @@
+.btnPrimary {
+  color: #000000;
+  background-color: #F6F9FA;
+  font-family: "Roboto", sans-serif;
+  font-size: 1em;
+  font-weight: 700;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  width: 11em;
+  height: 2.8em;
+
+
+}
+
+.btnPrimary:hover {
+  background-color: #fdfdfd; 
+}
+
+.btnPrimary .alterarDados{
+  width: 1.7em;
+  height: 2em;
+  object-fit: contain;
+}
+.btnPrimary .logout{
+  width: 1.7em;
+  height: 1.2em;
+  object-fit: contain;
+
+}
