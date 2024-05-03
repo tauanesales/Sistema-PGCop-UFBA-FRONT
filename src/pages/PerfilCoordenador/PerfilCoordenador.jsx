@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import "./styles.css"
 import Button from "../../components/Button";
-import { MdGroupAdd, MdOutlineLibraryBooks, MdLogout } from 'react-icons/md'; // Importando os ícones
+import { MdGroupAdd, MdOutlineLibraryBooks, MdLogout } from 'react-icons/md'; // Importando ícones
 
 function PerfilCoordenador(){
 
