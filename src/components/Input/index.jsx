@@ -1,16 +1,22 @@
 /* eslint-disable react/prop-types */
 import './styles.css'
 
-const Input = ({placeholder, type, onFocus, onBlur}) => {
+const Input = ({type, onFocus, onBlur, label, id}) => {
   return (
-        <input
-          type={type}
-          placeholder={placeholder}
-          className="inputCadastro"
-          required
-          onFocus={onFocus}
-          onBlur={onBlur}
-        />
+
+      <div className="containInput">
+        <label htmlFor={id} className="label">{label}</label>
+          <input
+            type={type}
+            id={id}
+            name={id}
+            className="inputGeral"
+            required
+            onFocus={onFocus}
+            onBlur={onBlur}
+          />
+      </div>
+    
   )
 }
 

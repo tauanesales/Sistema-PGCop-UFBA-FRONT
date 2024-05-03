@@ -1,21 +1,21 @@
 .contain {
-  flex-direction: column;
-  align-items: top;
   display: flex;
+  flex-direction: column;
   background-color: white;
-  line-height: 1.1;
   height: 97vh;
-  width: 210vh;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
 }
 
 .containerAluno {
   width: 100%;
   height: 150px;
-  background-color: #f0f0f9;
+  background-color: #edf1f4;
   display: flex;
   justify-content: space-between;
   padding: 10px 20px;
   box-sizing: border-box;
+  
 }
 
 .containerAluno img {
@@ -32,18 +32,25 @@
 }
 
 .boxInfoAluno {
-  line-height: 0.8;
+  line-height: 2;
   padding: 0px 10px; 
-  width: 60%; 
+  width: 400px; 
 }
+.boxInfoAluno h2 {
+  white-space: nowrap;
+}
+
 
 .boxInfoAluno span {
   font-weight: 700;
 }
 
 .botoesToolbar {
-  min-width: 25em;
-  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
+  align-items: flex-end;
 }
 
 button{
@@ -58,15 +65,16 @@ button{
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;
-  padding-top: 150px; /* Adiciona espaço entre o containerAluno e as tarefas*/
+  padding-top: 12em; /* Adiciona espaço entre o containerAluno e as tarefas*/
 }
 
 .boxTarefas {
   overflow-y: auto;
   border-radius: 5px;
-  background-color: #f0f0f9;
+  padding: 15px 5px;
+  background-color: #edf1f4;
   height: 400px;
-  width: 42%;
+  width: 45%;
   box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.1);
 }
 
