@@ -8,7 +8,7 @@
 }
 .containerCardImagem{
   display: flex;
-  height: 35em;
+  height: 70%;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -103,7 +103,7 @@ a {
   }
 }
 
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 1310px) {
   .imagemLogin{
     width: 50%;
   }
