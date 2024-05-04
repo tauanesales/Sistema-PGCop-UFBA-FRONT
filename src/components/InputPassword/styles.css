@@ -25,18 +25,16 @@
 }
 
 
-/* .p-password{
+.p-password{
   width: 100%;
   position: relative;
   display: inline-flex;
-} */
-
-.p-password, .p-icon-field, .p-password-input{
-  width: 100%;
 }
-
-.p-input-icon{
+.p-icon{
   right: 0.75rem;
   top: 0.8rem;
 }
 
+.p-password-input{
+  padding-left: 0.5em;
+}
