@@ -14,7 +14,7 @@ const Login = () => {
 
   return (
     <div className="containerLogin">
-      <div className='containerCardImg'>
+      <div className="containerCardImagem">
         <div className='cardLogin'>
           {/* Logo*/}
           <img src={logoPgcop} width={130} />
