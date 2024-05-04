@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import "./styles.css"
-import Button from "../../components/Button";
+import Button from "../../components/ButtonPrimary";
+import { MdGroupAdd, MdLogout } from 'react-icons/md'; // Importando os ícones
 
 function PerfilOrientador(){
 
@@ -33,6 +34,10 @@ function PerfilOrientador(){
         setShowModal(false);
     }
 
+    // Separa os alunos baseados na titulação
+    const alunosMestrado = alunos.filter(aluno => aluno.titulacao === 'Mestrado');
+    const alunosDoutorado = alunos.filter(aluno => aluno.titulacao === 'Doutorado');
+
     return (
         <div className='contain'>
             <header>    
@@ -47,22 +52,35 @@ function PerfilOrientador(){
                         </div>
                         {/* Botões */}
                         <div className="botoesToolbar" >
-                            <button onClick={() => window.location.href = "/perfil-orientador/solicitacoes"} 
-                                style={{padding: "10px 10px", marginRight:"10px", width:'140px',borderRadius: '5px'}}>Solicitações</button>
-                            <button onClick={() => window.location.href = "/"} 
-                                style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>Sair</button>
+                            <div >
+                                <MdGroupAdd 
+                                onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
+                                style={{ cursor: 'pointer', marginRight: "40px" }}
+                                size={35} 
+                                title="Solicitações" 
+                                />
+                            </div>
+                            <div >
+                                <MdLogout 
+                                onClick={() => window.location.href = "/"} 
+                                style={{ cursor: 'pointer', marginRight: "40px" }}
+                                size={35} 
+                                title="Sair" 
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
             </header>
 
-            <h2 style={{textAlign:'center', marginBottom:'10px'}}>Lista de Orientandos</h2>
+            <h2 style={{textAlign:'center', marginTop:'160px', }}>Lista de Orientandos</h2>
 
-            {/* Container de Alunos Orientados */}
+            {/* Container de Alunos Orientados - Mestrado */}
             <div className='containerOrientadorOrientandos'>
+                <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Mestrado</h3>
                 <ul>
-                    {alunos.map(aluno => (
-                        <li style={{ cursor:'pointer',padding: '3px 20px'}}
+                    {alunosMestrado.map(aluno => (
+                        <li style={{ cursor:'pointer',padding: '7px 20px'}}
                         key={aluno.id} 
                             onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
                             <div>
@@ -70,15 +88,50 @@ function PerfilOrientador(){
                                 Conclusão prevista em {aluno.datafinal}
                             </div>
                             <div >
+                            <button onClick={() => handleDoubleClick(aluno.matricula)}
+                                    style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                        Abrir
+                                </button>
                                 <button onClick={() => {
                                     setSelectedAluno(aluno);
                                     setShowModal(true);
-                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5', width:'95px'}}>Remover</button>
+                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                    Remover
+                                </button>
                             </div>
                         </li>
                     ))}
                 </ul>
-                </div>
+            </div>
+
+            {/* Container de Alunos Orientados - Doutorado */}
+            <div className='containerOrientadorOrientandos' style={{marginTop:'30px'}}>
+                <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Doutorado</h3>
+                <ul>
+                    {alunosDoutorado.map(aluno => (
+                        <li style={{ cursor:'pointer',padding: '7px 20px'}}
+                        key={aluno.id} 
+                            onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
+                            <div>
+                                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} - Titulação: {aluno.titulacao}<br />
+                                Conclusão prevista em {aluno.datafinal}
+                            </div>
+                            <div >
+                            <button onClick={() => handleDoubleClick(aluno.matricula)}
+                                    style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                        Abrir
+                                </button>
+                                <button onClick={() => {
+                                    setSelectedAluno(aluno);
+                                    setShowModal(true);
+                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                    Remover
+                                </button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             {/* Modal de confirmação */}
             {showModal && (

@@ -1,54 +1,63 @@
-import Button from '../../components/Button';
+import ButtonSecondary from '@/components/ButtonSecondary';
+import Button from '../../components/ButtonPrimary';
 import Input from '../../components/Input';
+import InputPassword from '@/components/InputPassword';
 import './styles.css'
 
 const Login = () => {
-  const logoPgcomp = "assets/logopgcomp.png";
+  const logoPgcop = "assets/logoPgcop.png";
+  const imagemBarra = "assets/salvador.png";
+  const gamboa = "assets/gamboa.jpg";
+  const farol = "assets/farol.jpg"
+  const pelourinho = "assets/pelourinho.jpg"
+  const barra = "assets/barra.jpg"
 
   return (
-    <div className='containerLogin'>
-      {/* Logo*/}
-      <img src={logoPgcomp} width={130} />
-      {/* Campo Email */}
-      <div style={{ position: "center", marginBottom: "20px" }}>
-      <Input placeholder={"Email"} type={"email"}/>
-      </div>
-      {/* Campo Senha */}
-      <div style={{ position: "relative", marginBottom: "20px" }}>
-      <Input placeholder={"Senha"} type={"password"}/>
-      </div>
-      {/* Botão Login */}
-      <Button link={'/perfil-aluno'} label={"Login"}/>
+    <div className="containerLogin">
+      <div className='containerCardImg'>
+        <div className='cardLogin'>
+          {/* Logo*/}
+          <img src={logoPgcop} width={130} />
 
-      {/* LInks Cadastro e Recuperação de senha */}
-      <p style={{ color: "blue", marginTop: "20px" }}>
-        <a
-          href="/cadastro-aluno"
-          style={{
-            color: "blue",
-            textDecoration: "underline",
-            cursor: "pointer",
-            opacity: "0.9",
-          }}
-        >
-          {" "}
-          CADASTRE-SE{" "}
-        </a>{" "}
-        OU
-        <a
-          href="/esqueci-senha"
-          style={{
-            color: "blue",
-            textDecoration: "underline",
-            cursor: "pointer",
-            opacity: "0.9",
-          }}
-        >
-          {" "}
-          ESQUECI A SENHA{" "}
-        </a>
-      </p>
+          <h1>Bem vindo de volta ao PGCop</h1>
+          <div className="inputs">
+            {/* Campo Email */}
+            <Input label={"Matrícula"} type={"email"} />
+            {/* Campo Senha */}
+            <InputPassword label={"Senha"} type={"password"}/>
+
+            <div className='conectado'>
+              <input type="checkbox" name="conectado" id="conectado" />
+              <label htmlFor="conectado">Matenha-me conectado</label>
+            </div>
+
+            {/* Botão Login */}
+            <ButtonSecondary link={'/perfil-aluno'} label={"Entrar"}/>
+          </div>
+
+          {/* Links Cadastro e Recuperação de senha */}
+          <div className="links">
+            <a
+              href="/cadastro-aluno"
+              className='text'
+            >
+              Cadastre-se
+            </a>
+
+            <p className='text'>
+              Esqueceu a senha? Clique 
+              <a
+                href="/esqueci-senha"
+                > aqui.</a>
+            </p>
+          </div>
+        </div>
+        <img  src={imagemBarra} className='imagemLogin'
+        alt="Imagem do Forte de Santa Maria - Salvador/BA"
+        />
+      </div>
     </div>
+
   );
 }
 

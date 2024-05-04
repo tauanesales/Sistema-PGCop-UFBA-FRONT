@@ -1,20 +1,17 @@
-:root {
-  font-family:system-ui,Helvetica, Arial, sans-serif;
-  line-height: 1.3;
-  font-weight: 400;
-  color: rgba(42, 41, 41, 0.87);
-  color-scheme: light dark;
-  background-color: white;
+*{
   margin: 0;
   padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+}
+
+ /* Cor branca dos buttons*/
+ button {
+  color: rgba(246, 245, 245, 0.87);
+  font-size: 14px;
 }
 
 .container{
   background-color: white;
+  color: rgba(42, 41, 41, 0.87);
   border-radius: 10px;
 }
 
@@ -49,6 +46,7 @@ header {
  nav ul li {
   margin-left: 1rem;
  }
+
 
 /*
 :root {

@@ -2,7 +2,7 @@ a{
   width: 100%;
   text-align: center;
 }
-button {
+.my-button {
   text-transform: uppercase;
   width: 13em;
   height: 2.5em;

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"; 
 import "./styles.css";
-import Button from "../../components/Button";
+
+import { MdEditNote, MdLogout } from 'react-icons/md'; // Importando os ícones
+import { AiOutlineEdit , AiOutlineFileExcel } from 'react-icons/ai'; // Importando os ícones
 
 function PerfilAluno() {
   const logoPgcomp = "assets/logopgcomp.png"; // Logo
@@ -70,27 +72,33 @@ function PerfilAluno() {
     <div className="contain">
       <header>
         <div className="containerAluno">
-        <div className="infoAluno">
-        <img src={logoPgcomp} alt="Logo" />
-        <div className="boxInfoAluno">
-          <h3>José  Silva José Silva</h3>
-          <p><span>Titulação:</span> Mestrado/Doutorado</p>
-          <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
-          <p><span>Status:</span> Ativo</p>
-        </div>
+          <div className="infoAluno">
+          <img src={logoPgcomp} alt="Logo" />
           <div className="boxInfoAluno">
-            <h3><span>Matrícula:</span> xxxxxxxxx</h3>
-            <p><span>Orientador(a): </span>Augusto Carlos</p>
-            <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
+            <h3>José  Silva José Silva</h3>
+            <p><span>Titulação:</span> Mestrado/Doutorado</p>
+            <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
+            <p><span>Status:</span> Ativo</p>
           </div>
-        </div>
+            <div className="boxInfoAluno">
+              <h3><span>Matrícula:</span> xxxxxxxxx</h3>
+              <p><span>Orientador(a): </span>Augusto Carlos</p>
+              <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
+            </div>
+          </div>
 
-          <div className="botoesToolbar">
-            <button onClick={() => window.location.href = "/atualizar-senha"} 
-              style={{padding: "10px 10px", marginRight:"5px", borderRadius: '5px', width:'150px'}}>Atualizar Senha</button>
-            <button onClick={() => window.location.href = "/"} 
-              style={{padding: "10px 10px", marginRight:"30px", borderRadius: '5px'}}>Sair</button>
-          </div>
+            <div className="botoesToolbar">
+              <MdEditNote onClick={() => window.location.href = "/atualizar-senha"} 
+                style={{ cursor: 'pointer', marginRight:"40px" }} 
+                size={35} 
+                title="Atualizar dados" 
+              />
+              <MdLogout onClick={() => window.location.href = "/"} 
+                style={{ cursor: 'pointer', marginRight:"40px" }} 
+                size={35} 
+                title="Sair" 
+              />
+            </div>
         </div>
       </header>
 
@@ -112,37 +120,37 @@ function PerfilAluno() {
 
             return (
               <div id="task" key={tarefa.id} style={{ backgroundColor: backgroundColor,}}>
-                <input style={{backgroundColor: '#ffffff' }}
-                  type="checkbox"
-                  className="checkbox"
-                  checked={tarefa.feita}
-                  onChange={() => handleCheckboxChange(tarefa.id)}
+                <AiOutlineEdit // Marcador icone
+                  onClick={() => handleCheckboxChange(tarefa.id)}
+                  style={{ cursor: 'pointer', marginLeft: '5px', marginRight: "10px" }}
+                  size={20}  
+                  title="Editar"
                 />
-                <label style={{marginLeft: "5px",fontSize: "17px",fontWeight: "500",}}>
+                <label style={{marginLeft: "5px",fontSize: "18px",fontWeight: "500",}}>
                   {tarefa.nome}
                 </label>
                 {tarefaEmEdicao === tarefa.id && (
                   <>
                     <br />
-                    <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                    <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                       Data de realização:
                       <input
                         type="date"
                         value={dataSelecionada}
                         onChange={(e) => setDataSelecionada(e.target.value)}
-                        style={{ marginLeft: "10px" }}
+                        style={{ marginLeft: "25px" }}
                       />
                       <button onClick={() => salvarDataRealizacao(tarefa.id)} 
-                      style={{marginLeft:"10px",width:'70px', height:'25px', borderRadius: '5px'}}>Salvar</button>
+                      style={{marginLeft:"25px",width:'70px', height:'25px', borderRadius: '5px', fontSize: "13px"}}>Salvar</button>
                     </label>
                   </>
                 )}
                 <br></br>
-                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                   {tarefa.descricao}<br></br>
                 </label>
-                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
-                  Data Limite: {prazo.toLocaleDateString()} ({diasRestantes} dias restantes)
+                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
+                  Data Limite: {prazo.toLocaleDateString()} - {diasRestantes} dias restantes
                 </label>
               </div>
             );
@@ -155,20 +163,20 @@ function PerfilAluno() {
             const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
             return (
               <div id="task" key={tarefa.id}style={{backgroundColor: "rgb(135,206,250,0.8)",}}>
-                <input
-                  type="checkbox"
-                  className="checkbox"
-                  checked={tarefa.feita}
-                  onChange={() => handleCheckboxChange(tarefa.id)}
+                <AiOutlineFileExcel // Marcador icone
+                  onClick={() => handleCheckboxChange(tarefa.id)}
+                  style={{ cursor: 'pointer' , marginLeft: "5px"  }}
+                  size={20} 
+                  title="Desfazer"
                 />
-                <label style={{marginLeft: "5px",fontSize: "17px",fontWeight: "500",}}>
+                <label style={{marginLeft: "15px",fontSize: "18px",fontWeight: "500",}}>
                   {tarefa.nome}
                 </label>
                 <br></br>
-                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                   {tarefa.descricao}<br></br>
                 </label>
-                <label style={{ marginLeft: "20px", fontSize: "14px" }}>
+                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                     Realizada em: {new Date(tarefa.dataRealizacao).toLocaleDateString()}
                 </label>
               </div>

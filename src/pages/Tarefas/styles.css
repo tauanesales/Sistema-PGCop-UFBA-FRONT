@@ -21,9 +21,9 @@
     justify-content: space-around;
   }
   
-  .botoesTarefas button{
-    top:20px;
-    border-radius: 5px;
+  .botoesTarefas{
+    display: flex;
+    align-items: end;
     position: fixed;
     cursor: pointer;
   }

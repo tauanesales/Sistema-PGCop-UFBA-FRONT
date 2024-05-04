@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import "./styles.css"
 import Button from "../../components/Button";
+import { MdGroupAdd, MdOutlineLibraryBooks, MdLogout } from 'react-icons/md'; // Importando ícones
 
 function PerfilCoordenador(){
 
@@ -33,43 +34,61 @@ function PerfilCoordenador(){
         setShowModal(false);
     }
 
+    // Separa os alunos baseados na titulação
+    const alunosMestrado = alunos.filter(aluno => aluno.titulacao === 'Mestrado');
+    const alunosDoutorado = alunos.filter(aluno => aluno.titulacao === 'Doutorado');
+
     return (
-        <div className='contain'>
-            <header>
-                <div className='containerCoordenador'>
-                    {/* Logo*/}
-                    <img src={logoPgcomp}/>
-                    {/* Informações do perfil */}
-                    <div className='infoCoordenador'style={{justifyContent:"space-between", marginRight:"20px"}}>
-                        <div>
-                            <h2 >Augusto Carlos Santos</h2>
-                            <h3>Orientandos: {alunos.length}</h3>
-                        </div>
-                        {/* Botão Vers Solicitações */}
-                        <div className="botoesToolbar">
-                            <button onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
-                                style={{padding: "10px 10px", marginLeft:"0px" , marginRight:"10px", width:'140px',borderRadius: '5px'}}>
-                                    Solicitações</button>
-                            {/* Botão Tarefas*/}
-                            <button onClick={() => window.location.href = "/perfil-coordenador/tarefas"} 
-                                style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>
-                                    Tarefas</button>
-                            {/* Botão Sair*/}
-                            <button onClick={() => window.location.href = "/"} 
-                                style={{padding: "10px 10px", marginRight:"10px",width:'110px', borderRadius: '5px'}}>
-                                    Sair</button>
-                        </div>
-                    </div>
+        <div className="contain">
+          <header>
+            <div className="containerCoordenador">
+              {/* Logo*/}
+              <img src={logoPgcomp} alt="Logo" />
+              {/* Informações do perfil */}
+              <div className="infoCoordenador" style={{ justifyContent: "space-between", marginRight: "30px" }}>
+                <div>
+                  <h2 >Augusto Carlos Santos</h2>
+                  <h3>Orientandos: {alunos.length}</h3>
                 </div>
-            </header>
+                {/* Botões Toolbar */}
+                <div >
+                  <div className='botoesToolbar'>
+                    <MdGroupAdd 
+                      onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
+                      style={{ cursor: 'pointer', marginRight: "42px" }}
+                      size={35} 
+                      title="Solicitações" 
+                    />
+                  </div>
+                  <div >
+                    <MdOutlineLibraryBooks 
+                      onClick={() => window.location.href = "/perfil-coordenador/tarefas"} 
+                      style={{ cursor: 'pointer', marginRight: "45px" }}
+                      size={35} 
+                      title="Tarefas" 
+                    />
+                  </div>
+                  <div>
+                    <MdLogout 
+                      onClick={() => window.location.href = "/"} 
+                      style={{ cursor: 'pointer', marginRight: "30px" }}
+                      size={35} 
+                      title="Sair" 
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
             
 
-            <h2 style={{textAlign:'center', marginBottom:'10px'}}>Lista de Orientandos</h2>
-            {/* Container de Alunos Orientados */}
-            <div className='containerOrientandos'>
+            <h2 style={{textAlign:'center', marginTop:'160px', }}>Lista de Orientandos</h2>
+            {/* Container de Alunos Orientados - Mestrado */}
+            <div className='containerOrientandosCoordenador'>
+                <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Mestrado</h3>
                 <ul>
-                    {alunos.map(aluno => (
-                        <li style={{cursor:'pointer', padding: '3px 20px', }}
+                    {alunosMestrado.map(aluno => (
+                        <li style={{ cursor:'pointer',padding: '7px 20px'}}
                         key={aluno.id} 
                             onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
                             <div>
@@ -77,10 +96,45 @@ function PerfilCoordenador(){
                                 Conclusão prevista em {aluno.datafinal}
                             </div>
                             <div >
+                                <button onClick={() => handleDoubleClick(aluno.matricula)}
+                                    style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                        Abrir
+                                </button>
                                 <button onClick={() => {
                                     setSelectedAluno(aluno);
                                     setShowModal(true);
-                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5', width:'95px'}}>Remover</button>
+                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                    Remover
+                                </button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            {/* Container de Alunos Orientados - Doutorado */}
+            <div className='containerOrientandosCoordenador' style={{marginTop:'30px'}}>
+                <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Doutorado</h3>
+                <ul>
+                    {alunosDoutorado.map(aluno => (
+                        <li style={{ cursor:'pointer',padding: '7px 20px'}}
+                        key={aluno.id} 
+                            onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
+                            <div>
+                                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} - Titulação: {aluno.titulacao}<br />
+                                Conclusão prevista em {aluno.datafinal}
+                            </div>
+                            <div >
+                                <button onClick={() => handleDoubleClick(aluno.matricula)}
+                                    style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                        Abrir
+                                </button>
+                                <button onClick={() => {
+                                    setSelectedAluno(aluno);
+                                    setShowModal(true);
+                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                    Remover
+                                </button>
                             </div>
                         </li>
                     ))}
