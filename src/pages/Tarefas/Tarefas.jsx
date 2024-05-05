@@ -2,52 +2,52 @@ import "./styles.css";
 
 import { useState } from "react";
 import {
-  AiFillDelete,
-  AiFillEdit,
-  AiOutlineArrowLeft,
-  AiOutlineFileAdd,
-} from "react-icons/ai";
-
-const tarefasData = [
-  {
-    id: 1,
-    nome: "Qualificação",
-    prazo: 13,
-    descricao: "Apresentação e defesa do projeto de pesquisa.",
-    titulacao: "Mestrado",
-  },
-  {
-    id: 2,
-    nome: "Carga Horária Básica",
-    prazo: 18,
-    descricao: "Cumprir a carga horária mínima de disciplinas obrigatórias.",
-    titulacao: "Mestrado",
-  },
-  {
-    id: 3,
-    nome: "Artigo",
-    prazo: 24,
-    descricao: "Elaborar e submeter um artigo científico.",
-    titulacao: "Mestrado",
-  },
-  {
-    id: 4,
-    nome: "Exame de Proficiência em Língua Estrangeira",
-    prazo: 24,
-    descricao: "Aprovação em exame de proficiência em língua estrangeira.",
-    titulacao: "Doutorado",
-  },
-  {
-    id: 5,
-    nome: "Estágio",
-    prazo: 18,
-    descricao: "Concluir o estágio obrigatório.",
-    titulacao: "Doutorado",
-  },
-];
+  MdArrowBack,
+  MdCreate,
+  MdDelete,
+  MdOutlineLibraryAdd,
+} from "react-icons/md"; // Importando os ícones
 
 function Tarefas() {
-  /* Const Att Tarefas */
+  const tarefasData = [
+    {
+      id: 1,
+      nome: "Qualificação",
+      prazo: 13,
+      descricao: "Apresentação e defesa do projeto de pesquisa.",
+      titulacao: "Mestrado",
+    },
+    {
+      id: 2,
+      nome: "Carga Horária Básica",
+      prazo: 18,
+      descricao: "Cumprir a carga horária mínima de disciplinas obrigatórias.",
+      titulacao: "Mestrado",
+    },
+    {
+      id: 3,
+      nome: "Artigo",
+      prazo: 24,
+      descricao: "Elaborar e submeter um artigo científico.",
+      titulacao: "Mestrado",
+    },
+    {
+      id: 4,
+      nome: "Exame de Proficiência em Língua Estrangeira",
+      prazo: 24,
+      descricao: "Aprovação em exame de proficiência em língua estrangeira.",
+      titulacao: "Doutorado",
+    },
+    {
+      id: 5,
+      nome: "Estágio",
+      prazo: 18,
+      descricao: "Concluir o estágio obrigatório.",
+      titulacao: "Doutorado",
+    },
+  ];
+
+  /*Const Att Tarefas */
   const [tarefas, setTarefas] = useState(tarefasData);
   const [showModal, setShowModal] = useState(false);
   const [selectedTarefa, setSelectedTarefa] = useState(null);
@@ -56,7 +56,7 @@ function Tarefas() {
   const [editTarefaPrazo, setEditTarefaPrazo] = useState(0);
   const [editTarefaDescricao, setEditTarefaDescricao] = useState("");
   const [editTarefaTitulacao, setEditTarefaTitulacao] = useState("Mestrado");
-  /* Const Add Tarefas */
+  /* Const Add Tarefas*/
   const [showAddModal, setShowAddModal] = useState(false);
   const [novaTarefaNome, setNovaTarefaNome] = useState("");
   const [novaTarefaPrazo, setNovaTarefaPrazo] = useState(0);
@@ -114,16 +114,16 @@ function Tarefas() {
 
   return (
     <div className="contain">
-      <div className="botoesTarefas" style={{ marginLeft: "900px" }}>
+      <div className="botoesTarefas" style={{ marginLeft: "1000px" }}>
         {/* Botão Adicionar Tarefa */}
-        <AiOutlineFileAdd
+        <MdOutlineLibraryAdd
           onClick={() => setShowAddModal(true)}
           style={{ cursor: "pointer", marginRight: "30px" }}
           size={35}
           title="Adicionar Tarefa"
         />
         {/* Botão retornar */}
-        <AiOutlineArrowLeft
+        <MdArrowBack
           onClick={() => (window.location.href = "/perfil-coordenador")}
           style={{ cursor: "pointer", marginRight: "10px" }}
           size={35}
@@ -219,12 +219,8 @@ function Tarefas() {
                   </button>
                 ) : (
                   <>
-                    <AiFillEdit
-                      style={{
-                        color: "#000000",
-                        padding: "15px",
-                        cursor: "pointer",
-                      }}
+                    <MdCreate
+                      style={{ padding: "15px", cursor: "pointer" }}
                       onClick={() => {
                         setIsEditing(true);
                         setEditTarefaNome(tarefa.nome);
@@ -233,19 +229,15 @@ function Tarefas() {
                         setEditTarefaTitulacao(tarefa.titulacao);
                         setSelectedTarefa(tarefa);
                       }}
-                      size={20}
+                      size={55}
                     />
-                    <AiFillDelete
-                      style={{
-                        color: "#000000",
-                        cursor: "pointer",
-                        padding: "15px",
-                      }}
+                    <MdDelete
+                      style={{ cursor: "pointer", padding: "15px" }}
                       onClick={() => {
                         setSelectedTarefa(tarefa);
                         setShowModal(true);
                       }}
-                      size={20}
+                      size={55}
                     />
                   </>
                 )}
@@ -343,12 +335,8 @@ function Tarefas() {
                   </button>
                 ) : (
                   <>
-                    <AiFillEdit
-                      style={{
-                        color: "#000000",
-                        padding: "15px",
-                        cursor: "pointer",
-                      }}
+                    <MdCreate
+                      style={{ padding: "15px", cursor: "pointer" }}
                       onClick={() => {
                         setIsEditing(true);
                         setEditTarefaNome(tarefa.nome);
@@ -357,19 +345,15 @@ function Tarefas() {
                         setEditTarefaTitulacao(tarefa.titulacao);
                         setSelectedTarefa(tarefa);
                       }}
-                      size={20}
+                      size={55}
                     />
-                    <AiFillDelete
-                      style={{
-                        color: "#000000",
-                        cursor: "pointer",
-                        padding: "15px",
-                      }}
+                    <MdDelete
+                      style={{ cursor: "pointer", padding: "15px" }}
                       onClick={() => {
                         setSelectedTarefa(tarefa);
                         setShowModal(true);
                       }}
-                      size={20}
+                      size={55}
                     />
                   </>
                 )}

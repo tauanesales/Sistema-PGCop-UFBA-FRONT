@@ -1,15 +1,15 @@
-.containInput{
+.containInput {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: .2em;
+  gap: 0.2em;
   width: 90%;
 }
-.label{
+.label {
   font-weight: 500;
 }
 
-.boxInput{
+.boxInput {
   width: 100%;
 }
 .inputGeral {
@@ -24,18 +24,16 @@
   padding-left: 0.5em;
 }
 
-
-.p-password{
+.p-password {
   width: 100%;
   position: relative;
   display: inline-flex;
 }
-.p-icon{
+.p-icon {
   right: 0.75rem;
   top: 0.8rem;
 }
 
-.p-password-input{
+.p-password-input {
   padding-left: 0.5em;
 }
-

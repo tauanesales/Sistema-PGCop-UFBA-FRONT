@@ -1,10 +1,8 @@
 import "./styles.css";
 
 import { useEffect, useState } from "react";
-//AiOutlineUsergroupAdd (solicitacoes)
-//AiOutlineFileSync (atualizar)
-//AiOutlineLogout (sair)
 import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai"; // Importando os ícones
+import { MdEditNote, MdLogout } from "react-icons/md"; // Importando os ícones
 
 import { useUserQueries } from "@/queries/user";
 
@@ -149,27 +147,18 @@ function PerfilAluno() {
           </div>
 
           <div className="botoesToolbar">
-            <button
+            <MdEditNote
               onClick={() => (window.location.href = "/atualizar-senha")}
-              style={{
-                padding: "10px 10px",
-                marginRight: "5px",
-                borderRadius: "10px",
-                width: "240px",
-              }}
-            >
-              Atualizar Senha
-            </button>
-            <button
+              style={{ cursor: "pointer", marginRight: "40px" }}
+              size={35}
+              title="Atualizar dados"
+            />
+            <MdLogout
               onClick={signOut}
-              style={{
-                padding: "10px 10px",
-                marginRight: "5px",
-                borderRadius: "10px",
-              }}
-            >
-              Sair
-            </button>
+              style={{ cursor: "pointer", marginRight: "40px" }}
+              size={35}
+              title="Sair"
+            />
           </div>
         </div>
       </header>
