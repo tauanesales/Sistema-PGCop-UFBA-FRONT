@@ -7,7 +7,6 @@ import {
 
 import AtualizarSenha from "@/pages/AtualizarSenha/AtualizarSenha";
 import CadastroAluno from "@/pages/CadastroAluno/CadastroAluno";
-import CadastroProfessor from "@/pages/CadastroProfessor/CadastroProfessor";
 import ConfirmarCadastro from "@/pages/ConfirmarCadastro/ConfirmarCadastro";
 import ConfirmarEnvioEmail from "@/pages/ConfirmarEnvioEmail/ConfirmarEnvioEmail";
 import ConfirmarNovaSenha from "@/pages/ConfirmarNovaSenha/ConfirmarNovaSenha";
@@ -38,7 +37,6 @@ const routes = createRoutesFromElements(
 
     <Route element={<AuthenticationGuard guardType="unauthenticated" />}>
       <Route path="/login" element={<Login />} />
-      <Route path="/cadastro-professor" element={<CadastroProfessor />} />
       <Route path="/cadastro-aluno" element={<CadastroAluno />} />
       <Route path="/esqueci-senha" element={<EsqueciSenha />} />
       <Route path="/confirmar-nova-senha" element={<ConfirmarNovaSenha />} />
