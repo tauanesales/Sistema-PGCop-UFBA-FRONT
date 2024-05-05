@@ -11,7 +11,9 @@ const SelectCadastro = () => {
   }, []);
   return (
     <div className="containerData">
-      <p id="date">Data de Ingresso</p>
+      <p id="date">
+        Data de Ingresso
+      </p>
       <div className="containSelects">
           <select
             className="selectCadastro"
