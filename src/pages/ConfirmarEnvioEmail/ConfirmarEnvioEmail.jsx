@@ -1,6 +1,8 @@
-function ConfirmarEnvioEmail() {
-  const logoPgcomp = "assets/logopgcomp.png"; // Img Logo
-  const confirmacao = "assets/confirmacao.jpg"; // Img confirmação
+import './styles.css'
+
+const ConfirmarEnvioEmail = () => {
+  const logoPgcop = "assets/logoPgcop.png";
+  const confirmacao = "assets/confirmacao.jpg";
 
   return (
     <div
@@ -15,7 +17,7 @@ function ConfirmarEnvioEmail() {
       className="cadastroAluno"
     >
       {/* Logo*/}
-      <img src={logoPgcomp} width={130} />
+      <img src={logoPgcop} width={130} />
       <br></br>
       <p></p>
       <a id="date" style={{ fontSize: "17px", fontWeight: 650 }}>

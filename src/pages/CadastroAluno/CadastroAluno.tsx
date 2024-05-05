@@ -47,8 +47,8 @@ const CadastroAluno = () => {
   });
 
   return (
-    <Formik
-      initialValues={{
+    <Formik 
+    initialValues={{
         name: "",
         cpf: "",
         email: "",
