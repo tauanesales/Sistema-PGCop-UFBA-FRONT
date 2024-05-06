@@ -1,7 +1,7 @@
 
 import './styles.css'
 
-const Input = ({type, onFocus, onBlur, label, id, margin}) => {
+const Input = ({type, onFocus, onBlur, label, id, margin,xwidth}) => {
   const className = `containInput ${margin ? 'marginBottom' : ''}`;
   return (
         <div className={className}>
@@ -14,6 +14,7 @@ const Input = ({type, onFocus, onBlur, label, id, margin}) => {
               required
               onFocus={onFocus}
               onBlur={onBlur}
+            style={{width: {xwidth}}}
             />
         </div>
     
