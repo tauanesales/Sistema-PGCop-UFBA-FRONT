@@ -11,12 +11,12 @@ const EsqueciSenha = () => {
         <img src={logoPgcop} width={130} />
         <h1>Redefinir senha</h1>
         <p>Informe o e-mail cadastrado para redefinir sua senha de acesso.</p>
+        
         <div className='containInput'>
           <Input label={"E-mail:"} type={"email"} margin />
           <ButtonSecondary link={'/confirmar-envio-email'} label={"Entrar"} width={"12em"} />
         </div>
       </div>
-
     </div>
   );
 }

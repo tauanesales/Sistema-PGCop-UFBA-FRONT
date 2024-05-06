@@ -17,14 +17,11 @@ const Login = () => {
     <div className="containerLogin">
       <div className="containerCardImagem">
         <div className='cardLogin'>
-          {/* Logo*/}
           <img src={logoPgcop} width={130} />
 
           <h1>Bem vindo de volta ao PGCop</h1>
           <div className="inputs">
-            {/* Campo Email */}
             <Input label={"Matrícula"} type={"email"} />
-            {/* Campo Senha */}
             <InputPassword label={"Senha"} type={"password"}/>
 
             <div className='conectado'>
@@ -32,11 +29,9 @@ const Login = () => {
               <label htmlFor="conectado">Matenha-me conectado</label>
             </div>
 
-            {/* Botão Login */}
             <ButtonSecondary link={'/perfil-aluno'} label={"Entrar"} width={"90%"}/>
           </div>
 
-          {/* Links Cadastro e Recuperação de senha */}
           <div className="links">
             <a
               href="/cadastro-aluno"
