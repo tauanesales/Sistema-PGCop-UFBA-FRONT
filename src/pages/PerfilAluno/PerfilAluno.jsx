@@ -162,7 +162,7 @@ function PerfilAluno() {
           {tarefasFeitas.map((tarefa) => {
             const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
             return (
-              <div id="task" key={tarefa.id}style={{backgroundColor: "rgb(135,206,250,0.8)",}}>
+              <div id="task" key={tarefa.id}style={{backgroundColor: "#ADD8E6",}}>
                 <AiOutlineFileExcel // Marcador icone
                   onClick={() => handleCheckboxChange(tarefa.id)}
                   style={{ cursor: 'pointer' , marginLeft: "5px"  }}

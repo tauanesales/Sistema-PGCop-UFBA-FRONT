@@ -3,6 +3,7 @@ import "./styles.css"
 import { MdGroupAdd, MdLogout } from 'react-icons/md';
 import { BsFillCircleFill } from 'react-icons/bs'; // Ícone de notificação
 import Solicitacoes from '../../components/Solicitacoes/Solicitacoes';
+import ButtonSecondary from '@/components/ButtonSecondary';
 
 function PerfilOrientador(){
 
@@ -117,11 +118,11 @@ function PerfilOrientador(){
                                 Conclusão prevista em {aluno.datafinal}
                             </div>
                             <div>
-                                <button onClick={() => handleDoubleClick(aluno.matricula)}
+                                <button className='bttn' onClick={() => handleDoubleClick(aluno.matricula)}
                                     style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
                                     Abrir
                                 </button>
-                                <button onClick={() => {
+                                <button className='bttn' onClick={() => {
                                     setSelectedAluno(aluno);
                                     setShowModal(true);
                                 }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
@@ -145,11 +146,11 @@ function PerfilOrientador(){
                                 Conclusão prevista em {aluno.datafinal}
                             </div>
                             <div>
-                                <button onClick={() => handleDoubleClick(aluno.matricula)}
+                                <button className='bttn' onClick={() => handleDoubleClick(aluno.matricula)}
                                     style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
                                     Abrir
                                 </button>
-                                <button onClick={() => {
+                                <button className='bttn' onClick={() => {
                                     setSelectedAluno(aluno);
                                     setShowModal(true);
                                 }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
@@ -172,8 +173,8 @@ function PerfilOrientador(){
                     }}>
                         <p>Tem certeza que deseja remover esse aluno da sua lista?</p>
                         <ul style={{display: 'flex'}}>
-                            <button onClick={handleDelete} style={{marginRight: '30px',padding: "10px" }}>Sim</button>
-                            <button onClick={() => setShowModal(false)} style={{padding: "10px" }}>Não</button>
+                            <button className='bttn' onClick={handleDelete} style={{marginRight: '30px',padding: "10px" }}>Sim</button>
+                            <button className='bttn' onClick={() => setShowModal(false)} style={{padding: "10px" }}>Não</button>
                         </ul>
                     </div>
                 </div>
