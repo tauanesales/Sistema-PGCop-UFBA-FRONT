@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import "./styles.css"
-import Button from "../../components/ButtonPrimary";
-import { MdGroupAdd, MdLogout } from 'react-icons/md'; // Importando os ícones
+import { MdGroupAdd, MdLogout } from 'react-icons/md';
+import { BsFillCircleFill } from 'react-icons/bs'; // Ícone de notificação
+import Solicitacoes from '../../components/Solicitacoes/Solicitacoes';
 
 function PerfilOrientador(){
 
@@ -9,7 +10,7 @@ function PerfilOrientador(){
 
     const alunosData = [
         { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
-        { id: 2, nome: 'Tauane Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '03=18/05/2027' },
+        { id: 2, nome: 'Tauane Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '8/05/2027' },
         { id: 3, nome: 'Mario Souza', matricula: '2022003', titulacao: 'Mestrado', datafinal: '15/05/2024' },
         { id: 4, nome: 'Ana Clara', matricula: '2022004', titulacao: 'Doutorado', datafinal: '03/07/2027' },
         { id: 5, nome: 'Pedro Henrique', matricula: '2022005', titulacao: 'Mestrado', datafinal: '03/012/2025' },
@@ -17,9 +18,16 @@ function PerfilOrientador(){
         { id: 7, nome: 'Roberta Santos', matricula: '2022007', titulacao: 'Mestrado', datafinal: '03/08/2025' }
     ];
 
+    const [solicitacoes, setSolicitacoes] = useState([
+        { id: 1, nome: 'Natalia Santos', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 2, nome: 'Claudio Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '8/05/2027' },
+        { id: 3, nome: 'Vinicius Alves', matricula: '2022003', titulacao: 'Mestrado', datafinal: '15/05/2024' },
+    ]);
+
     const [alunos, setAlunos] = useState(alunosData);
     const [showModal, setShowModal] = useState(false);
     const [selectedAluno, setSelectedAluno] = useState(null);
+    const [showSolicitacoes, setShowSolicitacoes] = useState(false);
 
     const handleDoubleClick = (matricula) => {
         const aluno = alunos.find(aluno => aluno.matricula === matricula);
@@ -34,7 +42,22 @@ function PerfilOrientador(){
         setShowModal(false);
     }
 
-    // Separa os alunos baseados na titulação
+    const handleSolicitacoesClick = () => {
+        setShowSolicitacoes(!showSolicitacoes);
+    };
+
+    const handleAcceptRequest = (id) => {
+        const solicitationToAccept = solicitacoes.find(solicitacao => solicitacao.id === id);
+        setAlunos([...alunos, solicitationToAccept]);
+        const updatedSolicitacoes = solicitacoes.filter(solicitacao => solicitacao.id !== id);
+        setSolicitacoes(updatedSolicitacoes);
+    };
+
+    const handleRemoveRequest = (id) => {
+        const updatedSolicitacoes = solicitacoes.filter(solicitacao => solicitacao.id !== id);
+        setSolicitacoes(updatedSolicitacoes);
+    };
+
     const alunosMestrado = alunos.filter(aluno => aluno.titulacao === 'Mestrado');
     const alunosDoutorado = alunos.filter(aluno => aluno.titulacao === 'Doutorado');
 
@@ -42,30 +65,36 @@ function PerfilOrientador(){
         <div className='contain'>
             <header>    
                 <div className='containerOrientador'>
-                    {/* Logo */}
                     <img src={logoPgcomp}/>
-                    {/* Informações do perfil */}
                     <div className='infoOrientador' style={{justifyContent:"space-between"}}>
                         <div>
                             <h2>Augusto Carlos Santos</h2>
                             <h3>Orientandos: {alunos.length}</h3>
                         </div>
-                        {/* Botões */}
-                        <div className="botoesToolbar" >
-                            <div >
+                        <div className="botoesToolbar">
+                            <div style={{ position: 'relative' }}>
                                 <MdGroupAdd 
-                                onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
-                                style={{ cursor: 'pointer', marginRight: "40px" }}
-                                size={35} 
-                                title="Solicitações" 
+                                    onClick={handleSolicitacoesClick} 
+                                    style={{ marginRight: "40px", cursor: "pointer", color: solicitacoes.length > 0 ? "red" : "inherit" }}
+                                    size={35} 
+                                    title="Solicitações" 
                                 />
+                                {showSolicitacoes && 
+                                    <div className="solicitacoesContainer" style={{ position: 'absolute', top: '-50px', }}>
+                                        <Solicitacoes 
+                                            solicitacoes={solicitacoes} 
+                                            handleAcceptRequest={handleAcceptRequest}
+                                            handleRemoveRequest={handleRemoveRequest}
+                                        />
+                                    </div>
+                                }
                             </div>
-                            <div >
+                            <div>
                                 <MdLogout 
-                                onClick={() => window.location.href = "/"} 
-                                style={{ cursor: 'pointer', marginRight: "40px" }}
-                                size={35} 
-                                title="Sair" 
+                                    onClick={() => window.location.href = "/"} 
+                                    style={{ marginRight: "40px", cursor: "pointer" }}
+                                    size={35} 
+                                    title="Sair" 
                                 />
                             </div>
                         </div>
@@ -73,9 +102,8 @@ function PerfilOrientador(){
                 </div>
             </header>
 
-            <h2 style={{textAlign:'center', marginTop:'160px', }}>Lista de Orientandos</h2>
+            <h2 style={{textAlign:'center', marginTop:'160px'}}>Lista de Orientandos</h2>
 
-            {/* Container de Alunos Orientados - Mestrado */}
             <div className='containerOrientadorOrientandos'>
                 <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Mestrado</h3>
                 <ul>
@@ -87,10 +115,10 @@ function PerfilOrientador(){
                                 <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} - Titulação: {aluno.titulacao}<br />
                                 Conclusão prevista em {aluno.datafinal}
                             </div>
-                            <div >
-                            <button onClick={() => handleDoubleClick(aluno.matricula)}
+                            <div>
+                                <button onClick={() => handleDoubleClick(aluno.matricula)}
                                     style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
-                                        Abrir
+                                    Abrir
                                 </button>
                                 <button onClick={() => {
                                     setSelectedAluno(aluno);
@@ -104,7 +132,6 @@ function PerfilOrientador(){
                 </ul>
             </div>
 
-            {/* Container de Alunos Orientados - Doutorado */}
             <div className='containerOrientadorOrientandos' style={{marginTop:'30px'}}>
                 <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Doutorado</h3>
                 <ul>
@@ -116,10 +143,10 @@ function PerfilOrientador(){
                                 <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} - Titulação: {aluno.titulacao}<br />
                                 Conclusão prevista em {aluno.datafinal}
                             </div>
-                            <div >
-                            <button onClick={() => handleDoubleClick(aluno.matricula)}
+                            <div>
+                                <button onClick={() => handleDoubleClick(aluno.matricula)}
                                     style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
-                                        Abrir
+                                    Abrir
                                 </button>
                                 <button onClick={() => {
                                     setSelectedAluno(aluno);
@@ -133,7 +160,6 @@ function PerfilOrientador(){
                 </ul>
             </div>
 
-            {/* Modal de confirmação */}
             {showModal && (
                 <div className='confirmationBox'>
                     <div style={{

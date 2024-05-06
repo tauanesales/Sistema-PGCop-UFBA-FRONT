@@ -88,7 +88,7 @@ function PerfilAluno() {
           </div>
 
             <div className="botoesToolbar">
-              <MdEditNote onClick={() => window.location.href = "/atualizar-senha"} 
+              <MdEditNote onClick={() => window.location.href = "/perfil-aluno/atualizar-dados"} 
                 style={{ cursor: 'pointer', marginRight:"40px" }} 
                 size={35} 
                 title="Atualizar dados" 
