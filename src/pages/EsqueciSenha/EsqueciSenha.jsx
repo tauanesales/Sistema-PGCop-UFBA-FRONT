@@ -12,8 +12,8 @@ const EsqueciSenha = () => {
         <h1>Redefinir senha</h1>
         <p>Informe o e-mail cadastrado para redefinir sua senha de acesso.</p>
         <div className='containInput'>
-          <Input label={"E-mail:"} type={"email"} />
-          <ButtonSecondary link={'/confirmar-envio-email'} label={"Entrar"} className="btnEntrar" />
+          <Input label={"E-mail:"} type={"email"} margin />
+          <ButtonSecondary link={'/confirmar-envio-email'} label={"Entrar"} width={"12em"} />
         </div>
       </div>
 

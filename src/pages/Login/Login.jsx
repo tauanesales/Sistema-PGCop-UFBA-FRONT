@@ -5,6 +5,7 @@ import InputPassword from '@/components/InputPassword';
 import './styles.css'
 
 const Login = () => {
+
   const logoPgcop = "assets/logoPgcop.png";
   const imagemBarra = "assets/salvador.png";
   const gamboa = "assets/gamboa.jpg";
@@ -32,7 +33,7 @@ const Login = () => {
             </div>
 
             {/* Botão Login */}
-            <ButtonSecondary link={'/perfil-aluno'} label={"Entrar"}/>
+            <ButtonSecondary link={'/perfil-aluno'} label={"Entrar"} width={"90%"}/>
           </div>
 
           {/* Links Cadastro e Recuperação de senha */}

@@ -33,12 +33,13 @@
 .containInput{
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
 }
 
-.btnSecondary{
-  width: 15em;
+.marginBottom{
+  margin-bottom: .5em;
 }
+
 
 @media screen and (max-width: 850px) {
   .containerCard{
@@ -51,5 +52,4 @@
   .containInput{
     width: 100%;
   }
-  
 }
