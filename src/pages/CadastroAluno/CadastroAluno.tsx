@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import "./styles.css";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { MenuItem, RadioGroup, FormControlLabel, Radio } from "@mui/material";
@@ -46,8 +46,8 @@ const CadastroAluno = () => {
   });
 
   return (
-    <Formik
-      initialValues={{
+    <Formik 
+    initialValues={{
         name: "",
         cpf: "",
         email: "",
@@ -63,7 +63,7 @@ const CadastroAluno = () => {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src="assets/logopgcomp.png" width={110} />
+          <img src="assets/logoPgcop.png" width={110} />
           
           <RadioGroup
             row

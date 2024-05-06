@@ -1,40 +1,16 @@
-function ConfirmarCadastro() {
-  const logoPgcomp = "assets/logopgcomp.png"; // Img Logo
-  const confirmacao = "assets/confirmacao.jpg"; // Img confirmação
+import './styles.css'
 
+const ConfirmarCadastro = () => {
+  const logoPgcop = "assets/logoPgcop.png";
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        borderRadius: "10px",
-        padding: "20px",
-        width: "350px",
-        height: "400px",
-        textAlign: "center",
-      }}
-      className="cadastroAluno"
-    >
-      {/* Logo*/}
-      <img src={logoPgcomp} width={130} />
-      <p></p>
-      <a id="date" style={{ fontSize: "17px", fontWeight: 650 }}>
-        CADASTRO REALIZADO COM SUCESSO
-      </a>
-
-      {/* Ícone de confirmação */}
-      <img src={confirmacao} width={100} style={{ marginBottom: "5px" }} />
-      <p></p>
-
-      {/* Botão Voltar a Tela Inicial */}
-      {/* Botão Cadastrar */}
-      <br />
-      <a href="/">
-        <button
-          style={{ padding: "5px 20px", borderRadius: "5px", fontSize: "16px" }}
-        >
-          Voltar a Tela Inicial
-        </button>
-      </a>
+    <div className='container' >
+      <div className='containerCard gap'>
+        <img src={logoPgcop} width={130} /> 
+        <div className='box'>
+          <h1>Cadastro concluído!</h1>
+          <p>Verifique seu e-mail para criar uma senha e acessar sua conta.</p>
+        </div>
+      </div>
     </div>
   );
 }
