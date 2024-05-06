@@ -173,7 +173,7 @@ function Tarefas(){
 
 
 
-            <h3 style={{marginBottom:"10px"}}>Tarefas Doutorado</h3>
+            <h3 style={{marginTop:"20px", marginBottom:"10px"}}>Tarefas Doutorado</h3>
             {/*Container de Tarefas de Doutorado */}
             <div className='containerLista'>
                 <ul>

@@ -104,8 +104,8 @@ const CadastroAluno = () => {
         {/* Segunda linha */}
         <div className="inputContainer">
         <div className="inputRow">
-            <label htmlFor="email" >E-mail</label>
-            <input id="email" type="email" className="inputCadastro" style={{width:'500px'}}/>
+            <label htmlFor="email">E-mail</label>
+            <input id="email" type="email" className="inputCadastro" style={{width:'285px'}}/>
           </div>
           <div className="inputRow">
             <label htmlFor="telefone">Celular</label>
@@ -116,18 +116,20 @@ const CadastroAluno = () => {
         <div className="inputContainer">
           <div className="inputRow">
             <label htmlFor="nome">Currículo Lattes</label>
-            <input className="inputCadastro" id="nome" type="text" style={{width:'500px'}}/>
+            <input className="inputCadastro" id="nome" type="text" style={{width:'400px'}}/>
           </div>
           {/*Lista Cursos*/}
           <div className="inputRow">
           <label htmlFor="cpf">Função</label>
-            <select className="inputCadastro" required style={{width:'200px'}}>
+            <select className="inputCadastro" required style={{width:'140px'}}>
               <option value="mestrado">Orientador</option>
               <option value="doutorado">Coordenador</option>
             </select>
           </div>
         </div>
-        {/* Quarta linha */}
+        {/* Quarta linha*/}
+
+        {/* Quinta linha */}
         <div className="inputContainer">
           <div className="inputRow">
             <label htmlFor="senha">Senha</label>
