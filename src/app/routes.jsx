@@ -5,7 +5,6 @@ import PerfilOrientador from "@/pages/PerfilOrientador/PerfilOrientador";
 import PerfilCoordenador from "@/pages/PerfilCoordenador/PerfilCoordenador";
 import Tarefas from "@/pages/Tarefas/Tarefas";
 import ConfirmarCadastro from "@/pages/ConfirmarCadastro/ConfirmarCadastro";
-import CadastroProfessor from "@/pages/CadastroProfessor/CadastroProfessor";
 import CadastroAluno from "@/pages/CadastroAluno/CadastroAluno";
 import Login from "@/pages/Login/Login";
 import EsqueciSenha from "@/pages/EsqueciSenha/EsqueciSenha";
@@ -25,7 +24,6 @@ export const router = createBrowserRouter([
   { path: "/perfil-coordenador", element: <PerfilCoordenador /> },
   { path: "/perfil-coordenador/tarefas", element: <Tarefas /> },
   { path: "/confirmar-cadastro", element: <ConfirmarCadastro /> },
-  { path: "/CadastroProfessor", element: <CadastroProfessor /> },
   { path: "/cadastro-aluno", element: <CadastroAluno /> },
   { path: "/esqueci-senha", element: <EsqueciSenha /> },
   { path: "/confirmar-envio-email", element: <ConfirmarEnvioEmail /> },

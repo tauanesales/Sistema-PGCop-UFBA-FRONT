@@ -6,7 +6,8 @@ import Solicitacoes from '../../components/Solicitacoes/Solicitacoes';
 
 function PerfilOrientador(){
 
-    const logoPgcomp = "assets/logopgcomp.png"; // Logo
+    const logoPgcop = "/public/assets/logopgcop.png";
+    
 
     const alunosData = [
         { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
@@ -65,7 +66,7 @@ function PerfilOrientador(){
         <div className='contain'>
             <header>    
                 <div className='containerOrientador'>
-                    <img src={logoPgcomp}/>
+                    <img src={logoPgcop}/>
                     <div className='infoOrientador' style={{justifyContent:"space-between"}}>
                         <div>
                             <h2>Augusto Carlos Santos</h2>
