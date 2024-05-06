@@ -1,18 +1,27 @@
 import "./styles.css";
 
-import LoadingButton from "@mui/lab/LoadingButton";
-import { MenuItem } from "@mui/material";
+import {
+  FormControlLabel,
+  FormLabel,
+  MenuItem,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import { useMask } from "@react-input/mask";
 import { Form, Formik } from "formik";
+import { useState } from "react";
 import * as Yup from "yup";
 
-import Button from "@/components/Button";
 import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
+import { MaterialInput } from "@/components/MaterialInput";
 
 import SelectCadastro from "../../components/SelectCadastro";
 
 const CadastroAluno = () => {
+  const [tipoCadastro, setTipoCadastro] = useState("aluno");
+  const [tipoProfessor, setTipoProfessor] = useState("aluno");
+
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .matches(/(\w.+\s).+/, "Insira no mínimo 2 nomes")
@@ -47,128 +56,175 @@ const CadastroAluno = () => {
   });
 
   return (
-    <Formik
-      initialValues={{
-        name: "",
-        cpf: "",
-        email: "",
-        telefone: "",
-        matricula: "",
-        orientador: "",
-        titulacao: "",
-        password: "",
-        confirmPassword: "",
-      }}
-      validationSchema={validationSchema}
-      onSubmit={() => {}}
-    >
-      {({ isSubmitting, handleSubmit }) => {
-        return (
-          <Form className="containerCadastro">
-            <img src="assets/logopgcomp.png" width={110} />
-            <div style={{ display: "flex", gap: 16 }}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <FormikInput
-                  name="name"
-                  label="Nome completo"
-                  fullWidth
-                  required
-                />
-
-                <FormikInput
-                  name="email"
-                  label="E-mail"
-                  type="email"
-                  fullWidth
-                  required
-                />
-
-                <FormikInput
-                  inputRef={telefoneInputRef}
-                  name="telefone"
-                  label="Telefone"
-                  fullWidth
-                  required
-                />
-
-                <FormikInput
-                  inputRef={cpfInputRef}
-                  name="cpf"
-                  label="CPF"
-                  fullWidth
-                  required
-                />
-
-                <FormikPasswordInput
-                  name="password"
-                  label="Senha"
-                  fullWidth
-                  required
-                />
-
-                <FormikPasswordInput
-                  name="confirmPassword"
-                  label="Confirmar senha"
-                  fullWidth
-                  required
-                />
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <FormikInput
-                  name="matricula"
-                  label="Matrícula"
-                  fullWidth
-                  required
-                />
-
-                <FormikInput
-                  name="orientador"
-                  label="Orientador"
-                  fullWidth
-                  required
-                />
-
-                <FormikInput
-                  fullWidth
-                  variant="standard"
-                  id="select-titulacao"
-                  name="titulacao"
-                  label="Titulação do curso"
-                  select
-                  required
+    <div className="containerPrincipal">
+      <Formik
+        initialValues={{
+          name: "",
+          cpf: "",
+          email: "",
+          telefone: "",
+          matricula: "",
+          orientador: "",
+          titulacao: "",
+          password: "",
+          confirmPassword: "",
+          lattes: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={() => {}}
+      >
+        {({ isSubmitting, handleSubmit }) => {
+          return (
+            <Form className="containerCadastro">
+              <img src="assets/logopgcomp.png" width={110} />
+              <div style={{ display: "flex", gap: 16 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
                 >
-                  <MenuItem value="mestrado">Mestrado</MenuItem>
-                  <MenuItem value="doutorado">Doutorado</MenuItem>
-                </FormikInput>
+                  <FormLabel id="user-type-radio-buttons-group-label">
+                    Eu sou
+                  </FormLabel>
+                  <RadioGroup
+                    row
+                    aria-labelledby="user-type-radio-buttons-group-label"
+                    value={tipoCadastro}
+                    onChange={(_, value) => setTipoCadastro(value)}
+                    name="user-type-radio-buttons-group"
+                  >
+                    <FormControlLabel
+                      value="aluno"
+                      control={<Radio />}
+                      label="Aluno"
+                    />
+                    <FormControlLabel
+                      value="professor"
+                      control={<Radio />}
+                      label="Professor"
+                    />
+                  </RadioGroup>
+                  <FormikInput
+                    name="name"
+                    label="Nome completo"
+                    fullWidth
+                    required
+                  />
+                  {tipoCadastro === "aluno" && (
+                    <>
+                      <FormikInput
+                        name="matricula"
+                        label="Matrícula"
+                        fullWidth
+                        required
+                      />
+                      <div className="row">
+                        <FormikInput
+                          inputRef={cpfInputRef}
+                          name="cpf"
+                          label="CPF"
+                          fullWidth
+                          required
+                        />
+                        <FormikInput
+                          inputRef={telefoneInputRef}
+                          name="telefone"
+                          label="Telefone"
+                          fullWidth
+                          required
+                        />
+                      </div>
+                    </>
+                  )}
+                  <div className="row">
+                    <FormikInput
+                      name="email"
+                      label="E-mail"
+                      type="email"
+                      fullWidth
+                      required
+                    />
+                    {tipoCadastro === "aluno" ? (
+                      <FormikInput
+                        fullWidth
+                        size="small"
+                        id="select-titulacao"
+                        name="titulacao"
+                        label="Titulação do curso"
+                        select
+                        required
+                      >
+                        <MenuItem value="mestrado">Mestrado</MenuItem>
+                        <MenuItem value="doutorado">Doutorado</MenuItem>
+                      </FormikInput>
+                    ) : (
+                      <MaterialInput
+                        fullWidth
+                        variant="standard"
+                        id="select-tipo-professor"
+                        label="Função"
+                        value={tipoProfessor}
+                        onChange={(event) =>
+                          setTipoProfessor(event.target.value)
+                        }
+                        select
+                        required
+                      >
+                        <MenuItem value="orientador">Orientador</MenuItem>
+                        <MenuItem value="coordenador">Coordenador</MenuItem>
+                      </MaterialInput>
+                    )}
+                  </div>
 
-                <SelectCadastro />
+                  {tipoCadastro === "aluno" && (
+                    <>
+                      <FormikInput
+                        inputRef={telefoneInputRef}
+                        name="lattes"
+                        label="Currículo Lattes"
+                        fullWidth
+                        required
+                      />
+                      <div className="row">
+                        <SelectCadastro />
+                        <FormikInput
+                          name="orientador"
+                          label="Orientador"
+                          fullWidth
+                          required
+                        />
+                      </div>
+                    </>
+                  )}
+                  <div className="row">
+                    <FormikPasswordInput
+                      name="password"
+                      label="Senha"
+                      fullWidth
+                      required
+                    />
+
+                    <FormikPasswordInput
+                      name="confirmPassword"
+                      label="Confirmar senha"
+                      fullWidth
+                      required
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <LoadingButton
-              sx={{ marginTop: 2 }}
-              variant="contained"
-              fullWidth
-              loading={isSubmitting}
-              onClick={() => handleSubmit()}
-              disabled={isSubmitting}
-            >
-              Cadastrar
-            </LoadingButton>
-          </Form>
-        );
-      }}
-    </Formik>
+              <div className="buttonCadastro">
+                <button onClick={() => handleSubmit()} disabled={isSubmitting}>
+                  Cadastrar
+                </button>
+              </div>
+            </Form>
+          );
+        }}
+      </Formik>
+    </div>
   );
 };
 

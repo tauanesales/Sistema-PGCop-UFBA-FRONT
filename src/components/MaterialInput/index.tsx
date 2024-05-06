@@ -5,8 +5,8 @@ type Props = TextFieldProps;
 export const MaterialInput = (props: Props) => {
   return (
     <TextField
-      variant="standard"
       margin="dense"
+      size="small"
       InputLabelProps={{
         style: {
           fontWeight: 700,

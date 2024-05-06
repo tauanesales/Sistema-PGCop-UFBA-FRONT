@@ -16,6 +16,11 @@
   flex-direction: column;
   align-items: center;
 }
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
 
 .inputContainer {
   display: flex;
