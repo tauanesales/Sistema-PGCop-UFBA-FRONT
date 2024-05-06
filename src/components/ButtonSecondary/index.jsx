@@ -1,6 +1,8 @@
 import './styles.css'
 
-const ButtonSecondy = ({link, label }) => {
+const ButtonSecondy = ({link, label, width }) => {
+
+
 
   const handleClick = () => {
     window.location.href = link;
@@ -8,7 +10,7 @@ const ButtonSecondy = ({link, label }) => {
   
   return (
       <button onClick={handleClick}
-      className='btnSecondary' >
+      className="btnSecondary" style={{ width: width}} >
           {label}
       </button>
   )
