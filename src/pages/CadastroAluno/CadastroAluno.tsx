@@ -63,7 +63,7 @@ const CadastroAluno = () => {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src="assets/logopgcomp.png" width={110} />
+          <img src="assets/logoPgcop.png" width={110} />
           
           <RadioGroup
             row
