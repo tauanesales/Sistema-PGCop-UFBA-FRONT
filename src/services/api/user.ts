@@ -1,18 +1,16 @@
 import { camelizeKeys } from "humps";
 
-import { User } from "@/models/User";
+import { Aluno, Professor, User } from "@/models/User";
 
 import api from "./config";
 
-type CreateUserRequestData = {
-  Nome: string;
-  Email: string;
-  Role: string;
-  Senha: string;
+type GetUserResponse = {
+  tipo: "aluno" | "professor";
+  dados: User;
 };
 
 export const getUser = (accessToken?: string) =>
-  api.get<User>("/usuarios/me", {
+  api.get<GetUserResponse>("/usuarios/me", {
     headers: {
       ...(accessToken && {
         Authorization: `Bearer ${accessToken}`,
@@ -20,14 +18,6 @@ export const getUser = (accessToken?: string) =>
     },
   });
 
-export const getUserByEmail = (email: string, accessToken?: string) =>
-  api.get<User>(`/usuarios/email/${email}`, {
-    headers: {
-      ...(accessToken && {
-        Authorization: `Bearer ${accessToken}`,
-      }),
-    },
-  });
 
 export const createUser = (data: CreateUserRequestData) =>
   api.post("/usuarios", data);

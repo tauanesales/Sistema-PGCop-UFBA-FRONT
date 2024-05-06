@@ -25,21 +25,21 @@ export const useUserQueries = () => {
   const useAuthUser = () =>
     useMutation({
       mutationFn: userApi.authenticateUser,
-      onSuccess: async (tokens, variables) => {
+      onSuccess: async (tokens) => {
         const user = await queryClient.fetchQuery({
           queryKey: ["user"],
           queryFn: () =>
             userApi
-              .getUserByEmail(variables.username, tokens.accessToken)
+              .getUser(tokens.accessToken)
               .then((response) => response.data),
         });
 
         saveTokens(tokens);
 
         const from =
-          location.state?.from?.pathname || user.Role === "aluno"
+          location.state?.from?.pathname || user.tipo === "aluno"
             ? "/perfil-aluno"
-            : user.Role === "professor"
+            : user.tipo === "professor"
               ? "/perfil-professor"
               : "/perfil-coordenador";
 

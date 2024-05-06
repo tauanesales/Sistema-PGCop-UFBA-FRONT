@@ -23,7 +23,7 @@ export const AuthenticationGuard = ({
   const { data: user } = useGetUser(false);
 
   const isAllowed =
-    !!tokens?.accessToken && !!user && !!allowedRoles?.includes(user.Role);
+    !!tokens?.accessToken && !!user && !!allowedRoles?.includes(user.tipo);
 
   return (
     <ProtectedRoute
