@@ -5,6 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 
+import AtualizarDados from "@/pages/AtualizarDados/AtualizarDados";
 import AtualizarSenha from "@/pages/AtualizarSenha/AtualizarSenha";
 import CadastroAluno from "@/pages/CadastroAluno/CadastroAluno";
 import CadastroProfessor from "@/pages/CadastroProfessor/CadastroProfessor";
@@ -26,9 +27,11 @@ const routes = createRoutesFromElements(
 
     {/* Mover para dentro de route abaixo após implementar autenticação */}
     <Route path="/perfil-aluno" element={<PerfilAluno />} />
+    <Route path="/perfil-aluno/atualizar-dados" element={<AtualizarDados />} />
     <Route path="/perfil-orientador" element={<PerfilOrientador />} />
     <Route path="/perfil-coordenador" element={<PerfilCoordenador />} />
     <Route path="/perfil-coordenador/tarefas" element={<Tarefas />} />
+
 
     <Route element={<AuthenticationGuard />}>
       <Route path="/confirmar-cadastro" element={<ConfirmarCadastro />} />

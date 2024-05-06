@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import './styles.css'
 
-const Input = ({type, onFocus, onBlur, label, id}) => {
+const Input = ({type, onFocus, onBlur, label, id,xwidth}) => {
   return (
 
       <div className="containInput">
@@ -14,6 +14,7 @@ const Input = ({type, onFocus, onBlur, label, id}) => {
             required
             onFocus={onFocus}
             onBlur={onBlur}
+            style={{width: {xwidth}}}
           />
       </div>
     

@@ -93,5 +93,10 @@
       text-align: 'center';
   }
 
+  .solicitacoesContainer{
+    width: 350px;
+    margin-top: 50px;
+    margin-left: -360px;
+  }
   
   
