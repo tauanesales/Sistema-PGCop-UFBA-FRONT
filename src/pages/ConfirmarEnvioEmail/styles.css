@@ -1,13 +1,3 @@
-.containerConfirmarEnvioEmail {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(326deg, rgba(246,249,250,1) 0%, rgba(236,240,243,1) 34%);
-
-
-}
 .gap{
   display: flex;
   gap: 2em !important;
