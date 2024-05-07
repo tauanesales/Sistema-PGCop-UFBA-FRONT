@@ -134,7 +134,7 @@ function AtualizarDados() {
                     <MenuItem value="doutorado">Doutorado</MenuItem>
                   </FormikInput>
 
-                  <div className="inputRow" style={{ width: '240px' }}>
+                  <div className="inputData" style={{ width: '240px' }}>
                     <SelectCadastro />
                   </div>
                 </div>
