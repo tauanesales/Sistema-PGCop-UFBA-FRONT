@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import "./styles.css"
 import { MdGroupAdd, MdLogout } from 'react-icons/md';
-import { BsFillCircleFill } from 'react-icons/bs'; // Ícone de notificação
+import { BsFillCircleFill } from 'react-icons/bs'; // icone de notificação
 import Solicitacoes from '../../components/Solicitacoes/Solicitacoes';
 import ButtonSecondary from '@/components/ButtonSecondary';
 
 function PerfilOrientador(){
 
-    const logoPgcop = "/public/assets/logopgcop.png";
+    const logoPgcop = "/assets/logoPgcop.png";
     
 
     const alunosData = [
@@ -21,7 +21,7 @@ function PerfilOrientador(){
     ];
 
     const [solicitacoes, setSolicitacoes] = useState([
-        { id: 1, nome: 'Natalia Santos', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 1, nome: 'Natalia  Santos Santos Santos', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
         { id: 2, nome: 'Claudio Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '8/05/2027' },
         { id: 3, nome: 'Vinicius Alves', matricula: '2022003', titulacao: 'Mestrado', datafinal: '15/05/2024' },
     ]);
@@ -65,7 +65,7 @@ function PerfilOrientador(){
 
     return (
         <div className='contain'>
-            <header>    
+  
                 <div className='containerOrientador'>
                     <img src={logoPgcop}/>
                     <div className='infoOrientador' style={{justifyContent:"space-between"}}>
@@ -82,7 +82,7 @@ function PerfilOrientador(){
                                     title="Solicitações" 
                                 />
                                 {showSolicitacoes && 
-                                    <div className="solicitacoesContainer" style={{ position: 'absolute', top: '-50px', }}>
+                                    <div className="solicitacoesContainer" style={{ position: 'absolute',  top: '-50px', }}>
                                         <Solicitacoes 
                                             solicitacoes={solicitacoes} 
                                             handleAcceptRequest={handleAcceptRequest}
@@ -102,9 +102,9 @@ function PerfilOrientador(){
                         </div>
                     </div>
                 </div>
-            </header>
+    
 
-            <h2 style={{textAlign:'center', marginTop:'160px'}}>Lista de Orientandos</h2>
+            <h2 style={{textAlign:'center', marginTop:'40px'}}>Lista de Orientandos</h2>
 
             <div className='containerOrientadorOrientandos'>
                 <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Mestrado</h3>

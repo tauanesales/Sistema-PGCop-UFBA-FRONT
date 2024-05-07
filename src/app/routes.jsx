@@ -10,6 +10,7 @@ import Login from "@/pages/Login/Login";
 import EsqueciSenha from "@/pages/EsqueciSenha/EsqueciSenha";
 import ConfirmarEnvioEmail from "@/pages/ConfirmarEnvioEmail/ConfirmarEnvioEmail";
 import AtualizarSenha from "@/pages/AtualizarSenha/AtualizarSenha";
+import AtualizarDados from "@/pages/AtualizarDados/AtualizarDados";
 import ConfirmarNovaSenha from "@/pages/ConfirmarNovaSenha/ConfirmarNovaSenha";
 import Error404 from "@/pages/Erro/Error404";
 
@@ -28,5 +29,6 @@ export const router = createBrowserRouter([
   { path: "/esqueci-senha", element: <EsqueciSenha /> },
   { path: "/confirmar-envio-email", element: <ConfirmarEnvioEmail /> },
   { path: "/atualizar-senha", element: <AtualizarSenha /> },
+  { path: "/perfil-aluno/atualizar-dados", element: <AtualizarDados/> },
   { path: "/confirmar-nova-senha", element: <ConfirmarNovaSenha /> },
 ]);

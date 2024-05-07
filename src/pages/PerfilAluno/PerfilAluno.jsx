@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"; 
 import "./styles.css";
 
-import { MdEditNote, MdLogout } from 'react-icons/md'; // Importando os ícones
-import { AiOutlineEdit , AiOutlineFileExcel } from 'react-icons/ai'; // Importando os ícones
+import { MdEditNote, MdLogout } from 'react-icons/md';
+import { AiOutlineEdit , AiOutlineFileExcel } from 'react-icons/ai'; 
 
 function PerfilAluno() {
-  const logoPgcop = "/public/assets/logopgcop.png";
+  
+  const logoPgcop = "/assets/logoPgcop.png";
 
   const dataDeInicio = new Date("2023-03-01"); // Data de Início do aluno
 
@@ -70,7 +71,6 @@ function PerfilAluno() {
 
   return (
     <div className="contain">
-      <header>
         <div className="containerAluno">
           <div className="infoAluno">
           <img src={logoPgcop} alt="Logo" />
@@ -100,7 +100,6 @@ function PerfilAluno() {
               />
             </div>
         </div>
-      </header>
 
 
       <div className="tarefasAluno" >

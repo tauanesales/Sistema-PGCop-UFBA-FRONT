@@ -5,11 +5,14 @@ import { MdGroupAdd, MdOutlineLibraryBooks, MdLogout } from 'react-icons/md'; //
 
 function PerfilCoordenador(){
 
-    const logoPgcop = "/public/assets/logopgcop.png";
+    const logoPgcop = "/assets/logoPgcop.png";
 
     const alunosData = [
         { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
-        { id: 2, nome: 'Tauane Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '03=18/05/2027' },
+        { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 2, nome: 'Tauane Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '18/05/2027' },
         { id: 3, nome: 'Mario Souza', matricula: '2022003', titulacao: 'Mestrado', datafinal: '15/05/2024' },
         { id: 4, nome: 'Ana Clara', matricula: '2022004', titulacao: 'Doutorado', datafinal: '03/07/2027' },
         { id: 5, nome: 'Pedro Henrique', matricula: '2022005', titulacao: 'Mestrado', datafinal: '03/012/2025' },
@@ -40,7 +43,7 @@ function PerfilCoordenador(){
 
     return (
         <div className="contain">
-          <header>
+   
             <div className="containerCoordenador">
               {/* Logo*/}
               <img src={logoPgcop} alt="Logo" />
@@ -79,10 +82,10 @@ function PerfilCoordenador(){
                 </div>
               </div>
             </div>
-          </header>
+
             
 
-            <h2 style={{textAlign:'center', marginTop:'160px', }}>Lista de Orientandos</h2>
+            <h2 style={{textAlign:'center', marginTop:'40px', }}>Lista de Orientandos</h2>
             {/* Container de Alunos Orientados - Mestrado */}
             <div className='containerOrientandosCoordenador'>
                 <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Mestrado</h3>
