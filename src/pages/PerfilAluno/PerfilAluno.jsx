@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react"; 
 import "./styles.css";
 
-import { MdEditNote, MdLogout } from 'react-icons/md'; // Importando os ícones
-import { AiOutlineEdit , AiOutlineFileExcel } from 'react-icons/ai'; // Importando os ícones
+import { MdEditNote, MdLogout } from 'react-icons/md';
+import { AiOutlineEdit , AiOutlineFileExcel } from 'react-icons/ai'; 
 
 function PerfilAluno() {
-  const logoPgcomp = "assets/logopgcomp.png"; // Logo
+  
+  const logoPgcop = "/assets/logoPgcop.png";
 
-  const dataDeInicio = new Date("2023-02-01"); // Data de Início do aluno
+  const dataDeInicio = new Date("2023-03-01"); // Data de Início do aluno
 
   const [dataAtual, setDataAtual] = useState(new Date()); // Data atual
 
@@ -70,10 +71,9 @@ function PerfilAluno() {
 
   return (
     <div className="contain">
-      <header>
         <div className="containerAluno">
           <div className="infoAluno">
-          <img src={logoPgcomp} alt="Logo" />
+          <img src={logoPgcop} alt="Logo" />
           <div className="boxInfoAluno">
             <h3>José  Silva José Silva</h3>
             <p><span>Titulação:</span> Mestrado/Doutorado</p>
@@ -100,7 +100,6 @@ function PerfilAluno() {
               />
             </div>
         </div>
-      </header>
 
 
       <div className="tarefasAluno" >
@@ -111,11 +110,11 @@ function PerfilAluno() {
             const diasRestantes = Math.ceil((prazo - dataAtual) / (1000 * 60 * 60 * 24));
             let backgroundColor;
             if (diasRestantes <= 90) {
-              backgroundColor = "rgba(240,128,128)"; 
+              backgroundColor = "#ff9999"; 
             } else if (diasRestantes <= 180) {
-              backgroundColor = "rgba(244,164,96, 0.8)";
+              backgroundColor = "#ffb394";
             } else {
-              backgroundColor = "rgba(255,237,160, 0.9)";
+              backgroundColor = "#fff2a7";
             }
 
             return (
@@ -162,7 +161,7 @@ function PerfilAluno() {
           {tarefasFeitas.map((tarefa) => {
             const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
             return (
-              <div id="task" key={tarefa.id}style={{backgroundColor: "rgb(135,206,250,0.8)",}}>
+              <div id="task" key={tarefa.id}style={{backgroundColor: "#ADD8E6",}}>
                 <AiOutlineFileExcel // Marcador icone
                   onClick={() => handleCheckboxChange(tarefa.id)}
                   style={{ cursor: 'pointer' , marginLeft: "5px"  }}

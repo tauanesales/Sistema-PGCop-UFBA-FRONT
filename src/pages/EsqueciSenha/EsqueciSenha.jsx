@@ -14,7 +14,7 @@ const EsqueciSenha = () => {
 
         <div className='containInput'>
           <Input label={"E-mail:"} type={"email"} margin />
-          <ButtonSecondary link={'/confirmar-envio-email'} label={"Entrar"} width={"12em"} />
+          <ButtonSecondary link={'/confirmar-envio-email'} label={"Enviar"} width={"12em"} />
         </div>
       </div>
     </div>

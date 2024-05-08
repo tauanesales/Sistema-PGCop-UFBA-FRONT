@@ -8,8 +8,8 @@
 
 .containerData p{
   margin: 0;
-  color: black;
-  font-weight: 500;
+  color: rgb(78, 76, 76);
+  font-weight: 400;
   font-size: 14px;
 }
 .selectCadastro {

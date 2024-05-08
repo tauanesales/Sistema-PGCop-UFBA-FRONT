@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./styles.css";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { MenuItem } from "@mui/material";
+import { MenuItem, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import { useMask } from "@react-input/mask";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -9,7 +9,11 @@ import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
 import SelectCadastro from "../../components/SelectCadastro";
 
-const CadastroAluno = () => {
+const logoPgcop = "/assets/logoPgcop.png";
+
+
+function AtualizarDados() {
+
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .matches(/(\w.+\s).+/, "Insira no mínimo 2 nomes")
@@ -19,8 +23,6 @@ const CadastroAluno = () => {
       .required("Insira um e-mail"),
     telefone: Yup.string().required("Insira seu telefone"),
     cpf: Yup.string().required("Insira seu CPF"),
-    matricula: Yup.string().required("Insira o seu número de matrícula"),
-    orientador: Yup.string().required("Informe o nome do seu orientador"),
     titulacao: Yup.string()
       .required()
       .oneOf(["mestrado", "doutorado"])
@@ -61,89 +63,81 @@ const CadastroAluno = () => {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src="assets/logopgcomp.png" width={110} />
+          <img src={logoPgcop} width={110} />
 
           <div style={{ display: "flex", gap: 16 }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{width:'400px'}}>
-                <FormikInput
-                  name="name"
-                  label="Nome completo"
-                  fullWidth
-                  required
-                />
+              <FormikInput
+                name="name"
+                label="Nome completo"
+                fullWidth
+                required
+              />
 
-                <FormikInput
-                  name="email"
-                  label="E-mail"
-                  type="email"
-                  fullWidth
-                  required
-                />
+              <FormikInput
+                name="email"
+                label="E-mail"
+                type="email"
+                fullWidth
+                required
+              />
 
-                <FormikInput
-                  inputRef={cpfInputRef}
-                  name="cpf"
-                  label="CPF"
-                  fullWidth
-                  required
-                />
+              <FormikInput
+                inputRef={telefoneInputRef}
+                name="telefone"
+                label="Telefone"
+                fullWidth
+                required
+              />
 
-                <FormikInput
-                  inputRef={telefoneInputRef}
-                  name="telefone"
-                  label="Telefone"
-                  fullWidth
-                  required
-                />
+              <FormikPasswordInput
+                name="password"
+                label="Nova senha"
+                fullWidth
+                required
+              />
 
-                <FormikPasswordInput
-                  name="password"
-                  label="Senha"
-                  fullWidth
-                  required
-                />
+              <FormikPasswordInput
+                name="confirmPassword"
+                label="Confirmar senha"
+                fullWidth
+                required
+              />
+            </div>
 
-                <FormikPasswordInput
-                  name="confirmPassword"
-                  label="Confirmar senha"
-                  fullWidth
-                  required
-                />
-              </div>
-              
-              <div style={{width:'200px'}}>
-                <FormikInput
-                  name="matricula"
-                  label="Matrícula"
-                  fullWidth
-                  required
-                />
+            <div style={{ display: "flex", flexDirection: "column" }}>
 
-                <FormikInput
-                  name="orientador"
-                  label="Orientador"
-                  fullWidth
-                  required
-                />
-                
-                <FormikInput
-                  fullWidth
-                  variant="standard"
-                  id="select-titulacao"
-                  name="titulacao"
-                  label="Titulação do curso"
-                  select
-                  required
-                >
-                  <MenuItem value="mestrado">Mestrado</MenuItem>
-                  <MenuItem value="doutorado">Doutorado</MenuItem>
-                </FormikInput>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <FormikInput
+                    name="matricula"
+                    label="Matrícula"
+                    fullWidth
+                    required
+                  />
 
-                <div className="inputRow" style={{ width: '240px' }}>
-                  <SelectCadastro />
+                  <FormikInput
+                    name="orientador"
+                    label="Orientador"
+                    fullWidth
+                    required
+                  />
+                  <FormikInput
+                    fullWidth
+                    variant="standard"
+                    id="select-titulacao"
+                    name="titulacao"
+                    label="Titulação do curso"
+                    select
+                    required
+                  >
+                    <MenuItem value="mestrado">Mestrado</MenuItem>
+                    <MenuItem value="doutorado">Doutorado</MenuItem>
+                  </FormikInput>
+
+                  <div className="inputData" >
+                    <SelectCadastro />
+                  </div>
                 </div>
-              </div>
               
             </div>
           </div>
@@ -157,13 +151,13 @@ const CadastroAluno = () => {
               onClick={() => handleSubmit()}
               disabled={isSubmitting}
             >
-              Cadastrar
+              Atualizar dados
             </LoadingButton>
           </div>
         </Form>
       )}
     </Formik>
   );
-};
+}
 
-export default CadastroAluno;
+export default AtualizarDados;

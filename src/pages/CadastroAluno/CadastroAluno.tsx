@@ -7,7 +7,7 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
-import SelectCadastro from "../../components/SelectCadastro";
+import SelectCadastro from "@/components/SelectCadastro";
 
 const CadastroAluno = () => {
   const [tipoCadastro, setTipoCadastro] = useState<"aluno" | "professor">("aluno");
@@ -161,7 +161,7 @@ const CadastroAluno = () => {
                     <MenuItem value="doutorado">Doutorado</MenuItem>
                   </FormikInput>
 
-                  <div className="inputRow" style={{ width: '240px' }}>
+                  <div className="inputData">
                     <SelectCadastro />
                   </div>
                 </div>

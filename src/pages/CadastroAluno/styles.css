@@ -13,7 +13,6 @@
   align-items: center;
 }
 
-
 .inputContainer {
   display: flex;
   flex-wrap: wrap; 
@@ -22,7 +21,11 @@
 }
 .inputData {
   align-items: center; 
-  width: 250px;
+  width: 240px;
+}
+
+.inputData select {
+  width: 8.2vh;
 }
 
 .inputRow {
