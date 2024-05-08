@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.css';
+import './style.css';
 
 function Solicitacoes({ solicitacoes, handleAcceptRequest, handleRemoveRequest }) {
   return (
@@ -8,7 +8,7 @@ function Solicitacoes({ solicitacoes, handleAcceptRequest, handleRemoveRequest }
       <ul>
         {solicitacoes.map((solicitacao, index) => (
           <li key={index}>
-            <div>
+            <div> 
               <strong>{solicitacao.nome}</strong>
               <br />
               {solicitacao.titulacao} 

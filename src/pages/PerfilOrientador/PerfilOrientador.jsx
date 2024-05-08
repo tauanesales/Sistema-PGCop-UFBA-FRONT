@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import "./styles.css"
 import { MdGroupAdd, MdLogout } from 'react-icons/md';
-import { BsFillCircleFill } from 'react-icons/bs'; // Ícone de notificação
+import { BsFillCircleFill } from 'react-icons/bs'; // icone de notificação
 import Solicitacoes from '../../components/Solicitacoes/Solicitacoes';
+import ButtonSecondary from '@/components/ButtonSecondary';
 
 function PerfilOrientador(){
 
-    const logoPgcomp = "assets/logopgcomp.png"; // Logo
+    const logoPgcop = "/assets/logoPgcop.png";
+    
 
     const alunosData = [
         { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
@@ -19,7 +21,7 @@ function PerfilOrientador(){
     ];
 
     const [solicitacoes, setSolicitacoes] = useState([
-        { id: 1, nome: 'Natalia Santos', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 1, nome: 'Natalia  Santos Santos Santos', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
         { id: 2, nome: 'Claudio Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '8/05/2027' },
         { id: 3, nome: 'Vinicius Alves', matricula: '2022003', titulacao: 'Mestrado', datafinal: '15/05/2024' },
     ]);
@@ -63,9 +65,9 @@ function PerfilOrientador(){
 
     return (
         <div className='contain'>
-            <header>    
+  
                 <div className='containerOrientador'>
-                    <img src={logoPgcomp}/>
+                    <img src={logoPgcop}/>
                     <div className='infoOrientador' style={{justifyContent:"space-between"}}>
                         <div>
                             <h2>Augusto Carlos Santos</h2>
@@ -80,7 +82,7 @@ function PerfilOrientador(){
                                     title="Solicitações" 
                                 />
                                 {showSolicitacoes && 
-                                    <div className="solicitacoesContainer" style={{ position: 'absolute', top: '-50px', }}>
+                                    <div className="solicitacoesContainer" style={{ position: 'absolute',  top: '-50px', }}>
                                         <Solicitacoes 
                                             solicitacoes={solicitacoes} 
                                             handleAcceptRequest={handleAcceptRequest}
@@ -100,9 +102,9 @@ function PerfilOrientador(){
                         </div>
                     </div>
                 </div>
-            </header>
+    
 
-            <h2 style={{textAlign:'center', marginTop:'160px'}}>Lista de Orientandos</h2>
+            <h2 style={{textAlign:'center', marginTop:'40px'}}>Lista de Orientandos</h2>
 
             <div className='containerOrientadorOrientandos'>
                 <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Mestrado</h3>
@@ -116,11 +118,11 @@ function PerfilOrientador(){
                                 Conclusão prevista em {aluno.datafinal}
                             </div>
                             <div>
-                                <button onClick={() => handleDoubleClick(aluno.matricula)}
+                                <button className='bttn' onClick={() => handleDoubleClick(aluno.matricula)}
                                     style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
                                     Abrir
                                 </button>
-                                <button onClick={() => {
+                                <button className='bttn' onClick={() => {
                                     setSelectedAluno(aluno);
                                     setShowModal(true);
                                 }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
@@ -144,11 +146,11 @@ function PerfilOrientador(){
                                 Conclusão prevista em {aluno.datafinal}
                             </div>
                             <div>
-                                <button onClick={() => handleDoubleClick(aluno.matricula)}
+                                <button className='bttn' onClick={() => handleDoubleClick(aluno.matricula)}
                                     style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
                                     Abrir
                                 </button>
-                                <button onClick={() => {
+                                <button className='bttn' onClick={() => {
                                     setSelectedAluno(aluno);
                                     setShowModal(true);
                                 }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
@@ -171,8 +173,8 @@ function PerfilOrientador(){
                     }}>
                         <p>Tem certeza que deseja remover esse aluno da sua lista?</p>
                         <ul style={{display: 'flex'}}>
-                            <button onClick={handleDelete} style={{marginRight: '30px',padding: "10px" }}>Sim</button>
-                            <button onClick={() => setShowModal(false)} style={{padding: "10px" }}>Não</button>
+                            <button className='bttn' onClick={handleDelete} style={{marginRight: '30px',padding: "10px" }}>Sim</button>
+                            <button className='bttn' onClick={() => setShowModal(false)} style={{padding: "10px" }}>Não</button>
                         </ul>
                     </div>
                 </div>
