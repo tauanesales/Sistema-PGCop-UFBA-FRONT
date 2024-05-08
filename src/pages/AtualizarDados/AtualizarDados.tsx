@@ -9,7 +9,7 @@ import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
 import SelectCadastro from "../../components/SelectCadastro";
 
-const logoPgcop = "/public/assets/logopgcop.png";
+const logoPgcop = "/assets/logoPgcop.png";
 
 
 function AtualizarDados() {
@@ -134,7 +134,7 @@ function AtualizarDados() {
                     <MenuItem value="doutorado">Doutorado</MenuItem>
                   </FormikInput>
 
-                  <div className="inputData" style={{ width: '240px' }}>
+                  <div className="inputData" >
                     <SelectCadastro />
                   </div>
                 </div>
