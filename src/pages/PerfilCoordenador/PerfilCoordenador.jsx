@@ -4,9 +4,30 @@ import { useState } from "react";
 import { MdGroupAdd, MdLogout, MdOutlineLibraryBooks } from "react-icons/md"; // Importando ícones
 
 function PerfilCoordenador() {
-  const logoPgcomp = "assets/logopgcomp.png"; // Logo
+  const logoPgcop = "/assets/logoPgcop.png";
 
   const alunosData = [
+    {
+      id: 1,
+      nome: "João Silva",
+      matricula: "2022001",
+      titulacao: "Mestrado",
+      datafinal: "03/05/2024",
+    },
+    {
+      id: 1,
+      nome: "João Silva",
+      matricula: "2022001",
+      titulacao: "Mestrado",
+      datafinal: "03/05/2024",
+    },
+    {
+      id: 1,
+      nome: "João Silva",
+      matricula: "2022001",
+      titulacao: "Mestrado",
+      datafinal: "03/05/2024",
+    },
     {
       id: 1,
       nome: "João Silva",
@@ -19,7 +40,7 @@ function PerfilCoordenador() {
       nome: "Tauane Souza",
       matricula: "2022002",
       titulacao: "Doutorado",
-      datafinal: "03=18/05/2027",
+      datafinal: "18/05/2027",
     },
     {
       id: 3,
@@ -87,55 +108,53 @@ function PerfilCoordenador() {
 
   return (
     <div className="contain">
-      <header>
-        <div className="containerCoordenador">
-          {/* Logo*/}
-          <img src={logoPgcomp} alt="Logo" />
-          {/* Informações do perfil */}
-          <div
-            className="infoCoordenador"
-            style={{ justifyContent: "space-between", marginRight: "30px" }}
-          >
-            <div>
-              <h2>Augusto Carlos Santos</h2>
-              <h3>Orientandos: {alunos.length}</h3>
+      <div className="containerCoordenador">
+        {/* Logo*/}
+        <img src={logoPgcop} alt="Logo" />
+        {/* Informações do perfil */}
+        <div
+          className="infoCoordenador"
+          style={{ justifyContent: "space-between", marginRight: "30px" }}
+        >
+          <div>
+            <h2>Augusto Carlos Santos</h2>
+            <h3>Orientandos: {alunos.length}</h3>
+          </div>
+          {/* Botões Toolbar */}
+          <div>
+            <div className="botoesToolbar">
+              <MdGroupAdd
+                onClick={() =>
+                  (window.location.href = "/perfil-coordenador/solicitacoes")
+                }
+                style={{ cursor: "pointer", marginRight: "42px" }}
+                size={35}
+                title="Solicitações"
+              />
             </div>
-            {/* Botões Toolbar */}
             <div>
-              <div className="botoesToolbar">
-                <MdGroupAdd
-                  onClick={() =>
-                    (window.location.href = "/perfil-coordenador/solicitacoes")
-                  }
-                  style={{ cursor: "pointer", marginRight: "42px" }}
-                  size={35}
-                  title="Solicitações"
-                />
-              </div>
-              <div>
-                <MdOutlineLibraryBooks
-                  onClick={() =>
-                    (window.location.href = "/perfil-coordenador/tarefas")
-                  }
-                  style={{ cursor: "pointer", marginRight: "45px" }}
-                  size={35}
-                  title="Tarefas"
-                />
-              </div>
-              <div>
-                <MdLogout
-                  onClick={() => (window.location.href = "/")}
-                  style={{ cursor: "pointer", marginRight: "30px" }}
-                  size={35}
-                  title="Sair"
-                />
-              </div>
+              <MdOutlineLibraryBooks
+                onClick={() =>
+                  (window.location.href = "/perfil-coordenador/tarefas")
+                }
+                style={{ cursor: "pointer", marginRight: "45px" }}
+                size={35}
+                title="Tarefas"
+              />
+            </div>
+            <div>
+              <MdLogout
+                onClick={() => (window.location.href = "/")}
+                style={{ cursor: "pointer", marginRight: "30px" }}
+                size={35}
+                title="Sair"
+              />
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
-      <h2 style={{ textAlign: "center", marginTop: "160px" }}>
+      <h2 style={{ textAlign: "center", marginTop: "40px" }}>
         Lista de Orientandos
       </h2>
       {/* Container de Alunos Orientados - Mestrado */}
@@ -158,6 +177,7 @@ function PerfilCoordenador() {
               </div>
               <div>
                 <button
+                  className="bttn"
                   onClick={() => handleDoubleClick(aluno.matricula)}
                   style={{
                     marginRight: "10px",
@@ -170,6 +190,7 @@ function PerfilCoordenador() {
                   Abrir
                 </button>
                 <button
+                  className="bttn"
                   onClick={() => {
                     setSelectedAluno(aluno);
                     setShowModal(true);
@@ -213,6 +234,7 @@ function PerfilCoordenador() {
               </div>
               <div>
                 <button
+                  className="bttn"
                   onClick={() => handleDoubleClick(aluno.matricula)}
                   style={{
                     marginRight: "10px",
@@ -225,6 +247,7 @@ function PerfilCoordenador() {
                   Abrir
                 </button>
                 <button
+                  className="bttn"
                   onClick={() => {
                     setSelectedAluno(aluno);
                     setShowModal(true);
@@ -260,12 +283,14 @@ function PerfilCoordenador() {
             <p>Tem certeza que deseja remover esse aluno da sua lista?</p>
             <ul style={{ display: "flex" }}>
               <button
+                className="bttn"
                 onClick={handleDelete}
                 style={{ marginRight: "30px", padding: "10px" }}
               >
                 Sim
               </button>
               <button
+                className="bttn"
                 onClick={() => setShowModal(false)}
                 style={{ padding: "10px" }}
               >

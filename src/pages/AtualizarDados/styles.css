@@ -21,11 +21,7 @@
 }
 .inputData {
   align-items: center; 
-  width: 240px;
-}
-
-.inputData select {
-  width: 8.2vh;
+  width: 250px;
 }
 
 .inputRow {

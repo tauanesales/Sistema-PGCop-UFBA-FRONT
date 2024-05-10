@@ -1,17 +1,13 @@
 import "./styles.css";
 
-import { useEffect, useState } from "react";
-import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai"; // Importando os ícones
-import { MdEditNote, MdLogout } from "react-icons/md"; // Importando os ícones
-
-import { useUserQueries } from "@/queries/user";
+import { useEffect,useState } from "react";
+import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
+import { MdEditNote, MdLogout } from "react-icons/md";
 
 function PerfilAluno() {
-  const { signOut } = useUserQueries();
+  const logoPgcop = "/assets/logoPgcop.png";
 
-  const logoPgcomp = "assets/logopgcomp.png"; // Logo
-
-  const dataDeInicio = new Date("2023-02-01"); // Data de Início do aluno
+  const dataDeInicio = new Date("2023-03-01"); // Data de Início do aluno
 
   const [dataAtual, setDataAtual] = useState(new Date()); // Data atual
 
@@ -112,56 +108,56 @@ function PerfilAluno() {
 
   return (
     <div className="contain">
-      <header>
-        <div className="containerAluno">
-          <div className="infoAluno">
-            <img src={logoPgcomp} alt="Logo" />
-            <div className="boxInfoAluno">
-              <h3>José Silva José Silva</h3>
-              <p>
-                <span>Titulação:</span> Mestrado/Doutorado
-              </p>
-              <p>
-                <span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}
-              </p>
-              <p>
-                <span>Status:</span> Ativo
-              </p>
-            </div>
-            <div className="boxInfoAluno">
-              <h3>
-                <span>Matrícula:</span> xxxxxxxxx
-              </h3>
-              <p>
-                <span>Orientador(a): </span>Augusto Carlos
-              </p>
-              <p>
-                <span>Término Previsto:</span>{" "}
-                {new Date(
-                  dataDeInicio.getFullYear() + 3,
-                  dataDeInicio.getMonth(),
-                  dataDeInicio.getDate(),
-                ).toLocaleDateString()}
-              </p>
-            </div>
+      <div className="containerAluno">
+        <div className="infoAluno">
+          <img src={logoPgcop} alt="Logo" />
+          <div className="boxInfoAluno">
+            <h3>José Silva José Silva</h3>
+            <p>
+              <span>Titulação:</span> Mestrado/Doutorado
+            </p>
+            <p>
+              <span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}
+            </p>
+            <p>
+              <span>Status:</span> Ativo
+            </p>
           </div>
-
-          <div className="botoesToolbar">
-            <MdEditNote
-              onClick={() => (window.location.href = "/atualizar-senha")}
-              style={{ cursor: "pointer", marginRight: "40px" }}
-              size={35}
-              title="Atualizar dados"
-            />
-            <MdLogout
-              onClick={signOut}
-              style={{ cursor: "pointer", marginRight: "40px" }}
-              size={35}
-              title="Sair"
-            />
+          <div className="boxInfoAluno">
+            <h3>
+              <span>Matrícula:</span> xxxxxxxxx
+            </h3>
+            <p>
+              <span>Orientador(a): </span>Augusto Carlos
+            </p>
+            <p>
+              <span>Término Previsto:</span>{" "}
+              {new Date(
+                dataDeInicio.getFullYear() + 3,
+                dataDeInicio.getMonth(),
+                dataDeInicio.getDate(),
+              ).toLocaleDateString()}
+            </p>
           </div>
         </div>
-      </header>
+
+        <div className="botoesToolbar">
+          <MdEditNote
+            onClick={() =>
+              (window.location.href = "/perfil-aluno/atualizar-dados")
+            }
+            style={{ cursor: "pointer", marginRight: "40px" }}
+            size={35}
+            title="Atualizar dados"
+          />
+          <MdLogout
+            onClick={() => (window.location.href = "/")}
+            style={{ cursor: "pointer", marginRight: "40px" }}
+            size={35}
+            title="Sair"
+          />
+        </div>
+      </div>
 
       <div className="tarefasAluno">
         <div className="boxTarefas">
@@ -177,11 +173,11 @@ function PerfilAluno() {
             );
             let backgroundColor;
             if (diasRestantes <= 90) {
-              backgroundColor = "rgba(240,128,128)";
+              backgroundColor = "#ff9999";
             } else if (diasRestantes <= 180) {
-              backgroundColor = "rgba(244,164,96, 0.8)";
+              backgroundColor = "#ffb394";
             } else {
-              backgroundColor = "rgba(255,237,160, 0.9)";
+              backgroundColor = "#fff2a7";
             }
 
             return (
@@ -261,7 +257,7 @@ function PerfilAluno() {
               <div
                 id="task"
                 key={tarefa.id}
-                style={{ backgroundColor: "rgb(135,206,250,0.8)" }}
+                style={{ backgroundColor: "#ADD8E6" }}
               >
                 <AiOutlineFileExcel // Marcador icone
                   onClick={() => handleCheckboxChange(tarefa.id)}

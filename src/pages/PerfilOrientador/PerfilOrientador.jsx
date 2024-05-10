@@ -1,13 +1,13 @@
 import "./styles.css";
 
 import { useState } from "react";
-import { MdGroupAdd, MdLogout } from "react-icons/md"; // Importando os ícones
+import { MdGroupAdd, MdLogout } from "react-icons/md";
 
-import { useUserQueries } from "@/queries/user";
+
+import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
 
 function PerfilOrientador() {
-  const { signOut } = useUserQueries();
-  const logoPgcomp = "assets/logopgcomp.png"; // Logo
+  const logoPgcop = "/assets/logoPgcop.png";
 
   const alunosData = [
     {
@@ -22,7 +22,7 @@ function PerfilOrientador() {
       nome: "Tauane Souza",
       matricula: "2022002",
       titulacao: "Doutorado",
-      datafinal: "03=18/05/2027",
+      datafinal: "8/05/2027",
     },
     {
       id: 3,
@@ -61,9 +61,34 @@ function PerfilOrientador() {
     },
   ];
 
+  const [solicitacoes, setSolicitacoes] = useState([
+    {
+      id: 1,
+      nome: "Natalia  Santos Santos Santos",
+      matricula: "2022001",
+      titulacao: "Mestrado",
+      datafinal: "03/05/2024",
+    },
+    {
+      id: 2,
+      nome: "Claudio Souza",
+      matricula: "2022002",
+      titulacao: "Doutorado",
+      datafinal: "8/05/2027",
+    },
+    {
+      id: 3,
+      nome: "Vinicius Alves",
+      matricula: "2022003",
+      titulacao: "Mestrado",
+      datafinal: "15/05/2024",
+    },
+  ]);
+
   const [alunos, setAlunos] = useState(alunosData);
   const [showModal, setShowModal] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState(null);
+  const [showSolicitacoes, setShowSolicitacoes] = useState(false);
 
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
@@ -80,7 +105,28 @@ function PerfilOrientador() {
     setShowModal(false);
   };
 
-  // Separa os alunos baseados na titulação
+  const handleSolicitacoesClick = () => {
+    setShowSolicitacoes(!showSolicitacoes);
+  };
+
+  const handleAcceptRequest = (id) => {
+    const solicitationToAccept = solicitacoes.find(
+      (solicitacao) => solicitacao.id === id,
+    );
+    setAlunos([...alunos, solicitationToAccept]);
+    const updatedSolicitacoes = solicitacoes.filter(
+      (solicitacao) => solicitacao.id !== id,
+    );
+    setSolicitacoes(updatedSolicitacoes);
+  };
+
+  const handleRemoveRequest = (id) => {
+    const updatedSolicitacoes = solicitacoes.filter(
+      (solicitacao) => solicitacao.id !== id,
+    );
+    setSolicitacoes(updatedSolicitacoes);
+  };
+
   const alunosMestrado = alunos.filter(
     (aluno) => aluno.titulacao === "Mestrado",
   );
@@ -90,49 +136,57 @@ function PerfilOrientador() {
 
   return (
     <div className="contain">
-      <header>
-        <div className="containerOrientador">
-          {/* Logo */}
-          <img src={logoPgcomp} />
-          {/* Informações do perfil */}
-          <div
-            className="infoOrientador"
-            style={{ justifyContent: "space-between" }}
-          >
-            <div>
-              <h2>Augusto Carlos Santos</h2>
-              <h3>Orientandos: {alunos.length}</h3>
+      <div className="containerOrientador">
+        <img src={logoPgcop} />
+        <div
+          className="infoOrientador"
+          style={{ justifyContent: "space-between" }}
+        >
+          <div>
+            <h2>Augusto Carlos Santos</h2>
+            <h3>Orientandos: {alunos.length}</h3>
+          </div>
+          <div className="botoesToolbar">
+            <div style={{ position: "relative" }}>
+              <MdGroupAdd
+                onClick={handleSolicitacoesClick}
+                style={{
+                  marginRight: "40px",
+                  cursor: "pointer",
+                  color: solicitacoes.length > 0 ? "red" : "inherit",
+                }}
+                size={35}
+                title="Solicitações"
+              />
+              {showSolicitacoes && (
+                <div
+                  className="solicitacoesContainer"
+                  style={{ position: "absolute", top: "-50px" }}
+                >
+                  <Solicitacoes
+                    solicitacoes={solicitacoes}
+                    handleAcceptRequest={handleAcceptRequest}
+                    handleRemoveRequest={handleRemoveRequest}
+                  />
+                </div>
+              )}
             </div>
-            {/* Botões */}
-            <div className="botoesToolbar">
-              <div>
-                <MdGroupAdd
-                  onClick={() =>
-                    (window.location.href = "/perfil-coordenador/solicitacoes")
-                  }
-                  style={{ cursor: "pointer", marginRight: "40px" }}
-                  size={35}
-                  title="Solicitações"
-                />
-              </div>
-              <div>
-                <MdLogout
-                  onClick={signOut}
-                  style={{ cursor: "pointer", marginRight: "40px" }}
-                  size={35}
-                  title="Sair"
-                />
-              </div>
+            <div>
+              <MdLogout
+                onClick={() => (window.location.href = "/")}
+                style={{ marginRight: "40px", cursor: "pointer" }}
+                size={35}
+                title="Sair"
+              />
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
-      <h2 style={{ textAlign: "center", marginTop: "160px" }}>
+      <h2 style={{ textAlign: "center", marginTop: "40px" }}>
         Lista de Orientandos
       </h2>
 
-      {/* Container de Alunos Orientados - Mestrado */}
       <div className="containerOrientadorOrientandos">
         <h3 style={{ textAlign: "center", marginBottom: "10px" }}>
           Alunos de Mestrado
@@ -152,6 +206,7 @@ function PerfilOrientador() {
               </div>
               <div>
                 <button
+                  className="bttn"
                   onClick={() => handleDoubleClick(aluno.matricula)}
                   style={{
                     marginRight: "10px",
@@ -164,6 +219,7 @@ function PerfilOrientador() {
                   Abrir
                 </button>
                 <button
+                  className="bttn"
                   onClick={() => {
                     setSelectedAluno(aluno);
                     setShowModal(true);
@@ -184,7 +240,6 @@ function PerfilOrientador() {
         </ul>
       </div>
 
-      {/* Container de Alunos Orientados - Doutorado */}
       <div
         className="containerOrientadorOrientandos"
         style={{ marginTop: "30px" }}
@@ -207,6 +262,7 @@ function PerfilOrientador() {
               </div>
               <div>
                 <button
+                  className="bttn"
                   onClick={() => handleDoubleClick(aluno.matricula)}
                   style={{
                     marginRight: "10px",
@@ -219,6 +275,7 @@ function PerfilOrientador() {
                   Abrir
                 </button>
                 <button
+                  className="bttn"
                   onClick={() => {
                     setSelectedAluno(aluno);
                     setShowModal(true);
@@ -239,7 +296,6 @@ function PerfilOrientador() {
         </ul>
       </div>
 
-      {/* Modal de confirmação */}
       {showModal && (
         <div className="confirmationBox">
           <div
@@ -254,12 +310,14 @@ function PerfilOrientador() {
             <p>Tem certeza que deseja remover esse aluno da sua lista?</p>
             <ul style={{ display: "flex" }}>
               <button
+                className="bttn"
                 onClick={handleDelete}
                 style={{ marginRight: "30px", padding: "10px" }}
               >
                 Sim
               </button>
               <button
+                className="bttn"
                 onClick={() => setShowModal(false)}
                 style={{ padding: "10px" }}
               >

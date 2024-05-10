@@ -1,20 +1,18 @@
+import React, { useState } from 'react';
 import "./styles.css";
-
 import LoadingButton from "@mui/lab/LoadingButton";
-import { FormControlLabel, MenuItem, Radio,RadioGroup } from "@mui/material";
+import { MenuItem, RadioGroup, FormControlLabel, Radio } from "@mui/material";
 import { useMask } from "@react-input/mask";
 import { Form, Formik } from "formik";
-import { useState } from "react";
 import * as Yup from "yup";
-
 import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
-import SelectCadastro from "@/components/SelectCadastro";
+import SelectCadastro from "../../components/SelectCadastro";
 
-const CadastroAluno = () => {
-  const [tipoCadastro, setTipoCadastro] = useState<"aluno" | "professor">(
-    "aluno",
-  );
+const logoPgcop = "/assets/logoPgcop.png";
+
+
+function AtualizarDados() {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -25,14 +23,6 @@ const CadastroAluno = () => {
       .required("Insira um e-mail"),
     telefone: Yup.string().required("Insira seu telefone"),
     cpf: Yup.string().required("Insira seu CPF"),
-    matricula:
-      tipoCadastro === "aluno"
-        ? Yup.string().required("Insira o seu número de matrícula")
-        : Yup.string().notRequired(),
-    orientador:
-      tipoCadastro === "aluno"
-        ? Yup.string().required("Informe o nome do seu orientador")
-        : Yup.string().notRequired(),
     titulacao: Yup.string()
       .required()
       .oneOf(["mestrado", "doutorado"])
@@ -73,29 +63,7 @@ const CadastroAluno = () => {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src="assets/logoPgcop.png" width={110} />
-
-          <RadioGroup
-            row
-            aria-label="tipo-cadastro"
-            name="tipo-cadastro"
-            value={tipoCadastro}
-            onChange={(e) =>
-              setTipoCadastro(e.target.value as "aluno" | "professor")
-            }
-          >
-            <FormControlLabel
-              value="aluno"
-              control={<Radio color="primary" />}
-              label="Aluno"
-            />
-            <FormControlLabel
-              style={{ marginRight: "400px" }}
-              value="professor"
-              control={<Radio color="primary" />}
-              label="Professor"
-            />
-          </RadioGroup>
+          <img src={logoPgcop} width={110} />
 
           <div style={{ display: "flex", gap: 16 }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
@@ -115,14 +83,6 @@ const CadastroAluno = () => {
               />
 
               <FormikInput
-                inputRef={cpfInputRef}
-                name="cpf"
-                label="CPF"
-                fullWidth
-                required
-              />
-
-              <FormikInput
                 inputRef={telefoneInputRef}
                 name="telefone"
                 label="Telefone"
@@ -132,7 +92,7 @@ const CadastroAluno = () => {
 
               <FormikPasswordInput
                 name="password"
-                label="Senha"
+                label="Nova senha"
                 fullWidth
                 required
               />
@@ -146,7 +106,7 @@ const CadastroAluno = () => {
             </div>
 
             <div style={{ display: "flex", flexDirection: "column" }}>
-              {tipoCadastro === "aluno" && (
+
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <FormikInput
                     name="matricula"
@@ -174,36 +134,16 @@ const CadastroAluno = () => {
                     <MenuItem value="doutorado">Doutorado</MenuItem>
                   </FormikInput>
 
-                  <div className="inputData">
+                  <div className="inputData" >
                     <SelectCadastro />
                   </div>
                 </div>
-              )}
-
-              {tipoCadastro === "professor" && (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <FormikInput
-                    className="inputRow"
-                    style={{ width: "240px" }}
-                    fullWidth
-                    variant="standard"
-                    id="select-funcao"
-                    name="Função"
-                    label="Função"
-                    select
-                    required
-                  >
-                    <MenuItem value="professor">Professor</MenuItem>
-                    <MenuItem value="coordenador">Coordenador</MenuItem>
-                  </FormikInput>
-                </div>
-              )}
+              
             </div>
           </div>
 
           <div className="buttonCadastro">
-            <LoadingButton
-              className="bttn"
+            <LoadingButton className="bttn"
               sx={{ marginTop: 2 }}
               variant="contained"
               fullWidth
@@ -211,13 +151,13 @@ const CadastroAluno = () => {
               onClick={() => handleSubmit()}
               disabled={isSubmitting}
             >
-              Cadastrar
+              Atualizar dados
             </LoadingButton>
           </div>
         </Form>
       )}
     </Formik>
   );
-};
+}
 
-export default CadastroAluno;
+export default AtualizarDados;

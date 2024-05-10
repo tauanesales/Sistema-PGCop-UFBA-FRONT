@@ -61,6 +61,7 @@ const Login = () => {
               disabled={disabled}
               onClick={handleSignIn}
               label={"Entrar"}
+              style={{ width: "90%" }}
             />
           </div>
 

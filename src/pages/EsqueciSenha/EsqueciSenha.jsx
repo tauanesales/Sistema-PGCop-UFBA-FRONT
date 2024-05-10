@@ -1,46 +1,33 @@
-function EsqueciSenha() {
-  const logoPgcomp = "assets/logopgcomp.png";
+import "./styles.css";
+
+import ButtonSecondary from "@/components/ButtonSecondary";
+import Input from "@/components/Input";
+
+const EsqueciSenha = () => {
+  const logoPgcop = "assets/logoPgcop.png";
 
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        borderRadius: "10px",
-        padding: "20px",
-        width: "350px",
-        height: "400px",
-        textAlign: "center",
-      }}
-    >
-      {/* Logo*/}
-      <img src={logoPgcomp} width={130} />
-      {/* Campo Email */}
-      <h4>Email de Recuperação de Senha</h4>
-      <div style={{ position: "center", marginBottom: "40px" }}>
-        <input
-          type="email"
-          placeholder="Digite seu Email"
-          style={{
-            width: "90%",
-            padding: "12px",
-            borderRadius: "5px",
-            backgroundColor: "#d3d3d3",
-            color: "#333",
-            fontSize: "14px",
-            border: "1px solid #ccc",
-          }}
-        />
-      </div>
+    <div className="container">
+      <div className="containerCard">
+        <img src={logoPgcop} width={130} />
+        <h1>Redefinir senha</h1>
+        <p>Informe o e-mail cadastrado para redefinir sua senha de acesso.</p>
 
-      {/* Botão Enviar Recuperação de Senha */}
-      <a href="/confirmar-envio-email">
-        <button style={{ borderRadius: "5px", fontSize: "16px" }}>
-          Enviar Email
-        </button>
-      </a>
-      {/* LInks Cadastro e Recuperação de senha */}
+        <div className="containInput">
+          <Input
+            label={"E-mail:"}
+            type={"email"}
+            style={{ marginBottom: ".5em" }}
+          />
+          <ButtonSecondary
+            link={"/confirmar-envio-email"}
+            label={"Enviar"}
+            style={{ width: "12em" }}
+          />
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default EsqueciSenha;

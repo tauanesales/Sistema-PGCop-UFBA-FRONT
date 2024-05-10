@@ -6,9 +6,9 @@ import {
   Route,
 } from "react-router-dom";
 
+import AtualizarDados from "@/pages/AtualizarDados/AtualizarDados";
 import AtualizarSenha from "@/pages/AtualizarSenha/AtualizarSenha";
 import CadastroAluno from "@/pages/CadastroAluno/CadastroAluno";
-import CadastroProfessor from "@/pages/CadastroProfessor/CadastroProfessor";
 import ConfirmarCadastro from "@/pages/ConfirmarCadastro/ConfirmarCadastro";
 import ConfirmarEnvioEmail from "@/pages/ConfirmarEnvioEmail/ConfirmarEnvioEmail";
 import ConfirmarNovaSenha from "@/pages/ConfirmarNovaSenha/ConfirmarNovaSenha";
@@ -25,6 +25,10 @@ const routes = createRoutesFromElements(
   <Route element={<Outlet />}>
     <Route element={<AuthenticationGuard allowedRoles={["aluno"]} />}>
       <Route path="/perfil-aluno" element={<PerfilAluno />} />
+      <Route
+        path="/perfil-aluno/atualizar-dados"
+        element={<AtualizarDados />}
+      />
     </Route>
     <Route element={<AuthenticationGuard allowedRoles={["professor"]} />}>
       <Route path="/perfil-professor" element={<PerfilOrientador />} />
@@ -37,7 +41,6 @@ const routes = createRoutesFromElements(
 
     <Route path="/" element={<Navigate to="/login" replace />} />
     <Route path="/login" element={<Login />} />
-    <Route path="/cadastro-professor" element={<CadastroProfessor />} />
     <Route path="/cadastro-aluno" element={<CadastroAluno />} />
     <Route path="/confirmar-cadastro" element={<ConfirmarCadastro />} />
     <Route path="/esqueci-senha" element={<EsqueciSenha />} />
