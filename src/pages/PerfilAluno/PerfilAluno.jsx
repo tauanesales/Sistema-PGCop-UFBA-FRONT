@@ -1,10 +1,13 @@
 import "./styles.css";
 
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
 import { MdEditNote, MdLogout } from "react-icons/md";
+import { useUserQueries } from "@/queries/user";
 
 function PerfilAluno() {
+  const { signOut } = useUserQueries();
+
   const logoPgcop = "/assets/logoPgcop.png";
 
   const dataDeInicio = new Date("2023-03-01"); // Data de Início do aluno
@@ -151,7 +154,7 @@ function PerfilAluno() {
             title="Atualizar dados"
           />
           <MdLogout
-            onClick={() => (window.location.href = "/")}
+            onClick={signOut}
             style={{ cursor: "pointer", marginRight: "40px" }}
             size={35}
             title="Sair"

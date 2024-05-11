@@ -3,10 +3,12 @@ import "./styles.css";
 import { useState } from "react";
 import { MdGroupAdd, MdLogout } from "react-icons/md";
 
+import { useUserQueries } from "@/queries/user";
 
 import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
 
 function PerfilOrientador() {
+  const { signOut } = useUserQueries();
   const logoPgcop = "/assets/logoPgcop.png";
 
   const alunosData = [
@@ -173,7 +175,7 @@ function PerfilOrientador() {
             </div>
             <div>
               <MdLogout
-                onClick={() => (window.location.href = "/")}
+                onClick={signOut}
                 style={{ marginRight: "40px", cursor: "pointer" }}
                 size={35}
                 title="Sair"
