@@ -1,6 +1,6 @@
 import { camelizeKeys } from "humps";
 
-import { Aluno, Professor, User } from "@/models/User";
+import { User } from "@/models/User";
 
 import api from "./config";
 
@@ -17,10 +17,6 @@ export const getUser = (accessToken?: string) =>
       }),
     },
   });
-
-
-export const createUser = (data: CreateUserRequestData) =>
-  api.post("/usuarios", data);
 
 type AuthenticateUserRequestData = {
   username: string;

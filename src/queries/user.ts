@@ -45,11 +45,6 @@ export const useUserQueries = () => {
       },
     });
 
-  const useCreateUser = () =>
-    useMutation({
-      mutationFn: userApi.createUser,
-    });
-
   const signOut = () => {
     resetAllStores();
     queryClient.clear();
@@ -58,7 +53,6 @@ export const useUserQueries = () => {
   return {
     useGetUser,
     useAuthUser,
-    useCreateUser,
     signOut,
   };
 };
