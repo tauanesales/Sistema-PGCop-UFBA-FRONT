@@ -2,14 +2,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { resetAllStores } from "@/store/helpers";
-import { useTokensStore } from "@/store/tokens";
+import { saveTokens } from "@/store/tokens";
 
 import * as userApi from "../services/api/user";
 
 export const useUserQueries = () => {
   const queryClient = useQueryClient();
-
-  const { saveTokens } = useTokensStore();
 
   const navigate = useNavigate();
 

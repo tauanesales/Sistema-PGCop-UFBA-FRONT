@@ -16,7 +16,7 @@ export const AuthenticationGuard = ({
   allowedRoles,
   ...props
 }: AuthenticationGuardProps) => {
-  const { tokens } = useTokensStore();
+  const tokens = useTokensStore();
 
   const { useGetUser } = useUserQueries();
 

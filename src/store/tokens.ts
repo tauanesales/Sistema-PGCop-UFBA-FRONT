@@ -7,13 +7,10 @@ interface Tokens {
   tokenType?: string;
 }
 
-interface TokensStore {
-  tokens: Tokens;
-  saveTokens: (tokens: Tokens) => void;
-}
-
-export const useTokensStore = create<TokensStore>()(
-  persist((set) => ({ tokens: {}, saveTokens: (tokens) => set({ tokens }) }), {
+export const useTokensStore = create<Tokens>()(
+  persist(() => ({}), {
     name: "tokens",
   }),
 );
+
+export const saveTokens = (tokens: Tokens) => useTokensStore.setState(tokens);
