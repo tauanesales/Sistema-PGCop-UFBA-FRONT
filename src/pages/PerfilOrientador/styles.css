@@ -50,12 +50,6 @@
   margin-top: 1em;
 }
 
-button {
-  background-color: rgba(42, 41, 41, 0.77);
-  width: 130px;
-  height: 40px;
-}
-
 ul {
   list-style-type: none;
   padding-left: 0;
@@ -110,6 +104,7 @@ li {
   width: 150px;
   height: 2.5em;
 }
+
 .bttn:hover {
   background-color: #e9eaec;
 }
