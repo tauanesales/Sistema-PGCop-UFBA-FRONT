@@ -20,7 +20,9 @@ export const AuthenticationGuard = ({
 
   const { useGetUser } = useUserQueries();
 
-  const { data: user } = useGetUser(false);
+  const enabled = !!tokens.accessToken;
+
+  const { data: user } = useGetUser(enabled);
 
   const isAllowed =
     !!tokens?.accessToken && !!user && !!allowedRoles?.includes(user.tipo);

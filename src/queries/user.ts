@@ -13,7 +13,7 @@ export const useUserQueries = () => {
 
   const location = useLocation();
 
-  const useGetUser = (enabled?: boolean) =>
+  const useGetUser = (enabled: boolean) =>
     useQuery({
       queryKey: ["user"],
       queryFn: () => userApi.getUser().then((response) => response.data),
