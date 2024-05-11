@@ -3,9 +3,13 @@ import "./styles.css";
 import { useEffect, useState } from "react";
 import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
 import { MdEditNote, MdLogout } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+
 import { useUserQueries } from "@/queries/user";
 
 function PerfilAluno() {
+  const navigate = useNavigate();
+
   const { signOut } = useUserQueries();
 
   const logoPgcop = "/assets/logoPgcop.png";
@@ -146,9 +150,7 @@ function PerfilAluno() {
 
         <div className="botoesToolbar">
           <MdEditNote
-            onClick={() =>
-              (window.location.href = "/perfil-aluno/atualizar-dados")
-            }
+            onClick={() => navigate("/perfil-aluno/atualizar-dados")}
             style={{ cursor: "pointer", marginRight: "40px" }}
             size={35}
             title="Atualizar dados"

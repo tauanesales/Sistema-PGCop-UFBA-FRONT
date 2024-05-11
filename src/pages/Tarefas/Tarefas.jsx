@@ -7,8 +7,11 @@ import {
   MdDelete,
   MdOutlineLibraryAdd,
 } from "react-icons/md"; // Importando os ícones
+import { useNavigate } from "react-router-dom";
 
 function Tarefas() {
+  const navigate = useNavigate();
+
   const tarefasData = [
     {
       id: 1,
@@ -124,7 +127,7 @@ function Tarefas() {
         />
         {/* Botão retornar */}
         <MdArrowBack
-          onClick={() => (window.location.href = "/perfil-coordenador")}
+          onClick={() => navigate(-1)}
           style={{ cursor: "pointer", marginRight: "10px" }}
           size={35}
           title="Voltar"

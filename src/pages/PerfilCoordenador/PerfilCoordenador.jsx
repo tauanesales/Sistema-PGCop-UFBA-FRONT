@@ -2,9 +2,16 @@ import "./styles.css";
 
 import { useState } from "react";
 import { MdGroupAdd, MdLogout, MdOutlineLibraryBooks } from "react-icons/md"; // Importando ícones
+import { useNavigate } from "react-router-dom";
+
+import { useUserQueries } from "@/queries/user";
 
 function PerfilCoordenador() {
   const logoPgcop = "/assets/logoPgcop.png";
+
+  const navigate = useNavigate();
+
+  const { signOut } = useUserQueries();
 
   const alunosData = [
     {
@@ -124,9 +131,7 @@ function PerfilCoordenador() {
           <div>
             <div className="botoesToolbar">
               <MdGroupAdd
-                onClick={() =>
-                  (window.location.href = "/perfil-coordenador/solicitacoes")
-                }
+                onClick={() => navigate("/perfil-coordenador/solicitacoes")}
                 style={{ cursor: "pointer", marginRight: "42px" }}
                 size={35}
                 title="Solicitações"
@@ -134,9 +139,7 @@ function PerfilCoordenador() {
             </div>
             <div>
               <MdOutlineLibraryBooks
-                onClick={() =>
-                  (window.location.href = "/perfil-coordenador/tarefas")
-                }
+                onClick={() => navigate("/perfil-coordenador/tarefas")}
                 style={{ cursor: "pointer", marginRight: "45px" }}
                 size={35}
                 title="Tarefas"
@@ -144,7 +147,7 @@ function PerfilCoordenador() {
             </div>
             <div>
               <MdLogout
-                onClick={() => (window.location.href = "/")}
+                onClick={signOut}
                 style={{ cursor: "pointer", marginRight: "30px" }}
                 size={35}
                 title="Sair"
