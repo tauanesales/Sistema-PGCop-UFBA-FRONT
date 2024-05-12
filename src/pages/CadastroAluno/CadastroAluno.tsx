@@ -7,10 +7,9 @@ import { Form, Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 
+import { FormikDateField } from "@/components/FormikDateField";
 import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
-import SelectCadastro from "@/components/SelectCadastro";
-
 import { useProfessoresQueries } from "@/queries/professores";
 import { useUserQueries } from "@/queries/user";
 
@@ -95,6 +94,9 @@ const CadastroAluno = () => {
       tipoCadastro === "aluno"
         ? Yup.number().required("Selecione um orientador")
         : Yup.string().notRequired(),
+    data_ingresso: Yup.date()
+      .required("Insira uma data")
+      .max(new Date(), "Escolha uma data no passado"),
     curso: Yup.string()
       .required()
       .oneOf(["M", "D"])
@@ -246,9 +248,12 @@ const CadastroAluno = () => {
                     <MenuItem value="D">Doutorado</MenuItem>
                   </FormikInput>
 
-                  <div className="inputData">
-                    <SelectCadastro />
-                  </div>
+                  <FormikDateField
+                    required
+                    variant="standard"
+                    name="data_ingresso"
+                    label="Data de ingresso"
+                  />
 
                   <FormikInput
                     name="lattes"
