@@ -11,6 +11,7 @@ import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
 import SelectCadastro from "@/components/SelectCadastro";
 
+import { useProfessoresQueries } from "@/queries/professores";
 import { useUserQueries } from "@/queries/user";
 
 type Values = {
@@ -33,6 +34,10 @@ const CadastroAluno = () => {
   const { mutate: createAluno } = useCreateAluno();
 
   const { mutate: createProfessor } = useCreateProfessor();
+
+  const { useGetProfessores } = useProfessoresQueries();
+
+  const { data: professores = [] } = useGetProfessores();
 
   const [tipoCadastro, setTipoCadastro] = useState<"aluno" | "professor">(
     "aluno",
@@ -88,7 +93,7 @@ const CadastroAluno = () => {
         : Yup.string().notRequired(),
     orientador_id:
       tipoCadastro === "aluno"
-        ? Yup.string().required("Informe o nome do seu orientador")
+        ? Yup.number().required("Selecione um orientador")
         : Yup.string().notRequired(),
     curso: Yup.string()
       .required()
@@ -218,8 +223,16 @@ const CadastroAluno = () => {
                     name="orientador_id"
                     label="Orientador"
                     fullWidth
+                    select
                     required
-                  />
+                  >
+                    {professores.map((professor) => (
+                      <MenuItem key={professor.id} value={professor.id}>
+                        {professor.nome}
+                      </MenuItem>
+                    ))}
+                  </FormikInput>
+
                   <FormikInput
                     fullWidth
                     variant="standard"
