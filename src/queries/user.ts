@@ -45,6 +45,16 @@ export const useUserQueries = () => {
       },
     });
 
+  const useCreateAluno = () =>
+    useMutation({
+      mutationFn: userApi.createAluno,
+    });
+
+  const useCreateProfessor = () =>
+    useMutation({
+      mutationFn: userApi.createProfessor,
+    });
+
   const signOut = () => {
     resetAllStores();
     queryClient.clear();
@@ -53,6 +63,8 @@ export const useUserQueries = () => {
   return {
     useGetUser,
     useAuthUser,
+    useCreateAluno,
+    useCreateProfessor,
     signOut,
   };
 };

@@ -1,7 +1,7 @@
 import "./styles.css";
 
 import LoadingButton from "@mui/lab/LoadingButton";
-import { FormControlLabel, MenuItem, Radio,RadioGroup } from "@mui/material";
+import { FormControlLabel, MenuItem, Radio, RadioGroup } from "@mui/material";
 import { useMask } from "@react-input/mask";
 import { Form, Formik } from "formik";
 import { useState } from "react";
@@ -11,13 +11,69 @@ import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
 import SelectCadastro from "@/components/SelectCadastro";
 
+import { useUserQueries } from "@/queries/user";
+
+type Values = {
+  nome: string;
+  email: string;
+  senha: string;
+  cpf: string;
+  telefone: string;
+  matricula: string;
+  orientador_id: number | "";
+  data_ingresso: Date | null;
+  lattes: string;
+  curso: "M" | "D" | "";
+  senhaConfirmada: string;
+};
+
 const CadastroAluno = () => {
+  const { useCreateAluno, useCreateProfessor } = useUserQueries();
+
+  const { mutate: createAluno } = useCreateAluno();
+
+  const { mutate: createProfessor } = useCreateProfessor();
+
   const [tipoCadastro, setTipoCadastro] = useState<"aluno" | "professor">(
     "aluno",
   );
 
+  const handleSignUp = (values: Values) => {
+    const {
+      cpf,
+      telefone,
+      matricula,
+      orientador_id,
+      data_ingresso,
+      lattes,
+      curso,
+      nome,
+      email,
+      senha,
+    } = values;
+
+    if (tipoCadastro === "aluno") {
+      createAluno({
+        nome,
+        email,
+        senha,
+        orientador_id: orientador_id as number,
+        curso: curso as "M" | "D",
+        data_ingresso: data_ingresso as Date,
+        data_defesa: null,
+        data_qualificacao: null,
+        lattes,
+        matricula,
+        telefone,
+        cpf,
+      });
+    } else {
+      createProfessor({ nome, email, senha });
+    }
+  };
+
   const validationSchema = Yup.object().shape({
-    name: Yup.string()
+    nome: Yup.string()
       .matches(/(\w.+\s).+/, "Insira no mínimo 2 nomes")
       .required("Insira seu nome"),
     email: Yup.string()
@@ -25,23 +81,24 @@ const CadastroAluno = () => {
       .required("Insira um e-mail"),
     telefone: Yup.string().required("Insira seu telefone"),
     cpf: Yup.string().required("Insira seu CPF"),
+    lattes: Yup.string().required("Insira o link para seu perfil no Lattes"),
     matricula:
       tipoCadastro === "aluno"
         ? Yup.string().required("Insira o seu número de matrícula")
         : Yup.string().notRequired(),
-    orientador:
+    orientador_id:
       tipoCadastro === "aluno"
         ? Yup.string().required("Informe o nome do seu orientador")
         : Yup.string().notRequired(),
-    titulacao: Yup.string()
+    curso: Yup.string()
       .required()
-      .oneOf(["mestrado", "doutorado"])
+      .oneOf(["M", "D"])
       .required("Selecione uma titulação"),
-    password: Yup.string()
+    senha: Yup.string()
       .min(8, ({ min }) => `A senha deve ter no mínimo ${min} caracteres`)
       .required("Insira uma senha"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Senhas não coincidem")
+    senhaConfirmada: Yup.string()
+      .oneOf([Yup.ref("senha")], "Senhas não coincidem")
       .required("Insira a senha novamente"),
   });
 
@@ -58,18 +115,20 @@ const CadastroAluno = () => {
   return (
     <Formik
       initialValues={{
-        name: "",
+        nome: "",
         cpf: "",
         email: "",
         telefone: "",
         matricula: "",
-        orientador: "",
-        titulacao: "",
-        password: "",
-        confirmPassword: "",
+        orientador_id: "",
+        data_ingresso: null,
+        lattes: "",
+        curso: "",
+        senha: "",
+        senhaConfirmada: "",
       }}
       validationSchema={validationSchema}
-      onSubmit={() => {}}
+      onSubmit={handleSignUp}
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
@@ -100,7 +159,7 @@ const CadastroAluno = () => {
           <div style={{ display: "flex", gap: 16 }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <FormikInput
-                name="name"
+                name="nome"
                 label="Nome completo"
                 fullWidth
                 required
@@ -131,14 +190,14 @@ const CadastroAluno = () => {
               />
 
               <FormikPasswordInput
-                name="password"
+                name="senha"
                 label="Senha"
                 fullWidth
                 required
               />
 
               <FormikPasswordInput
-                name="confirmPassword"
+                name="senhaConfirmada"
                 label="Confirmar senha"
                 fullWidth
                 required
@@ -156,7 +215,7 @@ const CadastroAluno = () => {
                   />
 
                   <FormikInput
-                    name="orientador"
+                    name="orientador_id"
                     label="Orientador"
                     fullWidth
                     required
@@ -164,19 +223,26 @@ const CadastroAluno = () => {
                   <FormikInput
                     fullWidth
                     variant="standard"
-                    id="select-titulacao"
-                    name="titulacao"
+                    id="select-curso"
+                    name="curso"
                     label="Titulação do curso"
                     select
                     required
                   >
-                    <MenuItem value="mestrado">Mestrado</MenuItem>
-                    <MenuItem value="doutorado">Doutorado</MenuItem>
+                    <MenuItem value="M">Mestrado</MenuItem>
+                    <MenuItem value="D">Doutorado</MenuItem>
                   </FormikInput>
 
                   <div className="inputData">
                     <SelectCadastro />
                   </div>
+
+                  <FormikInput
+                    name="lattes"
+                    label="Link para o Lattes"
+                    fullWidth
+                    required
+                  />
                 </div>
               )}
 

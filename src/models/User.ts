@@ -12,8 +12,8 @@ export type Aluno = UserBase & {
   curso: "M" | "D";
   lattes: string;
   data_ingresso: Date;
-  data_qualificacao: Date;
-  data_defesa: Date;
+  data_qualificacao: Date | null;
+  data_defesa: Date | null;
 };
 
 export type Professor = UserBase;
