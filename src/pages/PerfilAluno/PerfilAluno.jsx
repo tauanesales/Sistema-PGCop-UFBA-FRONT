@@ -1,17 +1,14 @@
-import { useState, useEffect } from "react"; 
+import { useState, useEffect, useRef } from "react";
+import * as d3 from "d3"; // Importando D3.js
 import "./styles.css";
-
 import { MdEditNote, MdLogout } from 'react-icons/md';
 import { AiOutlineEdit , AiOutlineFileExcel } from 'react-icons/ai'; 
 
+const logoPgcop = "/assets/logoPgcop.png";
+
 function PerfilAluno() {
-  
-  const logoPgcop = "/assets/logoPgcop.png";
 
-  const dataDeInicio = new Date("2023-03-01"); // Data de Início do aluno
-
-  const [dataAtual, setDataAtual] = useState(new Date()); // Data atual
-
+  // Definição das tarefas
   const [tarefas, setTarefas] = useState([
     { id: 1, nome: "Qualificacao", prazoMeses: 24, descricao: "Apresentação e defesa do projeto de pesquisa.", feita: false },
     { id: 2, nome: "Artigo", prazoMeses: 24, descricao: "Elaborar e submeter um artigo científico.", feita: false },
@@ -20,6 +17,22 @@ function PerfilAluno() {
     { id: 5, nome: "Exame de Proficiência em Língua Estrangeira", prazoMeses: 16, descricao: "Aprovação em exame de proficiência em língua estrangeira.", feita: false },
     { id: 6, nome: "Carga Horária Básica", prazoMeses: 15, descricao: "Cumprir a carga horária mínima de disciplinas obrigatórias.", feita: false },
   ]);
+
+  const idAluno = [
+    { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datainicio: '2024-0-01', orientador:'Frederico Durão' },
+  ];
+  
+    // Definindo as datas de início e atual
+    const dataDeInicio = new Date("2023-03-01");
+    const [dataAtual, setDataAtual] = useState(new Date());
+    const [aluno, setAluno] = useState(null); // Estado para armazenar os dados do aluno
+    const svgRef = useRef();
+  
+
+  // Atualiza o estado do aluno assim que o componente é montado
+  useEffect(() => {
+    setAluno(idAluno[0]); // Defina o primeiro aluno da lista
+  }, []);
 
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState(null);
   const [dataSelecionada, setDataSelecionada] = useState(null);
@@ -68,38 +81,117 @@ function PerfilAluno() {
       clearInterval(timer);
     };
   }, []);
+  
+  <div id="tooltip" style={{ display: "none", position: "absolute", backgroundColor: "white", padding: "5px", border: "1px solid black" }}></div>
+         
+  
+
+  useEffect(() => {
+    // Encontrando o prazo da última tarefa
+    const ultimaTarefa = tarefas.reduce((prev, current) => (prev.prazoMeses > current.prazoMeses) ? prev : current);
+    const prazoUltimaTarefa = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + ultimaTarefa.prazoMeses, dataDeInicio.getDate());
+  
+    // Calculando a largura do SVG com base no prazo da última tarefa
+    const margin = { top: 20, right: 40, bottom: 40, left: 40 };
+    const width = 900 - margin.left - margin.right; // Largura fixa
+    const height = 50 - margin.top - margin.bottom;
+  
+    // Selecionando o SVG e configurando a área de desenho
+    const svg = d3
+      .select(svgRef.current)
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  
+    // Desenhando a barra de progresso
+    svg.append("rect")
+      .attr("class", "barra-progresso")
+      .attr("x", 0)
+      .attr("y", height + 25) // Ajuste vertical para colocar abaixo dos quadrados
+      .attr("width", width) // Largura igual à largura do SVG
+      .attr("height", 10)
+      .style("fill", "none") // Cor de preenchimento nenhuma
+      .style("stroke", "black") // Cor da borda preta
+      .style("stroke-width", 0.3); // Largura da borda
+      
+  
+    // Desenhando o retângulo verde de progresso
+    svg.append("rect")
+      .attr("class", "progresso")
+      .attr("x", 0)
+      .attr("y", height + 25) // Ajuste vertical para colocar abaixo dos quadrados
+      .attr("width", 0) // Começa com largura 0
+      .attr("height", 10)
+      .style("fill", "green"); // Cor verde
+  
+    // Atualizando a largura e a posição do retângulo verde de progresso
+    const progresso = svg.select(".progresso");
+  
+    // Atualização contínua do retângulo verde de progresso com base no tempo decorrido
+    const timer = setInterval(() => {
+      const tempoDecorrido = dataAtual - dataDeInicio;
+      const progressoPorcentagem = (tempoDecorrido / (prazoUltimaTarefa - dataDeInicio));
+      const progressoWidth = progressoPorcentagem * width;
+      progresso.attr("width", progressoWidth);
+    }, 1000);
+  
+    // Atualizando o estado da data atual
+    const dataInicial = new Date(dataDeInicio);
+    const tempoDecorridoInicial = dataAtual - dataInicial;
+    const progressoInicial = (tempoDecorridoInicial / (prazoUltimaTarefa - dataInicial)) * width;
+    progresso.attr("width", progressoInicial);
+  
+    const dataInicialSeconds = dataInicial.getSeconds();
+    const msUntilNextSecond = 1000 - dataInicialSeconds * 1000;
+  
+    setTimeout(() => {
+      setDataAtual(new Date());
+    }, msUntilNextSecond);
+  
+    return () => clearInterval(timer);
+  }, [tarefas]);
+  
+
 
   return (
     <div className="contain">
-        <div className="containerAluno">
-          <div className="infoAluno">
+      <div className="containerAluno">
+        <div className="infoAluno">
           <img src={logoPgcop} alt="Logo" />
-          <div className="boxInfoAluno">
-            <h3>José  Silva José Silva</h3>
-            <p><span>Titulação:</span> Mestrado/Doutorado</p>
-            <p><span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}</p>
-            <p><span>Status:</span> Ativo</p>
-          </div>
+          {aluno && ( // Verifica se o aluno foi carregado
             <div className="boxInfoAluno">
-              <h3><span>Matrícula:</span> xxxxxxxxx</h3>
-              <p><span>Orientador(a): </span>Augusto Carlos</p>
-              <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
+              <h3>{aluno.nome}</h3>
+              <p><span>Titulação:</span> {aluno.titulacao}</p>
+              <p><span>Data de Inicio:</span> {aluno.datainicio}</p>
+              <p><span>Status:</span> Ativo</p>
             </div>
+          )}
+          <div className="boxInfoAluno">
+            <h3><span>Matrícula:</span> {aluno && aluno.matricula}</h3>
+            <p><span>Orientador(a): </span>{aluno && aluno.orientador}</p>
+            <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
           </div>
-
-            <div className="botoesToolbar">
-              <MdEditNote onClick={() => window.location.href = "/perfil-aluno/atualizar-dados"} 
-                style={{ cursor: 'pointer', marginRight:"40px" }} 
-                size={35} 
-                title="Atualizar dados" 
-              />
-              <MdLogout onClick={() => window.location.href = "/"} 
-                style={{ cursor: 'pointer', marginRight:"40px" }} 
-                size={35} 
-                title="Sair" 
-              />
-            </div>
         </div>
+
+        <div className="botoesToolbar">
+          <MdEditNote onClick={() => window.location.href = "/perfil-aluno/atualizar-dados"} 
+            style={{ cursor: 'pointer', marginRight:"40px" }} 
+            size={35} 
+            title="Atualizar dados" 
+          />
+          <MdLogout onClick={() => window.location.href = "/"} 
+            style={{ cursor: 'pointer', marginRight:"40px" }} 
+            size={35} 
+            title="Sair" 
+          />
+        </div>
+      </div>
+
+      {/* visualização */}
+      <div className="vis">
+        <svg ref={svgRef}></svg>
+      </div>
 
 
       <div className="tarefasAluno" >

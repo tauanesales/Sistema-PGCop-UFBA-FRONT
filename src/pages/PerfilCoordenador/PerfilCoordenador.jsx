@@ -89,7 +89,6 @@ function PerfilCoordenador(){
             {/* Container de Alunos Orientados - Mestrado */}
             <div className="listaAlunos" >
                 <div className='containerOrientandosCoordenador'>
-
                     <ul>
                     <h3 style={{ marginLeft:'20px', padding:'5px'}}>Alunos de Mestrado</h3>
                         {alunosMestrado.map(aluno => (
