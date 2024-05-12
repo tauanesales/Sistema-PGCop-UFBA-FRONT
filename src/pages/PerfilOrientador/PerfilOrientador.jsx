@@ -12,7 +12,10 @@ function PerfilOrientador(){
 
     const alunosData = [
         { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
-        { id: 2, nome: 'Tauane Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '8/05/2027' },
+        { id: 8, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 9, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 10, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 2, nome: 'Tauane Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '18/05/2027' },
         { id: 3, nome: 'Mario Souza', matricula: '2022003', titulacao: 'Mestrado', datafinal: '15/05/2024' },
         { id: 4, nome: 'Ana Clara', matricula: '2022004', titulacao: 'Doutorado', datafinal: '03/07/2027' },
         { id: 5, nome: 'Pedro Henrique', matricula: '2022005', titulacao: 'Mestrado', datafinal: '03/012/2025' },
@@ -105,62 +108,64 @@ function PerfilOrientador(){
     
 
             <h2 style={{textAlign:'center', marginTop:'40px'}}>Lista de Orientandos</h2>
+            <div className="listaAlunos" >
+                <div className='containerOrientadorOrientandos'>
+                    <ul>
+                    <h3 style={{  marginLeft:'20px', padding:'5px'}}>Alunos de Mestrado</h3>
+                        {alunosMestrado.map(aluno => (
+                            <li style={{ cursor:'pointer',padding: '7px 20px'}}
+                            key={aluno.id} 
+                                onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
+                                <div>
+                                    <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} - Titulação: {aluno.titulacao}<br />
+                                    Conclusão prevista em {aluno.datafinal}
+                                </div>
+                                <div>
+                                    <button className='bttn' onClick={() => handleDoubleClick(aluno.matricula)}
+                                        style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                        Abrir
+                                    </button>
+                                    <button className='bttn' onClick={() => {
+                                        setSelectedAluno(aluno);
+                                        setShowModal(true);
+                                    }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                        Remover
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-            <div className='containerOrientadorOrientandos'>
-                <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Mestrado</h3>
-                <ul>
-                    {alunosMestrado.map(aluno => (
-                        <li style={{ cursor:'pointer',padding: '7px 20px'}}
-                        key={aluno.id} 
-                            onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
-                            <div>
-                                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} - Titulação: {aluno.titulacao}<br />
-                                Conclusão prevista em {aluno.datafinal}
-                            </div>
-                            <div>
-                                <button className='bttn' onClick={() => handleDoubleClick(aluno.matricula)}
-                                    style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
-                                    Abrir
-                                </button>
-                                <button className='bttn' onClick={() => {
-                                    setSelectedAluno(aluno);
-                                    setShowModal(true);
-                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
-                                    Remover
-                                </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
+                <div className='containerOrientadorOrientandos'>
+                    <ul>
+                    <h3 style={{  marginLeft:'20px', padding:'5px'}}>Alunos de Doutorado</h3>
+                        {alunosDoutorado.map(aluno => (
+                            <li style={{ cursor:'pointer',padding: '7px 20px'}}
+                            key={aluno.id} 
+                                onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
+                                <div>
+                                    <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} - Titulação: {aluno.titulacao}<br />
+                                    Conclusão prevista em {aluno.datafinal}
+                                </div>
+                                <div>
+                                    <button className='bttn' onClick={() => handleDoubleClick(aluno.matricula)}
+                                        style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                        Abrir
+                                    </button>
+                                    <button className='bttn' onClick={() => {
+                                        setSelectedAluno(aluno);
+                                        setShowModal(true);
+                                    }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
+                                        Remover
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
-
-            <div className='containerOrientadorOrientandos' style={{marginTop:'30px'}}>
-                <h3 style={{textAlign: 'center', marginBottom: '10px'}}>Alunos de Doutorado</h3>
-                <ul>
-                    {alunosDoutorado.map(aluno => (
-                        <li style={{ cursor:'pointer',padding: '7px 20px'}}
-                        key={aluno.id} 
-                            onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
-                            <div>
-                                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} - Titulação: {aluno.titulacao}<br />
-                                Conclusão prevista em {aluno.datafinal}
-                            </div>
-                            <div>
-                                <button className='bttn' onClick={() => handleDoubleClick(aluno.matricula)}
-                                    style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
-                                    Abrir
-                                </button>
-                                <button className='bttn' onClick={() => {
-                                    setSelectedAluno(aluno);
-                                    setShowModal(true);
-                                }} style={{marginRight: '10px', height:'30px', borderRadius:'5px', width:'95px', fontSize: '13px'}}>
-                                    Remover
-                                </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            
 
             {showModal && (
                 <div className='confirmationBox'>
