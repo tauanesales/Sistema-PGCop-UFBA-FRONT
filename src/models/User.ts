@@ -11,7 +11,7 @@ export type Aluno = UserBase & {
   orientador_id: number;
   curso: "M" | "D";
   lattes: string;
-  data_ingresso: Date;
+  data_ingresso: string;
   data_qualificacao: Date | null;
   data_defesa: Date | null;
 };

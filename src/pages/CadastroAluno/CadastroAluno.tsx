@@ -2,7 +2,7 @@ import "./styles.css";
 
 import LoadingButton from "@mui/lab/LoadingButton";
 import { FormControlLabel, MenuItem, Radio, RadioGroup } from "@mui/material";
-import { useMask } from "@react-input/mask";
+import { unformat, useMask } from "@react-input/mask";
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
@@ -27,6 +27,16 @@ type Values = {
   senhaConfirmada: string;
 };
 
+const cpfMaskOptions = {
+  mask: "___.___.___-__",
+  replacement: { _: /\d/ },
+};
+
+const telefoneMaskOptions = {
+  mask: "(__) _____ ____",
+  replacement: { _: /\d/ },
+};
+
 const CadastroAluno = () => {
   const { useCreateAluno, useCreateProfessor } = useUserQueries();
 
@@ -42,7 +52,10 @@ const CadastroAluno = () => {
     "aluno",
   );
 
-  const handleSignUp = (values: Values) => {
+  const handleSignUp = (
+    values: Values,
+    formikHelpers: FormikHelpers<Values>,
+  ) => {
     const {
       cpf,
       telefone,
@@ -63,13 +76,13 @@ const CadastroAluno = () => {
         senha,
         orientador_id: orientador_id as number,
         curso: curso as "M" | "D",
-        data_ingresso: data_ingresso as Date,
+        data_ingresso: (data_ingresso as Date).toISOString().split("T")[0],
         data_defesa: null,
         data_qualificacao: null,
         lattes,
         matricula,
-        telefone,
-        cpf,
+        telefone: unformat(telefone, telefoneMaskOptions),
+        cpf: unformat(cpf, cpfMaskOptions),
       });
     } else {
       createProfessor({ nome, email, senha });
@@ -109,15 +122,9 @@ const CadastroAluno = () => {
       .required("Insira a senha novamente"),
   });
 
-  const cpfInputRef = useMask({
-    mask: "___.___.___-__",
-    replacement: { _: /\d/ },
-  });
+  const cpfInputRef = useMask(cpfMaskOptions);
 
-  const telefoneInputRef = useMask({
-    mask: "(__) _____ ____",
-    replacement: { _: /\d/ },
-  });
+  const telefoneInputRef = useMask(telefoneMaskOptions);
 
   return (
     <Formik
