@@ -23,14 +23,14 @@ type CreateAlunoRequestData = Omit<Aluno, "id"> & {
 };
 
 export const createAluno = (data: CreateAlunoRequestData) =>
-  api.post("/alunos", data);
+  api.post<Aluno>("/alunos", data);
 
 type CreateProfessorRequestData = Omit<Professor, "id"> & {
   senha: string;
 };
 
 export const createProfessor = (data: CreateProfessorRequestData) =>
-  api.post("/professores", data);
+  api.post<Professor>("/professores", data);
 
 type AuthenticateUserRequestData = {
   username: string;

@@ -5,6 +5,7 @@ import { FormControlLabel, MenuItem, Radio, RadioGroup } from "@mui/material";
 import { unformat, useMask } from "@react-input/mask";
 import { Form, Formik, FormikHelpers } from "formik";
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 import { FormikDateField } from "@/components/FormikDateField";
@@ -12,6 +13,7 @@ import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
 import { useProfessoresQueries } from "@/queries/professores";
 import { useUserQueries } from "@/queries/user";
+import { Tokens } from "@/store/tokens";
 
 type Values = {
   nome: string;
@@ -39,7 +41,13 @@ const telefoneMaskOptions = {
 };
 
 const CadastroAluno = () => {
-  const { useCreateAluno, useCreateProfessor } = useUserQueries();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const { useCreateAluno, useCreateProfessor, useAuthUser, fetchUser } =
+    useUserQueries();
+
+  const { mutate: authenticateUser } = useAuthUser();
 
   const { mutate: createAluno } = useCreateAluno();
 
@@ -73,6 +81,19 @@ const CadastroAluno = () => {
 
     const onSettled = () => formikHelpers.setSubmitting(false);
 
+    const onSuccess = async (tokens: Required<Tokens>) => {
+      const user = await fetchUser(tokens.accessToken);
+
+      const from =
+        location.state?.from?.pathname || user.tipo === "aluno"
+          ? "/perfil-aluno"
+          : user.tipo === "professor"
+            ? "/perfil-professor"
+            : "/perfil-coordenador";
+
+      navigate(from, { replace: true });
+    };
+
     if (tipoCadastro === "aluno") {
       createAluno(
         {
@@ -89,10 +110,35 @@ const CadastroAluno = () => {
           telefone: unformat(telefone, telefoneMaskOptions),
           cpf: unformat(cpf, cpfMaskOptions),
         },
-        { onSettled },
+        {
+          onSettled,
+          onSuccess: (_, variables) =>
+            authenticateUser(
+              {
+                password: variables.senha,
+                username: variables.email,
+              },
+              { onSuccess },
+            ),
+        },
       );
     } else {
-      createProfessor({ nome, email, senha }, { onSettled });
+      createProfessor(
+        { nome, email, senha, role: role as "orientador" | "coordenador" },
+        {
+          onSettled,
+          onSuccess: (_, variables) =>
+            authenticateUser(
+              {
+                password: variables.senha,
+                username: variables.email,
+              },
+              {
+                onSuccess,
+              },
+            ),
+        },
+      );
     }
   };
 

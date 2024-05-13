@@ -2,7 +2,7 @@ import { persist } from "zustand/middleware";
 
 import { create } from "./helpers";
 
-interface Tokens {
+export interface Tokens {
   accessToken?: string;
   tokenType?: string;
 }
