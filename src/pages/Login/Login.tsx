@@ -1,6 +1,7 @@
 import "./styles.css";
 
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import ButtonSecondary from "@/components/ButtonSecondary";
 import InputPassword from "@/components/InputPassword";
@@ -9,6 +10,9 @@ import { useUserQueries } from "@/queries/user";
 import Input from "../../components/Input";
 
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const logoPgcop = "assets/logoPgcop.png";
   const imagemBarra = "assets/salvador.png";
   const gamboa = "assets/gamboa.jpg";
@@ -19,11 +23,28 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { useAuthUser } = useUserQueries();
+  const { useAuthUser, fetchUser } = useUserQueries();
 
   const { mutate: authenticate } = useAuthUser();
 
-  const handleSignIn = () => authenticate({ username: email, password });
+  const handleSignIn = () =>
+    authenticate(
+      { username: email, password },
+      {
+        onSuccess: async (tokens) => {
+          const user = await fetchUser(tokens.accessToken);
+
+          const from =
+            location.state?.from?.pathname || user.tipo === "aluno"
+              ? "/perfil-aluno"
+              : user.tipo === "professor"
+                ? "/perfil-professor"
+                : "/perfil-coordenador";
+
+          navigate(from, { replace: true });
+        },
+      },
+    );
 
   const disabled = !email || !password;
 
