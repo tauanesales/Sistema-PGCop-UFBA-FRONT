@@ -3,7 +3,7 @@ import "./styles.css";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { FormControlLabel, MenuItem, Radio, RadioGroup } from "@mui/material";
 import { unformat, useMask } from "@react-input/mask";
-import { Form, Formik } from "formik";
+import { Form, Formik, FormikHelpers } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 
@@ -69,23 +69,28 @@ const CadastroAluno = () => {
       senha,
     } = values;
 
+    const onSettled = () => formikHelpers.setSubmitting(false);
+
     if (tipoCadastro === "aluno") {
-      createAluno({
-        nome,
-        email,
-        senha,
-        orientador_id: orientador_id as number,
-        curso: curso as "M" | "D",
-        data_ingresso: (data_ingresso as Date).toISOString().split("T")[0],
-        data_defesa: null,
-        data_qualificacao: null,
-        lattes,
-        matricula,
-        telefone: unformat(telefone, telefoneMaskOptions),
-        cpf: unformat(cpf, cpfMaskOptions),
-      });
+      createAluno(
+        {
+          nome,
+          email,
+          senha,
+          orientador_id: orientador_id as number,
+          curso: curso as "M" | "D",
+          data_ingresso: (data_ingresso as Date).toISOString().split("T")[0],
+          data_defesa: null,
+          data_qualificacao: null,
+          lattes,
+          matricula,
+          telefone: unformat(telefone, telefoneMaskOptions),
+          cpf: unformat(cpf, cpfMaskOptions),
+        },
+        { onSettled },
+      );
     } else {
-      createProfessor({ nome, email, senha });
+      createProfessor({ nome, email, senha }, { onSettled });
     }
   };
 
