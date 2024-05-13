@@ -103,9 +103,18 @@ const CadastroAluno = () => {
     email: Yup.string()
       .email("Insira um e-mail válido")
       .required("Insira um e-mail"),
-    telefone: Yup.string().required("Insira seu telefone"),
-    cpf: Yup.string().required("Insira seu CPF"),
-    lattes: Yup.string().required("Insira o link para seu perfil no Lattes"),
+    telefone:
+      tipoCadastro === "aluno"
+        ? Yup.string().required("Insira seu telefone")
+        : Yup.string().notRequired(),
+    cpf:
+      tipoCadastro === "aluno"
+        ? Yup.string().required("Insira seu CPF")
+        : Yup.string().notRequired(),
+    lattes:
+      tipoCadastro === "aluno"
+        ? Yup.string().required("Insira o link para seu perfil no Lattes")
+        : Yup.string().notRequired(),
     matricula:
       tipoCadastro === "aluno"
         ? Yup.string().required("Insira o seu número de matrícula")
@@ -114,16 +123,22 @@ const CadastroAluno = () => {
       tipoCadastro === "aluno"
         ? Yup.number().required("Selecione um orientador")
         : Yup.string().notRequired(),
-    data_ingresso: Yup.date()
-      .required("Insira uma data")
-      .max(new Date(), "Escolha uma data no passado"),
-    curso: Yup.string()
-      .required()
-      .oneOf(["M", "D"])
-      .required("Selecione uma titulação"),
     role:
       tipoCadastro === "professor"
         ? Yup.string().required("Selecione sua função")
+        : Yup.string().notRequired(),
+    data_ingresso:
+      tipoCadastro === "aluno"
+        ? Yup.date()
+            .required("Insira uma data")
+            .max(new Date(), "Escolha uma data no passado")
+        : Yup.date().notRequired(),
+    curso:
+      tipoCadastro === "aluno"
+        ? Yup.string()
+            .required()
+            .oneOf(["M", "D"])
+            .required("Selecione uma titulação")
         : Yup.string().notRequired(),
     senha: Yup.string()
       .min(8, ({ min }) => `A senha deve ter no mínimo ${min} caracteres`)
