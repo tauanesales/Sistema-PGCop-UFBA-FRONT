@@ -25,6 +25,7 @@ type Values = {
   lattes: string;
   curso: "M" | "D" | "";
   senhaConfirmada: string;
+  role: "orientador" | "coordenador" | "";
 };
 
 const cpfMaskOptions = {
@@ -67,6 +68,7 @@ const CadastroAluno = () => {
       nome,
       email,
       senha,
+      role,
     } = values;
 
     const onSettled = () => formikHelpers.setSubmitting(false);
@@ -119,6 +121,10 @@ const CadastroAluno = () => {
       .required()
       .oneOf(["M", "D"])
       .required("Selecione uma titulação"),
+    role:
+      tipoCadastro === "professor"
+        ? Yup.string().required("Selecione sua função")
+        : Yup.string().notRequired(),
     senha: Yup.string()
       .min(8, ({ min }) => `A senha deve ter no mínimo ${min} caracteres`)
       .required("Insira uma senha"),
@@ -141,6 +147,7 @@ const CadastroAluno = () => {
         matricula: "",
         orientador_id: "",
         data_ingresso: null,
+        role: "",
         lattes: "",
         curso: "",
         senha: "",
@@ -283,13 +290,13 @@ const CadastroAluno = () => {
                     style={{ width: "240px" }}
                     fullWidth
                     variant="standard"
-                    id="select-funcao"
-                    name="Função"
+                    id="select-role"
+                    name="role"
                     label="Função"
                     select
                     required
                   >
-                    <MenuItem value="professor">Professor</MenuItem>
+                    <MenuItem value="orientador">Orientador</MenuItem>
                     <MenuItem value="coordenador">Coordenador</MenuItem>
                   </FormikInput>
                 </div>
