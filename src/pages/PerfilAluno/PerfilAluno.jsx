@@ -82,50 +82,91 @@ function PerfilAluno() {
     };
   }, []);
   
-  <div id="tooltip" style={{ display: "none", position: "absolute", backgroundColor: "white", padding: "5px", border: "1px solid black" }}></div>
-         
   
-
   useEffect(() => {
-    // Encontrando o prazo da última tarefa
+    // prazo da última tarefa
     const ultimaTarefa = tarefas.reduce((prev, current) => (prev.prazoMeses > current.prazoMeses) ? prev : current);
     const prazoUltimaTarefa = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + ultimaTarefa.prazoMeses, dataDeInicio.getDate());
   
-    // Calculando a largura do SVG com base no prazo da última tarefa
-    const margin = { top: 20, right: 40, bottom: 40, left: 40 };
-    const width = 900 - margin.left - margin.right; // Largura fixa
+    const margin = { top: 20, right: 40, bottom: 60, left: 40 };
+    const width = 900 - margin.left - margin.right;
     const height = 50 - margin.top - margin.bottom;
   
-    // Selecionando o SVG e configurando a área de desenho
+    // configurando a área de desenho
     const svg = d3
       .select(svgRef.current)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
-  
-    // Desenhando a barra de progresso
+
+
+// Adicionando quadrados vermelhos como ícones de tarefas a fazer acima da barra de progresso
+svg.selectAll(".tarefa-a-fazer")
+  .data(tarefasAFazer)
+  .enter()
+  .append("rect")
+  .attr("class", "tarefa-a-fazer")
+  .attr("x", (tarefa) => {
+    const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
+    return (prazo - dataDeInicio) / (prazoUltimaTarefa - dataDeInicio) * width - 10;
+  })
+  .attr("y", height)
+  .attr("width", 20)
+  .attr("height", 20)
+  .attr("fill", "red")
+  .on("mouseover", function(event, d) {
+    const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + d.prazoMeses, dataDeInicio.getDate());
+    const tooltip = d3.select("#tooltip");
+    tooltip
+      .style("display", "block")
+      .html(`<strong>${d.nome}</strong><br>Data Limite: ${prazo.toLocaleDateString()}`)
+      .style("left", (event.pageX + 10) + "px")
+      .style("top", (event.pageY - 60) + "px")
+      .style("position", "absolute");
+  })
+  .on("mouseout", function() {
+    d3.select("#tooltip").style("display", "none");
+  });
+
+
+
+    // barra de progresso
     svg.append("rect")
       .attr("class", "barra-progresso")
       .attr("x", 0)
       .attr("y", height + 25) // Ajuste vertical para colocar abaixo dos quadrados
-      .attr("width", width) // Largura igual à largura do SVG
+      .attr("width", width) // Largura 
       .attr("height", 10)
-      .style("fill", "none") // Cor de preenchimento nenhuma
-      .style("stroke", "black") // Cor da borda preta
+      .style("fill", "none") // Cor de preenchimento 
+      .style("stroke", "black") // Cor da borda
       .style("stroke-width", 0.3); // Largura da borda
       
-  
-    // Desenhando o retângulo verde de progresso
+    // Barra de progresso
     svg.append("rect")
       .attr("class", "progresso")
       .attr("x", 0)
-      .attr("y", height + 25) // Ajuste vertical para colocar abaixo dos quadrados
-      .attr("width", 0) // Começa com largura 0
+      .attr("y", height + 25) 
+      .attr("width", 0) 
       .attr("height", 10)
-      .style("fill", "green"); // Cor verde
+      .style("fill", "green"); 
   
-    // Atualizando a largura e a posição do retângulo verde de progresso
+    // Adicionando a barra temporal com a data de início e data de fim
+    const dataInicioText = d3.timeFormat("%d/%m/%Y")(dataDeInicio);
+    const dataFimText = d3.timeFormat("%d/%m/%Y")(prazoUltimaTarefa);
+    svg.append("text")
+      .attr("x", 0)
+      .attr("y", height + 50) 
+      .text(dataInicioText)
+      .style("font-size", "10px");
+  
+    svg.append("text")
+      .attr("x", width -30)
+      .attr("y", height + 50) 
+      .text(dataFimText)
+      .style("font-size", "10px");
+  
+    // Atualizando a barra de progresso
     const progresso = svg.select(".progresso");
   
     // Atualização contínua do retângulo verde de progresso com base no tempo decorrido
@@ -154,6 +195,9 @@ function PerfilAluno() {
   
 
 
+
+  
+  
   return (
     <div className="contain">
       <div className="containerAluno">
@@ -191,6 +235,9 @@ function PerfilAluno() {
       {/* visualização */}
       <div className="vis">
         <svg ref={svgRef}></svg>
+        <div id="tooltip" 
+          style={{ display: "none", position: "fixed", backgroundColor: "white", padding: "5px", border: "1px solid black", borderEndEndRadius:"15px" }}>
+        </div>
       </div>
 
 
