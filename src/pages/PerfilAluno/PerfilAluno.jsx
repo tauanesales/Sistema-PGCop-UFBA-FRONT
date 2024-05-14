@@ -82,9 +82,9 @@ function PerfilAluno() {
     };
   }, []);
   
-  
+
   useEffect(() => {
-    // prazo da última tarefa
+    // prazo das tarefas
     const ultimaTarefa = tarefas.reduce((prev, current) => (prev.prazoMeses > current.prazoMeses) ? prev : current);
     const prazoUltimaTarefa = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + ultimaTarefa.prazoMeses, dataDeInicio.getDate());
   
@@ -92,46 +92,46 @@ function PerfilAluno() {
     const width = 900 - margin.left - margin.right;
     const height = 50 - margin.top - margin.bottom;
   
-    // configurando a área de desenho
+    // área de desenho
     const svg = d3
       .select(svgRef.current)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  
+
+    // Adicionando icones de tarefas
+    svg.selectAll(".tarefa-a-fazer")
+      .data(tarefasAFazer)
+      .enter().append("rect")
+      .attr("class", "tarefa-a-fazer")
+      .attr("x", (tarefa, index) => {
+        const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
+        const xPosition = (prazo - dataDeInicio) / (prazoUltimaTarefa - dataDeInicio) * width - 10;
+        return xPosition - 1  -index * 15; // Ajuste horizontal para evitar oclusão
+      })
+      .attr("y", height)
+      .attr("width", 10)
+      .attr("height", 20)
+      .attr("fill", "red")
+        .on("mouseover", function(event, d) {
+          const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + d.prazoMeses, dataDeInicio.getDate());
+          const tooltip = d3.select("#tooltip");
+          tooltip
+            .style("display", "block")
+            .html(`<strong>${d.nome}</strong><br>Data Limite: ${prazo.toLocaleDateString()}`)
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 60) + "px")
+            .style("position", "absolute");
+        })
+        .on("mouseout", function() {
+          d3.select("#tooltip").style("display", "none");
+        });
+    
 
 
-// Adicionando quadrados vermelhos como ícones de tarefas a fazer acima da barra de progresso
-svg.selectAll(".tarefa-a-fazer")
-  .data(tarefasAFazer)
-  .enter()
-  .append("rect")
-  .attr("class", "tarefa-a-fazer")
-  .attr("x", (tarefa) => {
-    const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
-    return (prazo - dataDeInicio) / (prazoUltimaTarefa - dataDeInicio) * width - 10;
-  })
-  .attr("y", height)
-  .attr("width", 20)
-  .attr("height", 20)
-  .attr("fill", "red")
-  .on("mouseover", function(event, d) {
-    const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + d.prazoMeses, dataDeInicio.getDate());
-    const tooltip = d3.select("#tooltip");
-    tooltip
-      .style("display", "block")
-      .html(`<strong>${d.nome}</strong><br>Data Limite: ${prazo.toLocaleDateString()}`)
-      .style("left", (event.pageX + 10) + "px")
-      .style("top", (event.pageY - 60) + "px")
-      .style("position", "absolute");
-  })
-  .on("mouseout", function() {
-    d3.select("#tooltip").style("display", "none");
-  });
-
-
-
-    // barra de progresso
+    // barra de tempo
     svg.append("rect")
       .attr("class", "barra-progresso")
       .attr("x", 0)
@@ -151,7 +151,7 @@ svg.selectAll(".tarefa-a-fazer")
       .attr("height", 10)
       .style("fill", "green"); 
   
-    // Adicionando a barra temporal com a data de início e data de fim
+    // Adiciona data de início e data de fim
     const dataInicioText = d3.timeFormat("%d/%m/%Y")(dataDeInicio);
     const dataFimText = d3.timeFormat("%d/%m/%Y")(prazoUltimaTarefa);
     svg.append("text")
@@ -169,7 +169,7 @@ svg.selectAll(".tarefa-a-fazer")
     // Atualizando a barra de progresso
     const progresso = svg.select(".progresso");
   
-    // Atualização contínua do retângulo verde de progresso com base no tempo decorrido
+    // Atualização contínua do progresso com base no tempo decorrido
     const timer = setInterval(() => {
       const tempoDecorrido = dataAtual - dataDeInicio;
       const progressoPorcentagem = (tempoDecorrido / (prazoUltimaTarefa - dataDeInicio));
@@ -192,7 +192,6 @@ svg.selectAll(".tarefa-a-fazer")
   
     return () => clearInterval(timer);
   }, [tarefas]);
-  
 
 
 
