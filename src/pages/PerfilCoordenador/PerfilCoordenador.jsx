@@ -8,9 +8,9 @@ function PerfilCoordenador(){
     const logoPgcop = "/assets/logoPgcop.png";
 
     const alunosData = [
-        { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
-        { id: 8, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
-        { id: 9, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 1, nome: 'Vini Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 8, nome: 'Claudio Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 9, nome: 'Savio Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
         { id: 10, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
         { id: 2, nome: 'Tauane Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '18/05/2027' },
         { id: 3, nome: 'Mario Souza', matricula: '2022003', titulacao: 'Mestrado', datafinal: '15/05/2024' },
@@ -85,13 +85,13 @@ function PerfilCoordenador(){
             </div>
 
 
-            <h2 style={{textAlign:'center', marginTop:'40px', }}>Lista de Orientandos</h2>
+            <h2 style={{textAlign:'center', marginTop:'40px',  marginBottom:'10px'}}>Lista de Orientandos</h2>
             {/* Container de Alunos Orientados - Mestrado */}
             <div className="listaAlunos" >
                 <div className='containerOrientandosCoordenador'>
 
                     <ul>
-                    <h3 style={{ marginLeft:'20px', padding:'5px'}}>Alunos de Mestrado</h3>
+                    <h3 style={{ marginLeft:'20px', marginBottom:'10px', padding:'5px'}}>Alunos de Mestrado</h3>
                         {alunosMestrado.map(aluno => (
                             <li style={{ cursor:'pointer',padding: '7px 20px'}}
                             key={aluno.id} 
@@ -120,7 +120,7 @@ function PerfilCoordenador(){
                 {/* Container de Alunos Orientados - Doutorado */}
                 <div className='containerOrientandosCoordenador' >
                     <ul >
-                    <h3 style={{ marginLeft:'20px', padding:'5px'}}>Alunos de Doutorado</h3>
+                    <h3 style={{ marginLeft:'20px',marginBottom:'10px', padding:'5px'}}>Alunos de Doutorado</h3>
                         {alunosDoutorado.map(aluno => (
                             <li style={{ cursor:'pointer',padding: '7px 20px'}}
                             key={aluno.id} 
