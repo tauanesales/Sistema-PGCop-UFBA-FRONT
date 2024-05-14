@@ -11,17 +11,13 @@ import Input from "../../components/Input";
 const Login = () => {
   const logoPgcop = "assets/logoPgcop.png";
   const imagemBarra = "assets/salvador.png";
-  const gamboa = "assets/gamboa.jpg";
-  const farol = "assets/farol.jpg";
-  const pelourinho = "assets/pelourinho.jpg";
-  const barra = "assets/barra.jpg";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { useAuthUser } = useUserQueries();
 
-  const { mutate: authenticate } = useAuthUser();
+  const { mutate: authenticate, isPending: isAuthenticating } = useAuthUser();
 
   const handleSignIn = () => authenticate({ username: email, password });
 
@@ -58,9 +54,9 @@ const Login = () => {
 
             {/* Botão Login */}
             <ButtonSecondary
-              disabled={disabled}
+              disabled={disabled || isAuthenticating}
               onClick={handleSignIn}
-              label={"Entrar"}
+              label={isAuthenticating ? "Carregando..." : "Entrar"}
               style={{ width: "90%" }}
             />
           </div>

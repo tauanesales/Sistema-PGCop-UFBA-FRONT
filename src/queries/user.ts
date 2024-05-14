@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { resetAllStores } from "@/store/helpers";
 import { saveTokens } from "@/store/tokens";
@@ -11,8 +11,6 @@ export const useUserQueries = () => {
 
   const navigate = useNavigate();
 
-  const location = useLocation();
-
   const useGetUser = (enabled: boolean) =>
     useQuery({
       queryKey: ["user"],
@@ -23,7 +21,7 @@ export const useUserQueries = () => {
   const useAuthUser = () =>
     useMutation({
       mutationFn: userApi.authenticateUser,
-      onSuccess: async (tokens) => {
+      onSuccess: async (tokens: any) => {
         const user = await queryClient.fetchQuery({
           queryKey: ["user"],
           queryFn: () =>
@@ -34,20 +32,21 @@ export const useUserQueries = () => {
 
         saveTokens(tokens);
 
-        const from =
-          location.state?.from?.pathname || user.tipo === "aluno"
-            ? "/perfil-aluno"
-            : user.tipo === "professor"
-              ? "/perfil-professor"
-              : "/perfil-coordenador";
+        const pathOptions: { [key: string]: string } = {
+          'aluno': '/perfil-aluno',
+          'professor': '/perfil-professor',
+        };
 
-        navigate(from, { replace: true });
+        const path = user.dados.role != "coordenador" && pathOptions || "/perfil-coordenador";
+
+        navigate(path, { replace: true });
       },
     });
 
   const signOut = () => {
     resetAllStores();
     queryClient.clear();
+    navigate('/')
   };
 
   return {

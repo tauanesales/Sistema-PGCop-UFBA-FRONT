@@ -7,8 +7,13 @@ interface Tokens {
   tokenType?: string;
 }
 
+const initialState: Tokens = {
+  accessToken: '',
+  tokenType: ''
+}
+
 export const useTokensStore = create<Tokens>()(
-  persist(() => ({}), {
+  persist(() => initialState, {
     name: "tokens",
   }),
 );
