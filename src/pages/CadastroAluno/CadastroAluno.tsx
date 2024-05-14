@@ -1,16 +1,20 @@
-import { useState } from 'react';
 import "./styles.css";
+
 import LoadingButton from "@mui/lab/LoadingButton";
-import { MenuItem, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+import { FormControlLabel, MenuItem, Radio,RadioGroup } from "@mui/material";
 import { useMask } from "@react-input/mask";
 import { Form, Formik } from "formik";
+import { useState } from "react";
 import * as Yup from "yup";
+
 import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
 import SelectCadastro from "@/components/SelectCadastro";
 
 const CadastroAluno = () => {
-  const [tipoCadastro, setTipoCadastro] = useState<"aluno" | "professor">("aluno");
+  const [tipoCadastro, setTipoCadastro] = useState<"aluno" | "professor">(
+    "aluno",
+  );
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
@@ -21,8 +25,14 @@ const CadastroAluno = () => {
       .required("Insira um e-mail"),
     telefone: Yup.string().required("Insira seu telefone"),
     cpf: Yup.string().required("Insira seu CPF"),
-    matricula: tipoCadastro === "aluno" ? Yup.string().required("Insira o seu número de matrícula") : Yup.string().notRequired(),
-    orientador: tipoCadastro === "aluno" ? Yup.string().required("Informe o nome do seu orientador") : Yup.string().notRequired(),
+    matricula:
+      tipoCadastro === "aluno"
+        ? Yup.string().required("Insira o seu número de matrícula")
+        : Yup.string().notRequired(),
+    orientador:
+      tipoCadastro === "aluno"
+        ? Yup.string().required("Informe o nome do seu orientador")
+        : Yup.string().notRequired(),
     titulacao: Yup.string()
       .required()
       .oneOf(["mestrado", "doutorado"])
@@ -46,8 +56,8 @@ const CadastroAluno = () => {
   });
 
   return (
-    <Formik 
-    initialValues={{
+    <Formik
+      initialValues={{
         name: "",
         cpf: "",
         email: "",
@@ -64,20 +74,23 @@ const CadastroAluno = () => {
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
           <img src="assets/logoPgcop.png" width={110} />
-          
+
           <RadioGroup
             row
             aria-label="tipo-cadastro"
             name="tipo-cadastro"
             value={tipoCadastro}
-            onChange={(e) => setTipoCadastro(e.target.value as "aluno" | "professor")}
+            onChange={(e) =>
+              setTipoCadastro(e.target.value as "aluno" | "professor")
+            }
           >
-            <FormControlLabel 
+            <FormControlLabel
               value="aluno"
               control={<Radio color="primary" />}
               label="Aluno"
             />
-            <FormControlLabel style={{marginRight:'400px'}}
+            <FormControlLabel
+              style={{ marginRight: "400px" }}
               value="professor"
               control={<Radio color="primary" />}
               label="Professor"
@@ -169,7 +182,9 @@ const CadastroAluno = () => {
 
               {tipoCadastro === "professor" && (
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  <FormikInput className="inputRow" style={{ width: '240px' }}
+                  <FormikInput
+                    className="inputRow"
+                    style={{ width: "240px" }}
                     fullWidth
                     variant="standard"
                     id="select-funcao"
@@ -187,7 +202,8 @@ const CadastroAluno = () => {
           </div>
 
           <div className="buttonCadastro">
-            <LoadingButton className="bttn"
+            <LoadingButton
+              className="bttn"
               sx={{ marginTop: 2 }}
               variant="contained"
               fullWidth

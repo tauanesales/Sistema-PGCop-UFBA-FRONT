@@ -2,14 +2,14 @@ import axios from "axios";
 
 import { useTokensStore } from "../../store/tokens";
 
-const api = axios.create({ baseURL: process.env.API_URL });
+const api = axios.create({ baseURL: import.meta.env.VITE_API_URL });
 
 api.interceptors.request.use(
   (config) => {
-    const accessToken = useTokensStore.getState().accessToken;
+    const tokens = useTokensStore.getState();
 
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    if (tokens.accessToken) {
+      config.headers.Authorization = `Bearer ${tokens.accessToken}`;
     }
 
     return config;

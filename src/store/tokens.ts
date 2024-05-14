@@ -4,13 +4,16 @@ import { create } from "./helpers";
 
 interface Tokens {
   accessToken?: string;
-  refreshToken?: string;
-  expiresIn?: number;
   tokenType?: string;
 }
 
+const initialState: Tokens = {
+  accessToken: '',
+  tokenType: ''
+}
+
 export const useTokensStore = create<Tokens>()(
-  persist(() => ({}), {
+  persist(() => initialState, {
     name: "tokens",
   }),
 );
