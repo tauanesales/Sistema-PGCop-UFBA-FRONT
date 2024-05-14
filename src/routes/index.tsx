@@ -2,6 +2,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Navigate,
+  Outlet,
   Route,
 } from "react-router-dom";
 
@@ -21,32 +22,33 @@ import Tarefas from "@/pages/Tarefas/Tarefas";
 import { AuthenticationGuard } from "@/routes/AuthenticationGuard";
 
 const routes = createRoutesFromElements(
-  <>
-    <Route index path="/" element={<Navigate to="/login" replace={true} />} />
-
-    {/* Mover para dentro de route abaixo após implementar autenticação */}
-    <Route path="/perfil-aluno" element={<PerfilAluno />} />
-    <Route path="/perfil-aluno/atualizar-dados" element={<AtualizarDados />} />
-    <Route path="/perfil-orientador" element={<PerfilOrientador />} />
-    <Route path="/perfil-coordenador" element={<PerfilCoordenador />} />
-    <Route path="/perfil-coordenador/tarefas" element={<Tarefas />} />
-
-
-    <Route element={<AuthenticationGuard />}>
-      <Route path="/confirmar-cadastro" element={<ConfirmarCadastro />} />
-      <Route path="/confirmar-envio-email" element={<ConfirmarEnvioEmail />} />
-      <Route path="/atualizar-senha" element={<AtualizarSenha />} />
+  <Route element={<Outlet />}>
+    <Route element={<AuthenticationGuard allowedRoles={["aluno"]} />}>
+      <Route path="/perfil-aluno" element={<PerfilAluno />} />
+      <Route
+        path="/perfil-aluno/atualizar-dados"
+        element={<AtualizarDados />}
+      />
     </Route>
-
-    <Route element={<AuthenticationGuard guardType="unauthenticated" />}>
-      <Route path="/login" element={<Login />} />
-      <Route path="/cadastro-aluno" element={<CadastroAluno />} />
-      <Route path="/esqueci-senha" element={<EsqueciSenha />} />
-      <Route path="/confirmar-nova-senha" element={<ConfirmarNovaSenha />} />
+    <Route element={<AuthenticationGuard allowedRoles={["professor"]} />}>
+      <Route path="/perfil-professor" element={<PerfilOrientador />} />
     </Route>
+    <Route element={<AuthenticationGuard allowedRoles={["coordenador"]} />}>
+      <Route path="perfil-coordenador" element={<PerfilCoordenador />} />
+      <Route path="/tarefas" element={<Tarefas />} />
+    </Route>
+    <Route path="atualizar-senha" element={<AtualizarSenha />} />
+
+    <Route path="/" element={<Navigate to="/login" replace />} />
+    <Route path="/login" element={<Login />} />
+    <Route path="/cadastro-aluno" element={<CadastroAluno />} />
+    <Route path="/confirmar-cadastro" element={<ConfirmarCadastro />} />
+    <Route path="/esqueci-senha" element={<EsqueciSenha />} />
+    <Route path="/confirmar-envio-email" element={<ConfirmarEnvioEmail />} />
+    <Route path="/confirmar-nova-senha" element={<ConfirmarNovaSenha />} />
 
     <Route path="*" element={<Error404 />} />
-  </>,
+  </Route>,
 );
 
 export const router = createBrowserRouter(routes);

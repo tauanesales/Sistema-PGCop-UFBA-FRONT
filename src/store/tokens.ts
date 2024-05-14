@@ -4,8 +4,6 @@ import { create } from "./helpers";
 
 interface Tokens {
   accessToken?: string;
-  refreshToken?: string;
-  expiresIn?: number;
   tokenType?: string;
 }
 
