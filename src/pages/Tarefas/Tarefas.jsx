@@ -94,92 +94,13 @@ function Tarefas(){
           </div>
 
 
-            <h3 style={{marginBottom:"10px", marginTop:'50px'}}>Tarefas Mestrado</h3>
             {/* Container de Tarefas de Mestrado*/}
-            <div className='containerLista'>
-                <ul>{tarefasMestrado.map(tarefa => (
-                        <li key={tarefa.id} >
+            <div className="listaTarefas" >
+                <div className='containerLista'>
+                    <ul> <h3 style={{marginBottom:"20px", marginTop:'20px', marginLeft:"20px"}}>Tarefas Mestrado</h3>
+                        {tarefasMestrado.map(tarefa => (
+                            <li key={tarefa.id} >
                             {/* Edição das tarefas*/}
-                        <div> {isEditing && selectedTarefa.id === tarefa.id ? (<>
-                            <label>Nome da Tarefa</label>
-                                <input 
-                                        type="text" 
-                                        value={editTarefaNome} 
-                                        onChange={(e) => setEditTarefaNome(e.target.value)}
-                                        placeholder="Nome da tarefa"
-                                        style={{ marginBottom: '10px', width: '100%', padding: '8px' }}/>
-                                <label>Prazo em meses</label>
-                                <input 
-                                        type="number" 
-                                        value={editTarefaPrazo} 
-                                        onChange={(e) => setEditTarefaPrazo(Number(e.target.value))}
-                                        placeholder="Prazo em meses"
-                                        style={{ marginBottom: '10px', width: '100%', padding: '8px' }}/>
-                                <label>Descrição</label>
-                                <textarea 
-                                        value={editTarefaDescricao} 
-                                        onChange={(e) => setEditTarefaDescricao(e.target.value)}
-                                        placeholder="Descrição"
-                                        style={{ marginBottom: '10px', width: '100%', padding: '8px', height: '80px' }}/>
-                                <label>Curso</label>
-                                 <select 
-                                        value={editTarefaTitulacao} 
-                                        onChange={(e) => setEditTarefaTitulacao(e.target.value)}
-                                        style={{ marginBottom: '10px', width: '100%', padding: '8px' }}>
-                                    <option value="Mestrado">Mestrado</option>
-                                    <option value="Doutorado">Doutorado</option>
-                                    </select>
-                                </>
-                            ) : (
-                                <>
-                                    <strong>{tarefa.nome}</strong> - Prazo: {tarefa.prazo} meses<br />
-                                    Descrição: {tarefa.descricao}
-                                </>
-                            )}
-                        </div>
-                        {/* Ação dos botões e ícones - salvar, editar e deletar*/}
-                        <div >
-                            {isEditing && selectedTarefa.id === tarefa.id ? (
-                                <button onClick={handleEdit} style={{ marginRight: '10px', width:'120px',height:'30px' }}>
-                                    Salvar
-                                </button>
-                            ) : (
-                                <>
-                                    <MdCreate style={{padding:  '15px', cursor: 'pointer'}}
-                                        onClick={() => {
-                                            setIsEditing(true);
-                                            setEditTarefaNome(tarefa.nome);
-                                            setEditTarefaPrazo(tarefa.prazo);
-                                            setEditTarefaDescricao(tarefa.descricao);
-                                            setEditTarefaTitulacao(tarefa.titulacao);
-                                            setSelectedTarefa(tarefa);
-                                        }}  
-                                        size={55}
-                                    />
-                                    <MdDelete style={{cursor: 'pointer',padding:  '15px',}}
-                                        onClick={() => {
-                                            setSelectedTarefa(tarefa);
-                                            setShowModal(true);
-                                        }}
-                                        size={55}  
-                                    />
-                                </>
-                            )}
-                        </div>
-                    </li>
-                    ))}
-                </ul>
-            </div>
-
-
-
-            <h3 style={{marginTop:"20px", marginBottom:"10px"}}>Tarefas Doutorado</h3>
-            {/*Container de Tarefas de Doutorado */}
-            <div className='containerLista'>
-                <ul>
-                    {tarefasDoutorado.map(tarefa => (
-                        <li key={tarefa.id} >
-                            {/* Edição das tarefas */}
                             <div> {isEditing && selectedTarefa.id === tarefa.id ? (<>
                                 <label>Nome da Tarefa</label>
                                     <input 
@@ -201,8 +122,8 @@ function Tarefas(){
                                             onChange={(e) => setEditTarefaDescricao(e.target.value)}
                                             placeholder="Descrição"
                                             style={{ marginBottom: '10px', width: '100%', padding: '8px', height: '80px' }}/>
-                                     <label>Curso</label>
-                                     <select    
+                                    <label>Curso</label>
+                                    <select 
                                             value={editTarefaTitulacao} 
                                             onChange={(e) => setEditTarefaTitulacao(e.target.value)}
                                             style={{ marginBottom: '10px', width: '100%', padding: '8px' }}>
@@ -211,19 +132,21 @@ function Tarefas(){
                                         </select>
                                     </>
                                 ) : (
-                                    <> {/* Exibir em tela*/}
-                                        <strong>{tarefa.nome}</strong> - Prazo: {tarefa.prazo} meses<br />
+                                    <>
+                                        <strong>{tarefa.nome}</strong>Prazo: {tarefa.prazo} meses<br />
                                         Descrição: {tarefa.descricao}
                                     </>
                                 )}
                             </div>
-                            {/*Ação dos botões e ícones - salvar, editar e deletar*/}
+                            {/* Ação dos botões e ícones - salvar, editar e deletar*/}
                             <div >
                                 {isEditing && selectedTarefa.id === tarefa.id ? (
-                                    <button onClick={handleEdit} style={{ marginRight: '10px', width:'120px',height:'30px' }}>Salvar</button>
+                                    <button onClick={handleEdit} style={{ marginRight: '10px', width:'120px',height:'30px' }}>
+                                        Salvar
+                                    </button>
                                 ) : (
                                     <>
-                                        <MdCreate style={{padding: '15px', cursor: 'pointer'}}
+                                        <MdCreate style={{padding:  '15px', cursor: 'pointer'}}
                                             onClick={() => {
                                                 setIsEditing(true);
                                                 setEditTarefaNome(tarefa.nome);
@@ -234,7 +157,7 @@ function Tarefas(){
                                             }}  
                                             size={55}
                                         />
-                                        <MdDelete style={{cursor: 'pointer', padding: '15px',}}
+                                        <MdDelete style={{cursor: 'pointer',padding:  '15px',}}
                                             onClick={() => {
                                                 setSelectedTarefa(tarefa);
                                                 setShowModal(true);
@@ -245,9 +168,87 @@ function Tarefas(){
                                 )}
                             </div>
                         </li>
-                    ))}
-                </ul>
+                        ))}
+                    </ul>
+                </div>
+
+
+                {/*Container de Tarefas de Doutorado */}
+                <div className='containerLista'>
+                    <ul> <h3 style={{marginBottom:"20px", marginTop:'20px', marginLeft:"20px"}}>Tarefas Doutorado</h3>
+                        {tarefasDoutorado.map(tarefa => (
+                            <li key={tarefa.id} >
+                                {/* Edição das tarefas */}
+                                <div> {isEditing && selectedTarefa.id === tarefa.id ? (<>
+                                    <label>Nome da Tarefa</label>
+                                        <input 
+                                                type="text" 
+                                                value={editTarefaNome} 
+                                                onChange={(e) => setEditTarefaNome(e.target.value)}
+                                                placeholder="Nome da tarefa"
+                                                style={{ marginBottom: '10px', width: '100%', padding: '8px' }}/>
+                                        <label>Prazo em meses</label>
+                                        <input 
+                                                type="number" 
+                                                value={editTarefaPrazo} 
+                                                onChange={(e) => setEditTarefaPrazo(Number(e.target.value))}
+                                                placeholder="Prazo em meses"
+                                                style={{ marginBottom: '10px', width: '100%', padding: '8px' }}/>
+                                        <label>Descrição</label>
+                                        <textarea 
+                                                value={editTarefaDescricao} 
+                                                onChange={(e) => setEditTarefaDescricao(e.target.value)}
+                                                placeholder="Descrição"
+                                                style={{ marginBottom: '10px', width: '100%', padding: '8px', height: '80px' }}/>
+                                        <label>Curso</label>
+                                        <select    
+                                                value={editTarefaTitulacao} 
+                                                onChange={(e) => setEditTarefaTitulacao(e.target.value)}
+                                                style={{ marginBottom: '10px', width: '100%', padding: '8px' }}>
+                                            <option value="Mestrado">Mestrado</option>
+                                            <option value="Doutorado">Doutorado</option>
+                                            </select>
+                                        </>
+                                    ) : (
+                                        <> {/* Exibir em tela*/}
+                                            <strong>{tarefa.nome}</strong>Prazo: {tarefa.prazo} meses<br/>
+                                            Descrição: {tarefa.descricao}
+                                        </>
+                                    )}
+                                </div>
+                                {/*Ação dos botões e ícones - salvar, editar e deletar*/}
+                                <div >
+                                    {isEditing && selectedTarefa.id === tarefa.id ? (
+                                        <button onClick={handleEdit} style={{ marginRight: '10px', width:'120px',height:'30px' }}>Salvar</button>
+                                    ) : (
+                                        <>
+                                            <MdCreate style={{padding: '15px', cursor: 'pointer'}}
+                                                onClick={() => {
+                                                    setIsEditing(true);
+                                                    setEditTarefaNome(tarefa.nome);
+                                                    setEditTarefaPrazo(tarefa.prazo);
+                                                    setEditTarefaDescricao(tarefa.descricao);
+                                                    setEditTarefaTitulacao(tarefa.titulacao);
+                                                    setSelectedTarefa(tarefa);
+                                                }}  
+                                                size={55}
+                                            />
+                                            <MdDelete style={{cursor: 'pointer', padding: '15px',}}
+                                                onClick={() => {
+                                                    setSelectedTarefa(tarefa);
+                                                    setShowModal(true);
+                                                }}
+                                                size={55}  
+                                            />
+                                        </>
+                                    )}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
+            
 
                 {/* Modal de Adicionar Tarefa*/}
                 {showAddModal && (
