@@ -1,12 +1,22 @@
 import { useState } from 'react';
 import "./styles.css"
 import Button from "../../components/Button";
-import { MdGroupAdd, MdOutlineLibraryBooks, MdLogout } from 'react-icons/md'; // Importando ícones
+import Solicitacoes from '../../components/Solicitacoes/Solicitacoes';
+import { MdOutlineGroupAdd, MdOutlineLibraryBooks, MdLogout } from 'react-icons/md'; // Importando ícones
 
 function PerfilCoordenador(){
 
     const logoPgcop = "/assets/logoPgcop.png";
 
+
+    // Lista solicitacoes
+    const [solicitacoes, setSolicitacoes] = useState([
+        { id: 1, nome: 'Natalia  Santos Santos Santos', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
+        { id: 2, nome: 'Claudio Souza', matricula: '2022002', titulacao: 'Doutorado', datafinal: '8/05/2027' },
+        { id: 3, nome: 'Vinicius Alves', matricula: '2022003', titulacao: 'Mestrado', datafinal: '15/05/2024' },
+    ]);
+
+    // Lista alunos
     const alunosData = [
         { id: 1, nome: 'Vini Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
         { id: 8, nome: 'Claudio Silva', matricula: '2022001', titulacao: 'Mestrado', datafinal: '03/05/2024' },
@@ -23,6 +33,7 @@ function PerfilCoordenador(){
     const [alunos, setAlunos] = useState(alunosData);
     const [showModal, setShowModal] = useState(false);
     const [selectedAluno, setSelectedAluno] = useState(null);
+    const [showSolicitacoes, setShowSolicitacoes] = useState(false);
 
     const handleDoubleClick = (matricula) => {
         const aluno = alunos.find(aluno => aluno.matricula === matricula);
@@ -37,6 +48,22 @@ function PerfilCoordenador(){
         setShowModal(false);
         setSelectedAluno(null); // Limpar o aluno selecionado após a remoção
     }
+
+    const handleSolicitacoesClick = () => {
+        setShowSolicitacoes(!showSolicitacoes);
+    };
+
+    const handleAcceptRequest = (id) => {
+        const solicitationToAccept = solicitacoes.find(solicitacao => solicitacao.id === id);
+        setAlunos([...alunos, solicitationToAccept]);
+        const updatedSolicitacoes = solicitacoes.filter(solicitacao => solicitacao.id !== id);
+        setSolicitacoes(updatedSolicitacoes);
+    };
+
+    const handleRemoveRequest = (id) => {
+        const updatedSolicitacoes = solicitacoes.filter(solicitacao => solicitacao.id !== id);
+        setSolicitacoes(updatedSolicitacoes);
+    };
 
     // Separa os alunos baseados na titulação
     const alunosMestrado = alunos.filter(aluno => aluno.titulacao === 'Mestrado');
@@ -57,12 +84,21 @@ function PerfilCoordenador(){
                 {/* Botões Toolbar */}
                 <div >
                   <div className='botoesToolbar'>
-                    <MdGroupAdd 
-                      onClick={() => window.location.href = "/perfil-coordenador/solicitacoes"} 
-                      style={{ cursor: 'pointer', marginRight: "42px" }}
-                      size={35} 
+                    <MdOutlineGroupAdd 
+                      onClick={handleSolicitacoesClick}
+                      style={{ marginRight: "42px", cursor: "pointer", color: solicitacoes.length > 0 ? "red" : "inherit" }}
+                      size={37} 
                       title="Solicitações" 
                     />
+                    {showSolicitacoes &&
+                        <div className='solicitacoesContainer' style={{position:'absolute', top:'-20px', marginRight:'90px' }}>
+                            < Solicitacoes
+                                solicitacoes={solicitacoes}
+                                handleAcceptRequest = {handleAcceptRequest}
+                                handleRemoveRequest = {handleRemoveRequest}
+                            />
+                        </div>
+                        }
                   </div>
                   <div >
                     <MdOutlineLibraryBooks 
