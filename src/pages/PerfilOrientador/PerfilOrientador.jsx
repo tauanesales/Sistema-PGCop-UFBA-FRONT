@@ -115,7 +115,7 @@ function PerfilOrientador(){
                     <ul>
                     <h3 style={{  marginLeft:'20px', marginBottom:'10px',padding:'5px'}}>Alunos de Mestrado</h3>
                         {alunosMestrado.map(aluno => (
-                            <li style={{ cursor:'pointer',padding: '7px 20px'}}
+                            <li  style={{ cursor:'pointer',padding: '7px 20px'}}
                             key={aluno.id} 
                                 onDoubleClick={() => handleDoubleClick(aluno.matricula)}>
                                 <div>
