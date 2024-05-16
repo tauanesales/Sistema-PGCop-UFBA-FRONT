@@ -5,6 +5,8 @@ import { MdEditNote, MdLogout } from 'react-icons/md';
 import { AiOutlineEdit , AiOutlineFileExcel } from 'react-icons/ai'; 
 
 const logoPgcop = "/assets/logoPgcop.png";
+const flagGreen = "/assets/flagGreen.png";
+const flagBlack = "/assets/flagBlack.png";
 
 function PerfilAluno() {
 
@@ -81,16 +83,18 @@ function PerfilAluno() {
       clearInterval(timer);
     };
   }, []);
-  
 
+
+
+  
   useEffect(() => {
     // prazo das tarefas
     const ultimaTarefa = tarefas.reduce((prev, current) => (prev.prazoMeses > current.prazoMeses) ? prev : current);
     const prazoUltimaTarefa = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + ultimaTarefa.prazoMeses, dataDeInicio.getDate());
   
-    const margin = { top: 20, right: 40, bottom: 60, left: 40 };
-    const width = 900 - margin.left - margin.right;
-    const height = 50 - margin.top - margin.bottom;
+    const margin = { top: 0, right: 40, bottom: 60, left: 40 };
+    const width = 1000 - margin.left - margin.right;
+    const height = 70 - margin.top - margin.bottom;
   
     // área de desenho
     const svg = d3
@@ -99,45 +103,48 @@ function PerfilAluno() {
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
+        
+
+
   
-
-    // Adicionando icones de tarefas
-    svg.selectAll(".tarefa-a-fazer")
-      .data(tarefasAFazer)
-      .enter().append("rect")
-      .attr("class", "tarefa-a-fazer")
-      .attr("x", (tarefa, index) => {
-        const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
-        const xPosition = (prazo - dataDeInicio) / (prazoUltimaTarefa - dataDeInicio) * width - 10;
-        return xPosition - 1  -index * 15; // Ajuste horizontal para evitar oclusão
-      })
-      .attr("y", height)
-      .attr("width", 10)
-      .attr("height", 20)
-      .attr("fill", "red")
-        .on("mouseover", function(event, d) {
-          const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + d.prazoMeses, dataDeInicio.getDate());
-          const tooltip = d3.select("#tooltip");
-          tooltip
-            .style("display", "block")
-            .html(`<strong>${d.nome}</strong><br>Data Limite: ${prazo.toLocaleDateString()}`)
-            .style("left", (event.pageX + 10) + "px")
-            .style("top", (event.pageY - 60) + "px")
-            .style("position", "absolute");
-        })
-        .on("mouseout", function() {
-          d3.select("#tooltip").style("display", "none");
-        });
-    
-
-
+// Adicionando ícones de tarefas
+svg.selectAll(".tarefa-a-fazer")
+  .data(tarefas) // Alterado para usar o array de tarefas em vez de tarefasAFazer
+  .enter().append("image") // Usando append("image") para adicionar imagens
+  .attr("class", "tarefa-a-fazer")
+  .attr("x", (tarefa, index) => {
+    const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
+    const xPosition = (prazo - dataDeInicio) / (prazoUltimaTarefa - dataDeInicio) * width - 10;
+    return xPosition  - 15 + (index*5); // Ajuste horizontal para evitar oclusão
+  })
+  .attr("y", height)
+  .attr("width", 20) // Largura da imagem
+  .attr("height", 20) // Altura da imagem
+  .attr("xlink:href", (tarefa) => tarefa.feita ? flagGreen : flagBlack) // URL da imagem com base no estado da tarefa
+  .on("mouseover", function(event, d) {
+    const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + d.prazoMeses, dataDeInicio.getDate());
+    const tooltip = d3.select("#tooltip");
+    tooltip
+      .style("display", "block")
+      .html(`<strong>${d.nome}</strong><br>Data Limite: ${prazo.toLocaleDateString()}`)
+      .style("left", (event.pageX + 10) + "px")
+      .style("top", (event.pageY - 60) + "px")
+      .style("position", "absolute");
+  })
+  .on("mouseout", function() {
+    d3.select("#tooltip").style("display", "none");
+  });
+          
+  
     // barra de tempo
     svg.append("rect")
       .attr("class", "barra-progresso")
       .attr("x", 0)
       .attr("y", height + 25) // Ajuste vertical para colocar abaixo dos quadrados
+      .attr("rx", 5)
+      .attr("ry", 5)
       .attr("width", width) // Largura 
-      .attr("height", 10)
+      .attr("height", 12)
       .style("fill", "none") // Cor de preenchimento 
       .style("stroke", "black") // Cor da borda
       .style("stroke-width", 0.3); // Largura da borda
@@ -147,8 +154,10 @@ function PerfilAluno() {
       .attr("class", "progresso")
       .attr("x", 0)
       .attr("y", height + 25) 
+      .attr("rx", 5)
+      .attr("ry", 5)
       .attr("width", 0) 
-      .attr("height", 10)
+      .attr("height", 12)
       .style("fill", "green"); 
   
     // Adiciona data de início e data de fim
@@ -192,8 +201,7 @@ function PerfilAluno() {
   
     return () => clearInterval(timer);
   }, [tarefas]);
-
-
+  
 
   
   
@@ -271,12 +279,12 @@ function PerfilAluno() {
                     <br />
                     <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                       Data de realização:
-                      <input
-                        type="date"
-                        value={dataSelecionada}
-                        onChange={(e) => setDataSelecionada(e.target.value)}
-                        style={{ marginLeft: "25px" }}
-                      />
+                        <input
+                          type="date"
+                          value={dataSelecionada || ""} // Garante que o valor seja uma string ou uma string vazia
+                          onChange={(e) => setDataSelecionada(e.target.value)}
+                          style={{ marginLeft: "25px" }}
+                        />
                       <button onClick={() => salvarDataRealizacao(tarefa.id)} 
                       style={{marginLeft:"25px",width:'70px', height:'25px', borderRadius: '5px', fontSize: "13px"}}>Salvar</button>
                     </label>
