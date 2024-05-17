@@ -33,7 +33,7 @@ function PerfilAluno() {
 
   // Atualiza o estado do aluno assim que o componente é montado
   useEffect(() => {
-    setAluno(idAluno[0]); // Defina o primeiro aluno da lista
+    setAluno(idAluno[0]); // Define o primeiro aluno da lista
   }, []);
 
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState(null);
@@ -78,7 +78,7 @@ function PerfilAluno() {
   useEffect(() => {
     const timer = setInterval(() => {
       setDataAtual(new Date());
-    }, 86400000); // Atualiza a data atual todos os dias
+    }, 86400000); // Atualiza data atual todos os dias
     return () => {
       clearInterval(timer);
     };
@@ -86,72 +86,128 @@ function PerfilAluno() {
 
 
 
+  
   useEffect(() => {
-    // prazo das tarefas
     const ultimaTarefa = tarefas.reduce((prev, current) => (prev.prazoMeses > current.prazoMeses) ? prev : current);
     const prazoUltimaTarefa = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + ultimaTarefa.prazoMeses, dataDeInicio.getDate());
-
+  
     const margin = { top: 0, right: 40, bottom: 60, left: 40 };
-    const width = 1000 - margin.left - margin.right;
+    const width = 1200 - margin.left - margin.right;
     const height = 150 - margin.top - margin.bottom;
-
-    // área de desenho
-    const svg = d3
-      .select(svgRef.current)
+  
+    let currentScale = "mes";
+    let timeInterval = d3.timeMonth.every(1);
+    let timeFormat = "%b %Y";
+  
+    const timeScale = d3.scaleTime()
+      .domain([dataDeInicio, prazoUltimaTarefa])
+      .range([0, width]);
+  
+    function updateTimeScale(scale) {
+      switch (scale) {
+        case "ano":
+          timeInterval = d3.timeYear.every(1);
+          timeFormat = "%Y";
+          break;
+        case "mes":
+          timeInterval = d3.timeMonth.every(1);
+          timeFormat = "%b %Y";
+          break;
+        case "semana":
+          timeInterval = d3.timeWeek.every(1);
+          timeFormat = "%b %d, %Y";
+          break;
+        default:
+          break;
+      }
+      const ticks = timeScale.ticks(timeInterval);
+  
+      svg.selectAll(".date-mark").remove();
+      svg.selectAll(".date-text").remove();
+  
+      svg.selectAll(".date-mark")
+        .data(ticks)
+        .enter().append("line")
+        .attr("class", "date-mark")
+        .attr("x1", d => timeScale(d))
+        .attr("y1", height)
+        .attr("x2", d => timeScale(d))
+        .attr("y2", height + 7)
+        .style("stroke", "grey")
+        .style("stroke-width", 1);
+  
+      svg.selectAll(".date-text")
+        .data(ticks)
+        .enter().append("text")
+        .attr("class", "date-text")
+        .attr("x", d => timeScale(d))
+        .attr("y", height + 20)
+        .text(d3.timeFormat(timeFormat))
+        .style("fill", "grey")
+        .style("font-size", "10px")
+        .style("text-anchor", "middle");
+    }
+  
+    const zoom = d3.zoom()
+      .scaleExtent([1, 100])
+      .translateExtent([[0, 0], [width, height]])
+      .extent([[0, 0], [width, height]])
+      .on("zoom", zoomed);
+  
+    function zoomed(event) {
+      const transform = event.transform;
+      const newXScale = transform.rescaleX(timeScale);
+  
+      svg.selectAll(".date-mark")
+        .attr("x1", d => newXScale(d))
+        .attr("x2", d => newXScale(d));
+      svg.selectAll(".date-text")
+        .attr("x", d => newXScale(d));
+      svg.selectAll(".tarefa-a-fazer")
+        .attr("x", (tarefa, index) => {
+          const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
+          return newXScale(prazo) - 10 + (index * 5);
+        });
+  
+      svg.selectAll(".barra-progresso")
+        .attr("width", width * transform.k)
+        .attr("transform", `translate(${transform.x},0)`);
+  
+      svg.selectAll(".progresso")
+        .attr("width", progressoWidth * transform.k)
+        .attr("transform", `translate(${transform.x},0)`);
+    }
+  
+    const svg = d3.select(svgRef.current)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
+      .attr("cursor", "ew-resize")
+      .call(zoom)
       .append("g")
-        .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-    // Adicionando a linha do tempo
-    const timelineBottom = svg.append("line")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  
+    svg.append("line")
       .attr("x1", 0)
       .attr("y1", height)
       .attr("x2", width)
       .attr("y2", height)
-      .style("stroke", "black")
-      .style("stroke-width", 2);
-
-    // Adicionando as marcações de data
-    const timeScale = d3.scaleTime()
-      .domain([dataDeInicio, prazoUltimaTarefa])
-      .range([0, width]);
-
-    const ticks = timeScale.ticks(d3.timeMonth.every(2));
-
-    svg.selectAll(".date-mark")
-      .data(ticks)
-      .enter().append("line")
-      .attr("class", "date-mark")
-      .attr("x1", d => timeScale(d))
-      .attr("y1", height)
-      .attr("x2", d => timeScale(d))
-      .attr("y2", height + 5)
-      .style("stroke", "black")
+      .style("stroke", "grey")
       .style("stroke-width", 1);
-
-    svg.selectAll(".date-text")
-      .data(ticks)
-      .enter().append("text")
-      .attr("class", "date-text")
-      .attr("x", d => timeScale(d))
-      .attr("y", height + 20)
-      .text(d3.timeFormat("%b %Y"))
-      .style("font-size", "10px")
-      .style("text-anchor", "middle");
-
-    // Adicionando ícones de tarefas
+  
+    updateTimeScale(currentScale);
+  
     svg.selectAll(".tarefa-a-fazer")
       .data(tarefas)
       .enter().append("image")
       .attr("class", "tarefa-a-fazer")
+      .attr("cursor", "pointer")
       .attr("x", (tarefa, index) => {
         const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
-        return timeScale(prazo) - 10 + (index * 5); // Ajuste horizontal para evitar oclusão
+        return timeScale(prazo) - 10 + (index * 5);
       })
-      .attr("y", height - 50)
-      .attr("width", 20)
-      .attr("height", 20)
+      .attr("y", height - 60)
+      .attr("width", 30)
+      .attr("height", 30)
       .attr("xlink:href", (tarefa) => tarefa.feita ? flagGreen : flagBlack)
       .on("mouseover", function(event, d) {
         const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + d.prazoMeses, dataDeInicio.getDate());
@@ -166,8 +222,7 @@ function PerfilAluno() {
       .on("mouseout", function() {
         d3.select("#tooltip").style("display", "none");
       });
-
-    // barra de tempo
+  
     svg.append("rect")
       .attr("class", "barra-progresso")
       .attr("x", 0)
@@ -179,9 +234,8 @@ function PerfilAluno() {
       .style("fill", "none")
       .style("stroke", "black")
       .style("stroke-width", 0.3);
-
-    // Barra de progresso
-    svg.append("rect")
+  
+    const progresso = svg.append("rect")
       .attr("class", "progresso")
       .attr("x", 0)
       .attr("y", height - 25)
@@ -190,36 +244,19 @@ function PerfilAluno() {
       .attr("width", 0)
       .attr("height", 12)
       .style("fill", "#84bf68");
-
-    // data de início e data de fim
-    /*const dataInicioText = d3.timeFormat("%d/%m/%Y")(dataDeInicio);
-    const dataFimText = d3.timeFormat("%d/%m/%Y")(prazoUltimaTarefa);
-    svg.append("text")
-      .attr("x", 0)
-      .attr("y", height + 50)
-      .text(dataInicioText)
-      .style("font-size", "10px");
-
-    svg.append("text")
-      .attr("x", width - 30)
-      .attr("y", height + 50)
-      .text(dataFimText)
-      .style("font-size", "10px");*/
-
-    // Atualizando a barra de progresso
-    const progresso = svg.select(".progresso");
-
-    // Atualização do progresso com base no tempo decorrido
+  
     const tempoDecorrido = dataAtual - dataDeInicio;
     const progressoPorcentagem = (tempoDecorrido / (prazoUltimaTarefa - dataDeInicio));
     const progressoWidth = progressoPorcentagem * width;
     progresso.attr("width", progressoWidth);
-
+  
     return () => {
-      // Limpa a área de desenho ao desmontar o componente
       d3.select(svgRef.current).selectAll("*").remove();
     };
   }, [dataAtual, tarefas]);
+  
+  
+
   
   return (
     <div className="contain">
@@ -256,12 +293,10 @@ function PerfilAluno() {
       </div>
 
       {/* visualização */}
-      <div className="vis">
         <svg ref={svgRef}></svg>
         <div id="tooltip" 
           style={{ display: "none", position: "fixed", backgroundColor: "white", padding: "5px", border: "1px solid black", borderEndEndRadius:"15px" }}>
         </div>
-      </div>
 
 
       <div className="tarefasAluno" >
