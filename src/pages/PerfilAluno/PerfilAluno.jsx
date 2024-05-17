@@ -85,124 +85,141 @@ function PerfilAluno() {
   }, []);
 
 
+ 
+useEffect(() => {
+  // prazo das tarefas
+  const ultimaTarefa = tarefas.reduce((prev, current) => (prev.prazoMeses > current.prazoMeses) ? prev : current);
+  const prazoUltimaTarefa = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + ultimaTarefa.prazoMeses, dataDeInicio.getDate());
 
-  
-  useEffect(() => {
-    // prazo das tarefas
-    const ultimaTarefa = tarefas.reduce((prev, current) => (prev.prazoMeses > current.prazoMeses) ? prev : current);
-    const prazoUltimaTarefa = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + ultimaTarefa.prazoMeses, dataDeInicio.getDate());
-  
-    const margin = { top: 0, right: 40, bottom: 60, left: 40 };
-    const width = 1000 - margin.left - margin.right;
-    const height = 70 - margin.top - margin.bottom;
-  
-    // área de desenho
-    const svg = d3
-      .select(svgRef.current)
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform", `translate(${margin.left}, ${margin.top})`);
-        
+  const margin = { top: 0, right: 40, bottom: 60, left: 40 };
+  const width = 1000 - margin.left - margin.right;
+  const height = 150 - margin.top - margin.bottom;
 
+  // área de desenho
+  const svg = d3
+    .select(svgRef.current)
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-  
-// Adicionando ícones de tarefas
-svg.selectAll(".tarefa-a-fazer")
-  .data(tarefas) // Alterado para usar o array de tarefas em vez de tarefasAFazer
-  .enter().append("image") // Usando append("image") para adicionar imagens
-  .attr("class", "tarefa-a-fazer")
-  .attr("x", (tarefa, index) => {
-    const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
-    const xPosition = (prazo - dataDeInicio) / (prazoUltimaTarefa - dataDeInicio) * width - 10;
-    return xPosition  - 15 + (index*5); // Ajuste horizontal para evitar oclusão
-  })
-  .attr("y", height)
-  .attr("width", 20) // Largura da imagem
-  .attr("height", 20) // Altura da imagem
-  .attr("xlink:href", (tarefa) => tarefa.feita ? flagGreen : flagBlack) // URL da imagem com base no estado da tarefa
-  .on("mouseover", function(event, d) {
-    const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + d.prazoMeses, dataDeInicio.getDate());
-    const tooltip = d3.select("#tooltip");
-    tooltip
-      .style("display", "block")
-      .html(`<strong>${d.nome}</strong><br>Data Limite: ${prazo.toLocaleDateString()}`)
-      .style("left", (event.pageX + 10) + "px")
-      .style("top", (event.pageY - 60) + "px")
-      .style("position", "absolute");
-  })
-  .on("mouseout", function() {
-    d3.select("#tooltip").style("display", "none");
-  });
-          
-  
-    // barra de tempo
-    svg.append("rect")
-      .attr("class", "barra-progresso")
-      .attr("x", 0)
-      .attr("y", height + 25) // Ajuste vertical para colocar abaixo dos quadrados
-      .attr("rx", 5)
-      .attr("ry", 5)
-      .attr("width", width) // Largura 
-      .attr("height", 12)
-      .style("fill", "none") // Cor de preenchimento 
-      .style("stroke", "black") // Cor da borda
-      .style("stroke-width", 0.3); // Largura da borda
-      
-    // Barra de progresso
-    svg.append("rect")
-      .attr("class", "progresso")
-      .attr("x", 0)
-      .attr("y", height + 25) 
-      .attr("rx", 5)
-      .attr("ry", 5)
-      .attr("width", 0) 
-      .attr("height", 12)
-      .style("fill", "green"); 
-  
-    // Adiciona data de início e data de fim
-    const dataInicioText = d3.timeFormat("%d/%m/%Y")(dataDeInicio);
-    const dataFimText = d3.timeFormat("%d/%m/%Y")(prazoUltimaTarefa);
-    svg.append("text")
-      .attr("x", 0)
-      .attr("y", height + 50) 
-      .text(dataInicioText)
-      .style("font-size", "10px");
-  
-    svg.append("text")
-      .attr("x", width -30)
-      .attr("y", height + 50) 
-      .text(dataFimText)
-      .style("font-size", "10px");
-  
-    // Atualizando a barra de progresso
-    const progresso = svg.select(".progresso");
-  
-    // Atualização contínua do progresso com base no tempo decorrido
-    const timer = setInterval(() => {
-      const tempoDecorrido = dataAtual - dataDeInicio;
-      const progressoPorcentagem = (tempoDecorrido / (prazoUltimaTarefa - dataDeInicio));
-      const progressoWidth = progressoPorcentagem * width;
-      progresso.attr("width", progressoWidth);
-    }, 1000);
-  
-    // Atualizando o estado da data atual
-    const dataInicial = new Date(dataDeInicio);
-    const tempoDecorridoInicial = dataAtual - dataInicial;
-    const progressoInicial = (tempoDecorridoInicial / (prazoUltimaTarefa - dataInicial)) * width;
-    progresso.attr("width", progressoInicial);
-  
-    const dataInicialSeconds = dataInicial.getSeconds();
-    const msUntilNextSecond = 1000 - dataInicialSeconds * 1000;
-  
-    setTimeout(() => {
-      setDataAtual(new Date());
-    }, msUntilNextSecond);
-  
-    return () => clearInterval(timer);
-  }, [tarefas]);
-  
+  // Adicionando a linha do tempo
+  const timelineBottom = svg.append("line")
+    .attr("x1", 0)
+    .attr("y1", height)
+    .attr("x2", width)
+    .attr("y2", height)
+    .style("stroke", "black")
+    .style("stroke-width", 2);
 
+  // Adicionando as marcações de data
+  const timeScale = d3.scaleTime()
+    .domain([dataDeInicio, prazoUltimaTarefa])
+    .range([0, width]);
+
+  const ticks = timeScale.ticks(d3.timeMonth.every(1));
+
+  svg.selectAll(".date-mark")
+    .data(ticks)
+    .enter().append("line")
+    .attr("class", "date-mark")
+    .attr("x1", d => timeScale(d))
+    .attr("y1", height)
+    .attr("x2", d => timeScale(d))
+    .attr("y2", height + 5)
+    .style("stroke", "black")
+    .style("stroke-width", 1);
+
+  svg.selectAll(".date-text")
+    .data(ticks)
+    .enter().append("text")
+    .attr("class", "date-text")
+    .attr("x", d => timeScale(d))
+    .attr("y", height + 20)
+    .text(d3.timeFormat("%b %Y"))
+    .style("font-size", "10px")
+    .style("text-anchor", "middle");
+
+  // Adicionando ícones de tarefas
+  svg.selectAll(".tarefa-a-fazer")
+    .data(tarefas)
+    .enter().append("image")
+    .attr("class", "tarefa-a-fazer")
+    .attr("x", (tarefa, index) => {
+      const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
+      return timeScale(prazo) - 10 + (index * 5); // Ajuste horizontal para evitar oclusão
+    })
+    .attr("y", height - 50)
+    .attr("width", 20)
+    .attr("height", 20)
+    .attr("xlink:href", (tarefa) => tarefa.feita ? flagGreen : flagBlack)
+    .on("mouseover", function(event, d) {
+      const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + d.prazoMeses, dataDeInicio.getDate());
+      const tooltip = d3.select("#tooltip");
+      tooltip
+        .style("display", "block")
+        .html(`<strong>${d.nome}</strong><br>Data Limite: ${prazo.toLocaleDateString()}`)
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 60) + "px")
+        .style("position", "absolute");
+    })
+    .on("mouseout", function() {
+      d3.select("#tooltip").style("display", "none");
+    });
+
+  // barra de tempo
+  svg.append("rect")
+    .attr("class", "barra-progresso")
+    .attr("x", 0)
+    .attr("y", height - 25)
+    .attr("rx", 5)
+    .attr("ry", 5)
+    .attr("width", width)
+    .attr("height", 12)
+    .style("fill", "none")
+    .style("stroke", "black")
+    .style("stroke-width", 0.3);
+
+  // Barra de progresso
+  svg.append("rect")
+    .attr("class", "progresso")
+    .attr("x", 0)
+    .attr("y", height - 25)
+    .attr("rx", 5)
+    .attr("ry", 5)
+    .attr("width", 0)
+    .attr("height", 12)
+    .style("fill", "#84bf68");
+
+  // data de início e data de fim
+  /*const dataInicioText = d3.timeFormat("%d/%m/%Y")(dataDeInicio);
+  const dataFimText = d3.timeFormat("%d/%m/%Y")(prazoUltimaTarefa);
+  svg.append("text")
+    .attr("x", 0)
+    .attr("y", height + 50)
+    .text(dataInicioText)
+    .style("font-size", "10px");
+
+  svg.append("text")
+    .attr("x", width - 30)
+    .attr("y", height + 50)
+    .text(dataFimText)
+    .style("font-size", "10px");*/
+
+  // Atualizando a barra de progresso
+  const progresso = svg.select(".progresso");
+
+  // Atualização do progresso com base no tempo decorrido
+  const tempoDecorrido = dataAtual - dataDeInicio;
+  const progressoPorcentagem = (tempoDecorrido / (prazoUltimaTarefa - dataDeInicio));
+  const progressoWidth = progressoPorcentagem * width;
+  progresso.attr("width", progressoWidth);
+
+  return () => {
+    // Limpa a área de desenho ao desmontar o componente
+    d3.select(svgRef.current).selectAll("*").remove();
+  };
+}, [dataAtual, tarefas]);
   
   
   return (
@@ -240,12 +257,11 @@ svg.selectAll(".tarefa-a-fazer")
       </div>
 
       {/* visualização */}
-      <div className="vis">
         <svg ref={svgRef}></svg>
         <div id="tooltip" 
           style={{ display: "none", position: "fixed", backgroundColor: "white", padding: "5px", border: "1px solid black", borderEndEndRadius:"15px" }}>
         </div>
-      </div>
+
 
 
       <div className="tarefasAluno" >
