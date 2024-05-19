@@ -91,10 +91,12 @@ function PerfilAluno() {
     const ultimaTarefa = tarefas.reduce((prev, current) => (prev.prazoMeses > current.prazoMeses) ? prev : current);
     const prazoUltimaTarefa = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + ultimaTarefa.prazoMeses, dataDeInicio.getDate());
   
+    // Dimensões container
     const margin = { top: 0, right: 40, bottom: 60, left: 40 };
     const width = 1200 - margin.left - margin.right;
     const height = 150 - margin.top - margin.bottom;
-  
+
+      // Construção da escala horizontal e preparação p zoom 
     let currentScale = "mes";
     let timeInterval = d3.timeMonth.every(1);
     let timeFormat = "%b %Y";
@@ -125,6 +127,7 @@ function PerfilAluno() {
       svg.selectAll(".date-mark").remove();
       svg.selectAll(".date-text").remove();
   
+        // ticks e legenda escala horizontal
       svg.selectAll(".date-mark")
         .data(ticks)
         .enter().append("line")
@@ -148,6 +151,7 @@ function PerfilAluno() {
         .style("text-anchor", "middle");
     }
   
+      // zoom e pan escala horizontal
     const zoom = d3.zoom()
       .scaleExtent([1, 100])
       .translateExtent([[0, 0], [width, height]])
@@ -186,6 +190,7 @@ function PerfilAluno() {
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
   
+      // Linha escala horizontal
     svg.append("line")
       .attr("x1", 0)
       .attr("y1", height)
@@ -196,6 +201,7 @@ function PerfilAluno() {
   
     updateTimeScale(currentScale);
   
+      // Add ícones de tarefa conforme a escala
     svg.selectAll(".tarefa-a-fazer")
       .data(tarefas)
       .enter().append("image")
@@ -223,6 +229,7 @@ function PerfilAluno() {
         d3.select("#tooltip").style("display", "none");
       });
   
+      // Barra temporal curso
     svg.append("rect")
       .attr("class", "barra-progresso")
       .attr("x", 0)
@@ -234,7 +241,8 @@ function PerfilAluno() {
       .style("fill", "none")
       .style("stroke", "black")
       .style("stroke-width", 0.3);
-  
+
+      // Barra de progresso
     const progresso = svg.append("rect")
       .attr("class", "progresso")
       .attr("x", 0)
