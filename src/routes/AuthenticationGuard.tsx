@@ -22,10 +22,14 @@ export const AuthenticationGuard = ({
 
   const enabled = !!tokens.accessToken;
 
-  const { data: user } = useGetUser(enabled);
+  const { data: user, isFetching } = useGetUser(enabled);
+
+  if (isFetching) {
+    return 'Carregando...'
+  }
 
   const isAllowed =
-    !!tokens?.accessToken && !!user && !!allowedRoles?.includes(user.tipo);
+    !!tokens?.accessToken && !!user && (!!allowedRoles?.includes(user.dados.role) || !!allowedRoles?.includes(user.tipo));
 
   return (
     <ProtectedRoute

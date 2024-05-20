@@ -2,13 +2,18 @@ import { persist } from "zustand/middleware";
 
 import { create } from "./helpers";
 
-interface Tokens {
+export interface Tokens {
   accessToken?: string;
   tokenType?: string;
 }
 
+const initialState: Tokens = {
+  accessToken: '',
+  tokenType: ''
+}
+
 export const useTokensStore = create<Tokens>()(
-  persist(() => ({}), {
+  persist(() => initialState, {
     name: "tokens",
   }),
 );

@@ -1,6 +1,7 @@
 import "./styles.css";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import ButtonSecondary from "@/components/ButtonSecondary";
 import InputPassword from "@/components/InputPassword";
@@ -9,21 +10,38 @@ import { useUserQueries } from "@/queries/user";
 import Input from "../../components/Input";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const logoPgcop = "assets/logoPgcop.png";
   const imagemBarra = "assets/salvador.png";
-  const gamboa = "assets/gamboa.jpg";
-  const farol = "assets/farol.jpg";
-  const pelourinho = "assets/pelourinho.jpg";
-  const barra = "assets/barra.jpg";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { useAuthUser } = useUserQueries();
+  const { useAuthUser, fetchUser } = useUserQueries();
 
-  const { mutate: authenticate } = useAuthUser();
+  const { mutate: authenticate, isPending: isAuthenticating } = useAuthUser();
 
-  const handleSignIn = () => authenticate({ username: email, password });
+  const handleSignIn = () =>
+    authenticate(
+      { username: email, password },
+      {
+        onSuccess: async (tokens) => {
+          const user = await fetchUser(tokens.accessToken);
+
+          const pathOptions: { [key: string]: string } = {
+            aluno: "/perfil-aluno",
+            professor: "/perfil-professor",
+          };
+
+          const path =
+            (user.dados.role != "coordenador" && pathOptions) ||
+            "/perfil-coordenador";
+
+          navigate(path, { replace: true });
+        },
+      },
+    );
 
   const disabled = !email || !password;
 
@@ -58,9 +76,9 @@ const Login = () => {
 
             {/* Botão Login */}
             <ButtonSecondary
-              disabled={disabled}
+              disabled={disabled || isAuthenticating}
               onClick={handleSignIn}
-              label={"Entrar"}
+              label={isAuthenticating ? "Carregando..." : "Entrar"}
               style={{ width: "90%" }}
             />
           </div>
