@@ -1,5 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 
+import { Snackbar } from "@/components/Snackbar";
 import { DataProvider } from "@/providers/data";
 import { router } from "@/routes";
 
@@ -10,6 +11,7 @@ export default function App() {
     <LoadingProvider>
       <DataProvider>
         <RouterProvider router={router} />
+        <Snackbar />
       </DataProvider>
     </LoadingProvider>
   );
