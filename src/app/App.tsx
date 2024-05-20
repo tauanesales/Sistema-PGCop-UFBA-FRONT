@@ -1,10 +1,11 @@
-import { createTheme,ThemeProvider } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import { ptBR } from "@mui/x-date-pickers/locales";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider/LocalizationProvider";
 import { pt } from "date-fns/locale/pt";
 import { RouterProvider } from "react-router-dom";
 
+import { Snackbar } from "@/components/Snackbar";
 import { DataProvider } from "@/providers/data";
 import { router } from "@/routes";
 
@@ -19,6 +20,7 @@ export default function App() {
         <LoadingProvider>
           <DataProvider>
             <RouterProvider router={router} />
+            <Snackbar />
           </DataProvider>
         </LoadingProvider>
       </ThemeProvider>
