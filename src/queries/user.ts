@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 
 import { resetAllStores } from "@/store/helpers";
 import { saveTokens } from "@/store/tokens";
@@ -9,8 +8,6 @@ import * as userApi from "../services/api/user";
 export const useUserQueries = () => {
   const queryClient = useQueryClient();
 
-  const navigate = useNavigate();
-
   const useGetUser = (enabled: boolean) =>
     useQuery({
       queryKey: ["user"],
@@ -18,40 +15,43 @@ export const useUserQueries = () => {
       enabled,
     });
 
+  const fetchUser = (accessToken: string) =>
+    queryClient.fetchQuery({
+      queryKey: ["user"],
+      queryFn: () =>
+        userApi.getUser(accessToken).then((response) => response.data),
+    });
+
   const useAuthUser = () =>
     useMutation({
       mutationFn: userApi.authenticateUser,
-      onSuccess: async (tokens: any) => {
-        const user = await queryClient.fetchQuery({
-          queryKey: ["user"],
-          queryFn: () =>
-            userApi
-              .getUser(tokens.accessToken)
-              .then((response) => response.data),
-        });
-
+      onSuccess: (tokens) => {
         saveTokens(tokens);
-
-        const pathOptions: { [key: string]: string } = {
-          'aluno': '/perfil-aluno',
-          'professor': '/perfil-professor',
-        };
-
-        const path = user.dados.role != "coordenador" && pathOptions || "/perfil-coordenador";
-
-        navigate(path, { replace: true });
       },
+    });
+
+  const useCreateAluno = () =>
+    useMutation({
+      mutationFn: userApi.createAluno,
+    });
+
+  const useCreateProfessor = () =>
+    useMutation({
+      mutationFn: userApi.createProfessor,
     });
 
   const signOut = () => {
     resetAllStores();
     queryClient.clear();
-    navigate('/')
+    navigate("/");
   };
 
   return {
     useGetUser,
+    fetchUser,
     useAuthUser,
+    useCreateAluno,
+    useCreateProfessor,
     signOut,
   };
 };
