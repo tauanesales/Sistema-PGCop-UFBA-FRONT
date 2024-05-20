@@ -2,6 +2,7 @@ export type UserBase = {
   id: number;
   nome: string;
   email: string;
+  role: string;
 };
 
 export type Aluno = UserBase & {

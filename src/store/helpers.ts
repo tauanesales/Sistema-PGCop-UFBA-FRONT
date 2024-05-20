@@ -12,7 +12,7 @@ export const resetAllStores = () => {
 export const create = (<T extends unknown>() => {
   return (stateCreator: StateCreator<T>) => {
     const store = _create(stateCreator);
-    const initialState = store.getState();
+    const initialState = store.getInitialState();
     storeResetFns.add(() => {
       store.setState(initialState, true);
     });

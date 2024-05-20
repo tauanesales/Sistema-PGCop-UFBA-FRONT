@@ -43,6 +43,7 @@ export const useUserQueries = () => {
   const signOut = () => {
     resetAllStores();
     queryClient.clear();
+    navigate("/");
   };
 
   return {
