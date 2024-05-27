@@ -5,6 +5,8 @@ import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
 import { MdEditNote, MdLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
+import { Tarefa } from "@/models/Tarefa";
+import { useTarefasQueries } from "@/queries/tarefas";
 import { useUserQueries } from "@/queries/user";
 
 function PerfilAluno() {
@@ -18,71 +20,32 @@ function PerfilAluno() {
 
   const [dataAtual, setDataAtual] = useState(new Date()); // Data atual
 
-  const [tarefas, setTarefas] = useState([
-    {
-      id: 1,
-      nome: "Qualificacao",
-      prazoMeses: 24,
-      descricao: "Apresentação e defesa do projeto de pesquisa.",
-      feita: false,
-    },
-    {
-      id: 2,
-      nome: "Artigo",
-      prazoMeses: 24,
-      descricao: "Elaborar e submeter um artigo científico.",
-      feita: false,
-    },
-    {
-      id: 3,
-      nome: "Estágio",
-      prazoMeses: 18,
-      descricao: "Concluir o estágio obrigatório.",
-      feita: false,
-    },
-    { id: 4, nome: "Defesa", prazoMeses: 24, descricao: "", feita: false },
-    {
-      id: 5,
-      nome: "Exame de Proficiência em Língua Estrangeira",
-      prazoMeses: 16,
-      descricao: "Aprovação em exame de proficiência em língua estrangeira.",
-      feita: false,
-    },
-    {
-      id: 6,
-      nome: "Carga Horária Básica",
-      prazoMeses: 15,
-      descricao: "Cumprir a carga horária mínima de disciplinas obrigatórias.",
-      feita: false,
-    },
-  ]);
+  const { useGetTarefaAluno, useUpdateTarefa } = useTarefasQueries();
 
-  const [tarefaEmEdicao, setTarefaEmEdicao] = useState(null);
+  const { data: tarefas = [] } = useGetTarefaAluno();
+
+  const { mutate: updateTarefa } = useUpdateTarefa();
+
+  const [tarefaEmEdicao, setTarefaEmEdicao] = useState<number | null>(null);
   const [dataSelecionada, setDataSelecionada] = useState(null);
 
-  const handleCheckboxChange = (id) => {
-    const updatedTarefas = tarefas.map((tarefa) => {
-      if (tarefa.id === id) {
-        if (tarefa.feita) {
-          return { ...tarefa, feita: false, dataRealizacao: null };
-        } else {
-          setTarefaEmEdicao(id);
-          return tarefa;
-        }
-      }
-      return tarefa;
-    });
-    setTarefas(updatedTarefas);
+  const handleCheckboxChange = (tarefa: Tarefa) => {
+    const { id, completada } = tarefa;
+
+    if (completada) {
+      updateTarefa({ ...tarefa, id, completada: 0, data_conclusao: null });
+    } else {
+      setTarefaEmEdicao(id);
+    }
   };
 
-  const salvarDataRealizacao = (id) => {
-    const updatedTarefas = tarefas.map((tarefa) => {
-      if (tarefa.id === id) {
-        return { ...tarefa, feita: true, dataRealizacao: dataSelecionada };
-      }
-      return tarefa;
+  const salvarDataRealizacao = (tarefa: Tarefa) => {
+    updateTarefa({
+      ...tarefa,
+      completada: 1,
+      data_conclusao: dataSelecionada,
     });
-    setTarefas(updatedTarefas);
+
     setTarefaEmEdicao(null); // Limpa o estado de tarefa em edição
     setDataSelecionada(null); // Limpa a data selecionada
   };
@@ -101,8 +64,8 @@ function PerfilAluno() {
     return prazoA - prazoB;
   });
 
-  const tarefasAFazer = tarefasOrdenadas.filter((tarefa) => !tarefa.feita);
-  const tarefasFeitas = tarefasOrdenadas.filter((tarefa) => tarefa.feita);
+  const tarefasAFazer = tarefasOrdenadas.filter((tarefa) => !tarefa.completada);
+  const tarefasFeitas = tarefasOrdenadas.filter((tarefa) => tarefa.completada);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -192,7 +155,7 @@ function PerfilAluno() {
                 style={{ backgroundColor: backgroundColor }}
               >
                 <AiOutlineEdit // Marcador icone
-                  onClick={() => handleCheckboxChange(tarefa.id)}
+                  onClick={() => handleCheckboxChange(tarefa)}
                   style={{
                     cursor: "pointer",
                     marginLeft: "5px",
@@ -222,7 +185,7 @@ function PerfilAluno() {
                         style={{ marginLeft: "25px" }}
                       />
                       <button
-                        onClick={() => salvarDataRealizacao(tarefa.id)}
+                        onClick={() => salvarDataRealizacao(tarefa)}
                         style={{
                           marginLeft: "25px",
                           width: "70px",
@@ -265,7 +228,7 @@ function PerfilAluno() {
                 style={{ backgroundColor: "#ADD8E6" }}
               >
                 <AiOutlineFileExcel // Marcador icone
-                  onClick={() => handleCheckboxChange(tarefa.id)}
+                  onClick={() => handleCheckboxChange(tarefa)}
                   style={{ cursor: "pointer", marginLeft: "5px" }}
                   size={20}
                   title="Desfazer"
@@ -286,7 +249,9 @@ function PerfilAluno() {
                 </label>
                 <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                   Realizada em:{" "}
-                  {new Date(tarefa.dataRealizacao).toLocaleDateString()}
+                  {tarefa.data_conclusao
+                    ? new Date(tarefa.data_conclusao).toLocaleDateString()
+                    : "-"}
                 </label>
               </div>
             );
