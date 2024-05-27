@@ -102,3 +102,10 @@ button{
   padding: 5px;
   border-radius: 3px;
 }
+
+.chart-container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+}
