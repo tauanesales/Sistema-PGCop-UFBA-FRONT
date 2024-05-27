@@ -5,8 +5,9 @@ import { MdEditNote, MdLogout } from 'react-icons/md';
 import { AiOutlineEdit , AiOutlineFileExcel } from 'react-icons/ai'; 
 
 const logoPgcop = "/assets/logoPgcop.png";
-const flagGreen = "/assets/flagGreen.png";
 const flagBlack = "/assets/flagBlack.png";
+const flagGreen = "/assets/flagGreen.png";
+const flagRed = "/assets/flagRed.png";
 
 function PerfilAluno() {
 
@@ -21,14 +22,21 @@ function PerfilAluno() {
   ]);
 
   const idAluno = [
-    { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datainicio: '2024-0-01', orientador:'Frederico Durão' },
+    { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datainicio: '2023-06-01', orientador:'Frederico Durão' },
   ];
-  
+
     // Definindo as datas de início e atual
-    const dataDeInicio = new Date("2023-03-01");
+    const getData = new Date(idAluno[0].datainicio);
+    const dataDeInicio =  new Date(getData.getFullYear(), getData.getMonth(), getData.getDate() +1 );
+    //const dataFinal = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + ultimaTarefa.prazoMeses, dataDeInicio.getDate());
     const [dataAtual, setDataAtual] = useState(new Date());
     const [aluno, setAluno] = useState(null); // Estado para armazenar os dados do aluno
     const svgRef = useRef();
+
+        // Definindo a data final com base na titulação do aluno
+    const anosDePrazo = idAluno[0].titulacao === 'Mestrado' ? 2 : 4;
+    const dataFinal = new Date(dataDeInicio);
+    dataFinal.setFullYear(dataFinal.getFullYear() + anosDePrazo);
   
 
   // Atualiza o estado do aluno assim que o componente é montado
@@ -86,7 +94,6 @@ function PerfilAluno() {
 
 
 
-  
   useEffect(() => {
     const ultimaTarefa = tarefas.reduce((prev, current) => (prev.prazoMeses > current.prazoMeses) ? prev : current);
     const prazoUltimaTarefa = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + ultimaTarefa.prazoMeses, dataDeInicio.getDate());
@@ -95,14 +102,14 @@ function PerfilAluno() {
     const margin = { top: 0, right: 40, bottom: 60, left: 40 };
     const width = 1200 - margin.left - margin.right;
     const height = 150 - margin.top - margin.bottom;
-
-      // Construção da escala horizontal e preparação p zoom 
+  
+    // Construção da escala horizontal e preparação para zoom 
     let currentScale = "mes";
     let timeInterval = d3.timeMonth.every(1);
     let timeFormat = "%b %Y";
   
     const timeScale = d3.scaleTime()
-      .domain([dataDeInicio, prazoUltimaTarefa])
+      .domain([dataDeInicio, dataFinal])
       .range([0, width]);
   
     function updateTimeScale(scale) {
@@ -127,7 +134,7 @@ function PerfilAluno() {
       svg.selectAll(".date-mark").remove();
       svg.selectAll(".date-text").remove();
   
-        // ticks e legenda escala horizontal
+      // ticks e legenda escala horizontal
       svg.selectAll(".date-mark")
         .data(ticks)
         .enter().append("line")
@@ -145,13 +152,14 @@ function PerfilAluno() {
         .attr("class", "date-text")
         .attr("x", d => timeScale(d))
         .attr("y", height + 20)
+        .attr("transform", d => `rotate(-30, ${timeScale(d)}, ${height + 20})`)
         .text(d3.timeFormat(timeFormat))
         .style("fill", "grey")
         .style("font-size", "10px")
         .style("text-anchor", "middle");
     }
   
-      // zoom e pan escala horizontal
+    // zoom e pan escala horizontal
     const zoom = d3.zoom()
       .scaleExtent([1, 100])
       .translateExtent([[0, 0], [width, height]])
@@ -166,7 +174,8 @@ function PerfilAluno() {
         .attr("x1", d => newXScale(d))
         .attr("x2", d => newXScale(d));
       svg.selectAll(".date-text")
-        .attr("x", d => newXScale(d));
+        .attr("x", d => newXScale(d))
+        .attr("transform", d => `rotate(-30, ${newXScale(d)}, ${height + 20})`);
       svg.selectAll(".tarefa-a-fazer")
         .attr("x", (tarefa, index) => {
           const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
@@ -190,7 +199,7 @@ function PerfilAluno() {
       .append("g")
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
   
-      // Linha escala horizontal
+    // Linha escala horizontal
     svg.append("line")
       .attr("x1", 0)
       .attr("y1", height)
@@ -201,7 +210,7 @@ function PerfilAluno() {
   
     updateTimeScale(currentScale);
   
-      // Add ícones de tarefa conforme a escala
+    // Adiciona ícones de tarefa conforme a escala
     svg.selectAll(".tarefa-a-fazer")
       .data(tarefas)
       .enter().append("image")
@@ -214,7 +223,10 @@ function PerfilAluno() {
       .attr("y", height - 60)
       .attr("width", 30)
       .attr("height", 30)
-      .attr("xlink:href", (tarefa) => tarefa.feita ? flagGreen : flagBlack)
+      .attr("xlink:href", (tarefa) => {
+        const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
+        return tarefa.feita ? flagGreen : (prazo < dataAtual ? flagRed : flagBlack);
+      })
       .on("mouseover", function(event, d) {
         const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + d.prazoMeses, dataDeInicio.getDate());
         const tooltip = d3.select("#tooltip");
@@ -229,7 +241,7 @@ function PerfilAluno() {
         d3.select("#tooltip").style("display", "none");
       });
   
-      // Barra temporal curso
+    // Barra temporal curso
     svg.append("rect")
       .attr("class", "barra-progresso")
       .attr("x", 0)
@@ -241,8 +253,8 @@ function PerfilAluno() {
       .style("fill", "none")
       .style("stroke", "black")
       .style("stroke-width", 0.3);
-
-      // Barra de progresso
+  
+    // Barra de progresso
     const progresso = svg.append("rect")
       .attr("class", "progresso")
       .attr("x", 0)
@@ -254,7 +266,7 @@ function PerfilAluno() {
       .style("fill", "#84bf68");
   
     const tempoDecorrido = dataAtual - dataDeInicio;
-    const progressoPorcentagem = (tempoDecorrido / (prazoUltimaTarefa - dataDeInicio));
+    const progressoPorcentagem = (tempoDecorrido / (dataFinal - dataDeInicio));
     const progressoWidth = progressoPorcentagem * width;
     progresso.attr("width", progressoWidth);
   
@@ -265,7 +277,6 @@ function PerfilAluno() {
   
   
 
-  
   return (
     <div className="contain">
       <div className="containerAluno">
@@ -275,14 +286,14 @@ function PerfilAluno() {
             <div className="boxInfoAluno">
               <h3>{aluno.nome}</h3>
               <p><span>Titulação:</span> {aluno.titulacao}</p>
-              <p><span>Data de Inicio:</span> {aluno.datainicio}</p>
+              <p><span>Data de Inicio:</span> {new Date(dataDeInicio).toLocaleDateString()}</p>
               <p><span>Status:</span> Ativo</p>
             </div>
           )}
           <div className="boxInfoAluno">
             <h3><span>Matrícula:</span> {aluno && aluno.matricula}</h3>
             <p><span>Orientador(a): </span>{aluno && aluno.orientador}</p>
-            <p><span>Término Previsto:</span> {new Date(dataDeInicio.getFullYear() + 3, dataDeInicio.getMonth(), dataDeInicio.getDate()).toLocaleDateString()}</p>
+            <p><span>Término Previsto:</span> {new Date(dataFinal).toLocaleDateString()}</p>
           </div>
         </div>
 
