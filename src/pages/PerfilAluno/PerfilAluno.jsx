@@ -23,7 +23,7 @@ function PerfilAluno() {
   ]);
 
   const idAluno = [
-    { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datainicio: '2023-06-01', orientador:'Frederico Durão' },
+    { id: 1, nome: 'João Silva', matricula: '2022001', titulacao: 'Mestrado', datainicio: '2023-01-01', orientador:'Frederico Durão' },
   ];
 
     // Definindo as datas de início e atual
@@ -130,17 +130,20 @@ function PerfilAluno() {
 
       {/* Visualização */}
         < D3Visualization 
-            dataDeInicio={dataDeInicio} dataFinal={dataFinal} dataAtual={dataAtual} tarefas={tarefas}
-        /> 
+            dataDeInicio={dataDeInicio} 
+            dataFinal={dataFinal} 
+            dataAtual={dataAtual} 
+            tarefas={tarefas}
+          /> 
         {/* Div Mouseover */}
         <div id="tooltip" 
-           style={{ display: "none", 
-                    position: "fixed", 
-                    backgroundColor: "white", 
-                    padding: "5px", 
-                    border: "1px solid black", 
-                    borderEndEndRadius:"15px"
-                 }}>
+              style={{ display: "none", 
+                        position: "fixed", 
+                        backgroundColor: "white", 
+                        padding: "5px", 
+                        border: "1px solid black", 
+                        borderEndEndRadius:"15px"
+                    }}>
         </div>
 
 
