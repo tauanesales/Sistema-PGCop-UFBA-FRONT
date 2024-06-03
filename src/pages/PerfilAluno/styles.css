@@ -55,10 +55,32 @@
   align-items: flex-end;
 }
 
-button{
-  background-color: rgba(42, 41, 41, 0.87);
-  width: 130px;
-  height: 40px;
+.dateInput {
+  margin-left: 15px;
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+}
+
+.bttnSalvar {
+  height: 35px;
+  width: 100px;
+  padding: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-top : 5px;
+  color: #000000;
+  background-color: #D6DDE2;
+  font-family: "Raleway", sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  border: none;
+}
+.bttnSalvar:hover{
+  background-color: #E9EAEC; 
 }
 
 .tarefasAluno {

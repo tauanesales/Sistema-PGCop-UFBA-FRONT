@@ -130,8 +130,6 @@ function PerfilAluno() {
           />
         </div>
       </div>
-
-
       {/* Visualização */}
       < D3Visualization 
             dataDeInicio={dataDeInicio} 
@@ -182,14 +180,14 @@ function PerfilAluno() {
                     <br />
                     <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                       Data de realização:
-                      <input
+                      <input  className="dateInput"
                         type="date"
                         value={dataSelecionada}
                         onChange={(e) => setDataSelecionada(e.target.value)}
-                        style={{ marginLeft: "25px" }}
+                        style={{ marginLeft: "15px" }}
                       />
-                      <button onClick={() => salvarDataRealizacao(tarefa.id)} 
-                        style={{ marginLeft:"25px", width:'70px', height:'25px', borderRadius: '5px', fontSize: "13px" }}>Salvar</button>
+                      <button className="bttnSalvar" onClick={() => salvarDataRealizacao(tarefa.id)} 
+                        style={{ marginLeft:"12vh", width:'70px', height:'25px' }}>Salvar</button>
                     </label>
                   </>
                 )}
@@ -197,8 +195,8 @@ function PerfilAluno() {
                 <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                   {tarefa.descricao}<br />
                 </label>
-                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
-                  Data Limite: {prazo.toLocaleDateString()} — {diasRestantes} dias restantes.
+                <label style={{ marginLeft: "40px", fontSize: "15px" }}> 
+                  Data Limite: {prazo.toLocaleDateString()} — {diasRestantes >= 0 ? `${diasRestantes} dias restantes` : "Tarefa em atraso"}.
                 </label>
               </div>
             );

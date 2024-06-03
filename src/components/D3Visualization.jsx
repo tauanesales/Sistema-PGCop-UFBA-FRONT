@@ -117,6 +117,16 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
 
     updateTimeScale(currentScale);
 
+        // Adicionar o texto de fundo
+      svg.append("text")
+      .attr("x", width  / 7)
+      .attr("y", height /2)
+      .attr("text-anchor", "middle")
+      .style("fill", "lightgrey")
+      .style("font-size", "20px")
+      .style("font-weight", "bold")
+        .text("Zoom e Arrastar");
+
     // Adiciona ícones de tarefa conforme a escala
     svg.selectAll(".tarefa-a-fazer")
       .data(tarefas)
@@ -171,6 +181,8 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
       .attr("width", 0)
       .attr("height", 12)
       .style("fill", "#84bf68");
+
+
 
     const tempoDecorrido = dataAtual - dataDeInicio;
     const progressoPorcentagem = (tempoDecorrido / (dataFinal - dataDeInicio));
