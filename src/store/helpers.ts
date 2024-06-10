@@ -9,7 +9,7 @@ export const resetAllStores = () => {
   });
 };
 
-export const create = (<T extends unknown>() => {
+export const create = (<T>() => {
   return (stateCreator: StateCreator<T>) => {
     const store = _create(stateCreator);
     const initialState = store.getInitialState();

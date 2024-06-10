@@ -1,7 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
+ 
+ 
 import './styles.css'
+
+import { useEffect,useState } from "react";
 
 
 const SelectCadastro = () => {

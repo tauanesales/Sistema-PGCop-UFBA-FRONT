@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
 import "./styles.css";
+
 import LoadingButton from "@mui/lab/LoadingButton";
-import { MenuItem, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+import { MenuItem } from "@mui/material";
 import { useMask } from "@react-input/mask";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+
 import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
+
 import SelectCadastro from "../../components/SelectCadastro";
 
 const logoPgcop = "/assets/logoPgcop.png";
 
-
 function AtualizarDados() {
-
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .matches(/(\w.+\s).+/, "Insira no mínimo 2 nomes")
@@ -33,11 +33,6 @@ function AtualizarDados() {
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password")], "Senhas não coincidem")
       .required("Insira a senha novamente"),
-  });
-
-  const cpfInputRef = useMask({
-    mask: "___.___.___-__",
-    replacement: { _: /\d/ },
   });
 
   const telefoneInputRef = useMask({
@@ -106,44 +101,43 @@ function AtualizarDados() {
             </div>
 
             <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <FormikInput
+                  name="matricula"
+                  label="Matrícula"
+                  fullWidth
+                  required
+                />
 
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <FormikInput
-                    name="matricula"
-                    label="Matrícula"
-                    fullWidth
-                    required
-                  />
+                <FormikInput
+                  name="orientador"
+                  label="Orientador"
+                  fullWidth
+                  required
+                />
+                <FormikInput
+                  fullWidth
+                  variant="standard"
+                  id="select-titulacao"
+                  name="titulacao"
+                  label="Titulação do curso"
+                  select
+                  required
+                >
+                  <MenuItem value="mestrado">Mestrado</MenuItem>
+                  <MenuItem value="doutorado">Doutorado</MenuItem>
+                </FormikInput>
 
-                  <FormikInput
-                    name="orientador"
-                    label="Orientador"
-                    fullWidth
-                    required
-                  />
-                  <FormikInput
-                    fullWidth
-                    variant="standard"
-                    id="select-titulacao"
-                    name="titulacao"
-                    label="Titulação do curso"
-                    select
-                    required
-                  >
-                    <MenuItem value="mestrado">Mestrado</MenuItem>
-                    <MenuItem value="doutorado">Doutorado</MenuItem>
-                  </FormikInput>
-
-                  <div className="inputData" >
-                    <SelectCadastro />
-                  </div>
+                <div className="inputData">
+                  <SelectCadastro />
                 </div>
-              
+              </div>
             </div>
           </div>
 
           <div className="buttonCadastro">
-            <LoadingButton className="bttn"
+            <LoadingButton
+              className="bttn"
               sx={{ marginTop: 2 }}
               variant="contained"
               fullWidth
