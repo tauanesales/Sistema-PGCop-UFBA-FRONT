@@ -55,12 +55,6 @@
   align-items: flex-end;
 }
 
-button{
-  background-color: rgba(42, 41, 41, 0.87);
-  width: 130px;
-  height: 40px;
-}
-
 .tarefasAluno {
   display: flex;
   justify-content: space-around;
