@@ -1,21 +1,89 @@
-.containerCadastro {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  min-width: 20em;
-  max-height: 80vh;
+.containerPrincipal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1080px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: top;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.inputCadastro {
-  background-color: transparent;
-  color: #00000070;
-  font-size: 14px;
-  border: none;
-  border-radius: 0;
-  border-bottom: 1px solid #00000070;
+.inputContainer {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center; 
+  margin-bottom: 10px;
+}
+.inputData {
+  align-items: center; 
+  width: 240px;
+}
+
+.inputData select {
+  width: 8.2vh;
+}
+
+.inputRow {
+  display: flex;
+  flex-direction: column; 
+  align-items: start;
+  margin-bottom: 5px;
+}
+
+.inputRow > * {
+  margin-bottom: 2px; /* espaçamento entre o label e input */
+  margin-right: 20px; /* margem direita */
+}
+
+
+.inputRow:last-child > * {
+  margin-right: 0;
+}
+
+.inputRow label {
+  width: auto;
+}
+
+.inputCadastro, .inputSenha {
+  padding: 8px;
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.inputSenha{
+  width: 250px;
+}
+
+.selectCadastro {
+  padding: 8px;
+  width: 500px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.buttonCadastro {
+  margin-top: 0px;
+}
+
+.bttn {
+  color: #000000;
+  background-color: #D6DDE2;
   font-family: "Raleway", sans-serif;
+  font-size: 1em;
   font-weight: 700;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  width: 150px;
+  height: 2.5em;
+}
+.bttn:hover{
+  background-color: #E9EAEC; 
 }

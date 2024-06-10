@@ -1,23 +1,34 @@
-.containerLogin{
+.containerLogin {
   display: flex;
   height: 100vh;
   width: 100%;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(326deg, rgba(246,249,250,1) 0%, rgba(236,240,243,1) 34%);
+  background: linear-gradient(
+    326deg,
+    rgba(246, 249, 250, 1) 0%,
+    rgba(236, 240, 243, 1) 34%
+  );
 }
-.containerCardImg{
+.containerCardImagem {
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 70%;
   width: 100%;
+  justify-content: center;
+  align-items: center;
 }
-.cardLogin{
+.imagemLogin {
+  height: 100%;
+  object-fit: cover;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.cardLogin {
   background-color: white;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  padding: 0px 20px;
+  padding: 1em;
   max-width: 350px;
   height: 100%;
   justify-content: center;
@@ -25,44 +36,43 @@
   font-family: "Raleway", sans-serif;
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
+  gap: 0.2em;
 
   img {
     align-self: center;
+    object-fit: contain;
   }
-} 
+}
 
-h1{
+h1 {
   font-size: 1.5em;
   width: 80%;
   margin: 0 auto;
   font-weight: 600;
 }
 
-.inputs{
+.inputs {
   display: flex;
   width: 100%;
   flex-direction: column;
   align-items: center;
-  gap: 1.5em;
+  gap: 1em;
 }
 
-.links{
+.links {
   display: flex;
   flex-direction: column;
-  gap: .8em;
+  gap: 0.8em;
 }
 
-.conectado{
+.conectado {
   margin-left: 1em;
   display: flex;
   align-self: flex-start;
   gap: 0.5em;
 }
 
-
-
-.text{
+.text {
   color: #000000;
   text-decoration: none;
 }
@@ -72,10 +82,35 @@ a {
   color: #000000;
 }
 
-.imagemLogin{
-  height: 100%;
-  object-fit: cover;
-  
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+@media screen and (max-height: 800px) {
+  .containerCardImagem {
+    height: 32em;
+  }
+
+  .cardLogin {
+    height: 100%;
+    padding: 1em 1em;
+    gap: 0.5em;
+
+    h1 {
+      font-size: 1.2em;
+    }
+
+    img {
+      width: 7em;
+      height: 7em;
+    }
+  }
+}
+
+@media screen and (max-width: 1310px) {
+  .imagemLogin {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .imagemLogin {
+    display: none;
+  }
 }

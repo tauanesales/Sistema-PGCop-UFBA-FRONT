@@ -1,29 +1,19 @@
-function ConfirmarNovaSenha() {
-  const logoPgcomp = "assets/logopgcomp.png"; // Img Logo
-  const confirmacao = "assets/confirmacao.jpg"; // Img confirmação
+import "./styles.css";
+
+const ConfirmarNovaSenha = () => {
+  const logoPgcop = "assets/logoPgcop.png";
 
   return (
-    <div className="cadastroAluno" style={{ width: "350px",height: "400px",textAlign: "center",}}>
-      {/* Logo*/}
-      <img src={logoPgcomp} width={150} />
-      <br></br>
-      <p></p>
-      <a id="date" style={{ fontSize: "17px", fontWeight: 650 }}>
-        SENHA ATUALIZADA COM SUCESSO
-      </a>
-      <br></br>
-      {/* Ícone de confirmação */}
-      <img src={confirmacao} width={90} />
-      
-      {/* Botão Voltar a Tela Inicial */}
-      <br />
-      <a href="/perfil-aluno">
-        <button
-          style={{borderRadius: "5px", fontSize: "15px", width:"200px" }} >Voltar a Tela Inicial
-        </button>
-      </a>
+    <div className="container">
+      <div className="containerCard gap">
+        <img src={logoPgcop} width={130} />
+        <div className="box">
+          <h1>Senha atualizada!</h1>
+          <p>Sua senha foi atualizada com sucesso.</p>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default ConfirmarNovaSenha;

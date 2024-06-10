@@ -1,43 +1,30 @@
-function ConfirmarEnvioEmail() {
-  const logoPgcomp = "assets/logopgcomp.png"; // Img Logo
-  const confirmacao = "assets/confirmacao.jpg"; // Img confirmação
+import "./styles.css";
+
+import ButtonSecondary from "@/components/ButtonSecondary";
+
+const ConfirmarEnvioEmail = () => {
+  const logoPgcop = "assets/logoPgcop.png";
 
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        borderRadius: "10px",
-        padding: "20px",
-        width: "350px",
-        height: "400px",
-        textAlign: "center",
-      }}
-      className="cadastroAluno"
-    >
-      {/* Logo*/}
-      <img src={logoPgcomp} width={130} />
-      <br></br>
-      <p></p>
-      <a id="date" style={{ fontSize: "17px", fontWeight: 650 }}>
-        EMAIL ENVIADO
-      </a>
-      <br></br>
-      <p></p>
-      {/* Ícone de confirmação */}
-      <img src={confirmacao} width={100} />
-      <p></p>
+    <div className="container">
+      <div className="containerCard gap">
+        <img src={logoPgcop} width={130} />
+        <h1>Redefinir senha</h1>
+        <div>
+          <p>
+            Enviamos um link para redefinição de senha para o e-mail informado.
+          </p>
+          <p>Por favor, verifique sua caixa de entrada.</p>
+        </div>
 
-      {/* Botão Voltar a Tela Inicial */}
-      {/* Botão Cadastrar */}
-      <br />
-      <a href="/">
-        <button
-          style={{ padding: "5px 10px", borderRadius: "5px", fontSize: "16px" }}>
-          Voltar a Tela Inicial
-        </button>
-      </a>
+        <ButtonSecondary
+          link={"/"}
+          label={"Voltar"}
+          style={{ width: "12em" }}
+        />
+      </div>
     </div>
   );
-}
+};
 
 export default ConfirmarEnvioEmail;
