@@ -36,7 +36,6 @@ const Login = () => {
           <div className="links">
             <a
               href="/cadastro-aluno"
-              className='text'
             >
               Cadastre-se
             </a>
