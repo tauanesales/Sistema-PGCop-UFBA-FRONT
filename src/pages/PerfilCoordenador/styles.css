@@ -1,9 +1,10 @@
-.contain{
-  display: flex;  flex-direction: column;
+.contain {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.containerCoordenador{
+.containerCoordenador {
   align-items: top;
   line-height: 1.1;
   height: 150px;
@@ -11,18 +12,18 @@
   background-color: #edf1f4;
   display: flex;
   padding: 20px 20px;
-  box-sizing: border-box; 
-  box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
-.containerCoordenador img{
+.containerCoordenador img {
   width: 7em;
   height: 7em;
   margin-right: 25px;
   mix-blend-mode: multiply; /*Remove o fundo branco da imagem */
- }
+}
 
- .listaAlunos {
+.listaAlunos {
   display: flex;
   justify-content: space-around;
   width: 85%;
@@ -32,10 +33,10 @@
 
 .containerOrientandosCoordenador {
   display: flex;
-  flex-wrap: wrap-reverse  ;
+  flex-wrap: wrap-reverse;
   justify-content: start;
-  height: 60vh; 
-  width: 95vh; 
+  height: 60vh;
+  width: 95vh;
   margin-left: 5px;
   max-width: 580px; /*largura máxima */
   background-color: white;
@@ -45,8 +46,8 @@
   box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
-.infoCoordenador{
-  display:flex;
+.infoCoordenador {
+  display: flex;
   line-height: 2;
   width: 100%;
 }
@@ -54,17 +55,17 @@
   white-space: nowrap;
 }
 
-.botoesToolbar{
+.botoesToolbar {
   margin-top: 0.1em;
 }
 
-button{
+button {
   background-color: rgba(42, 41, 41, 0.77);
   width: 130px;
   height: 40px;
 }
 
-ul{
+ul {
   border-top: -70px;
   width: 100%;
   list-style-type: none;
@@ -73,11 +74,11 @@ ul{
   justify-content: flex-start;
 }
 
-li{
+li {
   display: flex;
-  align-items: flex-start ;
+  align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 1px; 
+  margin-bottom: 1px;
   cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -87,10 +88,10 @@ li{
 li div {
   display: grid;
   justify-content: start;
-  flex: 1.;
+  flex: 1;
 }
 
-.confirmationBox{
+.confirmationBox {
   position: fixed;
   top: 0;
   left: 0;
@@ -99,10 +100,10 @@ li div {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
-.solicitacoesContainer{
+.solicitacoesContainer {
   position: absolute;
 }
 
@@ -113,14 +114,14 @@ li div {
   border-radius: 5px;
   cursor: pointer;
   margin-left: 5px;
-  margin-top : 5px;
+  margin-top: 5px;
   color: #000000;
-  background-color: #D6DDE2;
+  background-color: #d6dde2;
   font-family: "Raleway", sans-serif;
   font-size: 0.9em;
   font-weight: 600;
   border: none;
 }
-.bttn:hover{
-  background-color: #E9EAEC; 
+.bttn:hover {
+  background-color: #e9eaec;
 }
