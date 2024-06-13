@@ -119,7 +119,7 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
 
         // Adicionar o texto de fundo
       svg.append("text")
-      .attr("x", width  / 7)
+      .attr("x", width  / 3)
       .attr("y", height /2)
       .attr("text-anchor", "middle")
       .style("fill", "lightgrey")

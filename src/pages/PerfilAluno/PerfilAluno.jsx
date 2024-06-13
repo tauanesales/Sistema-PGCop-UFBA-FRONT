@@ -68,7 +68,8 @@ function PerfilAluno() {
   const salvarDataRealizacao = (id) => {
     const updatedTarefas = tarefas.map((tarefa) => {
       if (tarefa.id === id) {
-        return { ...tarefa, feita: true, dataRealizacao: dataSelecionada };
+        const dataRealizacao = dataSelecionada || new Date(); // Se dataSelecionada for nula, usa a data atual
+        return { ...tarefa, feita: true, dataRealizacao };
       }
       return tarefa;
     });
@@ -202,6 +203,7 @@ function PerfilAluno() {
             );
           })}
         </div>
+        
 
         <div className="boxTarefas">
           <h3 style={{ textAlign: "center" }}>TAREFAS REALIZADAS</h3>

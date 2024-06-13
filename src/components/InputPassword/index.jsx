@@ -8,7 +8,14 @@ const InputPassword = ({type, onFocus, onBlur, label, id}) => {
 
       <div className="containInput">
         <label htmlFor={id} className="label">{label}</label>
-        <Password value={value} onChange={(e) => setValue(e.target.value)} toggleMask inputClassName='inputGeral' weakLabel="Fraco" mediumLabel="Médio" strongLabel="Forte"/>
+        <Password value={value} onChange={(e) => setValue(e.target.value)} 
+          toggleMask 
+          inputClassName='inputGeral' 
+          weakLabel="Fraco" 
+          mediumLabel="Médio" 
+          strongLabel="Forte"
+          feedback={false} 
+        />
       </div>
     
   )

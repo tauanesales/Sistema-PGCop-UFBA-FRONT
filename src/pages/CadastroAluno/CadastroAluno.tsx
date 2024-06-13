@@ -9,6 +9,7 @@ import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
 import SelectCadastro from "@/components/SelectCadastro";
 
+
 const CadastroAluno = () => {
   const [tipoCadastro, setTipoCadastro] = useState<"aluno" | "professor">("aluno");
 
@@ -63,9 +64,10 @@ const CadastroAluno = () => {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src="assets/logoPgcop.png" width={110} />
           
-          <RadioGroup
+          <img style={{	position: 'absolute', marginTop:'-495px'}} src="assets/logoPgcop.png" width={80} />
+          
+          <RadioGroup style={{marginTop:'120px'}}
             row
             aria-label="tipo-cadastro"
             name="tipo-cadastro"
@@ -116,15 +118,15 @@ const CadastroAluno = () => {
                 fullWidth
                 required
               />
-
-              <FormikPasswordInput
+              
+              <FormikPasswordInput           
                 name="password"
                 label="Senha"
                 fullWidth
                 required
               />
 
-              <FormikPasswordInput
+              <FormikPasswordInput className="imputPassword"
                 name="confirmPassword"
                 label="Confirmar senha"
                 fullWidth
@@ -186,9 +188,16 @@ const CadastroAluno = () => {
             </div>
           </div>
 
-          <div className="buttonCadastro">
+          <div className="buttonCadastro" style={{marginTop: "-1em"}}>
             <LoadingButton className="bttn"
-              sx={{ marginTop: 2 }}
+              sx={{
+                marginTop: 2,
+                color: '#000000',
+                backgroundColor: '#D6DDE2', // cinza claro
+                '&:hover': {
+                  backgroundColor: '#E9EAEC', // cor cinza um pouco mais escura ao passar o mouse
+                }
+              }}
               variant="contained"
               fullWidth
               loading={isSubmitting}
@@ -202,6 +211,9 @@ const CadastroAluno = () => {
       )}
     </Formik>
   );
+
+
 };
+
 
 export default CadastroAluno;

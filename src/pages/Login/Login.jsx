@@ -24,10 +24,11 @@ const Login = () => {
             <Input label={"Matrícula"} type={"email"} />
             <InputPassword label={"Senha"} type={"password"}/>
 
-            <div className='conectado'>
+            <div className='conectado' style={{ marginTop: "1em"}}>
               <input type="checkbox" name="conectado" id="conectado" />
               <label htmlFor="conectado">Matenha-me conectado</label>
             </div>
+
 
             <ButtonSecondary link={'/perfil-aluno'} label={"Entrar"} width={"90%"}/>
           </div>
