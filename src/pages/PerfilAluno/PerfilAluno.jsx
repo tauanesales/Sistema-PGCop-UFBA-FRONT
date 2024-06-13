@@ -118,7 +118,7 @@ function PerfilAluno() {
           </div>
         </div>
 
-        <div className="botoesToolbar">
+        <div className="botoesToolbarAluno">
           <MdEditNote onClick={() => window.location.href = "/perfil-aluno/atualizar-dados"} 
             style={{ cursor: 'pointer', marginRight:"40px" }} 
             size={35} 
@@ -208,7 +208,7 @@ function PerfilAluno() {
         <div className="boxTarefas">
           <h3 style={{ textAlign: "center" }}>TAREFAS REALIZADAS</h3>
           {tarefasFeitas.length === 0 ? (
-            <p style={{ textAlign: "center", marginTop:"70px",  fontSize: "22px", fontWeight: "400", color: "#A9A9A9" }}>
+            <p style={{ textAlign: "center", marginTop:"70px",  fontSize: "25px", fontWeight: "600", color: "lightgrey" }}>
               AINDA NÃO HÁ TAREFAS REALIZADAS</p>
           ) : (
             tarefasFeitas.map((tarefa) => {

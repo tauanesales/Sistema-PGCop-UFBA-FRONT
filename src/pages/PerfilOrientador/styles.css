@@ -1,3 +1,4 @@
+
   
   .contain {
     align-items: center;
@@ -67,6 +68,8 @@
   
   .botoesToolbar{
     margin-top: 0.1em;
+    margin-left: 41em;
+    justify-content: end;
   }
 
   button{
@@ -114,9 +117,8 @@
   }
 
   .solicitacoesContainer{
-    width: 350px;
-    margin-top: 50px;
-    margin-left: -360px;
+    margin-top: 80px;
+    margin-left: -28.5em;
   }
 
   .bttn {

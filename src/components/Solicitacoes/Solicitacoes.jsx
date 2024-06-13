@@ -4,13 +4,12 @@ import './style.css';
 function Solicitacoes({ solicitacoes, handleAcceptRequest, handleRemoveRequest }) {
   return (
     <div className="solicitacoes-container">
-      <h2>Solicitações</h2>
+      <h2 style={{marginLeft:"10px"}}>Solicitações</h2>
       <ul>
         {solicitacoes.map((solicitacao, index) => (
           <li key={index}>
             <div> 
               <strong>{solicitacao.nome}</strong>
-              <br />
               {solicitacao.titulacao} 
             </div>
             <div>
