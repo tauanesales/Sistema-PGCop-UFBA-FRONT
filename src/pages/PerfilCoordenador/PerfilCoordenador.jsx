@@ -139,7 +139,7 @@ function PerfilCoordenador() {
             </div>
             <div>
               <MdOutlineLibraryBooks
-                onClick={() => navigate("/perfil-coordenador/tarefas")}
+                onClick={() => navigate("/tarefas")}
                 style={{ cursor: "pointer", marginRight: "45px" }}
                 size={35}
                 title="Tarefas"
