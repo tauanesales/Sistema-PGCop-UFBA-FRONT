@@ -406,8 +406,8 @@ function Tarefas() {
               }
               style={{ marginBottom: "10px", width: "100%", padding: "8px" }}
             >
-              <option value="Mestrado">Mestrado</option>
-              <option value="Doutorado">Doutorado</option>
+              <option value="M">Mestrado</option>
+              <option value="D">Doutorado</option>
             </select>
             <ul style={{ display: "flex" }}>
               <button
