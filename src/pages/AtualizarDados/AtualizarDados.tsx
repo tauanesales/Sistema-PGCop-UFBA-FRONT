@@ -62,9 +62,9 @@ function AtualizarDados() {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src={logoPgcop} width={110} />
+          <img src={logoPgcop} width={70} />
 
-          <div style={{ display: "flex", gap: 16 }}>
+          <div style={{ display: "flex", gap: 56 }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <FormikInput
                 name="name"
