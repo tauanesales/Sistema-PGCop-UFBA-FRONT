@@ -1,7 +1,7 @@
 import "./styles.css";
 
 import { differenceInDays, format } from "date-fns";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
 import { MdEditNote, MdLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -18,8 +18,6 @@ function PerfilAluno() {
   const logoPgcop = "/assets/logoPgcop.png";
 
   const dataDeInicio = new Date("2023-03-01"); // Data de Início do aluno
-
-  const [dataAtual, setDataAtual] = useState(new Date()); // Data atual
 
   const { useGetTarefaAluno, useUpdateTarefa } = useTarefasQueries();
 
@@ -54,15 +52,6 @@ function PerfilAluno() {
   const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
 
   const tarefasFeitas = tarefas.filter((tarefa) => tarefa.completada);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setDataAtual(new Date());
-    }, 86400000); // Atualiza a data atual todos os dias
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
 
   return (
     <div className="contain">
@@ -209,11 +198,6 @@ function PerfilAluno() {
         <div className="boxTarefas">
           <h3 style={{ textAlign: "center" }}>TAREFAS REALIZADAS</h3>
           {tarefasFeitas.map((tarefa) => {
-            const prazo = new Date(
-              dataDeInicio.getFullYear(),
-              dataDeInicio.getMonth() + tarefa.prazoMeses,
-              dataDeInicio.getDate(),
-            );
             return (
               <div
                 id="task"
