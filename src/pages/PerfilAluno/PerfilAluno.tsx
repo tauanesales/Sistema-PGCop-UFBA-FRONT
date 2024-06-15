@@ -51,22 +51,9 @@ function PerfilAluno() {
     setDataSelecionada(null); // Limpa a data selecionada
   };
 
-  const tarefasOrdenadas = [...tarefas].sort((a, b) => {
-    const prazoA = new Date(
-      dataDeInicio.getFullYear(),
-      dataDeInicio.getMonth() + a.prazoMeses,
-      dataDeInicio.getDate(),
-    );
-    const prazoB = new Date(
-      dataDeInicio.getFullYear(),
-      dataDeInicio.getMonth() + b.prazoMeses,
-      dataDeInicio.getDate(),
-    );
-    return prazoA - prazoB;
-  });
+  const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
 
-  const tarefasAFazer = tarefasOrdenadas.filter((tarefa) => !tarefa.completada);
-  const tarefasFeitas = tarefasOrdenadas.filter((tarefa) => tarefa.completada);
+  const tarefasFeitas = tarefas.filter((tarefa) => tarefa.completada);
 
   useEffect(() => {
     const timer = setInterval(() => {

@@ -24,6 +24,10 @@ export const useTarefasQueries = () => {
           return response.data;
         }
       },
+      select: (data) =>
+        data?.sort(
+          (a, b) => Date.parse(b.data_prazo) - Date.parse(a.data_prazo),
+        ),
     });
 
   const useUpdateTarefa = () =>
