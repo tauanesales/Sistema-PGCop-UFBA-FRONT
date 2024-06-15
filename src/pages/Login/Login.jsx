@@ -21,7 +21,7 @@ const Login = () => {
 
           <h1>Bem vindo de volta ao PGCop</h1>
           <div className="inputs">
-            <Input label={"Matrícula"} type={"email"} />
+            <Input  label={"Matrícula"} type={"email"} />
             <InputPassword label={"Senha"} type={"password"}/>
 
             <div className='conectado' style={{ marginTop: "1em"}}>
