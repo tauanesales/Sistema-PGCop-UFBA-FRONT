@@ -1,5 +1,6 @@
 import "./styles.css";
 
+import { differenceInDays, format } from "date-fns";
 import { useEffect, useState } from "react";
 import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
 import { MdEditNote, MdLogout } from "react-icons/md";
@@ -131,22 +132,28 @@ function PerfilAluno() {
         <div className="boxTarefas">
           <h3 style={{ textAlign: "center" }}>TAREFAS A FAZER</h3>
           {tarefasAFazer.map((tarefa) => {
-            const prazo = new Date(
-              dataDeInicio.getFullYear(),
-              dataDeInicio.getMonth() + tarefa.prazoMeses,
-              dataDeInicio.getDate(),
-            );
-            const diasRestantes = Math.ceil(
-              (prazo - dataAtual) / (1000 * 60 * 60 * 24),
-            );
+            const prazo = new Date(tarefa.data_prazo);
+
+            const diferencaDias = differenceInDays(prazo, new Date());
+
             let backgroundColor;
-            if (diasRestantes <= 90) {
+
+            if (diferencaDias <= 90) {
               backgroundColor = "#ff9999";
-            } else if (diasRestantes <= 180) {
+            } else if (diferencaDias <= 180) {
               backgroundColor = "#ffb394";
             } else {
               backgroundColor = "#fff2a7";
             }
+
+            const plural = diferencaDias !== 1 ? "s" : "";
+
+            const statusData =
+              diferencaDias === 0
+                ? "Hoje"
+                : diferencaDias > 0
+                  ? `${diferencaDias} dia${plural} restantes`
+                  : `A tarefa está atrasada há ${Math.abs(diferencaDias)} dia${plural}`;
 
             return (
               <div
@@ -205,8 +212,7 @@ function PerfilAluno() {
                   <br></br>
                 </label>
                 <label style={{ marginLeft: "40px", fontSize: "15px" }}>
-                  Data Limite: {prazo.toLocaleDateString()} - {diasRestantes}{" "}
-                  dias restantes
+                  Data Limite: {format(prazo, "dd/MM/yyyy")} - {statusData}
                 </label>
               </div>
             );

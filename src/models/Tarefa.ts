@@ -2,9 +2,9 @@ export type Tarefa = {
   nome: string;
   descricao: string;
   completada: number;
-  data_prazo: Date;
+  data_prazo: string;
   aluno_id: number;
-  last_notified: Date;
-  data_conclusao: Date | null;
+  last_notified: string;
+  data_conclusao: string | null;
   id: number;
 };
