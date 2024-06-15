@@ -26,7 +26,7 @@ function PerfilAluno() {
   const { mutate: updateTarefa } = useUpdateTarefa();
 
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState<number | null>(null);
-  const [dataSelecionada, setDataSelecionada] = useState(null);
+  const [dataSelecionada, setDataSelecionada] = useState("");
 
   const handleCheckboxChange = (tarefa: Tarefa) => {
     const { id, completada } = tarefa;
@@ -42,11 +42,11 @@ function PerfilAluno() {
     updateTarefa({
       ...tarefa,
       completada: 1,
-      data_conclusao: dataSelecionada,
+      data_conclusao: dataSelecionada || null,
     });
 
     setTarefaEmEdicao(null); // Limpa o estado de tarefa em edição
-    setDataSelecionada(null); // Limpa a data selecionada
+    setDataSelecionada(""); // Limpa a data selecionada
   };
 
   const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
