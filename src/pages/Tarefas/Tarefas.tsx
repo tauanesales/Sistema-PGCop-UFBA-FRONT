@@ -64,7 +64,6 @@ function Tarefas() {
       prazo_em_meses: editTarefaPrazo,
       descricao: editTarefaDescricao,
     };
-    console.log(tarefa);
 
     updateTarefa(tarefa, {
       onSuccess: () => {
