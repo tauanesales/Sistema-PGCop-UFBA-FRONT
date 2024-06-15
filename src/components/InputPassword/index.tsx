@@ -13,10 +13,8 @@ const InputPassword = ({ label, ...props }: Props) => {
       </label>
       <Password
         toggleMask
+        feedback={false}
         inputClassName="inputGeral"
-        weakLabel="Fraco"
-        mediumLabel="Médio"
-        strongLabel="Forte"
         {...props}
       />
     </div>
