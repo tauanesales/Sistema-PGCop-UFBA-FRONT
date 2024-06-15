@@ -4,7 +4,7 @@ import { Aluno, Professor, User } from "@/models/User";
 
 import api from "./config";
 
-type GetUserResponse = {
+export type GetUserResponse = {
   tipo: "aluno" | "professor";
   dados: User;
 };
