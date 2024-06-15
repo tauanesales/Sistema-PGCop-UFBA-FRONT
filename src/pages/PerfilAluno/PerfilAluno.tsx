@@ -26,7 +26,7 @@ function PerfilAluno() {
   const { mutate: updateTarefa } = useUpdateTarefa();
 
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState<number | null>(null);
-  const [dataSelecionada, setDataSelecionada] = useState("");
+  const [dataSelecionada, setDataSelecionada] = useState(new Date());
 
   const handleCheckboxChange = (tarefa: Tarefa) => {
     const { id, completada } = tarefa;
@@ -42,11 +42,11 @@ function PerfilAluno() {
     updateTarefa({
       ...tarefa,
       completada: 1,
-      data_conclusao: dataSelecionada || null,
+      data_conclusao: dataSelecionada.toISOString().split("T")[0],
     });
 
     setTarefaEmEdicao(null); // Limpa o estado de tarefa em edição
-    setDataSelecionada(""); // Limpa a data selecionada
+    setDataSelecionada(new Date()); // Limpa a data selecionada
   };
 
   const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
@@ -163,8 +163,10 @@ function PerfilAluno() {
                       Data de realização:
                       <input
                         type="date"
-                        value={dataSelecionada}
-                        onChange={(e) => setDataSelecionada(e.target.value)}
+                        value={dataSelecionada.toLocaleDateString()}
+                        onChange={(e) =>
+                          setDataSelecionada(new Date(e.target.value))
+                        }
                         style={{ marginLeft: "25px" }}
                       />
                       <button
