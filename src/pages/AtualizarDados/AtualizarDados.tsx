@@ -143,7 +143,14 @@ function AtualizarDados() {
 
           <div className="buttonCadastro">
             <LoadingButton className="bttn"
-              sx={{ marginTop: 2 }}
+              sx={{
+                marginTop: 2,
+                color: '#000000',
+                backgroundColor: '#D6DDE2', // cinza claro
+                '&:hover': {
+                  backgroundColor: '#E9EAEC', // cor cinza um pouco mais escura ao passar o mouse
+                }
+              }}
               variant="contained"
               fullWidth
               loading={isSubmitting}
