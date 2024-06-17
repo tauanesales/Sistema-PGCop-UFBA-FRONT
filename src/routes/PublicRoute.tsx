@@ -16,11 +16,7 @@ export const PublicRoute = () => {
 
   const enabled = !!tokens.accessToken;
 
-  const { data: user, isFetching } = useGetUser(enabled);
-
-  if (isFetching) {
-    return "Carregando...";
-  }
+  const { data: user } = useGetUser({ enabled });
 
   if (user) {
     return <Navigate to={userTypeRoute[user.tipo_usuario]} replace />;

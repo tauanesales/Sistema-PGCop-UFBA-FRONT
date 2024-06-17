@@ -22,11 +22,7 @@ export const AuthenticationGuard = ({
 
   const enabled = !!tokens.accessToken;
 
-  const { data: user, isFetching } = useGetUser(enabled);
-
-  if (isFetching) {
-    return "Carregando...";
-  }
+  const { data: user } = useGetUser({ enabled });
 
   const isAllowed =
     !!tokens?.accessToken &&
