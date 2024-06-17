@@ -25,11 +25,13 @@ export const AuthenticationGuard = ({
   const { data: user, isFetching } = useGetUser(enabled);
 
   if (isFetching) {
-    return 'Carregando...'
+    return "Carregando...";
   }
 
   const isAllowed =
-    !!tokens?.accessToken && !!user && (!!allowedRoles?.includes(user.dados.role) || !!allowedRoles?.includes(user.tipo));
+    !!tokens?.accessToken &&
+    !!user &&
+    !!allowedRoles?.includes(user.tipo_usuario);
 
   return (
     <ProtectedRoute

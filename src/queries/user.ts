@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import { User } from "@/models/User";
 import { resetAllStores } from "@/store/helpers";
 import { saveTokens } from "@/store/tokens";
 
