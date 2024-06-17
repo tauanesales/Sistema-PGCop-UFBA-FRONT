@@ -22,7 +22,7 @@ export const AuthenticationGuard = ({
 
   const enabled = !!tokens.accessToken;
 
-  const { data: user } = useGetUser({ enabled });
+  const { data: user } = useGetUser(enabled);
 
   const isAllowed =
     !!tokens?.accessToken &&
