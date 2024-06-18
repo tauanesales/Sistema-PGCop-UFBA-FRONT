@@ -35,7 +35,7 @@ const Login = () => {
           };
 
           const path =
-            (user.dados.role != "coordenador" && pathOptions) ||
+            (user.tipo_usuario != "COORDENADOR" && pathOptions) ||
             "/perfil-coordenador";
 
           navigate(path, { replace: true });

@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+import { User } from "@/models/User";
 import { resetAllStores } from "@/store/helpers";
 import { saveTokens } from "@/store/tokens";
 
@@ -8,7 +9,7 @@ import * as userApi from "../services/api/user";
 export const useUserQueries = () => {
   const queryClient = useQueryClient();
 
-  const useGetUser = (enabled: boolean) =>
+  const useGetUser = (enabled?: boolean) =>
     useQuery({
       queryKey: ["user"],
       queryFn: () => userApi.getUser().then((response) => response.data),
@@ -43,7 +44,6 @@ export const useUserQueries = () => {
   const signOut = () => {
     resetAllStores();
     queryClient.clear();
-    navigate("/");
   };
 
   return {

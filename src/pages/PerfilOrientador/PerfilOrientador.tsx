@@ -1,40 +1,23 @@
 import "./styles.css";
 
 import { useState } from "react";
-import { MdGroupAdd, MdLogout, MdOutlineLibraryBooks } from "react-icons/md"; // Importando ícones
-import { useNavigate } from "react-router-dom";
+import { MdGroupAdd, MdLogout } from "react-icons/md";
 
+import { Professor } from "@/models/User";
 import { useUserQueries } from "@/queries/user";
 
-function PerfilCoordenador() {
+import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
+
+function PerfilOrientador() {
+  const { signOut, useGetUser } = useUserQueries();
+
+  const { data: userData } = useGetUser();
+
+  const user = userData as Professor;
+
   const logoPgcop = "/assets/logoPgcop.png";
 
-  const navigate = useNavigate();
-
-  const { signOut } = useUserQueries();
-
   const alunosData = [
-    {
-      id: 1,
-      nome: "João Silva",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 1,
-      nome: "João Silva",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 1,
-      nome: "João Silva",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
     {
       id: 1,
       nome: "João Silva",
@@ -47,7 +30,7 @@ function PerfilCoordenador() {
       nome: "Tauane Souza",
       matricula: "2022002",
       titulacao: "Doutorado",
-      datafinal: "18/05/2027",
+      datafinal: "8/05/2027",
     },
     {
       id: 3,
@@ -86,9 +69,34 @@ function PerfilCoordenador() {
     },
   ];
 
+  const [solicitacoes, setSolicitacoes] = useState([
+    {
+      id: 1,
+      nome: "Natalia  Santos Santos Santos",
+      matricula: "2022001",
+      titulacao: "Mestrado",
+      datafinal: "03/05/2024",
+    },
+    {
+      id: 2,
+      nome: "Claudio Souza",
+      matricula: "2022002",
+      titulacao: "Doutorado",
+      datafinal: "8/05/2027",
+    },
+    {
+      id: 3,
+      nome: "Vinicius Alves",
+      matricula: "2022003",
+      titulacao: "Mestrado",
+      datafinal: "15/05/2024",
+    },
+  ]);
+
   const [alunos, setAlunos] = useState(alunosData);
   const [showModal, setShowModal] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState(null);
+  const [showSolicitacoes, setShowSolicitacoes] = useState(false);
 
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
@@ -105,7 +113,28 @@ function PerfilCoordenador() {
     setShowModal(false);
   };
 
-  // Separa os alunos baseados na titulação
+  const handleSolicitacoesClick = () => {
+    setShowSolicitacoes(!showSolicitacoes);
+  };
+
+  const handleAcceptRequest = (id) => {
+    const solicitationToAccept = solicitacoes.find(
+      (solicitacao) => solicitacao.id === id,
+    );
+    setAlunos([...alunos, solicitationToAccept]);
+    const updatedSolicitacoes = solicitacoes.filter(
+      (solicitacao) => solicitacao.id !== id,
+    );
+    setSolicitacoes(updatedSolicitacoes);
+  };
+
+  const handleRemoveRequest = (id) => {
+    const updatedSolicitacoes = solicitacoes.filter(
+      (solicitacao) => solicitacao.id !== id,
+    );
+    setSolicitacoes(updatedSolicitacoes);
+  };
+
   const alunosMestrado = alunos.filter(
     (aluno) => aluno.titulacao === "Mestrado",
   );
@@ -115,40 +144,45 @@ function PerfilCoordenador() {
 
   return (
     <div className="contain">
-      <div className="containerCoordenador">
-        {/* Logo*/}
-        <img src={logoPgcop} alt="Logo" />
-        {/* Informações do perfil */}
+      <div className="containerOrientador">
+        <img src={logoPgcop} />
         <div
-          className="infoCoordenador"
-          style={{ justifyContent: "space-between", marginRight: "30px" }}
+          className="infoOrientador"
+          style={{ justifyContent: "space-between" }}
         >
           <div>
-            <h2>Augusto Carlos Santos</h2>
+            <h2>{user?.nome}</h2>
             <h3>Orientandos: {alunos.length}</h3>
           </div>
-          {/* Botões Toolbar */}
-          <div>
-            <div className="botoesToolbar">
+          <div className="botoesToolbar">
+            <div style={{ position: "relative" }}>
               <MdGroupAdd
-                onClick={() => navigate("/perfil-coordenador/solicitacoes")}
-                style={{ cursor: "pointer", marginRight: "42px" }}
+                onClick={handleSolicitacoesClick}
+                style={{
+                  marginRight: "40px",
+                  cursor: "pointer",
+                  color: solicitacoes.length > 0 ? "red" : "inherit",
+                }}
                 size={35}
                 title="Solicitações"
               />
-            </div>
-            <div>
-              <MdOutlineLibraryBooks
-                onClick={() => navigate("/tarefas")}
-                style={{ cursor: "pointer", marginRight: "45px" }}
-                size={35}
-                title="Tarefas"
-              />
+              {showSolicitacoes && (
+                <div
+                  className="solicitacoesContainer"
+                  style={{ position: "absolute", top: "-50px" }}
+                >
+                  <Solicitacoes
+                    solicitacoes={solicitacoes}
+                    handleAcceptRequest={handleAcceptRequest}
+                    handleRemoveRequest={handleRemoveRequest}
+                  />
+                </div>
+              )}
             </div>
             <div>
               <MdLogout
                 onClick={signOut}
-                style={{ cursor: "pointer", marginRight: "30px" }}
+                style={{ marginRight: "40px", cursor: "pointer" }}
                 size={35}
                 title="Sair"
               />
@@ -160,8 +194,8 @@ function PerfilCoordenador() {
       <h2 style={{ textAlign: "center", marginTop: "40px" }}>
         Lista de Orientandos
       </h2>
-      {/* Container de Alunos Orientados - Mestrado */}
-      <div className="containerOrientandosCoordenador">
+
+      <div className="containerOrientadorOrientandos">
         <h3 style={{ textAlign: "center", marginBottom: "10px" }}>
           Alunos de Mestrado
         </h3>
@@ -214,9 +248,8 @@ function PerfilCoordenador() {
         </ul>
       </div>
 
-      {/* Container de Alunos Orientados - Doutorado */}
       <div
-        className="containerOrientandosCoordenador"
+        className="containerOrientadorOrientandos"
         style={{ marginTop: "30px" }}
       >
         <h3 style={{ textAlign: "center", marginBottom: "10px" }}>
@@ -271,14 +304,13 @@ function PerfilCoordenador() {
         </ul>
       </div>
 
-      {/* Modal de confirmação */}
       {showModal && (
         <div className="confirmationBox">
           <div
             style={{
               backgroundColor: "#fff",
-              padding: "20px",
-              borderRadius: "10px",
+              padding: "10px",
+              borderRadius: "8px",
               width: "300px",
               textAlign: "center",
             }}
@@ -307,4 +339,4 @@ function PerfilCoordenador() {
   );
 }
 
-export default PerfilCoordenador;
+export default PerfilOrientador;
