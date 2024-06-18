@@ -3,6 +3,9 @@ import "./styles.css";
 import { useEffect, useRef, useState } from "react";
 import { MdGroupAdd, MdLogout } from "react-icons/md";
 
+import { Status } from "@/models/Solicitacao";
+import { Professor } from "@/models/User";
+import { useSolicitacoesQueries } from "@/queries/solicitacoes";
 import { useUserQueries } from "@/queries/user";
 
 import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
@@ -10,7 +13,12 @@ import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
 function PerfilOrientador() {
   const containerRef = useRef(null);
 
-  const { signOut } = useUserQueries();
+  const { signOut, useGetUser } = useUserQueries();
+
+  const { data: userData } = useGetUser();
+
+  const user = userData as Professor;
+
   const logoPgcop = "/assets/logoPgcop.png";
 
   const alunosData = [
@@ -65,34 +73,25 @@ function PerfilOrientador() {
     },
   ];
 
-  const [solicitacoes, setSolicitacoes] = useState([
-    {
-      id: 1,
-      nome: "Natalia  Santos Santos Santos",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 2,
-      nome: "Claudio Souza",
-      matricula: "2022002",
-      titulacao: "Doutorado",
-      datafinal: "8/05/2027",
-    },
-    {
-      id: 3,
-      nome: "Vinicius Alves",
-      matricula: "2022003",
-      titulacao: "Mestrado",
-      datafinal: "15/05/2024",
-    },
-  ]);
+  const { useGetSolicitacoes, useUpdateSolicitacao } = useSolicitacoesQueries();
+
+  const { data: solicitacoes = [] } = useGetSolicitacoes({
+    orientadorId: user.id,
+    status: Status.PENDENTE,
+  });
+
+  const { mutate: updatedSolicitacao } = useUpdateSolicitacao();
 
   const [alunos, setAlunos] = useState(alunosData);
   const [showModal, setShowModal] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState(null);
   const [showSolicitacoes, setShowSolicitacoes] = useState(false);
+
+  useEffect(() => {
+    if (solicitacoes.length === 0) {
+      setShowSolicitacoes(false);
+    }
+  }, [solicitacoes.length]);
 
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
@@ -113,23 +112,11 @@ function PerfilOrientador() {
     setShowSolicitacoes(!showSolicitacoes);
   };
 
-  const handleAcceptRequest = (id) => {
-    const solicitationToAccept = solicitacoes.find(
-      (solicitacao) => solicitacao.id === id,
-    );
-    setAlunos([...alunos, solicitationToAccept]);
-    const updatedSolicitacoes = solicitacoes.filter(
-      (solicitacao) => solicitacao.id !== id,
-    );
-    setSolicitacoes(updatedSolicitacoes);
-  };
+  const handleAcceptRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.ACEITA });
 
-  const handleRemoveRequest = (id) => {
-    const updatedSolicitacoes = solicitacoes.filter(
-      (solicitacao) => solicitacao.id !== id,
-    );
-    setSolicitacoes(updatedSolicitacoes);
-  };
+  const handleRemoveRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.RECUSADA });
 
   useEffect(() => {
     const handleClickOutside = (event) => {

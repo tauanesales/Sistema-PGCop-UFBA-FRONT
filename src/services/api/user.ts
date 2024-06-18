@@ -4,13 +4,8 @@ import { Aluno, Professor, User } from "@/models/User";
 
 import api from "./config";
 
-export type GetUserResponse = {
-  tipo: "aluno" | "professor";
-  dados: User;
-};
-
 export const getUser = (accessToken?: string) =>
-  api.get<GetUserResponse>("/usuarios/me", {
+  api.get<User>("/usuarios/me", {
     headers: {
       ...(accessToken && {
         Authorization: `Bearer ${accessToken}`,

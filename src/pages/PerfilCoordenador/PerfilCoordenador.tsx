@@ -1,12 +1,14 @@
 import "./styles.css";
 
-import { useEffect, useRef,useState } from "react";
-import { MdGroupAdd, MdLogout,MdOutlineLibraryBooks } from "react-icons/md"; // Importando ícones
+import { useEffect, useRef, useState } from "react";
+import { MdGroupAdd, MdLogout, MdOutlineLibraryBooks } from "react-icons/md"; // Importando ícones
 import { useNavigate } from "react-router-dom";
 
+import Solicitacoes from "@/components/Solicitacoes/Solicitacoes";
+import { Status } from "@/models/Solicitacao";
+import { Professor } from "@/models/User";
+import { useSolicitacoesQueries } from "@/queries/solicitacoes";
 import { useUserQueries } from "@/queries/user";
-
-import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
 
 function PerfilCoordenador() {
   const logoPgcop = "/assets/logoPgcop.png";
@@ -14,7 +16,26 @@ function PerfilCoordenador() {
 
   const navigate = useNavigate();
 
-  const { signOut } = useUserQueries();
+  const { signOut, useGetUser } = useUserQueries();
+
+  const { data: userData } = useGetUser();
+
+  const user = userData as Professor;
+
+  const { useGetSolicitacoes, useUpdateSolicitacao } = useSolicitacoesQueries();
+
+  const { data: solicitacoes = [] } = useGetSolicitacoes({
+    orientadorId: user.id,
+    status: Status.PENDENTE,
+  });
+
+  const { mutate: updatedSolicitacao } = useUpdateSolicitacao();
+
+  const handleAcceptRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.ACEITA });
+
+  const handleRemoveRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.RECUSADA });
 
   const alunosData = [
     {
@@ -89,34 +110,16 @@ function PerfilCoordenador() {
     },
   ];
 
-  const [solicitacoes, setSolicitacoes] = useState([
-    {
-      id: 1,
-      nome: "Natalia  Santos Santos Santos",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 2,
-      nome: "Claudio Souza",
-      matricula: "2022002",
-      titulacao: "Doutorado",
-      datafinal: "8/05/2027",
-    },
-    {
-      id: 3,
-      nome: "Vinicius Alves",
-      matricula: "2022003",
-      titulacao: "Mestrado",
-      datafinal: "15/05/2024",
-    },
-  ]);
-
   const [alunos, setAlunos] = useState(alunosData);
   const [showModal, setShowModal] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState(null);
   const [showSolicitacoes, setShowSolicitacoes] = useState(false);
+
+  useEffect(() => {
+    if (solicitacoes.length === 0) {
+      setShowSolicitacoes(false);
+    }
+  }, [solicitacoes.length]);
 
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
@@ -136,24 +139,6 @@ function PerfilCoordenador() {
 
   const handleSolicitacoesClick = () => {
     setShowSolicitacoes(!showSolicitacoes);
-  };
-
-  const handleAcceptRequest = (id) => {
-    const solicitationToAccept = solicitacoes.find(
-      (solicitacao) => solicitacao.id === id,
-    );
-    setAlunos([...alunos, solicitationToAccept]);
-    const updatedSolicitacoes = solicitacoes.filter(
-      (solicitacao) => solicitacao.id !== id,
-    );
-    setSolicitacoes(updatedSolicitacoes);
-  };
-
-  const handleRemoveRequest = (id) => {
-    const updatedSolicitacoes = solicitacoes.filter(
-      (solicitacao) => solicitacao.id !== id,
-    );
-    setSolicitacoes(updatedSolicitacoes);
   };
 
   useEffect(() => {
@@ -191,7 +176,7 @@ function PerfilCoordenador() {
           style={{ justifyContent: "space-between", marginRight: "30px" }}
         >
           <div>
-            <h2>Augusto Carlos Santos</h2>
+            <h2>{user?.nome}</h2>
             <h3>Orientandos: {alunos.length}</h3>
           </div>
           {/* Botões Toolbar */}

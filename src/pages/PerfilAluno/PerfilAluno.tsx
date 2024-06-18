@@ -7,6 +7,8 @@ import { MdEditNote, MdLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 import { Tarefa } from "@/models/Tarefa";
+import { Aluno, Curso } from "@/models/User";
+import { useProfessoresQueries } from "@/queries/professores";
 import { useTarefasQueries } from "@/queries/tarefas";
 import { useUserQueries } from "@/queries/user";
 
@@ -16,6 +18,12 @@ function PerfilAluno() {
   const navigate = useNavigate();
 
   const { signOut } = useUserQueries();
+
+  const { useGetUser } = useUserQueries();
+
+  const { data: userData } = useGetUser();
+
+  const user = userData as Aluno;
 
   const logoPgcop = "/assets/logoPgcop.png";
 
@@ -50,6 +58,14 @@ function PerfilAluno() {
   const dataFinal = new Date(dataDeInicio);
   dataFinal.setFullYear(dataFinal.getFullYear() + anosDePrazo);
 
+  const { useGetProfessores } = useProfessoresQueries();
+
+  const { data: professores = [] } = useGetProfessores();
+
+  const nomeOrientador =
+    professores.find((professor) => professor.id === user.orientador_id)
+      ?.nome ?? "-";
+
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState<number | null>(null);
   const [dataSelecionada, setDataSelecionada] = useState(new Date());
 
@@ -81,38 +97,44 @@ function PerfilAluno() {
   return (
     <div className="contain">
       <div className="containerAluno">
-        <div className="infoAluno">
-          <img src={logoPgcop} alt="Logo" />
-          {aluno && ( // Verifica se o aluno foi carregado
+        {user && (
+          <div className="infoAluno">
+            <img src={logoPgcop} alt="Logo" />
             <div className="boxInfoAluno">
-              <h3>{aluno.nome}</h3>
+              <h3>{user.nome}</h3>
               <p>
-                <span>Titulação:</span> {aluno.titulacao}
+                <span>Titulação:</span> {Curso[user.curso]}
               </p>
               <p>
                 <span>Data de Inicio:</span>{" "}
-                {new Date(dataDeInicio).toLocaleDateString()}
+                {user.data_ingresso
+                  ? format(user.data_ingresso, "dd/MM/yyyy")
+                  : "-"}
               </p>
               <p>
-                <span>Status:</span> Ativo
+                <span>Status:</span>{" "}
+                {tarefasAFazer.length > 0 ? "Ativo" : "Concluído"}
               </p>
             </div>
-          )}
-          <div className="boxInfoAluno">
-            <h3>
-              <span>Matrícula:</span> {aluno && aluno.matricula}
-            </h3>
-            <p>
-              <span>Orientador(a): </span>
-              {aluno && aluno.orientador}
-            </p>
-            <p>
-              <span>Término Previsto:</span>{" "}
-              {new Date(dataFinal).toLocaleDateString()}
-            </p>
+            <div className="boxInfoAluno">
+              <h3>
+                <span>Matrícula:</span> {user.matricula}
+              </h3>
+              <p>
+                <span>Orientador(a): </span>
+                {nomeOrientador}
+              </p>
+              <p>
+                <span>Término Previsto:</span>{" "}
+                {user.data_qualificacao
+                  ? format(user.data_qualificacao, "dd/MM/yyyy")
+                  : "-"}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="botoesToolbarAluno">
+        )}
+
+        <div className="botoesToolbar">
           <MdEditNote
             onClick={() => navigate("/perfil-aluno/atualizar-dados")}
             style={{ cursor: "pointer", marginRight: "40px" }}

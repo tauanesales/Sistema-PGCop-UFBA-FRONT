@@ -8,7 +8,7 @@ import * as userApi from "../services/api/user";
 export const useUserQueries = () => {
   const queryClient = useQueryClient();
 
-  const useGetUser = (enabled: boolean) =>
+  const useGetUser = (enabled?: boolean) =>
     useQuery({
       queryKey: ["user"],
       queryFn: () => userApi.getUser().then((response) => response.data),
@@ -43,7 +43,6 @@ export const useUserQueries = () => {
   const signOut = () => {
     resetAllStores();
     queryClient.clear();
-    navigate("/");
   };
 
   return {
