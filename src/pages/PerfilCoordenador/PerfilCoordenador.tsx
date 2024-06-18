@@ -1,10 +1,13 @@
 import "./styles.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdGroupAdd, MdLogout, MdOutlineLibraryBooks } from "react-icons/md"; // Importando ícones
 import { useNavigate } from "react-router-dom";
 
+import Solicitacoes from "@/components/Solicitacoes/Solicitacoes";
+import { Status } from "@/models/Solicitacao";
 import { Professor } from "@/models/User";
+import { useSolicitacoesQueries } from "@/queries/solicitacoes";
 import { useUserQueries } from "@/queries/user";
 
 function PerfilCoordenador() {
@@ -17,6 +20,21 @@ function PerfilCoordenador() {
   const { data: userData } = useGetUser();
 
   const user = userData as Professor;
+
+  const { useGetSolicitacoes, useUpdateSolicitacao } = useSolicitacoesQueries();
+
+  const { data: solicitacoes = [] } = useGetSolicitacoes({
+    orientadorId: user.id,
+    status: Status.PENDENTE,
+  });
+
+  const { mutate: updatedSolicitacao } = useUpdateSolicitacao();
+
+  const handleAcceptRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.ACEITA });
+
+  const handleRemoveRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.RECUSADA });
 
   const alunosData = [
     {
@@ -95,6 +113,14 @@ function PerfilCoordenador() {
   const [showModal, setShowModal] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState(null);
 
+  const [showSolicitacoes, setShowSolicitacoes] = useState(false);
+
+  useEffect(() => {
+    if (solicitacoes.length === 0) {
+      setShowSolicitacoes(false);
+    }
+  }, [solicitacoes.length]);
+
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
     if (aluno) {
@@ -118,6 +144,8 @@ function PerfilCoordenador() {
     (aluno) => aluno.titulacao === "Doutorado",
   );
 
+  const handleSolicitacoesClick = () => setShowSolicitacoes(!showSolicitacoes);
+
   return (
     <div className="contain">
       <div className="containerCoordenador">
@@ -135,12 +163,30 @@ function PerfilCoordenador() {
           {/* Botões Toolbar */}
           <div>
             <div className="botoesToolbar">
-              <MdGroupAdd
-                onClick={() => navigate("/perfil-coordenador/solicitacoes")}
-                style={{ cursor: "pointer", marginRight: "42px" }}
-                size={35}
-                title="Solicitações"
-              />
+              <div style={{ position: "relative" }}>
+                <MdGroupAdd
+                  onClick={handleSolicitacoesClick}
+                  style={{
+                    marginRight: "40px",
+                    cursor: "pointer",
+                    color: solicitacoes.length > 0 ? "red" : "inherit",
+                  }}
+                  size={35}
+                  title="Solicitações"
+                />
+                {showSolicitacoes && (
+                  <div
+                    className="solicitacoesContainer"
+                    style={{ position: "absolute", top: "-50px" }}
+                  >
+                    <Solicitacoes
+                      solicitacoes={solicitacoes}
+                      handleAcceptRequest={handleAcceptRequest}
+                      handleRemoveRequest={handleRemoveRequest}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
             <div>
               <MdOutlineLibraryBooks
