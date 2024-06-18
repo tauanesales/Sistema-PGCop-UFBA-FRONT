@@ -62,7 +62,7 @@ function AtualizarDados() {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src={logoPgcop} width={70} />
+          <img src={logoPgcop} width={75} />
 
           <div style={{ display: "flex", gap: 56 }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
