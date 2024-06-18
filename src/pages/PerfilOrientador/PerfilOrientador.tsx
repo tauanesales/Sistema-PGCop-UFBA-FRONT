@@ -3,7 +3,9 @@ import "./styles.css";
 import { useState } from "react";
 import { MdGroupAdd, MdLogout } from "react-icons/md";
 
+import { Status } from "@/models/Solicitacao";
 import { Professor } from "@/models/User";
+import { useSolicitacoesQueries } from "@/queries/solicitacoes";
 import { useUserQueries } from "@/queries/user";
 
 import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
@@ -69,29 +71,14 @@ function PerfilOrientador() {
     },
   ];
 
-  const [solicitacoes, setSolicitacoes] = useState([
-    {
-      id: 1,
-      nome: "Natalia  Santos Santos Santos",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 2,
-      nome: "Claudio Souza",
-      matricula: "2022002",
-      titulacao: "Doutorado",
-      datafinal: "8/05/2027",
-    },
-    {
-      id: 3,
-      nome: "Vinicius Alves",
-      matricula: "2022003",
-      titulacao: "Mestrado",
-      datafinal: "15/05/2024",
-    },
-  ]);
+  const { useGetSolicitacoes, useUpdateSolicitacao } = useSolicitacoesQueries();
+
+  const { data: solicitacoes = [] } = useGetSolicitacoes({
+    orientadorId: user.id,
+    status: Status.PENDENTE,
+  });
+
+  const { mutate: updatedSolicitacao } = useUpdateSolicitacao();
 
   const [alunos, setAlunos] = useState(alunosData);
   const [showModal, setShowModal] = useState(false);
@@ -117,23 +104,11 @@ function PerfilOrientador() {
     setShowSolicitacoes(!showSolicitacoes);
   };
 
-  const handleAcceptRequest = (id) => {
-    const solicitationToAccept = solicitacoes.find(
-      (solicitacao) => solicitacao.id === id,
-    );
-    setAlunos([...alunos, solicitationToAccept]);
-    const updatedSolicitacoes = solicitacoes.filter(
-      (solicitacao) => solicitacao.id !== id,
-    );
-    setSolicitacoes(updatedSolicitacoes);
-  };
+  const handleAcceptRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.ACEITA });
 
-  const handleRemoveRequest = (id) => {
-    const updatedSolicitacoes = solicitacoes.filter(
-      (solicitacao) => solicitacao.id !== id,
-    );
-    setSolicitacoes(updatedSolicitacoes);
-  };
+  const handleRemoveRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.RECUSADA });
 
   const alunosMestrado = alunos.filter(
     (aluno) => aluno.titulacao === "Mestrado",
@@ -151,7 +126,7 @@ function PerfilOrientador() {
           style={{ justifyContent: "space-between" }}
         >
           <div>
-            <h2>{user?.nome}</h2>
+            <h2>Augusto Carlos Santos</h2>
             <h3>Orientandos: {alunos.length}</h3>
           </div>
           <div className="botoesToolbar">
