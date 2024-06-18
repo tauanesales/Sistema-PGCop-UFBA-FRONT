@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Tarefa } from "@/models/Tarefa";
-import { GetUserResponse } from "@/services/api/user";
+import { User } from "@/models/User";
 
 import * as tarefasApi from "../services/api/tarefas";
 
@@ -16,7 +16,7 @@ export const useTarefasQueries = () => {
     useQuery({
       queryKey: tarefasKeys.all,
       queryFn: async () => {
-        const user = queryClient.getQueryData<GetUserResponse>(["user"]);
+        const user = queryClient.getQueryData<User>(["user"]);
 
         if (user) {
           const response = await tarefasApi.getTarefasAluno(user.dados.id);

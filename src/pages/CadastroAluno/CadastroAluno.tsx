@@ -11,9 +11,16 @@ import * as Yup from "yup";
 import { FormikDateField } from "@/components/FormikDateField";
 import { FormikInput } from "@/components/FormikInput";
 import { FormikPasswordInput } from "@/components/FormikPasswordInput";
+import { TipoUsuario } from "@/models/User";
 import { useProfessoresQueries } from "@/queries/professores";
 import { useUserQueries } from "@/queries/user";
 import { Tokens } from "@/store/tokens";
+
+const userTypeRoute = {
+  ALUNO: "/perfil-aluno",
+  PROFESSOR: "/perfil-professor",
+  COORDENADOR: "/perfil-coordenador",
+};
 
 type Values = {
   nome: string;
@@ -27,7 +34,7 @@ type Values = {
   lattes: string;
   curso: "M" | "D" | "";
   senhaConfirmada: string;
-  role: "orientador" | "coordenador" | "";
+  tipo_usuario: TipoUsuario | "";
 };
 
 const cpfMaskOptions = {
@@ -76,7 +83,7 @@ const CadastroAluno = () => {
       nome,
       email,
       senha,
-      role,
+      tipo_usuario,
     } = values;
 
     const onSettled = () => formikHelpers.setSubmitting(false);
@@ -85,11 +92,7 @@ const CadastroAluno = () => {
       const user = await fetchUser(tokens.accessToken);
 
       const from =
-        location.state?.from?.pathname || user.tipo === "aluno"
-          ? "/perfil-aluno"
-          : user.tipo === "professor"
-            ? "/perfil-professor"
-            : "/perfil-coordenador";
+        location.state?.from?.pathname || userTypeRoute[user.tipo_usuario];
 
       navigate(from, { replace: true });
     };
@@ -100,6 +103,7 @@ const CadastroAluno = () => {
           nome,
           email,
           senha,
+          tipo_usuario: TipoUsuario.ALUNO,
           orientador_id: orientador_id as number,
           curso: curso as "M" | "D",
           data_ingresso: (data_ingresso as Date).toISOString().split("T")[0],
@@ -124,7 +128,14 @@ const CadastroAluno = () => {
       );
     } else {
       createProfessor(
-        { nome, email, senha, role: role as "orientador" | "coordenador" },
+        {
+          nome,
+          email,
+          senha,
+          tipo_usuario: tipo_usuario as
+            | TipoUsuario.PROFESSOR
+            | TipoUsuario.COORDENADOR,
+        },
         {
           onSettled,
           onSuccess: (_, variables) =>
@@ -208,7 +219,7 @@ const CadastroAluno = () => {
         matricula: "",
         orientador_id: "",
         data_ingresso: null,
-        role: "",
+        tipo_usuario: "",
         lattes: "",
         curso: "",
         senha: "",
@@ -357,8 +368,12 @@ const CadastroAluno = () => {
                     select
                     required
                   >
-                    <MenuItem value="orientador">Orientador</MenuItem>
-                    <MenuItem value="coordenador">Coordenador</MenuItem>
+                    <MenuItem value={TipoUsuario.PROFESSOR}>
+                      Orientador
+                    </MenuItem>
+                    <MenuItem value={TipoUsuario.COORDENADOR}>
+                      Coordenador
+                    </MenuItem>
                   </FormikInput>
                 </div>
               )}
