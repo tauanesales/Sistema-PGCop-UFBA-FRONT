@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdGroupAdd, MdLogout, MdOutlineLibraryBooks } from "react-icons/md"; // Importando ícones
 import { useNavigate } from "react-router-dom";
 
@@ -114,6 +114,12 @@ function PerfilCoordenador() {
   const [selectedAluno, setSelectedAluno] = useState(null);
 
   const [showSolicitacoes, setShowSolicitacoes] = useState(false);
+
+  useEffect(() => {
+    if (solicitacoes.length === 0) {
+      setShowSolicitacoes(false);
+    }
+  }, [solicitacoes.length]);
 
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
