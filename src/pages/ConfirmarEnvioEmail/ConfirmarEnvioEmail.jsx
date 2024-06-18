@@ -63,6 +63,6 @@ const ConfirmarEnvioEmail = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ConfirmarEnvioEmail;
