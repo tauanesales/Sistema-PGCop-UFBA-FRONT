@@ -1,5 +1,5 @@
 import './styles.css'
-import ButtonSecondary from '@/components/ButtonSecondary/index.jsx';
+import ButtonSecondary from '@/components/ButtonSecondary/';
 
 const ConfirmarNovaSenha = () => {
   const logoPgcop = "assets/logoPgcop.png";

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PinInput from 'react-pin-input';
-import ButtonSecondary from '@/components/ButtonSecondary/index.jsx';
+import ButtonSecondary from '@/components/ButtonSecondary/';
 import './styles.css';
 
 const ConfirmarEnvioEmail = () => {
