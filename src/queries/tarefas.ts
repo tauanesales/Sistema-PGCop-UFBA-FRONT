@@ -19,7 +19,7 @@ export const useTarefasQueries = () => {
         const user = queryClient.getQueryData<User>(["user"]);
 
         if (user) {
-          const response = await tarefasApi.getTarefasAluno(user.dados.id);
+          const response = await tarefasApi.getTarefasAluno(user.id);
 
           return response.data;
         }
