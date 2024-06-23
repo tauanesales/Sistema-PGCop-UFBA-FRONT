@@ -132,7 +132,7 @@ function PerfilOrientador() {
           style={{ justifyContent: "space-between" }}
         >
           <div>
-            <h2>Augusto Carlos Santos</h2>
+            <h2>{user?.nome}</h2>
             <h3>Orientandos: {alunos.length}</h3>
           </div>
           <div className="botoesToolbar">
