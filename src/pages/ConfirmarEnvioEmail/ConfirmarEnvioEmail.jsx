@@ -3,7 +3,7 @@ import "./styles.css";
 import { useState } from "react";
 import PinInput from "react-pin-input";
 
-import ButtonSecondary from "@/components/ButtonSecondary/index.jsx";
+import ButtonSecondary from "@/components/ButtonSecondary";
 
 const ConfirmarEnvioEmail = () => {
   const logoPgcop = "assets/logoPgcop.png";
