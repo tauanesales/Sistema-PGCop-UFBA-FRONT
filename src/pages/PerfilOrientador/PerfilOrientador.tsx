@@ -35,9 +35,9 @@ function PerfilOrientador() {
 
   const { data: alunos = [] } = useGetAlunosOrientador();
 
-  const { useUpdateAluno } = useAlunosQueries();
+  const { useRemoverOrientador } = useAlunosQueries();
 
-  const { mutate: updateAluno } = useUpdateAluno();
+  const { mutate: removerOrientador } = useRemoverOrientador();
 
   const [showModal, setShowModal] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState<Aluno>();
@@ -57,7 +57,7 @@ function PerfilOrientador() {
   };
 
   const handleDelete = () => {
-    updateAluno({ id: selectedAluno!.id, orientador_id: null });
+    removerOrientador(selectedAluno!.id);
     setShowModal(false);
   };
 
