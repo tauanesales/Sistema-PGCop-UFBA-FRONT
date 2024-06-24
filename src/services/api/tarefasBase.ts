@@ -20,7 +20,8 @@ export const createTarefa = (tarefa: Omit<TarefaBase, "id">) =>
     .post<TarefaBase>("/tarefas_base", tarefa)
     .then((response) => response.data);
 
-type UpdateTarefaParams = Partial<TarefaBase> & Pick<TarefaBase, "id">;
+type UpdateTarefaParams = Partial<Omit<TarefaBase, "curso">> &
+  Pick<TarefaBase, "id">;
 
 export const updateTarefa = ({ id, ...tarefa }: UpdateTarefaParams) =>
   api

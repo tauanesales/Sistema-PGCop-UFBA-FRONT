@@ -7,6 +7,8 @@ import { MdEditNote, MdLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 import { Tarefa } from "@/models/Tarefa";
+import { Aluno, Curso } from "@/models/User";
+import { useProfessoresQueries } from "@/queries/professores";
 import { useTarefasQueries } from "@/queries/tarefas";
 import { useUserQueries } from "@/queries/user";
 
@@ -15,15 +17,27 @@ function PerfilAluno() {
 
   const { signOut } = useUserQueries();
 
-  const logoPgcop = "/assets/logoPgcop.png";
+  const { useGetUser } = useUserQueries();
 
-  const dataDeInicio = new Date("2023-03-01"); // Data de Início do aluno
+  const { data: userData } = useGetUser();
+
+  const user = userData as Aluno;
+
+  const logoPgcop = "/assets/logoPgcop.png";
 
   const { useGetTarefaAluno, useUpdateTarefa } = useTarefasQueries();
 
   const { data: tarefas = [] } = useGetTarefaAluno();
 
   const { mutate: updateTarefa } = useUpdateTarefa();
+
+  const { useGetProfessores } = useProfessoresQueries();
+
+  const { data: professores = [] } = useGetProfessores();
+
+  const nomeOrientador =
+    professores.find((professor) => professor.id === user.orientador_id)
+      ?.nome ?? "-";
 
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState<number | null>(null);
   const [dataSelecionada, setDataSelecionada] = useState(new Date());
@@ -56,37 +70,42 @@ function PerfilAluno() {
   return (
     <div className="contain">
       <div className="containerAluno">
-        <div className="infoAluno">
-          <img src={logoPgcop} alt="Logo" />
-          <div className="boxInfoAluno">
-            <h3>José Silva José Silva</h3>
-            <p>
-              <span>Titulação:</span> Mestrado/Doutorado
-            </p>
-            <p>
-              <span>Data de Inicio:</span> {dataDeInicio.toLocaleDateString()}
-            </p>
-            <p>
-              <span>Status:</span> Ativo
-            </p>
+        {user && (
+          <div className="infoAluno">
+            <img src={logoPgcop} alt="Logo" />
+            <div className="boxInfoAluno">
+              <h3>{user.nome}</h3>
+              <p>
+                <span>Titulação:</span> {Curso[user.curso]}
+              </p>
+              <p>
+                <span>Data de Inicio:</span>{" "}
+                {user.data_ingresso
+                  ? format(user.data_ingresso, "dd/MM/yyyy")
+                  : "-"}
+              </p>
+              <p>
+                <span>Status:</span>{" "}
+                {tarefasAFazer.length > 0 ? "Ativo" : "Concluído"}
+              </p>
+            </div>
+            <div className="boxInfoAluno">
+              <h3>
+                <span>Matrícula:</span> {user.matricula}
+              </h3>
+              <p>
+                <span>Orientador(a): </span>
+                {nomeOrientador}
+              </p>
+              <p>
+                <span>Término Previsto:</span>{" "}
+                {user.data_qualificacao
+                  ? format(user.data_qualificacao, "dd/MM/yyyy")
+                  : "-"}
+              </p>
+            </div>
           </div>
-          <div className="boxInfoAluno">
-            <h3>
-              <span>Matrícula:</span> xxxxxxxxx
-            </h3>
-            <p>
-              <span>Orientador(a): </span>Augusto Carlos
-            </p>
-            <p>
-              <span>Término Previsto:</span>{" "}
-              {new Date(
-                dataDeInicio.getFullYear() + 3,
-                dataDeInicio.getMonth(),
-                dataDeInicio.getDate(),
-              ).toLocaleDateString()}
-            </p>
-          </div>
-        </div>
+        )}
 
         <div className="botoesToolbar">
           <MdEditNote

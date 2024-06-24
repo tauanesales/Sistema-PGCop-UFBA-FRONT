@@ -3,6 +3,11 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useUserQueries } from "@/queries/user";
 import { useTokensStore } from "@/store/tokens";
 
+const userTypeRoute = {
+  ALUNO: "/perfil-aluno",
+  PROFESSOR: "/perfil-professor",
+  COORDENADOR: "/perfil-coordenador",
+};
 
 export const PublicRoute = () => {
   const tokens = useTokensStore();
@@ -11,24 +16,10 @@ export const PublicRoute = () => {
 
   const enabled = !!tokens.accessToken;
 
-  const { data: user, isFetching } = useGetUser(enabled);
-
-  if (isFetching) {
-    return 'Carregando...'
-  }
+  const { data: user } = useGetUser(enabled);
 
   if (user) {
-    const pathOptions = {
-      aluno: "/perfil-aluno",
-      professor: "/perfil-professor",
-    }[user.tipo];
-
-    return (
-      <Navigate
-        to={user.dados.role != "coordenador" && pathOptions || "/perfil-coordenador"}
-        replace
-      />
-    );
+    return <Navigate to={userTypeRoute[user.tipo_usuario]} replace />;
   }
 
   return <Outlet />;
