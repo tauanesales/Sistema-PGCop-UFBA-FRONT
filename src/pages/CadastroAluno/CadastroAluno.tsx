@@ -232,7 +232,7 @@ const CadastroAluno = () => {
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
           
-          <img style={{	position: 'absolute', marginTop:'-495px'}} src="assets/logoPgcop.png" width={80} />
+          <img style={{	position: 'absolute', marginTop:'-570px'}} src="assets/logoPgcop.png" width={90} />
           
           <RadioGroup style={{marginTop:'120px'}}
             row

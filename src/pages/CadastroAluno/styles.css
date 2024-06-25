@@ -11,7 +11,7 @@ body, html {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 1080px;
-  height: 670px;
+  height: 44.8em;
   display: flex;
   justify-content: center;
   align-items: top;
@@ -90,12 +90,12 @@ body, html {
   background-color: #D6DDE2;
   font-family: "Raleway", sans-serif;
   font-size: 1em;
-  font-weight: 700;
+  font-weight: 600;
   padding: 10px 10px;
   border: none;
   border-radius: 5px;
   width: 150px;
-  height: 2.5em;
+  height: 3em;
 }
 .bttn:hover{
   background-color: #E9EAEC; 
