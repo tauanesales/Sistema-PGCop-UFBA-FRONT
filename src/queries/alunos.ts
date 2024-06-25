@@ -1,18 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { Aluno, User } from "@/models/User";
+import { Aluno } from "@/models/User";
 
 import * as alunosApi from "../services/api/alunos";
 
 export const useAlunosQueries = () => {
   const queryClient = useQueryClient();
-
-  const useUpdateAluno = () =>
-    useMutation({
-      mutationFn: alunosApi.updateAluno,
-      onSuccess: (user) => queryClient.setQueryData<User>(["user"], user),
-      onSettled: () => queryClient.invalidateQueries({ queryKey: ["user"] }),
-    });
 
   const useRemoverOrientador = () =>
     useMutation({
@@ -44,7 +37,6 @@ export const useAlunosQueries = () => {
     });
 
   return {
-    useUpdateAluno,
     useRemoverOrientador,
   };
 };

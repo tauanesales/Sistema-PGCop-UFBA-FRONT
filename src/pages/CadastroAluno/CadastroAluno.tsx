@@ -42,7 +42,7 @@ const cpfMaskOptions = {
 };
 
 const telefoneMaskOptions = {
-  mask: "(__) _____ ____",
+  mask: "(__) _____-____",
   replacement: { _: /\d/ },
 };
 
