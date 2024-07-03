@@ -9,5 +9,5 @@ export const getProfessores = () =>
 
 export const getAlunosProfessor = () =>
   api
-    .get<Aluno[]>("/professores/orientandos")
+    .get<Aluno[]>("/professores/orientandos/")
     .then((response) => response.data);
