@@ -156,7 +156,7 @@ export const AtualizarDados = () => {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src="assets/logoPgcop.png" width={110} />
+          <img src="/assets/logoPgcop.png" width={110} />
 
           <div style={{ display: "flex", gap: 16 }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
