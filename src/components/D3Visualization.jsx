@@ -7,7 +7,7 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
   useEffect(() => {
     // Dimensões container
     const margin = { top: 0, right: 40, bottom: 60, left: 40 };
-    const width = 1200 - margin.left - margin.right;
+    const width = 1350 - margin.left - margin.right;
     const height = 150 - margin.top - margin.bottom;
 
     // Construção da escala horizontal e preparação para zoom

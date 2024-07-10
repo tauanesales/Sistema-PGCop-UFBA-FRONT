@@ -11,7 +11,7 @@
     height: 80vh; 
     width: 100vh; 
     margin-left: 5px;
-    max-width: 580px; /*largura máxima */
+    max-width: 80vh; /*largura máxima */
     background-color: white;
     padding: 15px;
     border-radius: 3px;
@@ -22,7 +22,7 @@
   .listaTarefas {
     display: flex;
     justify-content: space-around;
-    width: 85%;
+    width: 95%;
     margin: 0 auto;
     margin-top: 80px;
     padding-top: 1em; /* Adiciona espaço entre o containerAluno e as tarefas*/
@@ -37,7 +37,6 @@
   }
 
 
-  
   .litarefas{
     margin-bottom: 10px; 
     cursor: default;
@@ -82,8 +81,9 @@
   .modalTarefas{
     padding: 10px 30px;
     border-radius: 10px;
-    width: 360px;
-    text-align: center;
+    height: 70vh;
+    width: 120vh;
+    text-align: Start;
   }
   
 .confirmationBox{

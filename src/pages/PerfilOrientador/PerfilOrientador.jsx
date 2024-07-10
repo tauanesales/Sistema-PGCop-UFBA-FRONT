@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import "./styles.css";
-import { MdGroupAdd, MdLogout } from 'react-icons/md';
+import { MdOutlinePeopleAlt, MdLogout } from 'react-icons/md';
 import { BsFillCircleFill } from 'react-icons/bs'; // icone de notificação
 import Solicitacoes from '../../components/Solicitacoes/Solicitacoes';
 import ButtonSecondary from '@/components/ButtonSecondary';
@@ -84,14 +84,14 @@ function PerfilOrientador() {
         <div className='contain'>
             <div className='containerOrientador'>
                 <img src={logoPgcop} />
-                <div className='infoOrientador' style={{ justifyContent: "space-between" }}>
+                <div className='infoOrientador' style={{ justifyContent: "space-between", marginRight: "30px" }}>
                     <div>
                         <h2>Augusto Carlos Santos</h2>
                         <h3>Orientandos: {alunos.length}</h3>
                     </div>
                     <div className="botoesToolbar">
                         <div style={{ position: 'relative' }}>
-                            <MdGroupAdd 
+                            <MdOutlinePeopleAlt 
                                 onClick={handleSolicitacoesClick} 
                                 style={{ marginRight: "40px", cursor: "pointer", color: solicitacoes.length > 0 ? "red" : "inherit" }}
                                 size={35} 
