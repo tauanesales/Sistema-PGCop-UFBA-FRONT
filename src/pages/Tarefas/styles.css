@@ -22,9 +22,9 @@
   .listaTarefas {
     display: flex;
     justify-content: space-around;
-    width: 85%;
+    width: 88%;
     margin: 0 auto;
-    margin-top: 80px;
+    margin-top: 5em;
     padding-top: 1em; /* Adiciona espaço entre o containerAluno e as tarefas*/
   }
   
@@ -33,17 +33,15 @@
     align-items: end;
     position: fixed;
     cursor: pointer;
-    margin-top: 40px;
+    margin-top: 2em;
   }
-
-
   
   .litarefas{
-    margin-bottom: 10px; 
+    margin-bottom: 0.2em; 
     cursor: default;
     border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 0px 10px;
+    padding: 0px 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;

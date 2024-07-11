@@ -116,20 +116,19 @@ function Tarefas(){
                                             value={editTarefaDescricao} 
                                             onChange={(e) => setEditTarefaDescricao(e.target.value)}
                                             placeholder="Descrição"
-                                            style={{ marginBottom: '10px', width: '100%', padding: '8px', height: '80px' }}/>
-                                    <label>Curso</label>
+                                            style={{ marginBottom: '10px', width: '100%', padding: '8px', height: '10em' }}/>
                                     <label>Prazo em meses</label>
                                     <input className="inputContainer"
                                             type="number" 
                                             value={editTarefaPrazo} 
                                             onChange={(e) => setEditTarefaPrazo(Number(e.target.value))}
                                             placeholder="Prazo em meses"
-                                            style={{ marginBottom: '10px', width: '60%', padding: '8px' }}/>
-
+                                            style={{ marginBottom: '10px', width: '20%', padding: '8px' }}/>
+                                    <label>Curso</label>
                                     <select 
                                             value={editTarefaTitulacao} 
                                             onChange={(e) => setEditTarefaTitulacao(e.target.value)}
-                                            style={{ marginBottom: '10px', width: '60%', padding: '8px' }}>
+                                            style={{ marginBottom: '10px', width: '30%', padding: '8px' }}>
                                         <option value="Mestrado">Mestrado</option>
                                         <option value="Doutorado">Doutorado</option>
                                         </select>
@@ -198,19 +197,19 @@ function Tarefas(){
                                                 value={editTarefaDescricao} 
                                                 onChange={(e) => setEditTarefaDescricao(e.target.value)}
                                                 placeholder="Descrição"
-                                                style={{ marginBottom: '10px', width: '100%', padding: '8px', height: '80px' }}/>
+                                                style={{ marginBottom: '10px', width: '100%', padding: '8px', height: '10em' }}/>
                                         <label>Prazo em meses</label>
                                         <input className="inputContainer"
                                                 type="number" 
                                                 value={editTarefaPrazo} 
                                                 onChange={(e) => setEditTarefaPrazo(Number(e.target.value))}
                                                 placeholder="Prazo em meses"
-                                                style={{ marginBottom: '10px', width: '60%', padding: '8px' }}/>
+                                                style={{ marginBottom: '10px', width: '20%', padding: '8px' }}/>
                                         <label>Curso</label>
                                         <select   
                                                 value={editTarefaTitulacao} 
                                                 onChange={(e) => setEditTarefaTitulacao(e.target.value)}
-                                                style={{ marginBottom: '10px', width: '60%', padding: '8px' }}>
+                                                style={{ marginBottom: '10px', width: '30%', padding: '8px' }}>
                                             <option value="Mestrado">Mestrado</option>
                                             <option value="Doutorado">Doutorado</option>
                                             </select>
