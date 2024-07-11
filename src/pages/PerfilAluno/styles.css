@@ -1,22 +1,12 @@
-.containAluno {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  height: 97vh;
-  width: 170vh;
-  font-family: "Roboto", sans-serif;
-  
-}
-
 .containerAluno {
   align-items: top;
   line-height: 1.1;
-  height: 170px;
-  width: 170vh;
+  height: auto;
+  width: 100%;
+  max-width: 1400px;
   background-color: #edf1f4;
   display: flex;
-  padding: 20px 20px;
+  padding: 1em 1em;
   box-sizing: border-box; 
   box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.1);
 }
@@ -25,19 +15,23 @@
   width: 7em;
   height: 8em;
   align-self: center;
-  margin-right: 25px; 
-  mix-blend-mode: multiply; /*Remove o fundo branco */
+  margin-left: 1em; 
+  margin-right: 1.5em; 
+  mix-blend-mode: multiply; /*Remove o fundo branco da imagem */
 }
+
 .infoAluno {
   display: flex;
   align-items: flex-start; /* Ajusta o alinhamento vertical */
   width: 70%; 
+  flex-wrap: wrap;
 }
 
 .boxInfoAluno {
   line-height: 2;
   padding: 0px 10px; 
-  width: 400px; 
+  width: 40%; 
+  max-width: 40%;
 }
 .boxInfoAluno h2 {
   white-space: nowrap;
@@ -46,6 +40,7 @@
 .boxInfoAluno span {
   font-weight: 700;
 }
+
 
 .botoesToolbarAluno {
   display: grid;
@@ -74,34 +69,36 @@
   margin-left: 5px;
   margin-top : 5px;
   color: #000000;
-  background-color: #D6DDE2;
+  background-color: #ffffff;
   font-family: "Raleway", sans-serif;
   font-size: 1em;
   font-weight: 600;
   border: none;
 }
 .bttnSalvar:hover{
-  background-color: #E9EAEC; 
+  background-color: #eeeeee; 
 }
 
 .tarefasAluno {
   display: flex;
   justify-content: space-around;
-  width: 85%;
+  align-items: center;
+  width: 100%;
   margin: 0 auto;
   padding-top: 3em; /* Adiciona espaço entre o containerAluno e as tarefas*/
 }
 
 .boxTarefas {
   overflow-y: auto;
-  margin-top: -50px;
+  margin-top: -3em;
   border-radius: 5px;
   padding: 15px 5px;
   background-color: #edf1f4;
   height: 50vh;
-  width: 80vh;
+  width: 87vh;
   box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.1);
 }
+
 
 #task {
   width: 90%;

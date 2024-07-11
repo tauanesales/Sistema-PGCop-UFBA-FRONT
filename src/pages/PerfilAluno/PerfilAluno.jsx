@@ -107,14 +107,14 @@ function PerfilAluno() {
             <div className="boxInfoAluno">
               <h3>{aluno.nome}</h3>
               <p><span>Titulação:</span> {aluno.titulacao}</p>
-              <p><span>Data de Inicio:</span> {new Date(dataDeInicio).toLocaleDateString()}</p>
+              <p><span>Data de inicio:</span> {new Date(dataDeInicio).toLocaleDateString()}</p>
               <p><span>Status:</span> Ativo</p>
             </div>
           )}
           <div className="boxInfoAluno">
             <h3><span>Matrícula:</span> {aluno && aluno.matricula}</h3>
             <p><span>Orientador(a): </span>{aluno && aluno.orientador}</p>
-            <p><span>Término Previsto:</span> {new Date(dataFinal).toLocaleDateString()}</p>
+            <p><span>Término previsto:</span> {new Date(dataFinal).toLocaleDateString()}</p>
           </div>
         </div>
 
@@ -158,11 +158,11 @@ function PerfilAluno() {
             const diasRestantes = Math.ceil((prazo - dataAtual) / (1000 * 60 * 60 * 24));
             let backgroundColor;
             if (diasRestantes <= 90) {
-              backgroundColor = "#ff9999"; 
+              backgroundColor = "rgba(245, 66, 66, 0.4)"; 
             } else if (diasRestantes <= 180) {
-              backgroundColor = "#ffb394";
+              backgroundColor = "rgba(255, 179, 148, 0.7)";
             } else {
-              backgroundColor = "#fff2a7";
+              backgroundColor = "rgba(255, 242, 167, 0.8";
             }
 
             return (

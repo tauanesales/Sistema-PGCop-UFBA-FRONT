@@ -188,7 +188,7 @@ const CadastroAluno = () => {
             </div>
           </div>
 
-          <div className="buttonCadastro" style={{marginTop: "-1em"}}>
+           <div className="buttonCadastro" style={{ marginTop: "-1em", display: 'flex', flexDirection: 'row', gap: '1em' }}>
             <LoadingButton className="bttn"
               sx={{
                 marginTop: 2,
@@ -199,7 +199,21 @@ const CadastroAluno = () => {
                 }
               }}
               variant="contained"
-              fullWidth
+              onClick={() => window.location.href = "/"}
+            >
+              Voltar
+            </LoadingButton>
+
+            <LoadingButton className="bttn"
+              sx={{
+                marginTop: 2,
+                color: '#000000',
+                backgroundColor: '#D6DDE2', // cinza claro
+                '&:hover': {
+                  backgroundColor: '#E9EAEC', // cor cinza um pouco mais escura ao passar o mouse
+                }
+              }}
+              variant="contained"
               loading={isSubmitting}
               onClick={() => handleSubmit()}
               disabled={isSubmitting}

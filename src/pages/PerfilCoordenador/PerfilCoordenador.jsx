@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import "./styles.css"
-import { MdGroupAdd, MdOutlineLibraryBooks, MdLogout } from 'react-icons/md'; // Importando ícones
+import { MdOutlinePeopleAlt, MdOutlineLibraryBooks, MdLogout } from 'react-icons/md'; // Importando ícones
 import Solicitacoes from '../../components/Solicitacoes/Solicitacoes';
 
 function PerfilCoordenador() {
@@ -92,7 +92,7 @@ function PerfilCoordenador() {
                 {/* Botões Toolbar */}
                 <div>
                     <div style={{ marginTop: '-0.3em' }}>
-                        <MdGroupAdd 
+                        <MdOutlinePeopleAlt 
                             onClick={handleSolicitacoesClick} 
                             style={{ marginRight: "40px", cursor: "pointer", color: solicitacoes.length > 0 ? "red" : "inherit" }}
                             size={35} 

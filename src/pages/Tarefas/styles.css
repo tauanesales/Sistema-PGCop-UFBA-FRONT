@@ -11,7 +11,7 @@
     height: 80vh; 
     width: 100vh; 
     margin-left: 5px;
-    max-width: 580px; /*largura máxima */
+    max-width: 80vh; /*largura máxima */
     background-color: white;
     padding: 15px;
     border-radius: 3px;
@@ -80,8 +80,9 @@
   .modalTarefas{
     padding: 10px 30px;
     border-radius: 10px;
-    width: 360px;
-    text-align: center;
+    height: 70vh;
+    width: 120vh;
+    text-align: Start;
   }
   
 .confirmationBox{

@@ -259,39 +259,39 @@ function Tarefas(){
                 {showAddModal && (
                 <div className='confirmationBox'>
                     <div className='modalTarefas'style={{backgroundColor: '#fff'}}>
-                        <p style={{fontWeight: 'bold', marginBottom:'15px'}}>Adicionar Nova Tarefa</p>
+                        <p style={{fontWeight: 'bold', marginBottom:'2vh'}}>Adicionar Nova Tarefa</p>
                         <label>Nome da Tarefa</label>
                         <input className="inputContainer"
                             type="text" 
                             value={novaTarefaNome} 
                             onChange={(e) => setNovaTarefaNome(e.target.value)}
                             placeholder="Nome da tarefa"
-                            style={{ marginBottom: '10px', width: '100%', padding: '8px' }}/>
+                            style={{ marginBottom: '10px', height:'7%', width: '100%', padding: '8px' }}/>
                          <label>Descrição</label>
                         <textarea  className="inputContainer"
                             value={novaTarefaDescricao} 
                             onChange={(e) => setNovaTarefaDescricao(e.target.value)}
                             placeholder="Descrição"
-                            style={{ marginBottom: '10px', width: '100%', padding: '8px', height: '80px' }}/>
+                            style={{ marginBottom: '10px', height:'30%', width: '100%', padding: '8px' }}/>
+                        <label>Curso</label>
+                        <select className="inputContainer"
+                            value={novaTarefaTitulacao} 
+                            onChange={(e) => setNovaTarefaTitulacao(e.target.value)}
+                            style={{ marginBottom: '10px', height:'7%',width: '20%', padding: '8px' }}
+                        >
+                            <option value="Mestrado">Mestrado</option>
+                            <option value="Doutorado">Doutorado</option>
+                        </select>
                         <label>Prazo em meses</label>
                         <input className="inputContainer"
                             type="number" 
                             value={novaTarefaPrazo} 
                             onChange={(e) => setNovaTarefaPrazo(Number(e.target.value))}
                             placeholder="Prazo em meses"
-                            style={{ marginBottom: '10px', width: '60%', padding: '8px' }}/>
-                        <label>Curso</label>
-                        <select className="inputContainer"
-                            value={novaTarefaTitulacao} 
-                            onChange={(e) => setNovaTarefaTitulacao(e.target.value)}
-                            style={{ marginBottom: '10px', width: '60%', padding: '8px' }}
-                        >
-                            <option value="Mestrado">Mestrado</option>
-                            <option value="Doutorado">Doutorado</option>
-                        </select>
+                            style={{ marginBottom: '10px', height:'7%', width: '10%', padding: '8px', marginBottom: "5%" }}/>
                         <ul style={{display: 'flex'}}>
-                            <button className="bttn" onClick={handleAddTarefa} style={{marginRight: '30px',padding: "10px" }}>Adicionar</button>
                             <button className="bttn" onClick={() => setShowAddModal(false)} style={{padding: "10px" }}>Cancelar</button>
+                            <button className="bttn" onClick={handleAddTarefa} style={{marginLeft: '5vh',padding: "10px" }}>Adicionar</button>
                         </ul>
                     </div>
                 </div>
