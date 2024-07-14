@@ -7,30 +7,30 @@
   background-color: #edf1f4;
   display: flex;
   padding: 1em 1em;
-  box-sizing: border-box; 
-  box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .containerAluno img {
   width: 7em;
   height: 8em;
   align-self: center;
-  margin-left: 1em; 
-  margin-right: 1.5em; 
+  margin-left: 1em;
+  margin-right: 1.5em;
   mix-blend-mode: multiply; /*Remove o fundo branco da imagem */
 }
 
 .infoAluno {
   display: flex;
   align-items: flex-start; /* Ajusta o alinhamento vertical */
-  width: 70%; 
+  width: 70%;
   flex-wrap: wrap;
 }
 
 .boxInfoAluno {
   line-height: 2;
-  padding: 0px 10px; 
-  width: 40%; 
+  padding: 0px 10px;
+  width: 40%;
   max-width: 40%;
 }
 .boxInfoAluno h2 {
@@ -40,7 +40,6 @@
 .boxInfoAluno span {
   font-weight: 700;
 }
-
 
 .botoesToolbarAluno {
   display: grid;
@@ -67,7 +66,7 @@
   border-radius: 5px;
   cursor: pointer;
   margin-left: 5px;
-  margin-top : 5px;
+  margin-top: 5px;
   color: #000000;
   background-color: #ffffff;
   font-family: "Raleway", sans-serif;
@@ -75,8 +74,8 @@
   font-weight: 600;
   border: none;
 }
-.bttnSalvar:hover{
-  background-color: #eeeeee; 
+.bttnSalvar:hover {
+  background-color: #eeeeee;
 }
 
 .tarefasAluno {
@@ -96,9 +95,8 @@
   background-color: #edf1f4;
   height: 50vh;
   width: 87vh;
-  box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.1);
 }
-
 
 #task {
   width: 90%;
