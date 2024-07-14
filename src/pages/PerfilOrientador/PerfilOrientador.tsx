@@ -147,12 +147,16 @@ function PerfilOrientador() {
       </h2>
       <div className="listaAlunos">
         <div className="containerOrientadorOrientandos">
+        <ul>
           <h3
-            style={{ marginLeft: "20px", marginBottom: "10px", padding: "5px" }}
-          >
-            Alunos de Mestrado
-          </h3>
-          <ul>
+              style={{
+                marginLeft: "20px",
+                marginBottom: "10px",
+                padding: "5px",
+              }}
+            >
+              Alunos de Mestrado
+            </h3>
             {alunosMestrado.map((aluno) => (
               <li
                 style={{ cursor: "pointer", padding: "7px 20px" }}
@@ -173,6 +177,7 @@ function PerfilOrientador() {
                     onClick={() => handleDoubleClick(aluno.matricula)}
                     style={{
                       marginRight: "10px",
+                      marginLeft:'12em',
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -189,6 +194,7 @@ function PerfilOrientador() {
                     }}
                     style={{
                       marginRight: "10px",
+                      marginLeft:'12em',
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -234,6 +240,7 @@ function PerfilOrientador() {
                     onClick={() => handleDoubleClick(aluno.matricula)}
                     style={{
                       marginRight: "10px",
+                      marginLeft:'12em',
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -250,6 +257,7 @@ function PerfilOrientador() {
                     }}
                     style={{
                       marginRight: "10px",
+                      marginLeft:'12em',
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -272,6 +280,7 @@ function PerfilOrientador() {
               backgroundColor: "#fff",
               padding: "10px",
               borderRadius: "8px",
+              height: "100px",
               width: "300px",
               textAlign: "center",
             }}
@@ -281,14 +290,14 @@ function PerfilOrientador() {
               <button
                 className="bttn"
                 onClick={handleDelete}
-                style={{ marginRight: "30px", padding: "10px" }}
+                style={{ marginRight: "30px", padding: "1px" }}
               >
                 Sim
               </button>
               <button
                 className="bttn"
                 onClick={() => setShowModal(false)}
-                style={{ padding: "10px" }}
+                style={{ padding: "1px" }}
               >
                 Não
               </button>

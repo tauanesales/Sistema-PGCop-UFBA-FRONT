@@ -28,7 +28,7 @@ function PerfilAluno() {
 
   const { useGetTarefaAluno, useUpdateTarefa } = useTarefasQueries();
 
-  const { data: tarefas = [] } = useGetTarefaAluno();
+  const { data: tarefas = [], refetch } = useGetTarefaAluno();
 
   const { mutate: updateTarefa } = useUpdateTarefa();
 
@@ -47,7 +47,11 @@ function PerfilAluno() {
     const { id, completada } = tarefa;
 
     if (completada) {
-      updateTarefa({ ...tarefa, id, completada: 0, data_conclusao: null });
+      updateTarefa({ ...tarefa, id, completada: 0, data_conclusao: null }, {
+        onSuccess: () => {
+          refetch();
+        }
+      });
     } else {
       setTarefaEmEdicao(id);
     }
@@ -58,6 +62,10 @@ function PerfilAluno() {
       ...tarefa,
       completada: 1,
       data_conclusao: dataSelecionada.toISOString().split("T")[0],
+    }, {
+      onSuccess: () => {
+        refetch();
+      }
     });
 
     setTarefaEmEdicao(null); // Limpa o estado de tarefa em edição
@@ -82,7 +90,7 @@ function PerfilAluno() {
               <p>
                 <span>Data de Inicio:</span>{" "}
                 {user.data_ingresso
-                  ? format(user.data_ingresso, "dd/MM/yyyy")
+                  ? format(new Date(user.data_ingresso), "dd/MM/yyyy")
                   : "-"}
               </p>
               <p>
@@ -101,14 +109,14 @@ function PerfilAluno() {
               <p>
                 <span>Término Previsto:</span>{" "}
                 {user.data_qualificacao
-                  ? format(user.data_qualificacao, "dd/MM/yyyy")
+                  ? format(new Date(user.data_qualificacao), "dd/MM/yyyy")
                   : "-"}
               </p>
             </div>
           </div>
         )}
 
-        <div className="botoesToolbar">
+        <div className="botoesToolbarAluno">
           <MdEditNote
             onClick={() => navigate("/perfil-aluno/atualizar-dados")}
             style={{ cursor: "pointer", marginRight: "40px" }}
@@ -207,7 +215,7 @@ function PerfilAluno() {
                       <input
                         className="dateInput"
                         type="date"
-                        value={dataSelecionada.toLocaleDateString()}
+                        value={dataSelecionada.toISOString().split("T")[0]}
                         onChange={(e) =>
                           setDataSelecionada(new Date(e.target.value))
                         }
@@ -285,7 +293,7 @@ function PerfilAluno() {
                   <label style={{ marginLeft: "40px", fontSize: "15px" }}>
                     Realizada em:{" "}
                     {tarefa.data_conclusao
-                      ? new Date(tarefa.data_conclusao).toLocaleDateString()
+                      ? format(new Date(tarefa.data_conclusao), "dd/MM/yyyy")
                       : "-"}
                   </label>
                 </div>

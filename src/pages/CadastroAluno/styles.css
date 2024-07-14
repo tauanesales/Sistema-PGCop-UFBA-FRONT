@@ -10,8 +10,8 @@ body, html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1080px;
-  height: 670px;
+  width: 70em;
+  height: 40em;
   display: flex;
   justify-content: center;
   align-items: top;
@@ -21,7 +21,6 @@ body, html {
   background-color: white; 
   border-radius: 10px; 
 }
-
 
 .backgroundContainer{
   background-color: #515d75; 
@@ -105,7 +104,7 @@ body, html {
 .containerPrincipal {
   display: flex;
   flex-direction: column;
-  gap: 8px; /* Ajuste conforme necessário */
+  gap: 10px; /* Ajuste conforme necessário */
   padding: 16px;
   background-color: white;
   border-radius: 8px;

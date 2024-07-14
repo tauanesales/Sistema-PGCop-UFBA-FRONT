@@ -5,6 +5,7 @@ import { MenuItem } from "@mui/material";
 import { format, unformat, useMask } from "@react-input/mask";
 import { Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 import { FormikDateField } from "@/components/FormikDateField";
 import { FormikInput } from "@/components/FormikInput";
@@ -129,6 +130,8 @@ export const AtualizarDados = () => {
   const cpfInputRef = useMask(cpfMaskOptions);
 
   const telefoneInputRef = useMask(telefoneMaskOptions);
+
+  const navigate = useNavigate();
 
   return (
     <Formik
@@ -268,11 +271,37 @@ export const AtualizarDados = () => {
             </div>
           </div>
 
-          <div className="buttonCadastro">
+          <div
+            className="buttonCadastro"
+            style={{
+              marginTop: "-1em",
+              display: "flex",
+              flexDirection: "row",
+              gap: "3em",
+            }}
+          >
             <LoadingButton
               className="bttn"
               sx={{
                 marginTop: 2,
+                width: 150,
+                color: "#000000",
+                backgroundColor: "#D6DDE2", // cinza claro
+                "&:hover": {
+                  backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
+                },
+              }}
+              variant="contained"
+              onClick={() => navigate(-1)}
+            >
+              Voltar
+            </LoadingButton>
+
+            <LoadingButton
+              className="bttn"
+              sx={{
+                marginTop: 2,
+                width: 150,
                 color: "#000000",
                 backgroundColor: "#D6DDE2", // cinza claro
                 "&:hover": {
@@ -285,9 +314,10 @@ export const AtualizarDados = () => {
               onClick={() => handleSubmit()}
               disabled={isSubmitting}
             >
-              Atualizar dados
+              Salvar
             </LoadingButton>
           </div>
+
         </Form>
       )}
     </Formik>

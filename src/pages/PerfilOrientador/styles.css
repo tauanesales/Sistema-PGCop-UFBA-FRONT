@@ -3,7 +3,7 @@
   line-height: 1.1;
   height: auto;
   width: 100%;
-  max-width: 1400px;
+  max-width: 85em;
   background-color: #edf1f4;
   display: flex;
   padding: 1em 1em;
@@ -14,6 +14,7 @@
 .infoOrientador {
   display: flex;
   line-height: 2;
+  margin-top: 0.5em;
   width: 100%;
 }
 .infoOrientador h2 {
@@ -21,16 +22,17 @@
 }
 
 .containerOrientador img {
-  width: 6em;
-  height: 7em;
-  margin-right: 25px; /* Adiciona uma margem à direita da imagem*/
-  mix-blend-mode: multiply; /*Remove o fundo branco */
+  width: 6.5em;
+  height: 8em;
+  margin-right: 2.5em;
+  mix-blend-mode: multiply; /*Remove o fundo branco da imagem */
 }
 
 .listaAlunos {
   display: flex;
   justify-content: space-around;
-  width: 85%;
+  align-items: center;
+  width: 93%;
   margin: 0 auto;
   padding-top: 1em; /* Adiciona espaço entre o containerAluno e as tarefas*/
 }
@@ -39,10 +41,10 @@
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: start;
+  justify-content: space-around;
   height: 60vh;
   width: 90vh;
-  margin-left: 1em;
-  max-width: 50em; /*largura máxima */
+  max-width: 55em; /*largura máxima */
   background-color: white;
   padding: 1em;
   border-radius: 3px;

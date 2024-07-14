@@ -227,7 +227,7 @@ const CadastroAluno = () => {
           />
 
           <RadioGroup
-            style={{ marginTop: "120px" }}
+            style={{ marginTop: "8em", marginLeft: "30px"}}
             row
             aria-label="tipo-usuario"
             name="tipo-usuario"
@@ -380,7 +380,7 @@ const CadastroAluno = () => {
               marginTop: "-1em",
               display: "flex",
               flexDirection: "row",
-              gap: "1em",
+              gap: "3em",
             }}
           >
             <LoadingButton
@@ -388,9 +388,9 @@ const CadastroAluno = () => {
               sx={{
                 marginTop: 2,
                 color: "#000000",
-                backgroundColor: "#D6DDE2", // cinza claro
+                backgroundColor: "#D6DDE2", 
                 "&:hover": {
-                  backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
+                  backgroundColor: "#E9EAEC",
                 },
               }}
               variant="contained"

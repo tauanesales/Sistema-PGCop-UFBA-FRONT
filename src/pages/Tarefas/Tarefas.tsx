@@ -114,7 +114,8 @@ function Tarefas() {
       {/* Container de Tarefas de Mestrado*/}
       <div className="listaTarefas">
         <div className="containerLista">
-          <ul className="ultarefas">
+          <ul className="ultarefas"
+            >
             <h2
               style={{
                 marginTop: "20px",
@@ -175,12 +176,12 @@ function Tarefas() {
                       />
                     </>
                   ) : (
-                    <>
+                    < div style={{width: "450px" }}>
                       <strong>{tarefa.nome}</strong> Prazo:{" "}
                       {tarefa.prazo_em_meses} meses
                       <br />
                       Descrição: {tarefa.descricao}
-                    </>
+                    </div>
                   )}
                 </div>
                 {/* Ação dos botões e ícones - salvar, editar e deletar*/}
@@ -191,14 +192,14 @@ function Tarefas() {
                     <button
                       className="bttn"
                       onClick={handleEdit}
-                      style={{ width: "100px", height: "35px" }}
+                      style={{ marginLeft: "5em", marginTop: "7em", width: "100px", height: "35px" }}
                     >
                       Salvar
                     </button>
                   ) : (
                     <>
                       <MdCreate
-                        style={{ padding: "10px", cursor: "pointer" }}
+                        style={{  marginLeft: "5em",padding: "10px", cursor: "pointer" }}
                         onClick={() => {
                           setIsEditing(true);
                           setEditTarefaNome(tarefa.nome);
@@ -209,7 +210,7 @@ function Tarefas() {
                         size={45}
                       />
                       <MdDelete
-                        style={{ cursor: "pointer", padding: "10px" }}
+                        style={{  marginLeft: "5em",cursor: "pointer", padding: "10px" }}
                         onClick={() => {
                           setSelectedTarefa(tarefa);
                           setShowModal(true);
@@ -287,14 +288,14 @@ function Tarefas() {
                       />
                     </>
                   ) : (
-                    <>
+                    < div style={{width: "450px" }}>
                       {" "}
                       {/* Exibir em tela*/}
                       <strong>{tarefa.nome}</strong> Prazo:{" "}
                       {tarefa.prazo_em_meses} meses
                       <br />
                       Descrição: {tarefa.descricao}
-                    </>
+                    </div>
                   )}
                 </div>
                 {/*Ação dos botões e ícones - salvar, editar e deletar*/}
@@ -305,14 +306,14 @@ function Tarefas() {
                     <button
                       className="bttn"
                       onClick={handleEdit}
-                      style={{ width: "100px", height: "35px" }}
+                      style={{marginLeft: "5em", marginTop: "7em", width: "100px", height: "35px" }}
                     >
                       Salvar
                     </button>
                   ) : (
                     <>
                       <MdCreate
-                        style={{ padding: "10px", cursor: "pointer" }}
+                        style={{  marginLeft: "5em", padding: "10px", cursor: "pointer" }}
                         onClick={() => {
                           setIsEditing(true);
                           setEditTarefaNome(tarefa.nome);
@@ -323,7 +324,7 @@ function Tarefas() {
                         size={45}
                       />
                       <MdDelete
-                        style={{ cursor: "pointer", padding: "10px" }}
+                        style={{  marginLeft: "5em",cursor: "pointer", padding: "10px" }}
                         onClick={() => {
                           setSelectedTarefa(tarefa);
                           setShowModal(true);
@@ -408,14 +409,14 @@ function Tarefas() {
               <button
                 className="bttn"
                 onClick={() => setShowAddModal(false)}
-                style={{ padding: "10px" }}
+                style={{ padding: "1px" }}
               >
                 Cancelar
               </button>
               <button
                 className="bttn"
                 onClick={handleAddTarefa}
-                style={{ marginLeft: "5vh", padding: "10px" }}
+                style={{ marginLeft: "5vh", padding: "1px" }}
               >
                 Adicionar
               </button>
@@ -441,14 +442,14 @@ function Tarefas() {
               <button
                 className="bttn"
                 onClick={handleDelete}
-                style={{ marginRight: "30px", padding: "10px" }}
+                style={{ marginRight: "30px", padding: "1px" }}
               >
                 Sim
               </button>
               <button
                 className="bttn"
                 onClick={() => setShowModal(false)}
-                style={{ padding: "10px" }}
+                style={{ padding: "1px" }}
               >
                 Não
               </button>

@@ -3,7 +3,7 @@
   line-height: 1.1;
   height: auto;
   width: 100%;
-  max-width: 1400px;
+  max-width: 88em;
   background-color: #edf1f4;
   display: flex;
   padding: 1em 1em;
@@ -12,7 +12,7 @@
 }
 
 .containerAluno img {
-  width: 7em;
+  width: 6.5em;
   height: 8em;
   align-self: center;
   margin-left: 1em;
@@ -24,13 +24,12 @@
   display: flex;
   align-items: flex-start; /* Ajusta o alinhamento vertical */
   width: 70%;
-  flex-wrap: wrap;
 }
 
 .boxInfoAluno {
   line-height: 2;
   padding: 0px 10px;
-  width: 40%;
+  width: 45em;
   max-width: 40%;
 }
 .boxInfoAluno h2 {

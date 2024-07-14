@@ -85,10 +85,11 @@ const Login = () => {
 
           {/* Links Cadastro e Recuperação de senha */}
           <div className="links">
-            <a href="/cadastro-aluno" className="text">
-              Cadastre-se
-            </a>
-
+            <p className="text">
+              <a href="/cadastro-aluno" >
+                Cadastre-se
+              </a>
+            </p>
             <p className="text">
               Esqueceu a senha? Clique
               <a href="/esqueci-senha"> aqui.</a>

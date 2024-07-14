@@ -161,7 +161,7 @@ function PerfilCoordenador() {
         Lista de Orientandos
       </h2>
       {/* Container de Alunos Orientados - Mestrado */}
-      <div className="listaAlunos">
+      <div className="listaAlunosCoord">
         <div className="containerOrientandosCoordenador">
           <ul>
             <h3
@@ -187,12 +187,13 @@ function PerfilCoordenador() {
                     ? format(new Date(aluno.data_defesa), "dd/MM/yyyy")
                     : "-"}
                 </div>
-                <div>
+                <div >
                   <button
                     className="bttn"
                     onClick={() => handleDoubleClick(aluno.matricula)}
                     style={{
                       marginRight: "10px",
+                      marginLeft:'12em',
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -209,6 +210,7 @@ function PerfilCoordenador() {
                     }}
                     style={{
                       marginRight: "10px",
+                      marginLeft:'12em',
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -255,6 +257,7 @@ function PerfilCoordenador() {
                     onClick={() => handleDoubleClick(aluno.matricula)}
                     style={{
                       marginRight: "10px",
+                      marginLeft:'12em',
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -271,6 +274,7 @@ function PerfilCoordenador() {
                     }}
                     style={{
                       marginRight: "10px",
+                      marginLeft:'12em',
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -294,6 +298,7 @@ function PerfilCoordenador() {
               backgroundColor: "#fff",
               padding: "20px",
               borderRadius: "10px",
+              height: "100px",
               width: "300px",
               textAlign: "center",
             }}
@@ -303,14 +308,14 @@ function PerfilCoordenador() {
               <button
                 className="bttn"
                 onClick={handleDelete}
-                style={{ marginRight: "30px", padding: "10px" }}
+                style={{ marginRight: "30px", padding: "1px" }}
               >
                 Sim
               </button>
               <button
                 className="bttn"
                 onClick={() => setShowModal(false)}
-                style={{ padding: "10px" }}
+                style={{ padding: "1px" }}
               >
                 Não
               </button>
