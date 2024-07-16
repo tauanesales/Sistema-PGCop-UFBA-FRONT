@@ -96,6 +96,10 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
       svg.selectAll(".progresso")
         .attr("width", progressoWidth * transform.k)
         .attr("transform", `translate(${transform.x},0)`);
+
+      // Atualiza a posição da flagInicio
+      svg.selectAll(".flag-inicio")
+        .attr("x", newXScale(dataDeInicio) - 15);
     }
 
     const svg = d3.select(svgRef.current)
@@ -117,15 +121,15 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
 
     updateTimeScale(currentScale);
 
-        // Adicionar o texto de fundo
-      svg.append("text")
-      .attr("x", width  / 6)
-      .attr("y", height /2)
+    // Adicionar o texto de fundo
+    svg.append("text")
+      .attr("x", width / 6)
+      .attr("y", height / 2)
       .attr("text-anchor", "middle")
       .style("fill", "lightgrey")
       .style("font-size", "20px")
       .style("font-weight", "bold")
-        .text("Zoom e Arrastar");
+      .text("Zoom e Arrastar");
 
     // Adiciona ícones de tarefa conforme a escala
     svg.selectAll(".tarefa-a-fazer")
@@ -182,12 +186,19 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
       .attr("height", 12)
       .style("fill", "#84bf68");
 
-
-
     const tempoDecorrido = dataAtual - dataDeInicio;
     const progressoPorcentagem = (tempoDecorrido / (dataFinal - dataDeInicio));
     const progressoWidth = progressoPorcentagem * width;
     progresso.attr("width", progressoWidth);
+
+    // Adiciona a imagem no início da barra de progresso e a classifica como flag-inicio
+    svg.append("image")
+      .attr("class", "flag-inicio")
+      .attr("x", timeScale(dataDeInicio) - 15)
+      .attr("y", height - 62)
+      .attr("width", 60)
+      .attr("height", 50)
+      .attr("xlink:href", "/assets/flagInicio.png");
 
     return () => {
       d3.select(svgRef.current).selectAll("*").remove();
@@ -198,3 +209,4 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
 };
 
 export default D3Visualization;
+
