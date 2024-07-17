@@ -1,11 +1,9 @@
 import "./styles.css";
-
 import { differenceInDays, format } from "date-fns";
 import { useState } from "react";
 import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
 import { MdEditNote, MdLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-
 import D3Visualization from "@/components/D3Visualization";
 import { Tarefa } from "@/models/Tarefa";
 import { Aluno, Curso } from "@/models/User";
@@ -13,67 +11,71 @@ import { useProfessoresQueries } from "@/queries/professores";
 import { useTarefasQueries } from "@/queries/tarefas";
 import { useUserQueries } from "@/queries/user";
 
+function calculateDifferenceInMonthsAndDays(startDate, endDate) {
+  const totalDays = differenceInDays(endDate, startDate);
+  let months = 0;
+  let days = totalDays;
+
+  while (days >= 30) {
+    months += 1;
+    days -= 30;
+  }
+
+  return { months, days, totalDays };
+}
+
 function PerfilAluno() {
   const navigate = useNavigate();
-
   const { signOut } = useUserQueries();
-
   const { useGetUser } = useUserQueries();
-
   const { data: userData } = useGetUser();
-
   const user = userData as Aluno;
-
   const logoPgcop = "/assets/logoPgcop.png";
-
   const { useGetTarefaAluno, useUpdateTarefa } = useTarefasQueries();
-
   const { data: tarefas = [], refetch } = useGetTarefaAluno();
-
   const { mutate: updateTarefa } = useUpdateTarefa();
-
   const { useGetProfessores } = useProfessoresQueries();
-
   const { data: professores = [] } = useGetProfessores();
-
   const nomeOrientador =
     professores.find((professor) => professor.id === user.orientador_id)
       ?.nome ?? "-";
-
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState<number | null>(null);
   const [dataSelecionada, setDataSelecionada] = useState(new Date());
 
   const handleCheckboxChange = (tarefa: Tarefa) => {
     const { id, completada } = tarefa;
-
     if (completada) {
-      updateTarefa({ ...tarefa, id, completada: 0, data_conclusao: null }, {
-        onSuccess: () => {
-          refetch();
+      updateTarefa(
+        { ...tarefa, id, completada: 0, data_conclusao: null },
+        {
+          onSuccess: () => {
+            refetch();
+          },
         }
-      });
+      );
     } else {
       setTarefaEmEdicao(id);
     }
   };
 
   const salvarDataRealizacao = (tarefa: Tarefa) => {
-    updateTarefa({
-      ...tarefa,
-      completada: 1,
-      data_conclusao: dataSelecionada.toISOString().split("T")[0],
-    }, {
-      onSuccess: () => {
-        refetch();
+    updateTarefa(
+      {
+        ...tarefa,
+        completada: 1,
+        data_conclusao: dataSelecionada.toISOString().split("T")[0],
+      },
+      {
+        onSuccess: () => {
+          refetch();
+        },
       }
-    });
-
+    );
     setTarefaEmEdicao(null); // Limpa o estado de tarefa em edição
     setDataSelecionada(new Date()); // Limpa a data selecionada
   };
 
   const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
-
   const tarefasFeitas = tarefas.filter((tarefa) => tarefa.completada);
 
   return (
@@ -160,27 +162,36 @@ function PerfilAluno() {
           <h3 style={{ textAlign: "center" }}>TAREFAS A FAZER</h3>
           {tarefasAFazer.map((tarefa) => {
             const prazo = new Date(tarefa.data_prazo);
-
-            const diferencaDias = differenceInDays(prazo, new Date());
+            const { months, days, totalDays } = calculateDifferenceInMonthsAndDays(
+              new Date(),
+              prazo
+            );
 
             let backgroundColor;
-
-            if (diferencaDias <= 90) {
-              backgroundColor = "#ff9999";
-            } else if (diferencaDias <= 180) {
-              backgroundColor = "#ffb394";
+            if (totalDays < 0) {
+              backgroundColor = "#ff9999"; // Red for overdue tasks
+            } else if (totalDays <= 90) {
+              backgroundColor = "#ffb394"; // Orange for tasks within 90 days
             } else {
-              backgroundColor = "#fff2a7";
+              backgroundColor = "#fff2a7"; // Yellow for other tasks
             }
 
-            const plural = diferencaDias !== 1 ? "s" : "";
-
             const statusData =
-              diferencaDias === 0
-                ? "Hoje"
-                : diferencaDias > 0
-                  ? `${diferencaDias} dia${plural} restantes`
-                  : `A tarefa está atrasada há ${Math.abs(diferencaDias)} dia${plural}`;
+              totalDays === 0
+                ? "a tarefa vence hoje"
+                : totalDays > 0
+                ? months > 0
+                  ? days === 0
+                    ? `${months} mês${months > 1 ? "es" : ""} restante${
+                        months > 1 ? "s" : ""
+                      }`
+                    : `${months} mês${months > 1 ? "es" : ""} e ${days} dia${
+                        days > 1 ? "s" : ""
+                      } restante${months > 1 || days > 1 ? "s" : ""}`
+                  : `${days} dia${days > 1 ? "s" : ""} restante${
+                      days > 1 ? "s" : ""
+                    }`
+                : `${-totalDays} dia${-totalDays > 1 ? "s" : ""} em atraso`;
 
             return (
               <div
