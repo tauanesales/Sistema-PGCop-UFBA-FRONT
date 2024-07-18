@@ -21,6 +21,7 @@ Repositório com o front-end da aplicação do sistema de monitoramento de aluno
 - Raquel Paradella
 - Tauane Sales
 - Vanessa Oliveira
+- Alan Tiago Andrade
 
 ### Tutorial de Instalação e Execução da Aplicação
 Acesse o documento [aqui](/docs/instalacao.md) para saber como configurar o ambiente, instalar dependências e executar a aplicação.
