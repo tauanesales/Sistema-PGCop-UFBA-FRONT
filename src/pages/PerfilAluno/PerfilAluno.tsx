@@ -40,7 +40,9 @@ function PerfilAluno() {
     professores.find((professor) => professor.id === user.orientador_id)
       ?.nome ?? "-";
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState<number | null>(null);
-  const [dataSelecionada, setDataSelecionada] = useState(new Date());
+  const [dataSelecionada, setDataSelecionada] = useState(
+    new Date().toISOString().split("T")[0],
+  );
 
   const handleCheckboxChange = (tarefa: Tarefa) => {
     const { id, completada } = tarefa;
@@ -63,7 +65,7 @@ function PerfilAluno() {
       {
         ...tarefa,
         completada: 1,
-        data_conclusao: dataSelecionada.toISOString().split("T")[0],
+        data_conclusao: format(new Date(dataSelecionada), "dd/MM/yyyy"),
       },
       {
         onSuccess: () => {
@@ -72,7 +74,7 @@ function PerfilAluno() {
       }
     );
     setTarefaEmEdicao(null); // Limpa o estado de tarefa em edição
-    setDataSelecionada(new Date()); // Limpa a data selecionada
+    setDataSelecionada(new Date().toISOString().split("T")[0]); // Limpa a data selecionada
   };
 
   const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
@@ -226,10 +228,8 @@ function PerfilAluno() {
                       <input
                         className="dateInput"
                         type="date"
-                        value={dataSelecionada.toISOString().split("T")[0]}
-                        onChange={(e) =>
-                          setDataSelecionada(new Date(e.target.value))
-                        }
+                        value={dataSelecionada}
+                        onChange={(e) => setDataSelecionada(e.target.value)}
                         style={{ marginLeft: "15px" }}
                       />
                       <button
