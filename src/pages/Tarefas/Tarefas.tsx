@@ -388,8 +388,8 @@ function Tarefas() {
                 padding: "8px",
               }}
             >
-              <option value="Mestrado">Mestrado</option>
-              <option value="Doutorado">Doutorado</option>
+              <option value="M">Mestrado</option>
+              <option value="D">Doutorado</option>
             </select>
             <label>Prazo em meses</label>
             <input
