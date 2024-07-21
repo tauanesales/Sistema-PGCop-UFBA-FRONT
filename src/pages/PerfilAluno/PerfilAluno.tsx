@@ -11,7 +11,7 @@ import { useProfessoresQueries } from "@/queries/professores";
 import { useTarefasQueries } from "@/queries/tarefas";
 import { useUserQueries } from "@/queries/user";
 
-function calculateDifferenceInMonthsAndDays(startDate, endDate) {
+function calculateDifferenceInMonthsAndDays(startDate: Date, endDate: Date) {
   const totalDays = differenceInDays(endDate, startDate);
   let months = 0;
   let days = totalDays;
