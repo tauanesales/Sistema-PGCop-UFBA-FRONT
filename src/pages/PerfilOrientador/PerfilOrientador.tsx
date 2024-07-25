@@ -52,7 +52,7 @@ function PerfilOrientador() {
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
     if (aluno) {
-      window.open(`/perfil-aluno`);
+      window.open(`/PerfilAluno`);
     }
   };
 

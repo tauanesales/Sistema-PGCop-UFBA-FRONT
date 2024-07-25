@@ -24,6 +24,7 @@
     "@tanstack/react-query-devtools": "5.34.2",
     "@uidotdev/usehooks": "2.4.1",
     "axios": "1.6.8",
+    "d3.js": "^0.0.2-security",
     "date-fns": "^3.6.0",
     "formik": "2.4.5",
     "humps": "2.0.1",

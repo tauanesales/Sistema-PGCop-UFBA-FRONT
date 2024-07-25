@@ -1,10 +1,8 @@
 import "./styles.css";
-
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
-import { MdGroupAdd, MdLogout, MdOutlineLibraryBooks } from "react-icons/md"; // Importando ícones
+import { MdGroupAdd, MdLogout, MdOutlineLibraryBooks } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-
 import Solicitacoes from "@/components/Solicitacoes/Solicitacoes";
 import { Status } from "@/models/Solicitacao";
 import { Aluno, Professor } from "@/models/User";
@@ -15,42 +13,29 @@ import { useUserQueries } from "@/queries/user";
 
 function PerfilCoordenador() {
   const logoPgcop = "/assets/logoPgcop.png";
-
   const navigate = useNavigate();
-
   const { signOut, useGetUser } = useUserQueries();
-
   const { data: userData } = useGetUser();
-
   const user = userData as Professor;
-
   const { useGetSolicitacoes, useUpdateSolicitacao } = useSolicitacoesQueries();
-
   const { data: solicitacoes = [] } = useGetSolicitacoes({
     orientadorId: user.id,
     status: Status.PENDENTE,
   });
-
   const { mutate: updatedSolicitacao } = useUpdateSolicitacao();
-
   const handleAcceptRequest = (solicitacaoId: number) =>
     updatedSolicitacao({ solicitacaoId, status: Status.ACEITA });
-
   const handleRemoveRequest = (solicitacaoId: number) =>
     updatedSolicitacao({ solicitacaoId, status: Status.RECUSADA });
-
   const { useGetAlunosOrientador } = useProfessoresQueries();
-
   const { data: alunos = [] } = useGetAlunosOrientador();
-
   const { useRemoverOrientador } = useAlunosQueries();
-
   const { mutate: removerOrientador } = useRemoverOrientador();
-
   const [showModal, setShowModal] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState<Aluno>();
-
   const [showSolicitacoes, setShowSolicitacoes] = useState(false);
+  const [showTaskModal, setShowTaskModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(""); // Novo estado para mensagem de sucesso
 
   useEffect(() => {
     if (solicitacoes.length === 0) {
@@ -70,10 +55,25 @@ function PerfilCoordenador() {
     setShowModal(false);
   };
 
-  // Separa os alunos baseados na titulação
+  const handleAddTask = (aluno) => {
+    setSelectedAluno(aluno);
+    setShowTaskModal(true);
+  };
+
+  const handleTaskSubmit = (e) => {
+    e.preventDefault();
+    // Adicione a lógica para enviar os dados da tarefa aqui
+
+    // Exemplo de envio de dados da tarefa (substitua com a lógica real)
+    // saveTask({ ...taskData });
+
+    setShowTaskModal(false);
+    setSuccessMessage("Tarefa incluída com sucesso!"); // Exibir mensagem de sucesso
+    setTimeout(() => setSuccessMessage(""), 3000); // Ocultar mensagem após 3 segundos
+  };
+
   const alunosMestrado = alunos.filter((aluno) => aluno.curso === "M");
   const alunosDoutorado = alunos.filter((aluno) => aluno.curso === "D");
-
   const handleSolicitacoesClick = () => setShowSolicitacoes(!showSolicitacoes);
 
   return (
@@ -163,7 +163,7 @@ function PerfilCoordenador() {
               <div>
                 <button
                   className="bttn"
-                  onClick={() => handleDoubleClick(aluno.matricula)}
+                  onClick={() => navigate("/PerfilAlunoCoordenador")}
                   style={{
                     marginRight: "10px",
                     height: "30px",
@@ -173,6 +173,19 @@ function PerfilCoordenador() {
                   }}
                 >
                   Abrir
+                </button>
+                <button
+                  className="bttn"
+                  onClick={() => handleAddTask(aluno)}
+                  style={{
+                    marginRight: "10px",
+                    height: "30px",
+                    borderRadius: "5px",
+                    width: "95px",
+                    fontSize: "13px",
+                  }}
+                >
+                  + Tarefa
                 </button>
                 <button
                   className="bttn"
@@ -235,6 +248,19 @@ function PerfilCoordenador() {
                 </button>
                 <button
                   className="bttn"
+                  onClick={() => handleAddTask(aluno)}
+                  style={{
+                    marginRight: "10px",
+                    height: "30px",
+                    borderRadius: "5px",
+                    width: "95px",
+                    fontSize: "13px",
+                  }}
+                >
+                  + Tarefa
+                </button>
+                <button
+                  className="bttn"
                   onClick={() => {
                     setSelectedAluno(aluno);
                     setShowModal(true);
@@ -285,6 +311,95 @@ function PerfilCoordenador() {
               </button>
             </ul>
           </div>
+        </div>
+      )}
+
+      {/* Modal de Adicionar Tarefa */}
+      {showTaskModal && (
+        <div className="taskModal">
+          <div className="modalContent">
+            <h2>Adicionar Tarefa</h2>
+            <form onSubmit={handleTaskSubmit}>
+              <div>
+                <label>Nome do aluno: {selectedAluno?.nome}</label>
+              </div>
+              <div>
+                <label>Matrícula: {selectedAluno?.matricula}</label>
+              </div>
+              <div>
+                <label>Titulação: {selectedAluno?.curso}</label>
+              </div>
+              <div>
+                <label>
+                  Data do início:{" "}
+                  {selectedAluno?.data_inicio
+                    ? format(new Date(selectedAluno.data_inicio), "dd/MM/yyyy")
+                    : "-"}
+                </label>
+              </div>
+              <div>
+                <label>
+                  Término previsto:{" "}
+                  {selectedAluno?.data_defesa
+                    ? format(new Date(selectedAluno.data_defesa), "dd/MM/yyyy")
+                    : "-"}
+                </label>
+              </div>
+              <div>
+                <label>
+                  Título da tarefa <span className="required">*</span>
+                </label>
+                <input type="text" required />
+              </div>
+              <div>
+                <label>
+                  Descrição da tarefa <span className="required">*</span>
+                </label>
+                <textarea required style={{ height: "100px" }} />
+              </div>
+              <div>
+                <label>
+                  Data de entrega <span className="required">*</span>
+                </label>
+                <input type="date" required />
+              </div>
+              <div style={{ marginTop: "20px" }}>
+                <button
+                  type="submit"
+                  className="bttn"
+                  style={{ marginRight: "10px" }}
+                >
+                  Salvar
+                </button>
+                <button
+                  type="button"
+                  className="bttn"
+                  onClick={() => setShowTaskModal(false)}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Mensagem de sucesso */}
+      {successMessage && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            backgroundColor: "#4CAF50",
+            color: "#fff",
+            padding: "10px 20px",
+            borderRadius: "5px",
+            boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          {successMessage}
         </div>
       )}
     </div>

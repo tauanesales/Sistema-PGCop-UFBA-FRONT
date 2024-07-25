@@ -19,6 +19,7 @@ import Login from "@/pages/Login/Login";
 import PerfilAluno from "@/pages/PerfilAluno/PerfilAluno";
 import PerfilCoordenador from "@/pages/PerfilCoordenador/PerfilCoordenador";
 import PerfilOrientador from "@/pages/PerfilOrientador/PerfilOrientador";
+import PerfilAlunoCoordenador from "@/pages/PerfilAlunoCoordenador/PerfilAlunoCoordenador";
 import Tarefas from "@/pages/Tarefas/Tarefas";
 import { AuthenticationGuard } from "@/routes/AuthenticationGuard";
 
