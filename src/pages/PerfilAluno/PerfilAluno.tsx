@@ -1,9 +1,11 @@
 import "./styles.css";
+
 import { differenceInDays, format } from "date-fns";
 import { useState } from "react";
 import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
 import { MdEditNote, MdLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+
 import D3Visualization from "@/components/D3Visualization";
 import { Tarefa } from "@/models/Tarefa";
 import { Aluno, Curso } from "@/models/User";
@@ -53,7 +55,7 @@ function PerfilAluno() {
           onSuccess: () => {
             refetch();
           },
-        }
+        },
       );
     } else {
       setTarefaEmEdicao(id);
@@ -71,7 +73,7 @@ function PerfilAluno() {
         onSuccess: () => {
           refetch();
         },
-      }
+      },
     );
     setTarefaEmEdicao(null); // Limpa o estado de tarefa em edição
     setDataSelecionada(new Date().toISOString().split("T")[0]); // Limpa a data selecionada
@@ -164,36 +166,34 @@ function PerfilAluno() {
           <h3 style={{ textAlign: "center" }}>TAREFAS A FAZER</h3>
           {tarefasAFazer.map((tarefa) => {
             const prazo = new Date(tarefa.data_prazo);
-            const { months, days, totalDays } = calculateDifferenceInMonthsAndDays(
-              new Date(),
-              prazo
-            );
+            const { months, days, totalDays } =
+              calculateDifferenceInMonthsAndDays(new Date(), prazo);
 
             let backgroundColor;
             if (totalDays < 0) {
-              backgroundColor = "#ff9999"; // Red for overdue tasks
+              backgroundColor = "#f8bebe"; // Red for overdue tasks
             } else if (totalDays <= 90) {
-              backgroundColor = "#ffb394"; // Orange for tasks within 90 days
+              backgroundColor = "#f7c6b3"; // Orange for tasks within 90 days
             } else {
-              backgroundColor = "#fff2a7"; // Yellow for other tasks
+              backgroundColor = "#f3eab8"; // Yellow for other tasks
             }
 
             const statusData =
               totalDays === 0
                 ? "a tarefa vence hoje"
                 : totalDays > 0
-                ? months > 0
-                  ? days === 0
-                    ? `${months} mês${months > 1 ? "es" : ""} restante${
-                        months > 1 ? "s" : ""
-                      }`
-                    : `${months} mês${months > 1 ? "es" : ""} e ${days} dia${
+                  ? months > 0
+                    ? days === 0
+                      ? `${months} mês${months > 1 ? "es" : ""} restante${
+                          months > 1 ? "s" : ""
+                        }`
+                      : `${months} mês${months > 1 ? "es" : ""} e ${days} dia${
+                          days > 1 ? "s" : ""
+                        } restante${months > 1 || days > 1 ? "s" : ""}`
+                    : `${days} dia${days > 1 ? "s" : ""} restante${
                         days > 1 ? "s" : ""
-                      } restante${months > 1 || days > 1 ? "s" : ""}`
-                  : `${days} dia${days > 1 ? "s" : ""} restante${
-                      days > 1 ? "s" : ""
-                    }`
-                : `${-totalDays} dia${-totalDays > 1 ? "s" : ""} em atraso`;
+                      }`
+                  : `${-totalDays} dia${-totalDays > 1 ? "s" : ""} em atraso`;
 
             return (
               <div
@@ -279,7 +279,7 @@ function PerfilAluno() {
                 <div
                   id="task"
                   key={tarefa.id}
-                  style={{ backgroundColor: "#ADD8E6" }}
+                  style={{ backgroundColor: "#b2e6ad" }}
                 >
                   <AiOutlineFileExcel // Marcador icone
                     onClick={() => handleCheckboxChange(tarefa)}
