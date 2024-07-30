@@ -91,8 +91,8 @@ function PerfilAluno() {
   return (
     <div className="contain" >
         {user && (
-          <Navbar>
-            <Container fluid className="containerAluno bg-body-tertiary">
+          <Navbar className="containerAluno bg-body-tertiary">
+            <Container fluid>
               <Navbar.Brand href="/perfil-aluno">
                 <img src={logoPgcop} alt="Logo" />
               </Navbar.Brand>
@@ -137,13 +137,13 @@ function PerfilAluno() {
                     <Stack className="botoesToolbarAluno">
                       <MdEditNote
                       onClick={() => navigate("/perfil-aluno/editar-dados")}
-                      style={{ cursor: "pointer", marginRight: "40px" }}
+                      style={{ cursor: "pointer"}}
                       size={35}
                       title="Editar dados"
                       />
                       <MdLogout
                         onClick={signOut}
-                        style={{ cursor: "pointer", marginRight: "40px" }}
+                        style={{ cursor: "pointer"}}
                         size={35}
                         title="Sair"
                       />

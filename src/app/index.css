@@ -45,12 +45,6 @@ header {
  nav ul li {
   margin-left: 1rem;
  }
-
-.container{
-  background-color: white;
-  border-radius: 10px;
-}
-
 .contain {
   display: flex;
   flex-direction: column;
