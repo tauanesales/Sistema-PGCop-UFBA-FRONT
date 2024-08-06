@@ -5,7 +5,7 @@ Projeto da disciplina: MATE85 - Tópicos em Sistemas de Informação e Web I
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Autores](#autores)
 - [Linguagem e Tecnologias](#linguagem-e-tecnologias)
-- [Tutorial de Instalação e Execução da Aplicação](#tutorial-de-instala%C3%A7%C3%A3o-e-execu%C3%A7%C3%A3o-da-aplica%C3%A7%C3%A3o)
+- [Tutorial de instalação e execução da aplicação](#tutorial-de-instala%C3%A7%C3%A3o-e-execu%C3%A7%C3%A3o-da-aplica%C3%A7%C3%A3o)
 - [Links](#links)
 
 <hr>
