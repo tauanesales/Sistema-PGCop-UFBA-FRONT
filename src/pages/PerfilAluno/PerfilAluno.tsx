@@ -217,27 +217,19 @@ function PerfilAluno() {
                   : `${-totalDays} dia${-totalDays > 1 ? "s" : ""} em atraso`;
 
                 return (
-                  <Alert style={{backgroundColor: backgroundColor, color: "black"}} id="task"
+                  <Alert style={{backgroundColor: backgroundColor}} className="cardTarefa" id="task"
                     key={tarefa.id}>
-                      <AiOutlineEdit // Marcador icone
-                        onClick={() => handleCheckboxChange(tarefa)}
-                        style={{
-                          cursor: "pointer",
-                          marginLeft: "5px",
-                          marginRight: "10px",
-                        }}
-                        size={20}
-                        title="Editar"
-                      />
-                      <label
-                        style={{
-                          marginLeft: "5px",
-                          fontSize: "18px",
-                          fontWeight: "500",
-                        }}
-                      >
-                        {tarefa.nome}
-                      </label>
+                      <div className="iconeCard">
+                        <AiOutlineEdit // Marcador icone
+                          onClick={() => handleCheckboxChange(tarefa)}
+                          style={{cursor: "pointer"}}
+                          size={20}
+                          title="Editar"
+                        />
+                        <h4>
+                          {tarefa.nome}
+                        </h4>
+                      </div>
                       {tarefaEmEdicao === tarefa.id && (
                         <Form.Group className="boxDate">
                           <Form.Label>Data de realização:</Form.Label>
@@ -250,13 +242,12 @@ function PerfilAluno() {
                           <Button variant="primary" className="bttnSalvar" onClick={() => salvarDataRealizacao(tarefa)}>Salvar</Button>
                         </Form.Group>
                       )}
-                      <label style={{ marginLeft: "40px", fontSize: "15px" }}>
+                      <p>
                         {tarefa.descricao}
-                      </label>
-                      <label style={{ marginLeft: "40px", fontSize: "15px" }}>
+                      </p>
+                      <p>
                         Data Limite: {format(prazo, "dd/MM/yyyy")} - {statusData}
-                      </label>
-
+                      </p>
                   </Alert>
                 );
               })}

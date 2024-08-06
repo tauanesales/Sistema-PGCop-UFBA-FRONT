@@ -65,6 +65,24 @@
   background-color: #f9f9f9;
 }
 
+.cardTarefa{
+  display: flex;
+  flex-direction: column;
+  color: #000000;
+  h4{
+    font-size: 1.2em;
+
+  }
+  p{
+    line-height: .9em;
+  }
+}
+.iconeCard{
+  margin-left: .5em;
+  display: flex;
+  gap: .8em;
+}
+
 .bttnSalvar {
   height: 30px;
   max-width: 80px;
