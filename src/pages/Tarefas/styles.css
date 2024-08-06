@@ -67,20 +67,19 @@
 }
 
 .modalTarefas {
-  padding: 10px 30px;
-  border-radius: 10px;
-  height: 70vh;
-  width: 120vh;
-  text-align: Start;
+  position: fixed;
+  width: 120vh;  
 }
-
-.confirmationBox {
+.cardBackground {
   display: flex;
+  place-items: center;
   justify-content: center;
-  align-items: center;
-  background-color: "#fff";
-  padding: 0px 15px;
-  height: 50em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .inputContainer {
@@ -109,5 +108,8 @@
 }
 
 .buttonContainer {
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 1em;
+  place-items: center;
 }
