@@ -10,7 +10,14 @@ export const useProfessoresQueries = () => {
         professoresApi.getProfessores().then((response) => response.data),
     });
 
+  const useGetAlunosOrientador = () =>
+    useQuery({
+      queryKey: ["orientandos"],
+      queryFn: () => professoresApi.getAlunosProfessor(),
+    });
+
   return {
     useGetProfessores,
+    useGetAlunosOrientador,
   };
 };

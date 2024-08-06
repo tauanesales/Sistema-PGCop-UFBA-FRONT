@@ -6,7 +6,8 @@ import {
   Route,
 } from "react-router-dom";
 
-import AtualizarDados from "@/pages/AtualizarDados/AtualizarDados";
+import { TipoUsuario } from "@/models/User";
+import { AtualizarDados } from "@/pages/AtualizarDados/AtualizarDados";
 import AtualizarSenha from "@/pages/AtualizarSenha/AtualizarSenha";
 import CadastroAluno from "@/pages/CadastroAluno/CadastroAluno";
 import ConfirmarCadastro from "@/pages/ConfirmarCadastro/ConfirmarCadastro";
@@ -24,8 +25,8 @@ import { AuthenticationGuard } from "@/routes/AuthenticationGuard";
 import { PublicRoute } from "./PublicRoute";
 
 const routes = createRoutesFromElements(
-  <Route element={<Outlet />} >
-    <Route element={<AuthenticationGuard allowedRoles={["aluno"]} />}>
+  <Route element={<Outlet />}>
+    <Route element={<AuthenticationGuard allowedRoles={[TipoUsuario.ALUNO]} />}>
       <Route path="/perfil-aluno" element={<PerfilAluno />} />
 
       <Route
@@ -34,11 +35,15 @@ const routes = createRoutesFromElements(
       />
     </Route>
 
-    <Route element={<AuthenticationGuard allowedRoles={["professor"]} />}>
+    <Route
+      element={<AuthenticationGuard allowedRoles={[TipoUsuario.PROFESSOR]} />}
+    >
       <Route path="/perfil-professor" element={<PerfilOrientador />} />
     </Route>
 
-    <Route element={<AuthenticationGuard allowedRoles={["coordenador"]} />}>
+    <Route
+      element={<AuthenticationGuard allowedRoles={[TipoUsuario.COORDENADOR]} />}
+    >
       <Route path="/perfil-coordenador" element={<PerfilCoordenador />} />
       <Route path="/tarefas" element={<Tarefas />} />
     </Route>
@@ -56,9 +61,7 @@ const routes = createRoutesFromElements(
     <Route path="/confirmar-nova-senha" element={<ConfirmarNovaSenha />} />
 
     <Route path="*" element={<Error404 />} />
-
   </Route>,
 );
 
 export const router = createBrowserRouter(routes);
-

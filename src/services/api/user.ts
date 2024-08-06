@@ -4,13 +4,8 @@ import { Aluno, Professor, User } from "@/models/User";
 
 import api from "./config";
 
-type GetUserResponse = {
-  tipo: "aluno" | "professor";
-  dados: User;
-};
-
 export const getUser = (accessToken?: string) =>
-  api.get<GetUserResponse>("/usuarios/me", {
+  api.get<User>("/usuarios/me", {
     headers: {
       ...(accessToken && {
         Authorization: `Bearer ${accessToken}`,
@@ -18,7 +13,7 @@ export const getUser = (accessToken?: string) =>
     },
   });
 
-type CreateAlunoRequestData = Omit<Aluno, "id"> & {
+type CreateAlunoRequestData = Omit<Aluno, "id" | "orientador"> & {
   senha: string;
 };
 
@@ -31,6 +26,11 @@ type CreateProfessorRequestData = Omit<Professor, "id"> & {
 
 export const createProfessor = (data: CreateProfessorRequestData) =>
   api.post<Professor>("/professores", data);
+
+type UpdateUserParams = Partial<Omit<User, "id">>;
+
+export const updateUser = (aluno: UpdateUserParams) =>
+  api.put<User>("/usuarios", aluno).then((response) => response.data);
 
 type AuthenticateUserRequestData = {
   username: string;

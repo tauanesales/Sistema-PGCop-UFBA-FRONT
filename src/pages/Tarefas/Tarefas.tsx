@@ -9,110 +9,87 @@ import {
 } from "react-icons/md"; // Importando os ícones
 import { useNavigate } from "react-router-dom";
 
+import { TarefaBase } from "@/models/TarefaBase";
+import { useTarefasBaseQueries } from "@/queries/tarefasBase";
+
 function Tarefas() {
   const navigate = useNavigate();
 
-  const tarefasData = [
-    {
-      id: 1,
-      nome: "Qualificação",
-      prazo: 13,
-      descricao: "Apresentação e defesa do projeto de pesquisa.",
-      titulacao: "Mestrado",
-    },
-    {
-      id: 2,
-      nome: "Carga Horária Básica",
-      prazo: 18,
-      descricao: "Cumprir a carga horária mínima de disciplinas obrigatórias.",
-      titulacao: "Mestrado",
-    },
-    {
-      id: 3,
-      nome: "Artigo",
-      prazo: 24,
-      descricao: "Elaborar e submeter um artigo científico.",
-      titulacao: "Mestrado",
-    },
-    {
-      id: 4,
-      nome: "Exame de Proficiência em Língua Estrangeira",
-      prazo: 24,
-      descricao: "Aprovação em exame de proficiência em língua estrangeira.",
-      titulacao: "Doutorado",
-    },
-    {
-      id: 5,
-      nome: "Estágio",
-      prazo: 18,
-      descricao: "Concluir o estágio obrigatório.",
-      titulacao: "Doutorado",
-    },
-  ];
+  const {
+    useGetTarefasCurso,
+    useCreateTarefa,
+    useUpdateTarefa,
+    useDeleteTarefa,
+  } = useTarefasBaseQueries();
+
+  const { data: tarefasMestrado = [] } = useGetTarefasCurso("M");
+
+  const { data: tarefasDoutorado = [] } = useGetTarefasCurso("D");
+
+  const { mutate: createTarefa } = useCreateTarefa();
+
+  const { mutate: updateTarefa } = useUpdateTarefa();
+
+  const { mutate: deleteTarefa } = useDeleteTarefa();
 
   /*Const Att Tarefas */
-  const [tarefas, setTarefas] = useState(tarefasData);
+
   const [showModal, setShowModal] = useState(false);
-  const [selectedTarefa, setSelectedTarefa] = useState(null);
+  const [selectedTarefa, setSelectedTarefa] = useState<TarefaBase>();
   const [isEditing, setIsEditing] = useState(false);
   const [editTarefaNome, setEditTarefaNome] = useState("");
   const [editTarefaPrazo, setEditTarefaPrazo] = useState(0);
   const [editTarefaDescricao, setEditTarefaDescricao] = useState("");
-  const [editTarefaTitulacao, setEditTarefaTitulacao] = useState("Mestrado");
+
   /* Const Add Tarefas*/
   const [showAddModal, setShowAddModal] = useState(false);
   const [novaTarefaNome, setNovaTarefaNome] = useState("");
   const [novaTarefaPrazo, setNovaTarefaPrazo] = useState(0);
   const [novaTarefaDescricao, setNovaTarefaDescricao] = useState("");
-  const [novaTarefaTitulacao, setNovaTarefaTitulacao] = useState("Mestrado");
+  const [novaTarefaTitulacao, setNovaTarefaTitulacao] =
+    useState<TarefaBase["curso"]>("M");
 
-  const tarefasMestrado = tarefas.filter(
-    (tarefa) => tarefa.titulacao === "Mestrado",
-  );
-  const tarefasDoutorado = tarefas.filter(
-    (tarefa) => tarefa.titulacao === "Doutorado",
-  );
-
-  const handleDelete = () => {
-    const updatedTarefas = tarefas.filter(
-      (tarefa) => tarefa.id !== selectedTarefa.id,
-    );
-    setTarefas(updatedTarefas);
-    setShowModal(false);
-  };
+  const handleDelete = () =>
+    deleteTarefa(selectedTarefa!.id, {
+      onSuccess: () => {
+        setShowModal(false);
+      },
+    });
 
   const handleEdit = () => {
-    const updatedTarefas = tarefas.map((tarefa) => {
-      if (tarefa.id === selectedTarefa.id) {
-        return {
-          ...tarefa,
-          nome: editTarefaNome,
-          prazo: editTarefaPrazo,
-          descricao: editTarefaDescricao,
-          titulacao: editTarefaTitulacao,
-        };
-      }
-      return tarefa;
+    const tarefa = {
+      ...selectedTarefa,
+      id: selectedTarefa!.id,
+      nome: editTarefaNome,
+      prazo_em_meses: editTarefaPrazo,
+      descricao: editTarefaDescricao,
+    };
+
+    updateTarefa(tarefa, {
+      onSuccess: () => {
+        setIsEditing(false);
+        setSelectedTarefa(undefined);
+      },
     });
-    setTarefas(updatedTarefas);
-    setIsEditing(false);
-    setSelectedTarefa(null);
   };
 
   const handleAddTarefa = () => {
     const newTarefa = {
-      id: tarefas.length + 1,
       nome: novaTarefaNome,
-      prazo: novaTarefaPrazo,
+      prazo_em_meses: novaTarefaPrazo,
       descricao: novaTarefaDescricao,
-      titulacao: novaTarefaTitulacao,
+      curso: novaTarefaTitulacao,
     };
-    setTarefas([...tarefas, newTarefa]);
-    setShowAddModal(false);
-    setNovaTarefaNome("");
-    setNovaTarefaPrazo(0);
-    setNovaTarefaDescricao("");
-    setNovaTarefaTitulacao("Mestrado");
+
+    createTarefa(newTarefa, {
+      onSuccess: () => {
+        setShowAddModal(false);
+        setNovaTarefaNome("");
+        setNovaTarefaPrazo(0);
+        setNovaTarefaDescricao("");
+        setNovaTarefaTitulacao("M");
+      },
+    });
   };
 
   return (
@@ -145,7 +122,9 @@ function Tarefas() {
               {/* Edição das tarefas*/}
               <div>
                 {" "}
-                {isEditing && selectedTarefa.id === tarefa.id ? (
+                {isEditing &&
+                selectedTarefa &&
+                selectedTarefa.id === tarefa.id ? (
                   <>
                     <label>Nome da Tarefa</label>
                     <input
@@ -185,23 +164,11 @@ function Tarefas() {
                         height: "80px",
                       }}
                     />
-                    <label>Curso</label>
-                    <select
-                      value={editTarefaTitulacao}
-                      onChange={(e) => setEditTarefaTitulacao(e.target.value)}
-                      style={{
-                        marginBottom: "10px",
-                        width: "100%",
-                        padding: "8px",
-                      }}
-                    >
-                      <option value="Mestrado">Mestrado</option>
-                      <option value="Doutorado">Doutorado</option>
-                    </select>
                   </>
                 ) : (
                   <>
-                    <strong>{tarefa.nome}</strong> - Prazo: {tarefa.prazo} meses
+                    <strong>{tarefa.nome}</strong> - Prazo:{" "}
+                    {tarefa.prazo_em_meses} meses
                     <br />
                     Descrição: {tarefa.descricao}
                   </>
@@ -209,7 +176,9 @@ function Tarefas() {
               </div>
               {/* Ação dos botões e ícones - salvar, editar e deletar*/}
               <div>
-                {isEditing && selectedTarefa.id === tarefa.id ? (
+                {isEditing &&
+                selectedTarefa &&
+                selectedTarefa.id === tarefa.id ? (
                   <button
                     onClick={handleEdit}
                     style={{
@@ -227,9 +196,8 @@ function Tarefas() {
                       onClick={() => {
                         setIsEditing(true);
                         setEditTarefaNome(tarefa.nome);
-                        setEditTarefaPrazo(tarefa.prazo);
+                        setEditTarefaPrazo(tarefa.prazo_em_meses);
                         setEditTarefaDescricao(tarefa.descricao);
-                        setEditTarefaTitulacao(tarefa.titulacao);
                         setSelectedTarefa(tarefa);
                       }}
                       size={55}
@@ -261,7 +229,9 @@ function Tarefas() {
               {/* Edição das tarefas */}
               <div>
                 {" "}
-                {isEditing && selectedTarefa.id === tarefa.id ? (
+                {isEditing &&
+                selectedTarefa &&
+                selectedTarefa.id === tarefa.id ? (
                   <>
                     <label>Nome da Tarefa</label>
                     <input
@@ -301,25 +271,13 @@ function Tarefas() {
                         height: "80px",
                       }}
                     />
-                    <label>Curso</label>
-                    <select
-                      value={editTarefaTitulacao}
-                      onChange={(e) => setEditTarefaTitulacao(e.target.value)}
-                      style={{
-                        marginBottom: "10px",
-                        width: "100%",
-                        padding: "8px",
-                      }}
-                    >
-                      <option value="Mestrado">Mestrado</option>
-                      <option value="Doutorado">Doutorado</option>
-                    </select>
                   </>
                 ) : (
                   <>
                     {" "}
                     {/* Exibir em tela*/}
-                    <strong>{tarefa.nome}</strong> - Prazo: {tarefa.prazo} meses
+                    <strong>{tarefa.nome}</strong> - Prazo:{" "}
+                    {tarefa.prazo_em_meses} meses
                     <br />
                     Descrição: {tarefa.descricao}
                   </>
@@ -327,7 +285,9 @@ function Tarefas() {
               </div>
               {/*Ação dos botões e ícones - salvar, editar e deletar*/}
               <div>
-                {isEditing && selectedTarefa.id === tarefa.id ? (
+                {isEditing &&
+                selectedTarefa &&
+                selectedTarefa.id === tarefa.id ? (
                   <button
                     onClick={handleEdit}
                     style={{
@@ -345,9 +305,8 @@ function Tarefas() {
                       onClick={() => {
                         setIsEditing(true);
                         setEditTarefaNome(tarefa.nome);
-                        setEditTarefaPrazo(tarefa.prazo);
+                        setEditTarefaPrazo(tarefa.prazo_em_meses);
                         setEditTarefaDescricao(tarefa.descricao);
-                        setEditTarefaTitulacao(tarefa.titulacao);
                         setSelectedTarefa(tarefa);
                       }}
                       size={55}
@@ -404,11 +363,13 @@ function Tarefas() {
             <label>Curso</label>
             <select
               value={novaTarefaTitulacao}
-              onChange={(e) => setNovaTarefaTitulacao(e.target.value)}
+              onChange={(e) =>
+                setNovaTarefaTitulacao(e.target.value as TarefaBase["curso"])
+              }
               style={{ marginBottom: "10px", width: "100%", padding: "8px" }}
             >
-              <option value="Mestrado">Mestrado</option>
-              <option value="Doutorado">Doutorado</option>
+              <option value="M">Mestrado</option>
+              <option value="D">Doutorado</option>
             </select>
             <ul style={{ display: "flex" }}>
               <button

@@ -1,96 +1,53 @@
 import "./styles.css";
 
-import { useState } from "react";
+import { format } from "date-fns";
+import { useEffect, useState } from "react";
 import { MdGroupAdd, MdLogout } from "react-icons/md";
 
+import { Status } from "@/models/Solicitacao";
+import { Aluno, Professor } from "@/models/User";
+import { useAlunosQueries } from "@/queries/alunos";
+import { useProfessoresQueries } from "@/queries/professores";
+import { useSolicitacoesQueries } from "@/queries/solicitacoes";
 import { useUserQueries } from "@/queries/user";
 
 import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
 
 function PerfilOrientador() {
-  const { signOut } = useUserQueries();
+  const { signOut, useGetUser } = useUserQueries();
+
+  const { data: userData } = useGetUser();
+
+  const user = userData as Professor;
+
   const logoPgcop = "/assets/logoPgcop.png";
 
-  const alunosData = [
-    {
-      id: 1,
-      nome: "João Silva",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 2,
-      nome: "Tauane Souza",
-      matricula: "2022002",
-      titulacao: "Doutorado",
-      datafinal: "8/05/2027",
-    },
-    {
-      id: 3,
-      nome: "Mario Souza",
-      matricula: "2022003",
-      titulacao: "Mestrado",
-      datafinal: "15/05/2024",
-    },
-    {
-      id: 4,
-      nome: "Ana Clara",
-      matricula: "2022004",
-      titulacao: "Doutorado",
-      datafinal: "03/07/2027",
-    },
-    {
-      id: 5,
-      nome: "Pedro Henrique",
-      matricula: "2022005",
-      titulacao: "Mestrado",
-      datafinal: "03/012/2025",
-    },
-    {
-      id: 6,
-      nome: "Carlos Eduardo",
-      matricula: "2022006",
-      titulacao: "Doutorado",
-      datafinal: "03/05/2026",
-    },
-    {
-      id: 7,
-      nome: "Roberta Santos",
-      matricula: "2022007",
-      titulacao: "Mestrado",
-      datafinal: "03/08/2025",
-    },
-  ];
+  const { useGetSolicitacoes, useUpdateSolicitacao } = useSolicitacoesQueries();
 
-  const [solicitacoes, setSolicitacoes] = useState([
-    {
-      id: 1,
-      nome: "Natalia  Santos Santos Santos",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 2,
-      nome: "Claudio Souza",
-      matricula: "2022002",
-      titulacao: "Doutorado",
-      datafinal: "8/05/2027",
-    },
-    {
-      id: 3,
-      nome: "Vinicius Alves",
-      matricula: "2022003",
-      titulacao: "Mestrado",
-      datafinal: "15/05/2024",
-    },
-  ]);
+  const { data: solicitacoes = [] } = useGetSolicitacoes({
+    orientadorId: user.id,
+    status: Status.PENDENTE,
+  });
 
-  const [alunos, setAlunos] = useState(alunosData);
+  const { mutate: updatedSolicitacao } = useUpdateSolicitacao();
+
+  const { useGetAlunosOrientador } = useProfessoresQueries();
+
+  const { data: alunos = [] } = useGetAlunosOrientador();
+
+  const { useRemoverOrientador } = useAlunosQueries();
+
+  const { mutate: removerOrientador } = useRemoverOrientador();
+
   const [showModal, setShowModal] = useState(false);
-  const [selectedAluno, setSelectedAluno] = useState(null);
+  const [selectedAluno, setSelectedAluno] = useState<Aluno>();
   const [showSolicitacoes, setShowSolicitacoes] = useState(false);
+
+  useEffect(() => {
+    if (solicitacoes.length === 0) {
+      setShowSolicitacoes(false);
+    }
+  }, [solicitacoes.length]);
 
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
@@ -100,10 +57,7 @@ function PerfilOrientador() {
   };
 
   const handleDelete = () => {
-    const updatedAlunos = alunos.filter(
-      (aluno) => aluno.id !== selectedAluno.id,
-    );
-    setAlunos(updatedAlunos);
+    removerOrientador(selectedAluno!.id);
     setShowModal(false);
   };
 
@@ -111,30 +65,14 @@ function PerfilOrientador() {
     setShowSolicitacoes(!showSolicitacoes);
   };
 
-  const handleAcceptRequest = (id) => {
-    const solicitationToAccept = solicitacoes.find(
-      (solicitacao) => solicitacao.id === id,
-    );
-    setAlunos([...alunos, solicitationToAccept]);
-    const updatedSolicitacoes = solicitacoes.filter(
-      (solicitacao) => solicitacao.id !== id,
-    );
-    setSolicitacoes(updatedSolicitacoes);
-  };
+  const handleAcceptRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.ACEITA });
 
-  const handleRemoveRequest = (id) => {
-    const updatedSolicitacoes = solicitacoes.filter(
-      (solicitacao) => solicitacao.id !== id,
-    );
-    setSolicitacoes(updatedSolicitacoes);
-  };
+  const handleRemoveRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.RECUSADA });
 
-  const alunosMestrado = alunos.filter(
-    (aluno) => aluno.titulacao === "Mestrado",
-  );
-  const alunosDoutorado = alunos.filter(
-    (aluno) => aluno.titulacao === "Doutorado",
-  );
+  const alunosMestrado = alunos.filter((aluno) => aluno.curso === "M");
+  const alunosDoutorado = alunos.filter((aluno) => aluno.curso === "D");
 
   return (
     <div className="contain">
@@ -145,7 +83,7 @@ function PerfilOrientador() {
           style={{ justifyContent: "space-between" }}
         >
           <div>
-            <h2>Augusto Carlos Santos</h2>
+            <h2>{user?.nome}</h2>
             <h3>Orientandos: {alunos.length}</h3>
           </div>
           <div className="botoesToolbar">
@@ -201,10 +139,12 @@ function PerfilOrientador() {
               onDoubleClick={() => handleDoubleClick(aluno.matricula)}
             >
               <div>
-                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} -
-                Titulação: {aluno.titulacao}
+                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula}
                 <br />
-                Conclusão prevista em {aluno.datafinal}
+                Conclusão prevista em{" "}
+                {aluno.data_defesa
+                  ? format(new Date(aluno.data_defesa), "dd/MM/yyyy")
+                  : "-"}
               </div>
               <div>
                 <button
@@ -257,10 +197,12 @@ function PerfilOrientador() {
               onDoubleClick={() => handleDoubleClick(aluno.matricula)}
             >
               <div>
-                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} -
-                Titulação: {aluno.titulacao}
+                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula}
                 <br />
-                Conclusão prevista em {aluno.datafinal}
+                Conclusão prevista em{" "}
+                {aluno.data_defesa
+                  ? format(new Date(aluno.data_defesa), "dd/MM/yyyy")
+                  : "-"}
               </div>
               <div>
                 <button

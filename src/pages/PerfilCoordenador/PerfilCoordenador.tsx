@@ -1,9 +1,16 @@
 import "./styles.css";
 
-import { useState } from "react";
+import { format } from "date-fns";
+import { useEffect, useState } from "react";
 import { MdGroupAdd, MdLogout, MdOutlineLibraryBooks } from "react-icons/md"; // Importando ícones
 import { useNavigate } from "react-router-dom";
 
+import Solicitacoes from "@/components/Solicitacoes/Solicitacoes";
+import { Status } from "@/models/Solicitacao";
+import { Aluno, Professor } from "@/models/User";
+import { useAlunosQueries } from "@/queries/alunos";
+import { useProfessoresQueries } from "@/queries/professores";
+import { useSolicitacoesQueries } from "@/queries/solicitacoes";
 import { useUserQueries } from "@/queries/user";
 
 function PerfilCoordenador() {
@@ -11,84 +18,45 @@ function PerfilCoordenador() {
 
   const navigate = useNavigate();
 
-  const { signOut } = useUserQueries();
+  const { signOut, useGetUser } = useUserQueries();
 
-  const alunosData = [
-    {
-      id: 1,
-      nome: "João Silva",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 1,
-      nome: "João Silva",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 1,
-      nome: "João Silva",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 1,
-      nome: "João Silva",
-      matricula: "2022001",
-      titulacao: "Mestrado",
-      datafinal: "03/05/2024",
-    },
-    {
-      id: 2,
-      nome: "Tauane Souza",
-      matricula: "2022002",
-      titulacao: "Doutorado",
-      datafinal: "18/05/2027",
-    },
-    {
-      id: 3,
-      nome: "Mario Souza",
-      matricula: "2022003",
-      titulacao: "Mestrado",
-      datafinal: "15/05/2024",
-    },
-    {
-      id: 4,
-      nome: "Ana Clara",
-      matricula: "2022004",
-      titulacao: "Doutorado",
-      datafinal: "03/07/2027",
-    },
-    {
-      id: 5,
-      nome: "Pedro Henrique",
-      matricula: "2022005",
-      titulacao: "Mestrado",
-      datafinal: "03/012/2025",
-    },
-    {
-      id: 6,
-      nome: "Carlos Eduardo",
-      matricula: "2022006",
-      titulacao: "Doutorado",
-      datafinal: "03/05/2026",
-    },
-    {
-      id: 7,
-      nome: "Roberta Santos",
-      matricula: "2022007",
-      titulacao: "Mestrado",
-      datafinal: "03/08/2025",
-    },
-  ];
+  const { data: userData } = useGetUser();
 
-  const [alunos, setAlunos] = useState(alunosData);
+  const user = userData as Professor;
+
+  const { useGetSolicitacoes, useUpdateSolicitacao } = useSolicitacoesQueries();
+
+  const { data: solicitacoes = [] } = useGetSolicitacoes({
+    orientadorId: user.id,
+    status: Status.PENDENTE,
+  });
+
+  const { mutate: updatedSolicitacao } = useUpdateSolicitacao();
+
+  const handleAcceptRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.ACEITA });
+
+  const handleRemoveRequest = (solicitacaoId: number) =>
+    updatedSolicitacao({ solicitacaoId, status: Status.RECUSADA });
+
+  const { useGetAlunosOrientador } = useProfessoresQueries();
+
+  const { data: alunos = [] } = useGetAlunosOrientador();
+
+  const { useRemoverOrientador } = useAlunosQueries();
+
+  const { mutate: removerOrientador } = useRemoverOrientador();
+
   const [showModal, setShowModal] = useState(false);
-  const [selectedAluno, setSelectedAluno] = useState(null);
+  const [selectedAluno, setSelectedAluno] = useState<Aluno>();
+
+  const [showSolicitacoes, setShowSolicitacoes] = useState(false);
+
+  useEffect(() => {
+    if (solicitacoes.length === 0) {
+      setShowSolicitacoes(false);
+    }
+  }, [solicitacoes.length]);
 
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
@@ -98,20 +66,15 @@ function PerfilCoordenador() {
   };
 
   const handleDelete = () => {
-    const updatedAlunos = alunos.filter(
-      (aluno) => aluno.id !== selectedAluno.id,
-    );
-    setAlunos(updatedAlunos);
+    removerOrientador(selectedAluno!.id);
     setShowModal(false);
   };
 
   // Separa os alunos baseados na titulação
-  const alunosMestrado = alunos.filter(
-    (aluno) => aluno.titulacao === "Mestrado",
-  );
-  const alunosDoutorado = alunos.filter(
-    (aluno) => aluno.titulacao === "Doutorado",
-  );
+  const alunosMestrado = alunos.filter((aluno) => aluno.curso === "M");
+  const alunosDoutorado = alunos.filter((aluno) => aluno.curso === "D");
+
+  const handleSolicitacoesClick = () => setShowSolicitacoes(!showSolicitacoes);
 
   return (
     <div className="contain">
@@ -124,22 +87,40 @@ function PerfilCoordenador() {
           style={{ justifyContent: "space-between", marginRight: "30px" }}
         >
           <div>
-            <h2>Augusto Carlos Santos</h2>
+            <h2>{user?.nome}</h2>
             <h3>Orientandos: {alunos.length}</h3>
           </div>
           {/* Botões Toolbar */}
           <div>
             <div className="botoesToolbar">
-              <MdGroupAdd
-                onClick={() => navigate("/perfil-coordenador/solicitacoes")}
-                style={{ cursor: "pointer", marginRight: "42px" }}
-                size={35}
-                title="Solicitações"
-              />
+              <div style={{ position: "relative" }}>
+                <MdGroupAdd
+                  onClick={handleSolicitacoesClick}
+                  style={{
+                    marginRight: "40px",
+                    cursor: "pointer",
+                    color: solicitacoes.length > 0 ? "red" : "inherit",
+                  }}
+                  size={35}
+                  title="Solicitações"
+                />
+                {showSolicitacoes && (
+                  <div
+                    className="solicitacoesContainer"
+                    style={{ position: "absolute", top: "-50px" }}
+                  >
+                    <Solicitacoes
+                      solicitacoes={solicitacoes}
+                      handleAcceptRequest={handleAcceptRequest}
+                      handleRemoveRequest={handleRemoveRequest}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
             <div>
               <MdOutlineLibraryBooks
-                onClick={() => navigate("/perfil-coordenador/tarefas")}
+                onClick={() => navigate("/tarefas")}
                 style={{ cursor: "pointer", marginRight: "45px" }}
                 size={35}
                 title="Tarefas"
@@ -166,17 +147,18 @@ function PerfilCoordenador() {
           Alunos de Mestrado
         </h3>
         <ul>
-          {alunosMestrado.map((aluno) => (
+          {alunosMestrado?.map((aluno) => (
             <li
               style={{ cursor: "pointer", padding: "7px 20px" }}
               key={aluno.id}
               onDoubleClick={() => handleDoubleClick(aluno.matricula)}
             >
               <div>
-                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} -
-                Titulação: {aluno.titulacao}
+                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula}
                 <br />
-                Conclusão prevista em {aluno.datafinal}
+                {aluno.data_defesa
+                  ? format(new Date(aluno.data_defesa), "dd/MM/yyyy")
+                  : "-"}
               </div>
               <div>
                 <button
@@ -223,17 +205,19 @@ function PerfilCoordenador() {
           Alunos de Doutorado
         </h3>
         <ul>
-          {alunosDoutorado.map((aluno) => (
+          {alunosDoutorado?.map((aluno) => (
             <li
               style={{ cursor: "pointer", padding: "7px 20px" }}
               key={aluno.id}
               onDoubleClick={() => handleDoubleClick(aluno.matricula)}
             >
               <div>
-                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula} -
-                Titulação: {aluno.titulacao}
+                <strong>{aluno.nome}</strong> - Matrícula: {aluno.matricula}
                 <br />
-                Conclusão prevista em {aluno.datafinal}
+                Conclusão prevista em{" "}
+                {aluno.data_defesa
+                  ? format(new Date(aluno.data_defesa), "dd/MM/yyyy")
+                  : "-"}
               </div>
               <div>
                 <button
