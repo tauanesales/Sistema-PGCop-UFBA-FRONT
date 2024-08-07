@@ -94,20 +94,20 @@ function Tarefas() {
 
   return (
     <div className="contain">
-      <div className="botoesTarefas" style={{ marginLeft: "1000px" }}>
-        {/* Botão Adicionar Tarefa */}
-        <MdOutlineLibraryAdd
-          onClick={() => setShowAddModal(true)}
-          style={{ cursor: "pointer", marginRight: "30px" }}
-          size={35}
-          title="Adicionar Tarefa"
-        />
+      <div className="botoesTarefas">
         {/* Botão retornar */}
         <MdArrowBack
           onClick={() => navigate(-1)}
           style={{ cursor: "pointer", marginRight: "10px" }}
           size={35}
           title="Voltar"
+        />
+        {/* Botão Adicionar Tarefa */}
+        <MdOutlineLibraryAdd
+          onClick={() => setShowAddModal(true)}
+          style={{ cursor: "pointer", marginRight: "30px" }}
+          size={35}
+          title="Adicionar Tarefa"
         />
       </div>
 

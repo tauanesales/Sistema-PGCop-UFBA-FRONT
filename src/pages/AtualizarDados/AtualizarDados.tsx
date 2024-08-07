@@ -159,10 +159,10 @@ export const AtualizarDados = () => {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src="/assets/logoPgcop.png" width={70} />
+          <img src="/assets/logoPgcop.png" width={100} />
 
-          <div style={{ display: "flex", gap: 56 }}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="formulario" style={{ display: "flex", gap: 56 }}>
+            <div className="colunaFormulario" style={{ display: "flex", flexDirection: "column" }}>
               <FormikInput
                 name="nome"
                 label="Nome completo"
@@ -195,7 +195,7 @@ export const AtualizarDados = () => {
               />
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="colunaFormulario" style={{ display: "flex", flexDirection: "column" }}>
               {user!.tipo_usuario === TipoUsuario.ALUNO ? (
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <FormikInput

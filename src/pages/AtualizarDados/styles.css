@@ -87,3 +87,10 @@
 .bttn:hover {
   background-color: #e9eaec;
 }
+
+.formulario {
+  width: 60%;
+}
+.colunaFormulario {
+  width: 100%;
+}

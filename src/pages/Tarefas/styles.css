@@ -11,7 +11,7 @@
   justify-content: start;
   height: 80vh;
   width: 90vh;
-  margin-left: 5px;
+  margin: 2%;
   background-color: white;
   padding: 15px;
   border-radius: 3px;
@@ -29,11 +29,16 @@
 }
 
 .botoesTarefas {
+  width: 95%;
   display: flex;
-  align-items: end;
+  flex-direction: row;
+  align-items: center;
+
   position: fixed;
   cursor: pointer;
   margin-top: 2em;
+  padding: 2%;
+  gap: 2.5%;
 }
 
 .litarefas {
@@ -45,6 +50,7 @@
   display: flex;
   justify-content: space-between;
   align-items: start;
+  padding: 10%;
 }
 
 .labeltarefas {
@@ -90,7 +96,7 @@
   align-items: center;
   background-color: "#fff";
   padding: 0px 15px;
-  height: 50em;
+  height: 100%;
 }
 
 .inputContainer {

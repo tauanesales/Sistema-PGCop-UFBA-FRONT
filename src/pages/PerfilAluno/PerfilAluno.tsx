@@ -171,11 +171,11 @@ function PerfilAluno() {
 
             let backgroundColor;
             if (totalDays < 0) {
-              backgroundColor = "#f8bebe"; // Red for overdue tasks
+              backgroundColor = "#FFE3DC"; // Red for overdue tasks
             } else if (totalDays <= 90) {
-              backgroundColor = "#f7c6b3"; // Orange for tasks within 90 days
+              backgroundColor = "#FFEFCF"; // Orange for tasks within 90 days
             } else {
-              backgroundColor = "#f3eab8"; // Yellow for other tasks
+              backgroundColor = "#FFF9CF"; // Yellow for other tasks
             }
 
             const statusData =
@@ -279,7 +279,7 @@ function PerfilAluno() {
                 <div
                   id="task"
                   key={tarefa.id}
-                  style={{ backgroundColor: "#b2e6ad" }}
+                  style={{ backgroundColor: "#E3F1C7" }}
                 >
                   <AiOutlineFileExcel // Marcador icone
                     onClick={() => handleCheckboxChange(tarefa)}

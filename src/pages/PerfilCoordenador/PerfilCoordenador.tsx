@@ -175,7 +175,7 @@ function PerfilCoordenador() {
             </h3>
             {alunosMestrado.map((aluno) => (
               <li
-                style={{ cursor: "pointer", padding: "7px 20px" }}
+                style={{ padding: "7px 20px" }}
                 key={aluno.id}
                 onDoubleClick={() => handleDoubleClick(aluno.matricula)}
               >
