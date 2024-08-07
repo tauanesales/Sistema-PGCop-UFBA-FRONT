@@ -349,31 +349,35 @@ function Tarefas() {
             <Card.Body>
               <Card.Title>Adicionar nova tarefa</Card.Title>  
               <Form>
-                <Form.Group>
+                <Form.Group className="mb-3">
                   <Form.Label>Nome da Tarefa</Form.Label>
-                  <Form.Control type="email" placeholder="Nome da tarefa" />
+                  <Form.Control type="text" placeholder="Nome da tarefa" 
+                    value={novaTarefaNome}
+                    onChange={(e) => setNovaTarefaNome(e.target.value)} />
                 </Form.Group>
 
                 <Form.Group className="mb-3">
                   <Form.Label>Descrição</Form.Label>
-                  <Form.Control as="textarea" rows={3} />
+                  <Form.Control as="textarea" rows={3} 
+                    value={novaTarefaDescricao}
+                    onChange={(e) => setNovaTarefaDescricao(e.target.value)}/>
                 </Form.Group>
 
-                <Form.Group className="mb-3" >
-                  <Form.Label>Curso</Form.Label>
-                  <Form.Select value={novaTarefaTitulacao}
-                    onChange={(e) => setNovaTarefaTitulacao(e.target.value as TarefaBase["curso"])
-                }>
-                    
-                    <option value="M">Mestrado</option>
-                    <option value="D">Doutorado</option>
-                  </Form.Select>
-                </Form.Group>
+                <div className="inputContain">
+                  <Form.Group className="mb-3">
+                    <Form.Label>Curso</Form.Label>
+                    <Form.Select value={novaTarefaTitulacao}
+                      onChange={(e) => setNovaTarefaTitulacao(e.target.value as TarefaBase["curso"])}>
+                      <option value="M">Mestrado</option>
+                      <option value="D">Doutorado</option>
+                    </Form.Select>
+                  </Form.Group>
 
-                <Form.Group>
-                  <Form.Label>Prazo em meses</Form.Label>
-                  <Form.Control type="number" min={0} value={novaTarefaPrazo} onChange={(e) => setNovaTarefaPrazo(Number(e.target.value))} />
-                </Form.Group>
+                  <Form.Group>
+                    <Form.Label>Prazo em meses</Form.Label>
+                    <Form.Control type="number" min={0} value={novaTarefaPrazo} onChange={(e) => setNovaTarefaPrazo(Number(e.target.value))} />
+                  </Form.Group>
+                </div>
 
               </Form>
 
