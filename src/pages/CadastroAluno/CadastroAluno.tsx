@@ -220,9 +220,14 @@ const CadastroAluno = () => {
     >
       {({ values, setFieldValue, isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src="assets/logoPgcop.png" width={110} />
+          <img
+            style={{ position: "absolute", marginTop: "-495px" }}
+            src="assets/logoPgcop.png"
+            width={80}
+          />
 
           <RadioGroup
+            style={{ marginTop: "8em", marginLeft: "30px"}}
             row
             aria-label="tipo-usuario"
             name="tipo-usuario"
@@ -285,6 +290,7 @@ const CadastroAluno = () => {
               />
 
               <FormikPasswordInput
+                className="imputPassword"
                 name="senhaConfirmada"
                 label="Confirmar senha"
                 fullWidth
@@ -368,12 +374,42 @@ const CadastroAluno = () => {
             </div>
           </div>
 
-          <div className="buttonCadastro">
+          <div
+            className="buttonCadastro"
+            style={{
+              marginTop: "-1em",
+              display: "flex",
+              flexDirection: "row",
+              gap: "3em",
+            }}
+          >
             <LoadingButton
               className="bttn"
-              sx={{ marginTop: 2 }}
+              sx={{
+                marginTop: 2,
+                color: "#000000",
+                backgroundColor: "#D6DDE2", 
+                "&:hover": {
+                  backgroundColor: "#E9EAEC",
+                },
+              }}
               variant="contained"
-              fullWidth
+              onClick={() => navigate(-1)}
+            >
+              Voltar
+            </LoadingButton>
+
+            <LoadingButton
+              className="bttn"
+              sx={{
+                marginTop: 2,
+                color: "#000000",
+                backgroundColor: "#D6DDE2", // cinza claro
+                "&:hover": {
+                  backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
+                },
+              }}
+              variant="contained"
               loading={isSubmitting}
               onClick={() => handleSubmit()}
               disabled={isSubmitting}

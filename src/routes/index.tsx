@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import { TipoUsuario } from "@/models/User";
-import { AtualizarDados } from "@/pages/AtualizarDados/AtualizarDados";
+import { EditarDados } from "@/pages/EditarDados/EditarDados";
 import AtualizarSenha from "@/pages/AtualizarSenha/AtualizarSenha";
 import CadastroAluno from "@/pages/CadastroAluno/CadastroAluno";
 import ConfirmarCadastro from "@/pages/ConfirmarCadastro/ConfirmarCadastro";
@@ -30,8 +30,8 @@ const routes = createRoutesFromElements(
       <Route path="/perfil-aluno" element={<PerfilAluno />} />
 
       <Route
-        path="/perfil-aluno/atualizar-dados"
-        element={<AtualizarDados />}
+        path="/perfil-aluno/editar-dados"
+        element={<EditarDados />}
       />
     </Route>
 
