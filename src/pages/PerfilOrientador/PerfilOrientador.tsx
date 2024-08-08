@@ -251,7 +251,7 @@ function PerfilOrientador() {
                     className="bttn"
                     onClick={() => {
                       setSelectedAluno(aluno);
-                      setShowModal(true);
+                      setShowAddModal(true);
                     }}
                     style={{
                       marginRight: "10px",
@@ -330,7 +330,7 @@ function PerfilOrientador() {
                     className="bttn"
                     onClick={() => {
                       setSelectedAluno(aluno);
-                      setShowModal(true);
+                      setShowAddModal(true);
                     }}
                     style={{
                       marginRight: "10px",
