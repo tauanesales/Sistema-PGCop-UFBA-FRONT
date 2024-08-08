@@ -59,6 +59,8 @@ function PerfilOrientador() {
   const [showSolicitacoes, setShowSolicitacoes] = useState(false);
 
   /* Const Add Tarefas*/
+  const [successMessage, setSuccessMessage] = useState(""); // Novo estado para mensagem de sucesso
+  const [showTaskModal, setShowTaskModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [novaTarefaNome, setNovaTarefaNome] = useState("");
   const [novaTarefaPrazo, setNovaTarefaPrazo] = useState(0);
@@ -110,6 +112,23 @@ function PerfilOrientador() {
         setNovaTarefaTitulacao("M");
       },
     });
+  };
+
+  const handleAddTask = (aluno) => {
+    setSelectedAluno(aluno);
+    setShowTaskModal(true);
+  };
+
+  const handleTaskSubmit = (e) => {
+    e.preventDefault();
+    // Adicione a lógica para enviar os dados da tarefa aqui
+
+    // Exemplo de envio de dados da tarefa (substitua com a lógica real)
+    // saveTask({ ...taskData });
+
+    setShowTaskModal(false);
+    setSuccessMessage("Tarefa incluída com sucesso!"); // Exibir mensagem de sucesso
+    setTimeout(() => setSuccessMessage(""), 3000); // Ocultar mensagem após 3 segundos
   };
 
   const alunosMestrado = alunos.filter((aluno) => aluno.curso === "M");
@@ -232,13 +251,9 @@ function PerfilOrientador() {
                   </button>
                   <button
                     className="bttn"
-                    onClick={() => {
-                      setSelectedAluno(aluno);
-                      setShowModal(true);
-                    }}
+                    onClick={() => handleAddTask(aluno)}
                     style={{
                       marginRight: "10px",
-                      marginLeft: "12em",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -268,6 +283,20 @@ function PerfilOrientador() {
             ))}
           </ul>
         </div>
+
+        {/* Mensagem de sucesso */}
+        {successMessage && (
+          <div
+            style={{
+              textAlign: "center",
+              color: "green",
+              fontWeight: "bold",
+              marginTop: "20px",
+            }}
+          >
+            {successMessage}
+          </div>
+        )}
 
         <div className="containerOrientadorOrientandos">
           <ul>
@@ -311,13 +340,9 @@ function PerfilOrientador() {
                   </button>
                   <button
                     className="bttn"
-                    onClick={() => {
-                      setSelectedAluno(aluno);
-                      setShowModal(true);
-                    }}
+                    onClick={() => handleAddTask(aluno)}
                     style={{
                       marginRight: "10px",
-                      marginLeft: "12em",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -330,7 +355,7 @@ function PerfilOrientador() {
                     className="bttn"
                     onClick={() => {
                       setSelectedAluno(aluno);
-                      setShowAddModal(true);
+                      setShowModal(true);
                     }}
                     style={{
                       marginRight: "10px",
@@ -378,6 +403,42 @@ function PerfilOrientador() {
                 Não
               </button>
             </ul>
+          </div>
+        </div>
+      )}
+
+      {/* Mini Modal de tarefas */}
+      {showTaskModal && (
+        <div className="taskModal">
+          <div className="modalContent" style={{ zIndex: "9999" }}>
+            <h2>Adicionar Tarefa</h2>
+            <form onSubmit={handleTaskSubmit}>
+              <div style={{ marginBottom: "10px" }}>
+                <label>
+                  Descrição da tarefa <span className="required">*</span>
+                </label>
+                <textarea required></textarea>
+              </div>
+              <div style={{ marginBottom: "10px" }}>
+                <label>
+                  Data de Entrega <span className="required">*</span>
+                </label>
+                <input type="date" required />
+              </div>
+              <button
+                className="bttn"
+                type="submit"
+                style={{
+                  marginRight: "10px",
+                  height: "40px",
+                  borderRadius: "5px",
+                  width: "100%",
+                  fontSize: "13px",
+                }}
+              >
+                Incluir
+              </button>
+            </form>
           </div>
         </div>
       )}
