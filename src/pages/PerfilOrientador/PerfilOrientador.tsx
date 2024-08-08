@@ -2,13 +2,20 @@ import "./styles.css";
 
 import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
-import { MdGroupAdd, MdLogout } from "react-icons/md";
+import {
+  MdLogout,
+  MdOutlineLibraryAdd,
+  MdOutlinePeopleAlt,
+} from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 import { Status } from "@/models/Solicitacao";
+import { TarefaBase } from "@/models/TarefaBase";
 import { Aluno, Professor } from "@/models/User";
 import { useAlunosQueries } from "@/queries/alunos";
 import { useProfessoresQueries } from "@/queries/professores";
 import { useSolicitacoesQueries } from "@/queries/solicitacoes";
+import { useTarefasBaseQueries } from "@/queries/tarefasBase";
 import { useUserQueries } from "@/queries/user";
 
 import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
@@ -17,6 +24,12 @@ function PerfilOrientador() {
   const containerRef = useRef(null);
 
   const { signOut, useGetUser } = useUserQueries();
+
+  const navigate = useNavigate();
+
+  const { useCreateTarefa } = useTarefasBaseQueries();
+
+  const { mutate: createTarefa } = useCreateTarefa();
 
   const { data: userData } = useGetUser();
 
@@ -45,6 +58,14 @@ function PerfilOrientador() {
   const [selectedAluno, setSelectedAluno] = useState<Aluno>();
   const [showSolicitacoes, setShowSolicitacoes] = useState(false);
 
+  /* Const Add Tarefas*/
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [novaTarefaNome, setNovaTarefaNome] = useState("");
+  const [novaTarefaPrazo, setNovaTarefaPrazo] = useState(0);
+  const [novaTarefaDescricao, setNovaTarefaDescricao] = useState("");
+  const [novaTarefaTitulacao, setNovaTarefaTitulacao] =
+    useState<TarefaBase["curso"]>("M");
+
   useEffect(() => {
     if (solicitacoes.length === 0) {
       setShowSolicitacoes(false);
@@ -54,7 +75,7 @@ function PerfilOrientador() {
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
     if (aluno) {
-      window.open(`/perfil-aluno`);
+      navigate(`/perfil-aluno-orientador`);
     }
   };
 
@@ -72,6 +93,24 @@ function PerfilOrientador() {
 
   const handleRemoveRequest = (solicitacaoId: number) =>
     updatedSolicitacao({ solicitacaoId, status: Status.RECUSADA });
+
+  const handleAddTarefa = () => {
+    const newTarefa = {
+      nome: novaTarefaNome,
+      prazo_em_meses: novaTarefaPrazo,
+      descricao: novaTarefaDescricao,
+      curso: novaTarefaTitulacao,
+    };
+    createTarefa(newTarefa, {
+      onSuccess: () => {
+        setShowAddModal(false);
+        setNovaTarefaNome("");
+        setNovaTarefaPrazo(0);
+        setNovaTarefaDescricao("");
+        setNovaTarefaTitulacao("M");
+      },
+    });
+  };
 
   const alunosMestrado = alunos.filter((aluno) => aluno.curso === "M");
   const alunosDoutorado = alunos.filter((aluno) => aluno.curso === "D");
@@ -105,8 +144,8 @@ function PerfilOrientador() {
             <h3>Orientandos: {alunos.length}</h3>
           </div>
           <div className="botoesToolbar">
-            <div style={{ position: "relative" }}>
-              <MdGroupAdd
+            <div style={{ marginTop: "-0.3em" }}>
+              <MdOutlinePeopleAlt
                 onClick={handleSolicitacoesClick}
                 style={{
                   marginRight: "40px",
@@ -117,11 +156,7 @@ function PerfilOrientador() {
                 title="Solicitações"
               />
               {showSolicitacoes && (
-                <div
-                  ref={containerRef}
-                  className="solicitacoesContainer"
-                  style={{ position: "absolute", top: "-50px" }}
-                >
+                <div ref={containerRef} className="solicitacoesContainer">
                   <Solicitacoes
                     solicitacoes={solicitacoes}
                     handleAcceptRequest={handleAcceptRequest}
@@ -129,6 +164,15 @@ function PerfilOrientador() {
                   />
                 </div>
               )}
+            </div>
+            <div>
+              {/* Botão Adicionar Tarefa */}
+              <MdOutlineLibraryAdd
+                onClick={() => setShowAddModal(true)}
+                style={{ cursor: "pointer", marginRight: "40px" }}
+                size={35}
+                title="Adicionar Tarefa"
+              />
             </div>
             <div>
               <MdLogout
@@ -147,8 +191,8 @@ function PerfilOrientador() {
       </h2>
       <div className="listaAlunos">
         <div className="containerOrientadorOrientandos">
-        <ul>
-          <h3
+          <ul>
+            <h3
               style={{
                 marginLeft: "20px",
                 marginBottom: "10px",
@@ -177,7 +221,7 @@ function PerfilOrientador() {
                     onClick={() => handleDoubleClick(aluno.matricula)}
                     style={{
                       marginRight: "10px",
-                      marginLeft:'12em',
+                      marginLeft: "12em",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -194,7 +238,23 @@ function PerfilOrientador() {
                     }}
                     style={{
                       marginRight: "10px",
-                      marginLeft:'12em',
+                      marginLeft: "12em",
+                      height: "30px",
+                      borderRadius: "5px",
+                      width: "95px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    + Tarefa
+                  </button>
+                  <button
+                    className="bttn"
+                    onClick={() => {
+                      setSelectedAluno(aluno);
+                      setShowModal(true);
+                    }}
+                    style={{
+                      marginRight: "10px",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -240,7 +300,7 @@ function PerfilOrientador() {
                     onClick={() => handleDoubleClick(aluno.matricula)}
                     style={{
                       marginRight: "10px",
-                      marginLeft:'12em',
+                      marginLeft: "12em",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -257,7 +317,23 @@ function PerfilOrientador() {
                     }}
                     style={{
                       marginRight: "10px",
-                      marginLeft:'12em',
+                      marginLeft: "12em",
+                      height: "30px",
+                      borderRadius: "5px",
+                      width: "95px",
+                      fontSize: "13px",
+                    }}
+                  >
+                    + Tarefa
+                  </button>
+                  <button
+                    className="bttn"
+                    onClick={() => {
+                      setSelectedAluno(aluno);
+                      setShowModal(true);
+                    }}
+                    style={{
+                      marginRight: "10px",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -300,6 +376,91 @@ function PerfilOrientador() {
                 style={{ padding: "1px" }}
               >
                 Não
+              </button>
+            </ul>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Adicionar Tarefa*/}
+      {showAddModal && (
+        <div className="confirmationBox">
+          <div className="modalTarefas" style={{ backgroundColor: "#fff" }}>
+            <p style={{ fontWeight: "bold", marginBottom: "2vh" }}>
+              Adicionar Nova Tarefa
+            </p>
+            <label>Nome da Tarefa</label>
+            <input
+              className="inputContainer"
+              type="text"
+              value={novaTarefaNome}
+              onChange={(e) => setNovaTarefaNome(e.target.value)}
+              placeholder="Nome da tarefa"
+              style={{
+                marginBottom: "10px",
+                height: "7%",
+                width: "100%",
+                padding: "8px",
+              }}
+            />
+            <label>Descrição</label>
+            <textarea
+              className="inputContainer"
+              value={novaTarefaDescricao}
+              onChange={(e) => setNovaTarefaDescricao(e.target.value)}
+              placeholder="Descrição"
+              style={{
+                marginBottom: "10px",
+                height: "30%",
+                width: "100%",
+                padding: "8px",
+              }}
+            />
+            <label>Curso</label>
+            <select
+              className="inputContainer"
+              value={novaTarefaTitulacao}
+              onChange={(e) =>
+                setNovaTarefaTitulacao(e.target.value as TarefaBase["curso"])
+              }
+              style={{
+                marginBottom: "10px",
+                height: "7%",
+                width: "20%",
+                padding: "8px",
+              }}
+            >
+              <option value="M">Mestrado</option>
+              <option value="D">Doutorado</option>
+            </select>
+            <label>Prazo em meses</label>
+            <input
+              className="inputContainer"
+              type="number"
+              value={novaTarefaPrazo}
+              onChange={(e) => setNovaTarefaPrazo(Number(e.target.value))}
+              placeholder="Prazo em meses"
+              style={{
+                marginBottom: "10px",
+                height: "7%",
+                width: "10%",
+                padding: "8px",
+              }}
+            />
+            <ul style={{ display: "flex" }}>
+              <button
+                className="bttn"
+                onClick={() => setShowAddModal(false)}
+                style={{ padding: "1px" }}
+              >
+                Cancelar
+              </button>
+              <button
+                className="bttn"
+                onClick={handleAddTarefa}
+                style={{ marginLeft: "5vh", padding: "1px" }}
+              >
+                Adicionar
               </button>
             </ul>
           </div>

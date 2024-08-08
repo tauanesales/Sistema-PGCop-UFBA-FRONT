@@ -67,7 +67,7 @@ function PerfilCoordenador() {
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
     if (aluno) {
-      window.open(`/perfil-aluno`);
+      navigate(`/perfil-aluno`);
     }
   };
 
@@ -187,13 +187,13 @@ function PerfilCoordenador() {
                     ? format(new Date(aluno.data_defesa), "dd/MM/yyyy")
                     : "-"}
                 </div>
-                <div >
+                <div>
                   <button
                     className="bttn"
                     onClick={() => handleDoubleClick(aluno.matricula)}
                     style={{
                       marginRight: "10px",
-                      marginLeft:'12em',
+                      marginLeft: "12em",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -210,7 +210,7 @@ function PerfilCoordenador() {
                     }}
                     style={{
                       marginRight: "10px",
-                      marginLeft:'12em',
+                      marginLeft: "12em",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -257,7 +257,7 @@ function PerfilCoordenador() {
                     onClick={() => handleDoubleClick(aluno.matricula)}
                     style={{
                       marginRight: "10px",
-                      marginLeft:'12em',
+                      marginLeft: "12em",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -274,7 +274,7 @@ function PerfilCoordenador() {
                     }}
                     style={{
                       marginRight: "10px",
-                      marginLeft:'12em',
+                      marginLeft: "12em",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",

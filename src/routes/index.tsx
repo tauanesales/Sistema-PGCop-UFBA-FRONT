@@ -17,6 +17,7 @@ import Error404 from "@/pages/Erro/Error404";
 import EsqueciSenha from "@/pages/EsqueciSenha/EsqueciSenha";
 import Login from "@/pages/Login/Login";
 import PerfilAluno from "@/pages/PerfilAluno/PerfilAluno";
+import PerfilAlunoOrientador from "@/pages/PerfilAlunoOrientador/PerfilAlunoOrientador";
 import PerfilCoordenador from "@/pages/PerfilCoordenador/PerfilCoordenador";
 import PerfilOrientador from "@/pages/PerfilOrientador/PerfilOrientador";
 import Tarefas from "@/pages/Tarefas/Tarefas";
@@ -39,6 +40,10 @@ const routes = createRoutesFromElements(
       element={<AuthenticationGuard allowedRoles={[TipoUsuario.PROFESSOR]} />}
     >
       <Route path="/perfil-professor" element={<PerfilOrientador />} />
+      <Route
+        path="/perfil-aluno-orientador"
+        element={<PerfilAlunoOrientador />}
+      />
     </Route>
 
     <Route
