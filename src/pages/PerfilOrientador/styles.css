@@ -2,9 +2,8 @@
   align-items: top;
   line-height: 1.1;
   height: auto;
-  width: 100%;
-  max-width: 85em;
-  background-color: #edf1f4;
+  width: 80%;
+  background: linear-gradient(0.25turn, #F6F9FA, #EFF3F5, #ECF0F3);
   display: flex;
   padding: 1em 1em;
   box-sizing: border-box;
@@ -15,7 +14,7 @@
   display: flex;
   line-height: 2;
   margin-top: 0.5em;
-  width: 100%;
+  width: 80%;
 }
 .infoOrientador h2 {
   white-space: nowrap;
@@ -32,9 +31,10 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 93%;
+  width: 80%;
   margin: 0 auto;
   padding-top: 1em; /* Adiciona espaço entre o containerAluno e as tarefas*/
+  gap: 2%;
 }
 
 .containerOrientadorOrientandos {
@@ -54,7 +54,6 @@
 
 .botoesToolbar {
   margin-top: 0.1em;
-  margin-left: 41em;
   justify-content: end;
 }
 
@@ -102,7 +101,7 @@ li div {
 }
 
 .solicitacoesContainer {
-  margin-top: 80px;
+  margin-top: 5em;
   margin-left: -28.5em;
 }
 

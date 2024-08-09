@@ -71,7 +71,7 @@ const Login = () => {
 
             <div className="conectado" style={{ marginTop: "1em" }}>
               <input type="checkbox" name="conectado" id="conectado" />
-              <label htmlFor="conectado">Matenha-me conectado</label>
+              <label htmlFor="conectado">Mantenha-me conectado</label>
             </div>
 
             {/* Botão Login */}

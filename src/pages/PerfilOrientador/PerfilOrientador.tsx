@@ -120,7 +120,7 @@ function PerfilOrientador() {
                 <div
                   ref={containerRef}
                   className="solicitacoesContainer"
-                  style={{ position: "absolute", top: "-50px" }}
+                  style={{ position: "absolute" }}
                 >
                   <Solicitacoes
                     solicitacoes={solicitacoes}
