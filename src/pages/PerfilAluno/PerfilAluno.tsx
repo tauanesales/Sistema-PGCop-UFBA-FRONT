@@ -47,11 +47,6 @@ function PerfilAluno() {
     new Date().toISOString().split("T")[0],
   );
 
-  useEffect(() => {
-    console.log(user)
-  }
-  , [user])
-
   const handleCheckboxChange = (tarefa: Tarefa) => {
     const { id, completada } = tarefa;
     if (completada) {

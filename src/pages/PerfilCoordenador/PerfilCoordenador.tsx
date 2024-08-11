@@ -118,7 +118,7 @@ function PerfilCoordenador() {
                     </Stack>
                     <Stack className="botoesToolbarAluno" >
                       <MdOutlinePeopleAlt
-                        onClick={handleSolicitacoesClick}
+                        onClick={() => handleSolicitacoesClick()}
                         style={{
                           cursor: "pointer",
                           color: solicitacoes.length > 0 ? "red" : "inherit",
@@ -127,11 +127,12 @@ function PerfilCoordenador() {
                         title="Solicitações"
                       />
                       {showSolicitacoes && (
-                        <div ref={containerRef} className="solicitacoesContainer">
+                        <div ref={containerRef} className="solicitacoesContainer" >
                           <Solicitacoes
                             solicitacoes={solicitacoes}
                             handleAcceptRequest={handleAcceptRequest}
                             handleRemoveRequest={handleRemoveRequest}
+                            
                           />
                         </div>
                       )}

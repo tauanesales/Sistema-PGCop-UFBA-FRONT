@@ -1,5 +1,6 @@
 .containerAluno {
   width: 100%;
+  height: 12em;
   display: flex;
   max-width: 80em;
   margin-top: 1em;
