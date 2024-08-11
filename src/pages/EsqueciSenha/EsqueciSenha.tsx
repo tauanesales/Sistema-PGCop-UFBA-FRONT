@@ -1,10 +1,32 @@
 import "./styles.css";
 
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import ButtonSecondary from "@/components/ButtonSecondary";
 import Input from "@/components/Input";
+import { useUserQueries } from "@/queries/user";
 
 const EsqueciSenha = () => {
   const logoPgcop = "assets/logoPgcop.png";
+
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+
+  const { useRequestResetPasswordCode } = useUserQueries();
+
+  const { mutate: requestResetPasswordCode, isPending } =
+    useRequestResetPasswordCode();
+
+  const onClickSend = () =>
+    requestResetPasswordCode(
+      { email },
+      {
+        onSuccess: () =>
+          navigate("/confirmar-envio-email", { state: { email } }),
+      },
+    );
 
   return (
     <div className="container">
@@ -15,13 +37,15 @@ const EsqueciSenha = () => {
 
         <div className="containInput">
           <Input
-            label={"E-mail:"}
-            type={"email"}
+            label="E-mail:"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
             style={{ marginBottom: ".5em" }}
           />
           <ButtonSecondary
-            link={"/confirmar-envio-email"}
-            label={"Enviar"}
+            onClick={onClickSend}
+            label={isPending ? "Carregando..." : "Enviar"}
             style={{ width: "12em" }}
           />
         </div>
