@@ -4,7 +4,8 @@ import { ErrorMessage, Form, Formik } from "formik";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
-import { FormikHTMLInput } from "@/components/FormikHTMLInput";
+import Input from "@/components/Input";
+import ButtonSecondary from "@/components/ButtonSecondary";
 import { useUserQueries } from "@/queries/user";
 
 const logoPgcop = "/assets/logoPgcop.png";
@@ -16,13 +17,9 @@ type Values = {
 
 function AtualizarSenha() {
   const navigate = useNavigate();
-
   const location = useLocation();
-
   const { email, token } = location.state || {};
-
   const { useResetPassword } = useUserQueries();
-
   const { mutate: resetPassword, isPending } = useResetPassword();
 
   const handleResetPassword = (values: Values) =>
@@ -41,78 +38,56 @@ function AtualizarSenha() {
   });
 
   return (
-    <Formik
-      initialValues={{
-        password: "",
-        confirmPassword: "",
-      }}
-      validationSchema={validationSchema}
-      onSubmit={handleResetPassword}
-    >
-      <Form
-        style={{
-          backgroundColor: "white",
-          borderRadius: "10px",
-          padding: "20px",
-          width: "350px",
-          height: "500px",
-          textAlign: "center",
-        }}
-      >
-        <img src={logoPgcop} width={110} />
+    <div className="container">
+      <div className="containerCard">
+        <img src={logoPgcop} width={130} />
+        <h1>Atualizar Senha</h1>
+        <p>Informe a nova senha para atualizar seu acesso.</p>
 
-        <h4>Atualizar Senha</h4>
-        {/* Campo Nova Senha */}
-        <div style={{ position: "relative", marginBottom: "20px" }}>
-          <FormikHTMLInput
-            name="password"
-            required
-            type="password"
-            placeholder="Nova Senha"
-            style={{
-              width: "90%",
-              padding: "12px",
-              borderRadius: "5px",
-              backgroundColor: "#d3d3d3",
-              color: "#333",
-              fontSize: "14px",
-              border: "1px solid #ccc",
-            }}
-          />
-          <ErrorMessage name="password" />
-        </div>
-
-        {/* Campo Confirmar Nova Senha */}
-        <div style={{ position: "relative", marginBottom: "20px" }}>
-          <FormikHTMLInput
-            name="confirmPassword"
-            type="password"
-            placeholder="Digite Novamente"
-            style={{
-              width: "90%",
-              padding: "12px",
-              borderRadius: "5px",
-              backgroundColor: "#d3d3d3",
-              color: "#333",
-              fontSize: "14px",
-              border: "1px solid #ccc",
-            }}
-          />
-          <ErrorMessage name="confirmPassword" />
-        </div>
-
-        <button
-          disabled={isPending}
-          style={{
-            padding: "5px 5px",
-            borderRadius: "5px",
-            fontSize: "15px",
+        <Formik
+          initialValues={{
+            password: "",
+            confirmPassword: "",
           }}
+          validationSchema={validationSchema}
+          onSubmit={handleResetPassword}
         >
-          {isPending ? "Carregando..." : "Atualizar Senha"}
-        </button>
-      </Form>
-    </Formik>
+          {({ isSubmitting, handleSubmit }) => (
+            <div className="containInput">
+              {/* Campo Nova Senha */}
+              <Input
+                name="password"
+                type="password"
+                label="Nova Senha:"
+                placeholder="Digite a nova senha"
+                required
+                style={{ marginBottom: ".5em" }}
+              />
+              <ErrorMessage name="password" component="div" />
+
+              {/* Campo Confirmar Nova Senha */}
+              <Input
+                name="confirmPassword"
+                type="password"
+                label="Confirmar Senha:"
+                placeholder="Digite a senha novamente"
+                required
+                style={{ marginBottom: ".5em" }}
+              />
+              <ErrorMessage name="confirmPassword" component="div" />
+
+              <ButtonSecondary
+                type="submit"
+                label={isPending ? "Carregando..." : "Atualizar Senha"}
+                style={{ width: "12em", alignSelf: "center" }}
+                disabled={isSubmitting || isPending}
+                onClick={() => handleSubmit()}
+              />
+            </div>
+          )}
+        </Formik>
+      </div>
+    </div>
   );
 }
 
