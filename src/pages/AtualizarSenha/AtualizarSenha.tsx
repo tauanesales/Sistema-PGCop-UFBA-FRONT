@@ -1,11 +1,11 @@
 import "./styles.css";
 
-import { ErrorMessage, Form, Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
-import Input from "@/components/Input";
 import ButtonSecondary from "@/components/ButtonSecondary";
+import Input from "@/components/Input";
 import { useUserQueries } from "@/queries/user";
 
 const logoPgcop = "/assets/logoPgcop.png";

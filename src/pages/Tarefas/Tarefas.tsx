@@ -1,6 +1,7 @@
 import "./styles.css";
 
 import { useState } from "react";
+import { Button, Card, Form } from "react-bootstrap";
 import {
   MdArrowBack,
   MdCreate,
@@ -11,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 
 import { TarefaBase } from "@/models/TarefaBase";
 import { useTarefasBaseQueries } from "@/queries/tarefasBase";
-import { Button, Card, Form } from "react-bootstrap";
 
 function Tarefas() {
   const navigate = useNavigate();
