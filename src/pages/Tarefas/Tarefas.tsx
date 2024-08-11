@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import { TarefaBase } from "@/models/TarefaBase";
 import { useTarefasBaseQueries } from "@/queries/tarefasBase";
+import { Button, Card, Form } from "react-bootstrap";
 
 function Tarefas() {
   const navigate = useNavigate();
@@ -342,86 +343,58 @@ function Tarefas() {
 
       {/* Modal de Adicionar Tarefa*/}
       {showAddModal && (
-        <div className="confirmationBox">
-          <div className="modalTarefas" style={{ backgroundColor: "#fff" }}>
-            <p style={{ fontWeight: "bold", marginBottom: "2vh" }}>
-              Adicionar Nova Tarefa
-            </p>
-            <label>Nome da Tarefa</label>
-            <input
-              className="inputContainer"
-              type="text"
-              value={novaTarefaNome}
-              onChange={(e) => setNovaTarefaNome(e.target.value)}
-              placeholder="Nome da tarefa"
-              style={{
-                marginBottom: "10px",
-                height: "7%",
-                width: "100%",
-                padding: "8px",
-              }}
-            />
-            <label>Descrição</label>
-            <textarea
-              className="inputContainer"
-              value={novaTarefaDescricao}
-              onChange={(e) => setNovaTarefaDescricao(e.target.value)}
-              placeholder="Descrição"
-              style={{
-                marginBottom: "10px",
-                height: "30%",
-                width: "100%",
-                padding: "8px",
-              }}
-            />
-            <label>Curso</label>
-            <select
-              className="inputContainer"
-              value={novaTarefaTitulacao}
-              onChange={(e) =>
-                setNovaTarefaTitulacao(e.target.value as TarefaBase["curso"])
-              }
-              style={{
-                marginBottom: "10px",
-                height: "7%",
-                width: "20%",
-                padding: "8px",
-              }}
-            >
-              <option value="M">Mestrado</option>
-              <option value="D">Doutorado</option>
-            </select>
-            <label>Prazo em meses</label>
-            <input
-              className="inputContainer"
-              type="number"
-              value={novaTarefaPrazo}
-              onChange={(e) => setNovaTarefaPrazo(Number(e.target.value))}
-              placeholder="Prazo em meses"
-              style={{
-                marginBottom: "10px",
-                height: "7%",
-                width: "10%",
-                padding: "8px",
-              }}
-            />
-            <ul style={{ display: "flex" }}>
-              <button
-                className="bttn"
-                onClick={() => setShowAddModal(false)}
-                style={{ padding: "1px" }}
-              >
-                Cancelar
-              </button>
-              <button
-                className="bttn"
-                onClick={handleAddTarefa}
-                style={{ marginLeft: "5vh", padding: "1px" }}
-              >
-                Adicionar
-              </button>
-            </ul>
-          </div>
+        <div className="cardBackground">
+          <Card className="modalTarefas">
+            <Card.Header as="h3">Nova Tarefa</Card.Header>
+            <Card.Body>
+              <Card.Title>Adicionar nova tarefa</Card.Title>  
+              <Form>
+                <Form.Group className="mb-3">
+                  <Form.Label>Nome da Tarefa</Form.Label>
+                  <Form.Control type="text" placeholder="Nome da tarefa" 
+                    value={novaTarefaNome}
+                    onChange={(e) => setNovaTarefaNome(e.target.value)} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Descrição</Form.Label>
+                  <Form.Control as="textarea" rows={3} 
+                    value={novaTarefaDescricao}
+                    onChange={(e) => setNovaTarefaDescricao(e.target.value)}/>
+                </Form.Group>
+
+                <div className="inputContain">
+                  <Form.Group className="mb-3">
+                    <Form.Label>Curso</Form.Label>
+                    <Form.Select value={novaTarefaTitulacao}
+                      onChange={(e) => setNovaTarefaTitulacao(e.target.value as TarefaBase["curso"])}>
+                      <option value="M">Mestrado</option>
+                      <option value="D">Doutorado</option>
+                    </Form.Select>
+                  </Form.Group>
+
+                  <Form.Group>
+                    <Form.Label>Prazo em meses</Form.Label>
+                    <Form.Control type="number" min={0} value={novaTarefaPrazo} onChange={(e) => setNovaTarefaPrazo(Number(e.target.value))} />
+                  </Form.Group>
+                </div>
+
+              </Form>
+
+              <div className="buttonContainer">
+                <Button className="bttnCoordenador bttnVermelho"
+                  onClick={() => setShowAddModal(false)}
+                >
+                  Cancelar
+                </Button>
+                <Button className="bttnCoordenador bttnVerde"
+                  onClick={() => {handleAddTarefa()}}>
+                  Adicionar
+                </Button>
+              </div>        
+            </Card.Body>
+            
+          </Card>
         </div>
       )}
 
@@ -438,22 +411,17 @@ function Tarefas() {
             }}
           >
             <p>Tem certeza que deseja remover essa tarefa da lista?</p>
-            <ul style={{ display: "flex" }}>
-              <button
-                className="bttn"
-                onClick={handleDelete}
-                style={{ marginRight: "30px", padding: "1px" }}
-              >
-                Sim
-              </button>
-              <button
-                className="bttn"
+            <div className="buttonContainer">
+              <Button className="bttnCoordenador bttnVermelho"
                 onClick={() => setShowModal(false)}
-                style={{ padding: "1px" }}
               >
                 Não
-              </button>
-            </ul>
+              </Button>
+              <Button className="bttnCoordenador bttnVerde"
+                onClick={handleDelete}>
+                Sim
+              </Button>
+            </div>
           </div>
         </div>
       )}

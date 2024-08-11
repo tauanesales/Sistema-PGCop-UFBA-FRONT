@@ -35,7 +35,7 @@ const telefoneMaskOptions = {
   replacement: { _: /\d/ },
 };
 
-export const AtualizarDados = () => {
+export const EditarDados = () => {
   const { useGetUser, useUpdateUser } = useUserQueries();
 
   const { mutate: updateUser } = useUpdateUser();
@@ -161,7 +161,7 @@ export const AtualizarDados = () => {
         <Form className="containerPrincipal">
           <img src="/assets/logoPgcop.png" width={70} />
 
-          <div style={{ display: "flex", gap: 56 }}>
+          <div style={{ display: "flex", gap: 60 }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <FormikInput
                 name="nome"

@@ -1,17 +1,26 @@
 
 .containerCoordenador {
-  align-items: top;
-  line-height: 1.1;
-  height: auto;
-  width: 100%;
-  max-width: 85em;
-  background-color: #edf1f4;
   display: flex;
-  padding: 1em 1em;
+  margin-top: 1em;
+  width: 100%;
+  max-width: 80em;
+  background-color: #edf1f4;
   box-sizing: border-box;
   box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+  font-family: "Inter", sans-serif;
+
+  h2{
+    font-size: 1.6em;
+    font-weight: 700;
+  }
+  h3{
+    font-size: 1.4em;
+  }
 }
 
+.contain{
+  gap: 2em;
+}
 .containerCoordenador img {
   width: 6.5em;
   height: 8em;
@@ -21,17 +30,19 @@
 
 .infoCoordenador {
   display: flex;
-  line-height: 2;
+  justify-content: center;
   margin-top: 0.5em;
   width: 100%;
 }
 .infoCoordenador h2 {
   white-space: nowrap;
+  font-weight: 700;
 }
 
 .listaAlunosCoord {
   display: flex;
   justify-content: space-around;
+  gap: 3em;
   align-items: center;
   width: 93%;
   margin: 0 auto;
@@ -40,53 +51,15 @@
 
 .containerOrientandosCoordenador {
   display: flex;
-  flex-wrap: wrap-reverse;
-  justify-content: start;
-  justify-content: space-around;
+  gap: 1em;
   height: 60vh;
-  width: 90vh;
-  max-width: 55em; /*largura máxima */
+  width: 100%;
+  max-width: 55em; 
   background-color: white;
   padding: 1em;
   border-radius: 3px;
   overflow-y: auto;
   box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
-}
-
-.botoesToolbar {
-  margin-top: 0.1em;
-}
-
-button {
-  background-color: rgba(42, 41, 41, 0.77);
-  width: 130px;
-  height: 40px;
-}
-
-ul {
-  border-top: -70px;
-  width: 100%;
-  list-style-type: none;
-  padding-left: 0;
-  cursor: pointer;
-  justify-content: flex-start;
-}
-
-li {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 1px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 1em;
-}
-
-li div {
-  display: grid;
-  justify-content: start;
-  flex: 1;
 }
 
 .confirmationBox {
@@ -105,21 +78,51 @@ li div {
   position: absolute;
 }
 
-.bttn {
-  height: 25px;
-  width: 100px;
+.cardAluno{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-height: 6em;
+  background-color: #ECF9FF;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  
+}
+
+.infoAlunos{
+  display: flex;
+  flex-direction: column;
+  line-height: .8;
+}
+
+.bttnCoordenador {
+  background-color: rgba(42, 41, 41, 0.77);
+  width: 7em;
+  height: 2.5em;
   padding: 0 5px;
   border-radius: 5px;
   cursor: pointer;
-  margin-left: 5px;
-  margin-top: 5px;
   color: #000000;
-  background-color: #d6dde2;
   font-family: "Raleway", sans-serif;
   font-size: 0.9em;
   font-weight: 600;
   border: none;
 }
-.bttn:hover {
-  background-color: #e9eaec;
+.bttnCoordenador:hover {
+  color:#000000;
+  transform: scale(1.04);
+}
+
+.bttnVerde{
+  background-color: #b2e6ad;
+}
+
+.bttnVermelho{
+  background-color: #f8bebe;
+}
+.bttnVerde:hover {
+  background-color: #b2e6ad;
+}
+.bttnVermelho:hover {
+  background-color: #f8bebe;
 }
