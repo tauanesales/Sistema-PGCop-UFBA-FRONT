@@ -55,15 +55,11 @@ function PerfilAluno() {
     new Date().toISOString().split("T")[0],
   );
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   const handleCheckboxChange = (tarefa: Tarefa) => {
-    const { id, completada } = tarefa;
-    if (completada) {
+    const { id, concluida } = tarefa;
+    if (concluida) {
       updateTarefa(
-        { ...tarefa, id, completada: 0, data_conclusao: null },
+        { ...tarefa, id, concluida: false },
         {
           onSuccess: () => {
             refetch();
@@ -79,8 +75,8 @@ function PerfilAluno() {
     updateTarefa(
       {
         ...tarefa,
-        completada: 1,
-        data_conclusao: format(new Date(dataSelecionada), "dd/MM/yyyy"),
+        concluida: true,
+        data_conclusao: dataSelecionada,
       },
       {
         onSuccess: () => {
@@ -92,8 +88,8 @@ function PerfilAluno() {
     setDataSelecionada(new Date().toISOString().split("T")[0]); // Limpa a data selecionada
   };
 
-  const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
-  const tarefasFeitas = tarefas.filter((tarefa) => tarefa.completada);
+  const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.concluida);
+  const tarefasFeitas = tarefas.filter((tarefa) => tarefa.concluida);
 
   return (
     <div className="contain">

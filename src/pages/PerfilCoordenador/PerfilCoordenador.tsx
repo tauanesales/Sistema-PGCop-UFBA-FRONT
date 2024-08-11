@@ -172,10 +172,10 @@ function PerfilCoordenador() {
                 <Card.Title>{aluno.nome}</Card.Title>
                 <p>Matrícula: {aluno.matricula}</p>
                 <p>
-                  Conclusão prevista em:
+                  Conclusão prevista em:{" "}
                   {aluno.data_defesa
                     ? format(new Date(aluno.data_defesa), "dd/MM/yyyy")
-                    : " -"}
+                    : "-"}
                 </p>
               </div>
               <div style={{ display: "flex", gap: "1em" }}>
