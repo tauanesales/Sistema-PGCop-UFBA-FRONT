@@ -2,32 +2,47 @@ import "./styles.css";
 
 import { useState } from "react";
 import PinInput from "react-pin-input";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import ButtonSecondary from "@/components/ButtonSecondary";
+import { useUserQueries } from "@/queries/user";
 
 const ConfirmarEnvioEmail = () => {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const { email } = location.state || {};
+
+  const { useCheckResetPasswordToken } = useUserQueries();
+
+  const { mutate: checkResetPasswordToken, isPending } =
+    useCheckResetPasswordToken();
+
   const logoPgcop = "assets/logoPgcop.png";
+
   const [pin, setPin] = useState("");
   const [error, setError] = useState("");
 
-  const handlePinChange = (value) => {
-    setPin(value);
-    if (value.length === 6) {
-      // Validação simples, você pode adicionar regras de validação adicionais aqui
+  const handleNext = () => {
+    if (pin.length === 6) {
+      handleCheckResetPasswordToken(pin);
       setError("");
     } else {
       setError("O PIN deve ter 6 dígitos.");
     }
   };
 
-  const handleSubmit = () => {
-    if (pin.length === 6) {
-      // Faça algo com o PIN, como enviar para o servidor
-      console.log("PIN:", pin);
-    } else {
-      setError("O PIN deve ter 6 dígitos.");
-    }
-  };
+  const handleCheckResetPasswordToken = (token: string) =>
+    checkResetPasswordToken(
+      { email, token },
+      {
+        onSuccess: () =>
+          navigate("/atualizar-senha", {
+            state: { ...location.state, token },
+          }),
+      },
+    );
 
   return (
     <div className="container">
@@ -45,8 +60,8 @@ const ConfirmarEnvioEmail = () => {
           <PinInput
             length={6}
             initialValue=""
-            onChange={handlePinChange}
-            type="numeric"
+            onChange={setPin}
+            type="custom"
             inputMode="number"
             style={{ padding: "10px" }}
             inputStyle={{
@@ -59,15 +74,15 @@ const ConfirmarEnvioEmail = () => {
               borderColor: "black",
               borderWidth: "3px",
             }}
-            onComplete={handleSubmit}
+            onComplete={handleCheckResetPasswordToken}
             autoSelect={true}
           />
           {error && <p className="error">{error}</p>}
         </div>
         <ButtonSecondary
-          link={"/atualizar-senha"}
-          label={"Continuar"}
-          width={"12em"}
+          onClick={handleNext}
+          label={isPending ? "Carregando..." : "Continuar"}
+          style={{ width: "12em" }}
         />
       </div>
     </div>
