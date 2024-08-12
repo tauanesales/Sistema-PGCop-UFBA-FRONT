@@ -2,8 +2,10 @@ import "./styles.css";
 
 import { differenceInDays, format } from "date-fns";
 import { MdLogout } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 
-import { Aluno, Curso } from "@/models/User";
+import D3Visualization from "@/components/D3Visualization";
+import { Curso } from "@/models/User";
 import { useProfessoresQueries } from "@/queries/professores";
 import { useTarefasQueries } from "@/queries/tarefas";
 import { useUserQueries } from "@/queries/user";
@@ -11,11 +13,9 @@ import { useUserQueries } from "@/queries/user";
 function PerfilAlunoOrientador() {
   const { signOut } = useUserQueries();
 
-  const { useGetUser } = useUserQueries();
+  const location = useLocation();
 
-  const { data: userData } = useGetUser();
-
-  const user = userData as Aluno;
+  const aluno = location.state || {};
 
   const logoPgcop = "/assets/logoPgcop.png";
 
@@ -26,27 +26,27 @@ function PerfilAlunoOrientador() {
   const { data: professores = [] } = useGetProfessores();
 
   const nomeOrientador =
-    professores.find((professor) => professor.id === user.orientador_id)
+    professores.find((professor) => professor.id === aluno.orientador_id)
       ?.nome ?? "-";
 
   const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
   const tarefasFeitas = tarefas.filter((tarefa) => tarefa.completada);
-
+  console.log(aluno);
   return (
     <div className="contain">
       <div className="containerAluno">
-        {user && (
+        {aluno && (
           <div className="infoAluno">
             <img src={logoPgcop} alt="Logo" />
             <div className="boxInfoAluno">
-              <h3>{user.nome}</h3>
+              <h3>{aluno.nome}</h3>
               <p>
-                <span>Titulação:</span> {Curso[user.curso]}
+                <span>Titulação:</span> {Curso[aluno.curso]}
               </p>
               <p>
                 <span>Data de Inicio:</span>{" "}
-                {user.data_ingresso
-                  ? format(user.data_ingresso, "dd/MM/yyyy")
+                {aluno.data_ingresso
+                  ? format(aluno.data_ingresso, "dd/MM/yyyy")
                   : "-"}
               </p>
               <p>
@@ -56,7 +56,7 @@ function PerfilAlunoOrientador() {
             </div>
             <div className="boxInfoAluno">
               <h3>
-                <span>Matrícula:</span> {user.matricula}
+                <span>Matrícula:</span> {aluno.matricula}
               </h3>
               <p>
                 <span>Orientador(a): </span>
@@ -64,8 +64,8 @@ function PerfilAlunoOrientador() {
               </p>
               <p>
                 <span>Término Previsto:</span>{" "}
-                {user.data_qualificacao
-                  ? format(user.data_qualificacao, "dd/MM/yyyy")
+                {aluno.data_qualificacao
+                  ? format(aluno.data_qualificacao, "dd/MM/yyyy")
                   : "-"}
               </p>
             </div>
@@ -80,6 +80,15 @@ function PerfilAlunoOrientador() {
           />
         </div>
       </div>
+      {/* Visualização */}
+      {aluno.data_qualificacao && (
+        <D3Visualization
+          dataDeInicio={new Date(aluno.data_ingresso)}
+          dataFinal={new Date(aluno.data_qualificacao)}
+          dataAtual={new Date()}
+          tarefas={tarefas}
+        />
+      )}
 
       <div className="tarefasAluno">
         <div className="boxTarefas">
