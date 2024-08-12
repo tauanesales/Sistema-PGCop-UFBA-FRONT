@@ -219,203 +219,197 @@ const CadastroAluno = () => {
       onSubmit={handleSignUp}
     >
       {({ values, setFieldValue, isSubmitting, handleSubmit }) => (
-        <Form className="containerPrincipal">
-          <img
-            style={{ position: "absolute", marginTop: "-495px" }}
-            src="assets/logoPgcop.png"
-            width={80}
-          />
+        <Form className="contain">
+          <div className="containerPrincipal">
+            <img
+              src="assets/logoPgcop.png"
+              width={80}
 
-          <RadioGroup
-            style={{ marginTop: "8em", marginLeft: "30px"}}
-            row
-            aria-label="tipo-usuario"
-            name="tipo-usuario"
-            value={values.tipo_usuario}
-            onChange={(e) =>
-              setFieldValue("tipo_usuario", e.target.value as TipoUsuario)
-            }
-          >
-            <FormControlLabel
-              value={TipoUsuario.ALUNO}
-              control={<Radio color="primary" />}
-              label="Aluno"
             />
-            <FormControlLabel
-              style={{ marginRight: "400px" }}
-              value={TipoUsuario.PROFESSOR}
-              control={<Radio color="primary" />}
-              label="Professor"
-            />
-          </RadioGroup>
-
-          <div style={{ display: "flex", gap: 16 }}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <FormikInput
-                name="nome"
-                label="Nome completo"
-                fullWidth
-                required
+            <h1>Cadastro</h1>
+            <RadioGroup
+              row
+              aria-label="tipo-usuario"
+              name="tipo-usuario"
+              value={values.tipo_usuario}
+              onChange={(e) =>
+                setFieldValue("tipo_usuario", e.target.value as TipoUsuario)
+              }
+            >
+              <FormControlLabel
+                value={TipoUsuario.ALUNO}
+                control={<Radio color="primary" />}
+                label="Aluno"
               />
-
-              <FormikInput
-                name="email"
-                label="E-mail"
-                type="email"
-                fullWidth
-                required
+              <FormControlLabel
+                value={TipoUsuario.PROFESSOR}
+                control={<Radio color="primary" />}
+                label="Professor"
               />
+            </RadioGroup>
 
-              <FormikInput
-                inputRef={cpfInputRef}
-                name="cpf"
-                label="CPF"
-                fullWidth
-                required
-              />
+            <div style={{ display: "flex", gap: 16 }}>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <FormikInput
+                  name="nome"
+                  label="Nome completo"
+                  fullWidth
+                  required
+                />
 
-              <FormikInput
-                inputRef={telefoneInputRef}
-                name="telefone"
-                label="Telefone"
-                fullWidth
-                required
-              />
+                <FormikInput
+                  name="email"
+                  label="E-mail"
+                  type="email"
+                  fullWidth
+                  required
+                />
 
-              <FormikPasswordInput
-                name="senha"
-                label="Senha"
-                fullWidth
-                required
-              />
+                <FormikInput
+                  inputRef={cpfInputRef}
+                  name="cpf"
+                  label="CPF"
+                  fullWidth
+                  required
+                />
 
-              <FormikPasswordInput
-                className="imputPassword"
-                name="senhaConfirmada"
-                label="Confirmar senha"
-                fullWidth
-                required
-              />
-            </div>
+                <FormikInput
+                  inputRef={telefoneInputRef}
+                  name="telefone"
+                  label="Telefone"
+                  fullWidth
+                  required
+                />
 
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              {values.tipo_usuario === TipoUsuario.ALUNO ? (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <FormikInput
-                    name="matricula"
-                    label="Matrícula"
-                    fullWidth
-                    required
-                  />
+                <FormikPasswordInput
+                  name="senha"
+                  label="Senha"
+                  fullWidth
+                  required
+                />
 
-                  <FormikInput
-                    name="orientador_id"
-                    label="Orientador"
-                    fullWidth
-                    select
-                    required
-                  >
-                    {professores.map((professor) => (
-                      <MenuItem key={professor.id} value={professor.id}>
-                        {professor.nome}
+                <FormikPasswordInput
+                  className="imputPassword"
+                  name="senhaConfirmada"
+                  label="Confirmar senha"
+                  fullWidth
+                  required
+                />
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                {values.tipo_usuario === TipoUsuario.ALUNO ? (
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <FormikInput
+                      name="matricula"
+                      label="Matrícula"
+                      fullWidth
+                      required
+                    />
+
+                    <FormikInput
+                      name="orientador_id"
+                      label="Orientador"
+                      fullWidth
+                      select
+                      required
+                    >
+                      {professores.map((professor) => (
+                        <MenuItem key={professor.id} value={professor.id}>
+                          {professor.nome}
+                        </MenuItem>
+                      ))}
+                    </FormikInput>
+
+                    <FormikInput
+                      fullWidth
+                      variant="standard"
+                      id="select-curso"
+                      name="curso"
+                      label="Titulação do curso"
+                      select
+                      required
+                    >
+                      <MenuItem value="M">Mestrado</MenuItem>
+                      <MenuItem value="D">Doutorado</MenuItem>
+                    </FormikInput>
+
+                    <FormikDateField
+                      required
+                      variant="standard"
+                      name="data_ingresso"
+                      label="Data de ingresso"
+                    />
+
+                    <FormikInput
+                      name="lattes"
+                      label="Link para o Lattes"
+                      fullWidth
+                      required
+                    />
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <FormikInput
+                      className="inputRow"
+                      style={{ width: "240px" }}
+                      fullWidth
+                      variant="standard"
+                      id="select-tipo-usuario"
+                      name="tipo_usuario"
+                      label="Função"
+                      select
+                      required
+                    >
+                      <MenuItem value={TipoUsuario.PROFESSOR}>
+                        Orientador
                       </MenuItem>
-                    ))}
-                  </FormikInput>
-
-                  <FormikInput
-                    fullWidth
-                    variant="standard"
-                    id="select-curso"
-                    name="curso"
-                    label="Titulação do curso"
-                    select
-                    required
-                  >
-                    <MenuItem value="M">Mestrado</MenuItem>
-                    <MenuItem value="D">Doutorado</MenuItem>
-                  </FormikInput>
-
-                  <FormikDateField
-                    required
-                    variant="standard"
-                    name="data_ingresso"
-                    label="Data de ingresso"
-                  />
-
-                  <FormikInput
-                    name="lattes"
-                    label="Link para o Lattes"
-                    fullWidth
-                    required
-                  />
-                </div>
-              ) : (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <FormikInput
-                    className="inputRow"
-                    style={{ width: "240px" }}
-                    fullWidth
-                    variant="standard"
-                    id="select-tipo-usuario"
-                    name="tipo_usuario"
-                    label="Função"
-                    select
-                    required
-                  >
-                    <MenuItem value={TipoUsuario.PROFESSOR}>
-                      Orientador
-                    </MenuItem>
-                    <MenuItem value={TipoUsuario.COORDENADOR}>
-                      Coordenador
-                    </MenuItem>
-                  </FormikInput>
-                </div>
-              )}
+                      <MenuItem value={TipoUsuario.COORDENADOR}>
+                        Coordenador
+                      </MenuItem>
+                    </FormikInput>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div
-            className="buttonCadastro"
-            style={{
-              marginTop: "-1em",
-              display: "flex",
-              flexDirection: "row",
-              gap: "3em",
-            }}
-          >
-            <LoadingButton
-              className="bttn"
-              sx={{
-                marginTop: 2,
-                color: "#000000",
-                backgroundColor: "#D6DDE2", 
-                "&:hover": {
-                  backgroundColor: "#E9EAEC",
-                },
-              }}
-              variant="contained"
-              onClick={() => navigate(-1)}
+            <div
+              className="buttonCadastro"
             >
-              Voltar
-            </LoadingButton>
+              <LoadingButton
+                className="bttn"
+                sx={{
+                  marginTop: 2,
+                  color: "#000000",
+                  backgroundColor: "#D6DDE2", 
+                  "&:hover": {
+                    backgroundColor: "#E9EAEC",
+                  },
+                }}
+                variant="contained"
+                onClick={() => navigate(-1)}
+              >
+                Voltar
+              </LoadingButton>
 
-            <LoadingButton
-              className="bttn"
-              sx={{
-                marginTop: 2,
-                color: "#000000",
-                backgroundColor: "#D6DDE2", // cinza claro
-                "&:hover": {
-                  backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
-                },
-              }}
-              variant="contained"
-              loading={isSubmitting}
-              onClick={() => handleSubmit()}
-              disabled={isSubmitting}
-            >
-              Cadastrar
-            </LoadingButton>
+              <LoadingButton
+                className="bttn"
+                sx={{
+                  marginTop: 2,
+                  color: "#000000",
+                  backgroundColor: "#D6DDE2", // cinza claro
+                  "&:hover": {
+                    backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
+                  },
+                }}
+                variant="contained"
+                loading={isSubmitting}
+                onClick={() => handleSubmit()}
+                disabled={isSubmitting}
+              >
+                Cadastrar
+              </LoadingButton>
+            </div>
           </div>
         </Form>
       )}
