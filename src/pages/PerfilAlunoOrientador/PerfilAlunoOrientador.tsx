@@ -31,7 +31,6 @@ function PerfilAlunoOrientador() {
 
   const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
   const tarefasFeitas = tarefas.filter((tarefa) => tarefa.completada);
-  console.log(aluno);
   return (
     <div className="contain">
       <div className="containerAluno">
