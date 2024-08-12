@@ -16,6 +16,7 @@
   width: 100%;
   justify-content: center;
   align-items: center;
+  
 }
 .imagemLogin {
   height: 100%;
@@ -36,7 +37,8 @@
   font-family: "Raleway", sans-serif;
   display: flex;
   flex-direction: column;
-  gap: 0.2em;
+  gap: 1em;
+  overflow: hidden;  
 
   img {
     align-self: center;
@@ -62,7 +64,6 @@ h1 {
 .links {
   display: flex;
   flex-direction: column;
-  gap: 0.8em;
 }
 
 .conectado {
