@@ -78,18 +78,20 @@ ul {
 li {
   width: 100%;
   display: flex;
-  flex-direction: column;
-
-  align-content: space-between;
+  flex-direction: row;
+  justify-content: space-around;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 5px;
   margin: 2.5% 0%;
 }
-
-li div {
-  display: flex;
-  align-items: space-between;
+.infoOrientando {
+  width: 70%;
+  float: left;
+}
+.push {
+  width: 30%;
+  float: right;
 }
 
 .confirmationBox {
@@ -114,8 +116,7 @@ li div {
   padding: 0 5px;
   border-radius: 5px;
   cursor: pointer;
-  margin-left: 5px;
-  margin-top: 5px;
+  margin: 2px;
   color: #000000;
   background-color: #d6dde2;
   font-family: "Raleway", sans-serif;
@@ -127,6 +128,4 @@ li div {
   background-color: #e9eaec;
 }
 
-.push {
-  margin-left: auto;
-}
+

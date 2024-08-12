@@ -137,7 +137,7 @@ function PerfilAluno() {
           />
         </div>
       </div>
-
+      
       {/* Visualização */}
       {user.data_qualificacao && (
         <D3Visualization
@@ -201,6 +201,7 @@ function PerfilAluno() {
                 key={tarefa.id}
                 style={{ backgroundColor: backgroundColor }}
               >
+                <div>
                 <AiOutlineEdit // Marcador icone
                   onClick={() => handleCheckboxChange(tarefa)}
                   style={{
@@ -220,10 +221,10 @@ function PerfilAluno() {
                 >
                   {tarefa.nome}
                 </label>
+                </div>
                 {tarefaEmEdicao === tarefa.id && (
                   <>
-                    <br />
-                    <label style={{ marginLeft: "40px", fontSize: "15px" }}>
+                    <label style={{ marginLeft: "5px", fontSize: "15px" }}>
                       Data de realização:
                       <input
                         className="dateInput"
@@ -232,11 +233,11 @@ function PerfilAluno() {
                         onChange={(e) => setDataSelecionada(e.target.value)}
                         style={{ marginLeft: "15px" }}
                       />
+                      <br />
                       <button
                         className="bttnSalvar"
                         onClick={() => salvarDataRealizacao(tarefa)}
                         style={{
-                          marginLeft: "12vh",
                           width: "70px",
                           height: "25px",
                         }}
@@ -246,12 +247,11 @@ function PerfilAluno() {
                     </label>
                   </>
                 )}
-                <br />
-                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
+                <label style={{ marginLeft: "5px", fontSize: "15px" }}>
                   {tarefa.descricao}
                   <br />
                 </label>
-                <label style={{ marginLeft: "40px", fontSize: "15px" }}>
+                <label style={{ marginLeft: "5px", fontSize: "15px" }}>
                   Data Limite: {format(prazo, "dd/MM/yyyy")} - {statusData}
                 </label>
               </div>
@@ -281,6 +281,8 @@ function PerfilAluno() {
                   key={tarefa.id}
                   style={{ backgroundColor: "#E3F1C7" }}
                 >
+
+                  <div>
                   <AiOutlineFileExcel // Marcador icone
                     onClick={() => handleCheckboxChange(tarefa)}
                     style={{ cursor: "pointer", marginLeft: "5px" }}
@@ -289,19 +291,20 @@ function PerfilAluno() {
                   />
                   <label
                     style={{
-                      marginLeft: "15px",
                       fontSize: "18px",
                       fontWeight: "500",
                     }}
                   >
                     {tarefa.nome}
                   </label>
+                  </div>
+
                   <br />
-                  <label style={{ marginLeft: "40px", fontSize: "15px" }}>
+                  <label style={{ fontSize: "15px" }}>
                     {tarefa.descricao}
                     <br />
                   </label>
-                  <label style={{ marginLeft: "40px", fontSize: "15px" }}>
+                  <label style={{ fontSize: "15px" }}>
                     Realizada em:{" "}
                     {tarefa.data_conclusao
                       ? format(new Date(tarefa.data_conclusao), "dd/MM/yyyy")

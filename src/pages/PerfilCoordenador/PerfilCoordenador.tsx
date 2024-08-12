@@ -179,7 +179,7 @@ function PerfilCoordenador() {
                 key={aluno.id}
                 onDoubleClick={() => handleDoubleClick(aluno.matricula)}
               >
-                <div>
+                <div className="infoOrientando">
                   <strong>{aluno.nome}</strong> Matrícula: {aluno.matricula}{" "}
                   <br />
                   Conclusão prevista em{" "}
@@ -192,8 +192,7 @@ function PerfilCoordenador() {
                     className="bttn"
                     onClick={() => handleDoubleClick(aluno.matricula)}
                     style={{
-                      marginRight: "10px",
-                      marginLeft:'10px',
+                      margin: "2px 10px",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
@@ -209,8 +208,7 @@ function PerfilCoordenador() {
                       setShowModal(true);
                     }}
                     style={{
-                      marginRight: "10px",
-                      marginLeft:'10px',
+                      margin: "2px 10px",
                       height: "30px",
                       borderRadius: "5px",
                       width: "95px",
