@@ -58,13 +58,6 @@
   justify-content: end;
 }
 
-.modalTarefas {
-  padding: 10px 30px;
-  border-radius: 10px;
-  height: 70vh;
-  width: 120vh;
-  text-align: Start;
-}
 
 .confirmationBox {
   display: flex;
