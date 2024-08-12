@@ -15,6 +15,11 @@ export const deleteTarefa = (tarefaId: number) =>
 export const createTarefa = (tarefaId: number) =>
   api.post(`/tarefas/${tarefaId}`);
 
+type ConcluirTarefaParams = Pick<Tarefa, "id" | "concluida" | "data_conclusao">;
+
+export const concluirTarefa = ({ id, ...tarefa }: ConcluirTarefaParams) =>
+  api.put(`/tarefas/concluir/${id}`, tarefa);
+
 type UpdateTarefaParams = Partial<Tarefa> & Pick<Tarefa, "id">;
 
 export const updateTarefa = ({ id, ...tarefa }: UpdateTarefaParams) =>
