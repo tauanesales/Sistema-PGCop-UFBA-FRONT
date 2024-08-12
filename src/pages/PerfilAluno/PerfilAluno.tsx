@@ -1,7 +1,7 @@
 import "./styles.css";
 
 import { differenceInDays, format } from "date-fns";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Alert,
   Button,
@@ -42,9 +42,9 @@ function PerfilAluno() {
   const { data: userData } = useGetUser();
   const user = userData as Aluno;
   const logoPgcop = "/assets/logoPgcop.png";
-  const { useGetTarefaAluno, useUpdateTarefa } = useTarefasQueries();
+  const { useGetTarefaAluno, useConcluirTarefa } = useTarefasQueries();
   const { data: tarefas = [], refetch } = useGetTarefaAluno();
-  const { mutate: updateTarefa } = useUpdateTarefa();
+  const { mutate: concluirTarefa } = useConcluirTarefa();
   const { useGetProfessores } = useProfessoresQueries();
   const { data: professores = [] } = useGetProfessores();
   const nomeOrientador =
@@ -58,8 +58,8 @@ function PerfilAluno() {
   const handleCheckboxChange = (tarefa: Tarefa) => {
     const { id, concluida } = tarefa;
     if (concluida) {
-      updateTarefa(
-        { ...tarefa, id, concluida: false },
+      concluirTarefa(
+        { data_conclusao: tarefa.data_conclusao, id, concluida: false },
         {
           onSuccess: () => {
             refetch();
@@ -72,9 +72,9 @@ function PerfilAluno() {
   };
 
   const salvarDataRealizacao = (tarefa: Tarefa) => {
-    updateTarefa(
+    concluirTarefa(
       {
-        ...tarefa,
+        id: tarefa.id,
         concluida: true,
         data_conclusao: dataSelecionada,
       },

@@ -30,9 +30,9 @@ export const useTarefasQueries = () => {
         ),
     });
 
-  const useUpdateTarefa = () =>
+  const useConcluirTarefa = () =>
     useMutation({
-      mutationFn: tarefasApi.updateTarefa,
+      mutationFn: tarefasApi.concluirTarefa,
       onMutate: async ({ id, ...tarefa }) => {
         await queryClient.cancelQueries({
           queryKey: tarefasKeys.all,
@@ -60,5 +60,5 @@ export const useTarefasQueries = () => {
       },
     });
 
-  return { useGetTarefaAluno, useUpdateTarefa };
+  return { useGetTarefaAluno, useConcluirTarefa };
 };
