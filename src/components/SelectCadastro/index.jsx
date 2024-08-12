@@ -1,7 +1,8 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
+ 
+ 
 import './styles.css'
+
+import { useEffect,useState } from "react";
 
 
 const SelectCadastro = () => {
@@ -26,6 +27,7 @@ const SelectCadastro = () => {
               </option>
             ))}
           </select>
+          
 
           <select
             className="selectCadastro"
@@ -43,9 +45,9 @@ const SelectCadastro = () => {
             className="selectCadastro"
             required
           >
-            <option value="">Ano</option>
+            <option  value="">Ano</option>
             {Array.from({ length: 10 }, (_, i) => (
-              <option key={anoAtual - i} value={anoAtual - i}>
+              <option  key={anoAtual - i} value={anoAtual - i}>
                 {anoAtual - i}
               </option>
             ))}

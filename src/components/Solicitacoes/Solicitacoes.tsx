@@ -15,14 +15,12 @@ function Solicitacoes({
 }: Props) {
   return (
     <div className="solicitacoes-container">
-      <h2>Solicitações</h2>
+      <h2 style={{ marginLeft: "10px" }}>Solicitações</h2>
       <ul>
         {solicitacoes.map((solicitacao, index) => (
           <li key={index}>
             <div>
               <strong>{solicitacao.nome_aluno}</strong>
-              <br />
-              {/* {solicitacao.titulacao} */}
             </div>
             <div>
               <button onClick={() => handleAcceptRequest(solicitacao.id)}>
