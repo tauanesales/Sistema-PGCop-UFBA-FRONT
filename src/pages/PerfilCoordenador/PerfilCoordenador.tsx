@@ -242,7 +242,7 @@ function PerfilCoordenador() {
           </Modal.Header>
           <Modal.Body>
             <p>
-              Tem certeza que deseja remover o aluno{" "}
+              Tem certeza que deseja remover{" "}
               <strong>{selectedAluno?.nome}</strong> da sua lista?
             </p>
           </Modal.Body>
