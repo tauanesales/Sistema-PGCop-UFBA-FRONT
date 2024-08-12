@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+ 
 import "./styles.css";
 
 import { InputHTMLAttributes } from "react";

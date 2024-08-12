@@ -56,7 +56,7 @@ const Login = () => {
           <div className="inputs">
             {/* Campo Email */}
             <Input
-              label="Email"
+              label="E-mail"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -69,7 +69,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            <div className="conectado">
+            <div className="conectado" style={{ marginTop: "1em" }}>
               <input type="checkbox" name="conectado" id="conectado" />
               <label htmlFor="conectado">Matenha-me conectado</label>
             </div>
@@ -85,10 +85,11 @@ const Login = () => {
 
           {/* Links Cadastro e Recuperação de senha */}
           <div className="links">
-            <a href="/cadastro-aluno" className="text">
-              Cadastre-se
-            </a>
-
+            <p className="text">
+              <a href="/cadastro-aluno" >
+                Cadastre-se
+              </a>
+            </p>
             <p className="text">
               Esqueceu a senha? Clique
               <a href="/esqueci-senha"> aqui.</a>

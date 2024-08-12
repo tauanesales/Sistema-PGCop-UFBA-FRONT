@@ -7,12 +7,12 @@ import {
 } from "react-router-dom";
 
 import { TipoUsuario } from "@/models/User";
-import { AtualizarDados } from "@/pages/AtualizarDados/AtualizarDados";
 import AtualizarSenha from "@/pages/AtualizarSenha/AtualizarSenha";
 import CadastroAluno from "@/pages/CadastroAluno/CadastroAluno";
 import ConfirmarCadastro from "@/pages/ConfirmarCadastro/ConfirmarCadastro";
 import ConfirmarEnvioEmail from "@/pages/ConfirmarEnvioEmail/ConfirmarEnvioEmail";
 import ConfirmarNovaSenha from "@/pages/ConfirmarNovaSenha/ConfirmarNovaSenha";
+import { EditarDados } from "@/pages/EditarDados/EditarDados";
 import Error404 from "@/pages/Erro/Error404";
 import EsqueciSenha from "@/pages/EsqueciSenha/EsqueciSenha";
 import Login from "@/pages/Login/Login";
@@ -30,8 +30,8 @@ const routes = createRoutesFromElements(
       <Route path="/perfil-aluno" element={<PerfilAluno />} />
 
       <Route
-        path="/perfil-aluno/atualizar-dados"
-        element={<AtualizarDados />}
+        path="/perfil-aluno/editar-dados"
+        element={<EditarDados />}
       />
     </Route>
 

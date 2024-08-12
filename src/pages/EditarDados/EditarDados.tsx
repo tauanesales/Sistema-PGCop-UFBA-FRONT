@@ -4,6 +4,7 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { MenuItem } from "@mui/material";
 import { format, unformat, useMask } from "@react-input/mask";
 import { Form, Formik, FormikHelpers } from "formik";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 import { FormikDateField } from "@/components/FormikDateField";
@@ -34,7 +35,7 @@ const telefoneMaskOptions = {
   replacement: { _: /\d/ },
 };
 
-export const AtualizarDados = () => {
+export const EditarDados = () => {
   const { useGetUser, useUpdateUser } = useUserQueries();
 
   const { mutate: updateUser } = useUpdateUser();
@@ -130,6 +131,8 @@ export const AtualizarDados = () => {
 
   const telefoneInputRef = useMask(telefoneMaskOptions);
 
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={{
@@ -156,9 +159,9 @@ export const AtualizarDados = () => {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src="/assets/logoPgcop.png" width={110} />
+          <img src="/assets/logoPgcop.png" width={70} />
 
-          <div style={{ display: "flex", gap: 16 }}>
+          <div style={{ display: "flex", gap: 60 }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <FormikInput
                 name="nome"
@@ -268,19 +271,53 @@ export const AtualizarDados = () => {
             </div>
           </div>
 
-          <div className="buttonCadastro">
+          <div
+            className="buttonCadastro"
+            style={{
+              marginTop: "-1em",
+              display: "flex",
+              flexDirection: "row",
+              gap: "3em",
+            }}
+          >
             <LoadingButton
               className="bttn"
-              sx={{ marginTop: 2 }}
+              sx={{
+                marginTop: 2,
+                width: 150,
+                color: "#000000",
+                backgroundColor: "#D6DDE2", // cinza claro
+                "&:hover": {
+                  backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
+                },
+              }}
+              variant="contained"
+              onClick={() => navigate(-1)}
+            >
+              Voltar
+            </LoadingButton>
+
+            <LoadingButton
+              className="bttn"
+              sx={{
+                marginTop: 2,
+                width: 150,
+                color: "#000000",
+                backgroundColor: "#D6DDE2", // cinza claro
+                "&:hover": {
+                  backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
+                },
+              }}
               variant="contained"
               fullWidth
               loading={isSubmitting}
               onClick={() => handleSubmit()}
               disabled={isSubmitting}
             >
-              Atualizar dados
+              Salvar
             </LoadingButton>
           </div>
+
         </Form>
       )}
     </Formik>

@@ -1,3 +1,5 @@
+import "./formikStyle.css";
+
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { IconButton, InputAdornment } from "@mui/material";
@@ -19,6 +21,7 @@ export const FormikPasswordInput = (props: Props) => {
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
+              className="icon-button-no-outline" // Adicione esta linha
               aria-label="alterar visibilidade da senha"
               onClick={handleShowPassword}
             >

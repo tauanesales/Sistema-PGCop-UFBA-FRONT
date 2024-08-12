@@ -1,25 +1,24 @@
-.contain {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 10px;
-}
-
 .containerLista {
-  height: 38vh;
-  width: 160%;
-  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: start;
+  height: 80vh;
+  width: 90vh;
+  margin-left: 5px;
   background-color: white;
-  padding: 20px;
+  padding: 15px;
   border-radius: 3px;
   overflow-y: auto;
   box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
 }
 
-.infoOrientador {
+.listaTarefas {
   display: flex;
-  width: 100%;
   justify-content: space-around;
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 5em;
+  padding-top: 1em; /* Adiciona espaço entre o containerAluno e as tarefas*/
 }
 
 .botoesTarefas {
@@ -27,43 +26,92 @@
   align-items: end;
   position: fixed;
   cursor: pointer;
+  margin-top: 2em;
 }
 
-ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-li {
-  margin-bottom: 10px;
+.litarefas {
+  margin-bottom: 0.2em;
   cursor: default;
   border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 0px 20px;
+  padding: 5px 10px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
 }
 
-.confirmationBox {
-  display: flex;
-  justify-content: center;
-  background-color: "#fff";
-}
-
-label {
+.labeltarefas {
   align-items: center;
   justify-content: start;
-}
-
-.modal {
-  padding: 10px 30px;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
 }
 
 .container-lista li div:last-child {
   display: flex;
   align-items: center;
+}
+
+.bttn {
+  height: 25px;
+  width: 100px;
+  padding: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-top: 5px;
+  color: #000000;
+  background-color: #d6dde2;
+  font-family: "Raleway", sans-serif;
+  font-size: 0.9em;
+  font-weight: 600;
+  border: none;
+}
+
+.modalTarefas {
+  position: fixed;
+  width: 80%;
+}
+.cardBackground {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.inputContain{
+  display: flex;
+  width: 100%;
+  gap: 2em;
+}
+
+.inputContainer label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.inputContainer input[type="text"],
+.inputContainer input[type="number"],
+.inputContainer textarea,
+.inputContainer select {
+  width: 100%;
+  padding: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.inputContainer textarea {
+  height: 80px;
+}
+
+.buttonContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 1em;
+  place-items: center;
 }
