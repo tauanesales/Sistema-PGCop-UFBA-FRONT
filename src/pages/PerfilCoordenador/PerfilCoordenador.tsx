@@ -235,9 +235,9 @@ function PerfilCoordenador() {
       </div>
 
       {/* Modal de confirmação */}
-        <Modal show={showModal} onHide={handleClose}>
+      <Modal show={showModal} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Remover Aluno</Modal.Title>
+            <Modal.Title>Remover aluno</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p>
@@ -259,7 +259,7 @@ function PerfilCoordenador() {
               Sim
             </Button>
           </ModalFooter>
-        </Modal>
+      </Modal>
 
       <ToastContainer position="middle-center">
         <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide bg="">

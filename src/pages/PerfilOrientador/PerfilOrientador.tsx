@@ -12,7 +12,7 @@ import { useSolicitacoesQueries } from "@/queries/solicitacoes";
 import { useUserQueries } from "@/queries/user";
 
 import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
-import { Button, Card, Container, Navbar, Stack } from "react-bootstrap";
+import { Button, Card, Container, Modal, ModalFooter, Navbar, Stack, Toast, ToastContainer } from "react-bootstrap";
 import { alunosMock }  from "@/models/mockAlunos";
 
 function PerfilOrientador() {
@@ -44,6 +44,7 @@ function PerfilOrientador() {
   const { mutate: removerOrientador } = useRemoverOrientador();
 
   const [showModal, setShowModal] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState<Aluno>();
   const [showSolicitacoes, setShowSolicitacoes] = useState(false);
 
@@ -64,6 +65,8 @@ function PerfilOrientador() {
     removerOrientador(selectedAluno!.id);
     setShowModal(false);
   };
+
+  const handleClose = () => setShowModal(false);
 
   const handleSolicitacoesClick = () => {
     setShowSolicitacoes(!showSolicitacoes);
@@ -217,38 +220,40 @@ function PerfilOrientador() {
         </Card>
       </div>
 
-      {showModal && (
-        <div className="confirmationBox">
-          <div
-            style={{
-              backgroundColor: "#fff",
-              padding: "10px",
-              borderRadius: "8px",
-              height: "100px",
-              width: "300px",
-              textAlign: "center",
-            }}
-          >
-            <p>Tem certeza que deseja remover esse aluno da sua lista?</p>
-            <ul style={{ display: "flex" }}>
-              <button
-                className="bttn"
-                onClick={handleDelete}
-                style={{ marginRight: "30px", padding: "1px" }}
-              >
-                Sim
-              </button>
-              <button
-                className="bttn"
-                onClick={() => setShowModal(false)}
-                style={{ padding: "1px" }}
-              >
-                Não
-              </button>
-            </ul>
-          </div>
-        </div>
-      )}
+      <Modal show={showModal} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Remover aluno</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>
+              Tem certeza que deseja remover o aluno{" "}
+              <strong>{selectedAluno?.nome}</strong> da sua lista?
+            </p>
+          </Modal.Body>
+          <ModalFooter>
+            <Button
+              variant="secondary"
+              onClick={() => handleClose()}
+            >
+              Não
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => handleDelete()}
+            >
+              Sim
+            </Button>
+          </ModalFooter>
+      </Modal>
+
+      <ToastContainer position="middle-center">
+        <Toast onClose={() => setShowToast(false)} show={showToast} delay={3000} autohide bg="">
+          <Toast.Header>
+            <strong className="me-auto">Confirmação</strong>
+          </Toast.Header>
+          <Toast.Body>Aluno removido com sucesso!</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </div>
   );
 }
