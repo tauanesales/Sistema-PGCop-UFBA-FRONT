@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import React, { useEffect, useRef } from "react";
 
 const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
   const svgRef = useRef();

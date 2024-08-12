@@ -68,7 +68,7 @@
 
 .modalTarefas {
   position: fixed;
-  width: 120vh;  
+  width: 80%;
 }
 .cardBackground {
   display: flex;
@@ -82,8 +82,10 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.inputContainer {
-  margin-bottom: 10px;
+.inputContain{
+  display: flex;
+  width: 100%;
+  gap: 2em;
 }
 
 .inputContainer label {
