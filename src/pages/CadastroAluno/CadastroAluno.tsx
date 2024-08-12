@@ -217,10 +217,9 @@ const CadastroAluno = () => {
       }}
       validationSchema={validationSchema}
       onSubmit={handleSignUp}
-      className="containerBg"
     >
       {({ values, setFieldValue, isSubmitting, handleSubmit }) => (
-        <Form className="containerBg">
+        <Form className="contain">
           <div className="containerPrincipal">
             <img
               src="assets/logoPgcop.png"
