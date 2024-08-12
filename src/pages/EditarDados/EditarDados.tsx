@@ -4,8 +4,8 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import { MenuItem } from "@mui/material";
 import { format, unformat, useMask } from "@react-input/mask";
 import { Form, Formik, FormikHelpers } from "formik";
-import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 import { FormikDateField } from "@/components/FormikDateField";
 import { FormikInput } from "@/components/FormikInput";
@@ -35,7 +35,7 @@ const telefoneMaskOptions = {
   replacement: { _: /\d/ },
 };
 
-export const AtualizarDados = () => {
+export const EditarDados = () => {
   const { useGetUser, useUpdateUser } = useUserQueries();
 
   const { mutate: updateUser } = useUpdateUser();
@@ -161,7 +161,7 @@ export const AtualizarDados = () => {
         <Form className="containerPrincipal">
           <img src="/assets/logoPgcop.png" width={70} />
 
-          <div style={{ display: "flex", gap: 56 }}>
+          <div style={{ display: "flex", gap: 60 }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <FormikInput
                 name="nome"

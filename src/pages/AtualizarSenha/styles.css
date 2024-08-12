@@ -1,65 +1,53 @@
-.containerPrincipal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1080px;
-  height: 600px;
+.container {
   display: flex;
+  height: 100vh;
+  width: 100%;
   justify-content: center;
-  align-items: top;
+  align-items: center;
+  background: linear-gradient(
+    326deg,
+    rgba(246, 249, 250, 1) 0%,
+    rgba(236, 240, 243, 1) 34%
+  );
+}
+
+.containerCard {
+  width: 50em;
+  height: auto;
+  background-color: white;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  padding: 2em;
+
+  img {
+    align-self: center;
+    margin-bottom: 2.5em;
+  }
+
+  h1 {
+    width: 100%;
+    font-size: 1.2em;
+  }
 }
 
-.inputContainer {
+.containInput {
   display: flex;
-  flex-wrap: wrap; 
-  justify-content: center; 
-  margin-bottom: 10px;
-}
-.inputData {
-  align-items: center; 
-  width: 250px;
+  flex-direction: column;
+  width: 90%;
 }
 
-.inputRow {
-  display: flex;
-  flex-direction: column; 
-  align-items: start;
-  margin-bottom: 5px;
+@media screen and (max-width: 850px) {
+  .containerCard {
+    width: 85%;
+    height: 80%;
+  }
 }
 
-.inputRow > * {
-  margin-bottom: 2px; /* espaçamento entre o label e input */
-  margin-right: 20px; /* margem direita */
-}
-
-
-.inputRow:last-child > * {
-  margin-right: 0;
-}
-
-.inputRow label {
-  width: auto;
-}
-
-.inputCadastro, .inputSenha {
-  padding: 8px;
-  width: 200px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.inputSenha{
-  width: 250px;
-}
-
-.selectCadastro {
-  padding: 8px;
-  width: 500px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
+@media screen and (max-width: 600px) {
+  .containInput {
+    width: 100%;
+  }
 }

@@ -3,6 +3,17 @@ import "./styles.css";
 import { format } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 import {
+  Button,
+  Card,
+  Container,
+  Modal,
+  ModalFooter,
+  Navbar,
+  Stack,
+  Toast,
+  ToastContainer,
+} from "react-bootstrap";
+import {
   MdLogout,
   MdOutlineLibraryBooks,
   MdOutlinePeopleAlt,
@@ -54,6 +65,7 @@ function PerfilCoordenador() {
   const { mutate: removerOrientador } = useRemoverOrientador();
 
   const [showModal, setShowModal] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const [selectedAluno, setSelectedAluno] = useState<Aluno>();
 
   const [showSolicitacoes, setShowSolicitacoes] = useState(false);
@@ -74,7 +86,10 @@ function PerfilCoordenador() {
   const handleDelete = () => {
     removerOrientador(selectedAluno!.id);
     setShowModal(false);
+    setShowToast(true);
   };
+
+  const handleClose = () => setShowModal(false);
 
   // Separa os alunos baseados na titulação
   const alunosMestrado = alunos.filter((aluno) => aluno.curso === "M");
@@ -100,25 +115,20 @@ function PerfilCoordenador() {
 
   return (
     <div className="contain">
-      <div className="containerCoordenador">
-        {/* Logo*/}
-        <img src={logoPgcop} alt="Logo" />
-        {/* Informações do perfil */}
-        <div
-          className="infoCoordenador"
-          style={{ justifyContent: "space-between", marginRight: "30px" }}
-        >
-          <div>
-            <h2>{user?.nome}</h2>
-            <h3>Orientandos: {alunos.length}</h3>
-          </div>
-          {/* Botões Toolbar */}
-          <div>
-            <div style={{ marginTop: "-0.3em" }}>
+      <Navbar className="containerCoordenador bg-body-tertiary">
+        <Container fluid>
+          <Navbar.Brand href="/perfil-aluno">
+            <img src={logoPgcop} alt="Logo" />
+          </Navbar.Brand>
+          <Stack direction="horizontal" gap={3} className="infoCoordenador">
+            <Stack className="infoCoordenador">
+              <h2>{user?.nome}</h2>
+              <h3>Orientandos: {alunos.length}</h3>
+            </Stack>
+            <Stack className="botoesToolbarAluno">
               <MdOutlinePeopleAlt
                 onClick={handleSolicitacoesClick}
                 style={{
-                  marginRight: "40px",
                   cursor: "pointer",
                   color: solicitacoes.length > 0 ? "red" : "inherit",
                 }}
@@ -134,195 +144,131 @@ function PerfilCoordenador() {
                   />
                 </div>
               )}
-            </div>
-            <div>
               <MdOutlineLibraryBooks
                 onClick={() => navigate("/tarefas")}
-                style={{ cursor: "pointer", marginRight: "45px" }}
+                style={{ cursor: "pointer" }}
                 size={35}
                 title="Tarefas"
               />
-            </div>
-            <div>
               <MdLogout
                 onClick={signOut}
-                style={{ cursor: "pointer", marginRight: "30px" }}
+                style={{ cursor: "pointer" }}
                 size={35}
                 title="Sair"
               />
-            </div>
-          </div>
-        </div>
-      </div>
+            </Stack>
+          </Stack>
+        </Container>
+      </Navbar>
 
-      <h2
-        style={{ textAlign: "center", marginTop: "40px", marginBottom: "10px" }}
-      >
-        Lista de Orientandos
-      </h2>
+      <h2>Lista de Orientandos</h2>
       {/* Container de Alunos Orientados - Mestrado */}
       <div className="listaAlunosCoord">
-        <div className="containerOrientandosCoordenador">
-          <ul>
-            <h3
-              style={{
-                marginLeft: "20px",
-                marginBottom: "10px",
-                padding: "5px",
-              }}
-            >
-              Alunos de Mestrado
-            </h3>
-            {alunosMestrado.map((aluno) => (
-              <li
-                style={{ cursor: "pointer", padding: "7px 20px" }}
-                key={aluno.id}
-                onDoubleClick={() => handleDoubleClick(aluno.matricula)}
-              >
-                <div>
-                  <strong>{aluno.nome}</strong> Matrícula: {aluno.matricula}{" "}
-                  <br />
-                  Conclusão prevista em{" "}
+        <Card className="containerOrientandosCoordenador">
+          <h3 style={{ textAlign: "center" }}>Alunos de Mestrado</h3>
+          {alunosMestrado.map((aluno) => (
+            <Card.Body key={aluno.id} className="cardAluno">
+              <div className="infoAlunos">
+                <Card.Title>{aluno.nome}</Card.Title>
+                <p>Matrícula: {aluno.matricula}</p>
+                <p>
+                  Conclusão prevista em:{" "}
                   {aluno.data_defesa
                     ? format(new Date(aluno.data_defesa), "dd/MM/yyyy")
                     : "-"}
-                </div>
-                <div>
-                  <button
-                    className="bttn"
-                    onClick={() => handleDoubleClick(aluno.matricula)}
-                    style={{
-                      marginRight: "10px",
-                      marginLeft: "12em",
-                      height: "30px",
-                      borderRadius: "5px",
-                      width: "95px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    Abrir
-                  </button>
-                  <button
-                    className="bttn"
-                    onClick={() => {
-                      setSelectedAluno(aluno);
-                      setShowModal(true);
-                    }}
-                    style={{
-                      marginRight: "10px",
-                      marginLeft: "12em",
-                      height: "30px",
-                      borderRadius: "5px",
-                      width: "95px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    Remover
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Container de Alunos Orientados - Doutorado */}
-        <div className="containerOrientandosCoordenador">
-          <ul>
-            <h3
-              style={{
-                marginLeft: "20px",
-                marginBottom: "10px",
-                padding: "5px",
-              }}
-            >
-              Alunos de Doutorado
-            </h3>
-            {alunosDoutorado.map((aluno) => (
-              <li
-                style={{ cursor: "pointer", padding: "7px 20px" }}
-                key={aluno.id}
-                onDoubleClick={() => handleDoubleClick(aluno.matricula)}
-              >
-                <div>
-                  <strong>{aluno.nome}</strong> Matrícula: {aluno.matricula}{" "}
-                  <br />
-                  Conclusão prevista em{" "}
+                </p>
+              </div>
+              <div style={{ display: "flex", gap: "1em" }}>
+                <Button
+                  className="bttnCoordenador bttnVerde"
+                  onClick={() => handleDoubleClick(aluno.matricula)}
+                >
+                  Abrir
+                </Button>
+                <Button
+                  className="bttnCoordenador bttnVermelho"
+                  onClick={() => {
+                    setSelectedAluno(aluno); // Definir o aluno selecionado como o object
+                    setShowModal(true);
+                  }}
+                >
+                  Remover
+                </Button>
+              </div>
+            </Card.Body>
+          ))}
+        </Card>
+        <Card className="containerOrientandosCoordenador">
+          <h3 style={{ textAlign: "center" }}>Alunos de Doutorado</h3>
+          {alunosDoutorado.map((aluno) => (
+            <Card.Body key={aluno.id} className="cardAluno">
+              <div className="infoAlunos">
+                <Card.Title>{aluno.nome}</Card.Title>
+                <p>Matrícula: {aluno.matricula}</p>
+                <p>
+                  Conclusão prevista em:
                   {aluno.data_defesa
                     ? format(new Date(aluno.data_defesa), "dd/MM/yyyy")
-                    : "-"}
-                </div>
-                <div>
-                  <button
-                    className="bttn"
-                    onClick={() => handleDoubleClick(aluno.matricula)}
-                    style={{
-                      marginRight: "10px",
-                      marginLeft: "12em",
-                      height: "30px",
-                      borderRadius: "5px",
-                      width: "95px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    Abrir
-                  </button>
-                  <button
-                    className="bttn"
-                    onClick={() => {
-                      setSelectedAluno(aluno); // Definir o aluno selecionado como o object
-                      setShowModal(true);
-                    }}
-                    style={{
-                      marginRight: "10px",
-                      marginLeft: "12em",
-                      height: "30px",
-                      borderRadius: "5px",
-                      width: "95px",
-                      fontSize: "13px",
-                    }}
-                  >
-                    Remover
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+                    : " -"}
+                </p>
+              </div>
+              <div style={{ display: "flex", gap: "1em" }}>
+                <Button
+                  className="bttnCoordenador bttnVerde"
+                  onClick={() => handleDoubleClick(aluno.matricula)}
+                >
+                  Abrir
+                </Button>
+                <Button
+                  className="bttnCoordenador bttnVermelho"
+                  onClick={() => {
+                    setSelectedAluno(aluno); // Definir o aluno selecionado como o object
+                    setShowModal(true);
+                  }}
+                >
+                  Remover
+                </Button>
+              </div>
+            </Card.Body>
+          ))}
+        </Card>
       </div>
 
       {/* Modal de confirmação */}
-      {showModal && (
-        <div className="confirmationBox">
-          <div
-            style={{
-              backgroundColor: "#fff",
-              padding: "20px",
-              borderRadius: "10px",
-              height: "100px",
-              width: "300px",
-              textAlign: "center",
-            }}
-          >
-            <p>Tem certeza que deseja remover esse aluno da sua lista?</p>
-            <ul style={{ display: "flex" }}>
-              <button
-                className="bttn"
-                onClick={handleDelete}
-                style={{ marginRight: "30px", padding: "1px" }}
-              >
-                Sim
-              </button>
-              <button
-                className="bttn"
-                onClick={() => setShowModal(false)}
-                style={{ padding: "1px" }}
-              >
-                Não
-              </button>
-            </ul>
-          </div>
-        </div>
-      )}
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Remover Aluno</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            Tem certeza que deseja remover o aluno{" "}
+            <strong>{selectedAluno?.nome}</strong> da sua lista?
+          </p>
+        </Modal.Body>
+        <ModalFooter>
+          <Button variant="secondary" onClick={() => handleClose()}>
+            Não
+          </Button>
+          <Button variant="primary" onClick={() => handleDelete()}>
+            Sim
+          </Button>
+        </ModalFooter>
+      </Modal>
+
+      <ToastContainer position="middle-center">
+        <Toast
+          onClose={() => setShowToast(false)}
+          show={showToast}
+          delay={3000}
+          autohide
+          bg=""
+        >
+          <Toast.Header>
+            <strong className="me-auto">Confirmação</strong>
+          </Toast.Header>
+          <Toast.Body>Aluno removido com sucesso!</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </div>
   );
 }
