@@ -4,8 +4,7 @@
   height: 100vh;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 2em;
+  justify-content: space-around;
 }
 
 .containerCoordenador {
@@ -85,7 +84,7 @@
 
 .solicitacoesContainer {
   position: absolute;
-  top: 20%;
+  top: 8em;
   right: 6em;
 }
 
