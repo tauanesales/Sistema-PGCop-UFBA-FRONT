@@ -52,7 +52,13 @@ function AtualizarSenha() {
           validationSchema={validationSchema}
           onSubmit={handleResetPassword}
         >
-          {({ isSubmitting, handleSubmit }) => (
+          {({
+            isSubmitting,
+            handleSubmit,
+            handleChange,
+            handleBlur,
+            values,
+          }) => (
             <div className="containInput">
               {/* Campo Nova Senha */}
               <Input
@@ -62,6 +68,9 @@ function AtualizarSenha() {
                 placeholder="Digite a nova senha"
                 required
                 style={{ marginBottom: ".5em" }}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
               />
               <ErrorMessage name="password" component="div" />
 
@@ -73,6 +82,9 @@ function AtualizarSenha() {
                 placeholder="Digite a senha novamente"
                 required
                 style={{ marginBottom: ".5em" }}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.confirmPassword}
               />
               <ErrorMessage name="confirmPassword" component="div" />
 
