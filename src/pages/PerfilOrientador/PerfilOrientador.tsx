@@ -15,7 +15,7 @@ import { useUserQueries } from "@/queries/user";
 
 import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
 import { Button, Card, Container, Modal, ModalFooter, Navbar, Stack, Toast, ToastContainer } from "react-bootstrap";
-import { alunosMock }  from "@/models/mockAlunos";
+import { useNavigate } from "react-router-dom";
 
 function PerfilOrientador() {
   const containerRef = useRef(null);
@@ -73,7 +73,10 @@ function PerfilOrientador() {
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
     if (aluno) {
-      navigate(`/perfil-aluno-orientador`), { state: aluno };
+      console.log('Navegando para aluno:', aluno); // Debug
+      navigate(`/perfil-aluno-orientador/${aluno.id}`, { state: aluno });
+    } else {
+      console.log('Aluno não encontrado'); // Debug
     }
   };
 
