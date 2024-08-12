@@ -48,6 +48,21 @@ export const useUserQueries = () => {
       onSettled: () => queryClient.invalidateQueries({ queryKey: ["user"] }),
     });
 
+  const useCheckResetPasswordToken = () =>
+    useMutation({
+      mutationFn: userApi.checkResetPasswordToken,
+    });
+
+  const useResetPassword = () =>
+    useMutation({
+      mutationFn: userApi.resetPassword,
+    });
+
+  const useRequestResetPasswordCode = () =>
+    useMutation({
+      mutationFn: userApi.requestResetPasswordCode,
+    });
+
   const signOut = () => {
     resetAllStores();
     queryClient.clear();
@@ -60,6 +75,9 @@ export const useUserQueries = () => {
     useCreateAluno,
     useCreateProfessor,
     useUpdateUser,
+    useResetPassword,
+    useRequestResetPasswordCode,
+    useCheckResetPasswordToken,
     signOut,
   };
 };
