@@ -51,6 +51,10 @@ const routes = createRoutesFromElements(
     >
       <Route path="/perfil-coordenador" element={<PerfilCoordenador />} />
       <Route path="/tarefas" element={<Tarefas />} />
+      <Route
+        path="/perfil-aluno-orientador/:id"
+        element={<PerfilAlunoOrientador />}
+      />
     </Route>
 
     <Route element={<PublicRoute />}>
