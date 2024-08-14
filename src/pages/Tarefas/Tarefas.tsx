@@ -123,7 +123,7 @@ function Tarefas() {
                 marginLeft: "20px",
               }}
             >
-              Tarefas Mestrado
+              Tarefas de Mestrado
             </h2>
             {tarefasMestrado.map((tarefa) => (
               <li className="litarefas" key={tarefa.id}>
@@ -242,7 +242,7 @@ function Tarefas() {
                 marginLeft: "20px",
               }}
             >
-              Tarefas Doutorado
+              Tarefas de Doutorado
             </h2>
             {tarefasDoutorado.map((tarefa) => (
               <li className="litarefas" key={tarefa.id}>
