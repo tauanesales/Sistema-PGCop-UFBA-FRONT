@@ -1,3 +1,4 @@
+
 import "./styles.css";
 
 import { useState } from "react";
@@ -47,7 +48,7 @@ const ConfirmarEnvioEmail = () => {
   return (
     <div className="container">
       <div className="containerCard gap">
-        <img src={logoPgcop} width={120} alt="Logo Pgcop" />
+        <img src={logoPgcop} width={115} alt="Logo Pgcop" />
         <h1>Redefinir senha</h1>
         <div>
           <p>Enviamos um Código de confirmação para o e-mail informado.</p>
@@ -79,11 +80,14 @@ const ConfirmarEnvioEmail = () => {
           />
           {error && <p className="error">{error}</p>}
         </div>
+        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
         <ButtonSecondary
           onClick={handleNext}
           label={isPending ? "Carregando..." : "Continuar"}
-          style={{ width: "12em" }}
+          style={{ width: "12em", justifyContent: "center" }}
         />
+        </div>
+
       </div>
     </div>
   );
