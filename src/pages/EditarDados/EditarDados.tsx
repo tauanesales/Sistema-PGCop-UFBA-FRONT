@@ -79,7 +79,10 @@ export const EditarDados = () => {
         }),
       },
       {
-        onSettled: () => formikHelpers.setSubmitting(false),
+        onSettled: () => {
+          formikHelpers.setSubmitting(false);
+          navigate(-1);  // Redireciona para a página anterior
+        },
       },
     );
   };
@@ -159,10 +162,11 @@ export const EditarDados = () => {
     >
       {({ isSubmitting, handleSubmit }) => (
         <Form className="containerPrincipal">
-          <img src="/assets/logoPgcop.png" width={70} />
+          <img src="/assets/logoPgcop.png" width={90} />
+          <br></br>
 
           <div style={{ display: "flex", gap: 60 }}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", flexDirection: "column", width: "300px" }}>
               <FormikInput
                 name="nome"
                 label="Nome completo"
@@ -274,10 +278,10 @@ export const EditarDados = () => {
           <div
             className="buttonCadastro"
             style={{
-              marginTop: "-1em",
+              marginTop: "-01em",
               display: "flex",
               flexDirection: "row",
-              gap: "3em",
+              gap: "0em",
             }}
           >
             <LoadingButton
@@ -311,7 +315,7 @@ export const EditarDados = () => {
               variant="contained"
               fullWidth
               loading={isSubmitting}
-              onClick={() => handleSubmit()}
+              onClick={() => handleSubmit() }
               disabled={isSubmitting}
             >
               Salvar

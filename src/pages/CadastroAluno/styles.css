@@ -10,15 +10,14 @@ body, html {
   align-items: center;
 }
 
-.containerPrincipal {
-  min-width: 40em;
-  max-width: 45%;
-  height: auto;
+.containerPrincipalCad {
+  min-width: 60em;
+  height: 44em;
   display: flex;
   flex-direction: column;
   border-radius: 10px; 
   align-items: center;
-  gap: .5em; /* Ajuste conforme necessário */
+  gap: .2em; /* Ajuste conforme necessário */
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
@@ -46,24 +45,24 @@ body, html {
   width: 9.5vh;
 }
 
-.inputRow {
+.inputRowCad {
   display: flex;
   flex-direction: column; 
   align-items: start;
   margin-bottom: 5px;
 }
 
-.inputRow > * {
+.inputRowCad > * {
   margin-bottom: 2px; /* espaçamento entre o label e input */
-  margin-right: 20px; /* margem direita */
+  margin-right: 2px; /* margem direita */
 }
 
 
-.inputRow:last-child > * {
+.inputRowCad:last-child > * {
   margin-right: 0;
 }
 
-.inputRow label {
+.inputRowCad label {
   width: auto;
 }
 
