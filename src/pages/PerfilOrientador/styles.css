@@ -58,6 +58,41 @@
   justify-content: end;
 }
 
+
+.confirmationBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: "#fff";
+  padding: 0px 15px;
+  height: 50em;
+}
+
+.inputContainer {
+  margin-bottom: 10px;
+}
+
+.inputContainer label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.inputContainer input[type="text"],
+.inputContainer input[type="number"],
+.inputContainer textarea,
+.inputContainer select {
+  width: 100%;
+  padding: 18px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.inputContainer textarea {
+  height: 80px;
+}
+
 button {
   background-color: rgba(42, 41, 41, 0.77);
   width: 130px;
@@ -102,10 +137,6 @@ li div {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.solicitacoesContainer {
-  margin-top: 80px;
-  margin-left: -28.5em;
-}
 
 .bttn {
   height: 25px;

@@ -87,7 +87,7 @@ const Login = () => {
           <div className="links">
             <p className="text">
               <a href="/cadastro-aluno" >
-                Cadastre-se
+                Cadastre-se 
               </a>
               <br></br>
               Esqueceu a senha? Clique
