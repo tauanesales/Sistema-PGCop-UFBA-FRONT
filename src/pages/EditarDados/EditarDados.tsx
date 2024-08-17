@@ -36,6 +36,8 @@ const telefoneMaskOptions = {
 };
 
 export const EditarDados = () => {
+  const navigate = useNavigate();
+
   const { useGetUser, useUpdateUser } = useUserQueries();
 
   const { mutate: updateUser } = useUpdateUser();
@@ -62,29 +64,26 @@ export const EditarDados = () => {
       email,
     } = values;
 
-    updateUser(
-      {
-        nome,
-        email,
-        ...(user!.tipo_usuario === TipoUsuario.ALUNO && {
-          orientador_id: orientador_id as number,
-          curso: curso as "M" | "D",
-          data_ingresso: (data_ingresso as Date).toISOString().split("T")[0],
-          data_defesa: null,
-          data_qualificacao: null,
-          lattes,
-          matricula,
-          telefone: unformat(telefone, telefoneMaskOptions),
-          cpf: unformat(cpf, cpfMaskOptions),
-        }),
+    const payload = {
+      nome,
+      email,
+      ...(user!.tipo_usuario === TipoUsuario.ALUNO && {
+        orientador_id: orientador_id as number,
+        curso: curso as "M" | "D",
+        data_ingresso: (data_ingresso as Date).toISOString().split("T")[0],
+        lattes,
+        matricula,
+        telefone: unformat(telefone, telefoneMaskOptions),
+        cpf: unformat(cpf, cpfMaskOptions),
+      }),
+    };
+
+    updateUser(payload, {
+      onSettled: () => {
+        formikHelpers.setSubmitting(false);
+        navigate(-1); // Redireciona para a página anterior
       },
-      {
-        onSettled: () => {
-          formikHelpers.setSubmitting(false);
-          navigate(-1);  // Redireciona para a página anterior
-        },
-      },
-    );
+    });
   };
 
   const validationSchema = Yup.object().shape({
@@ -134,8 +133,6 @@ export const EditarDados = () => {
 
   const telefoneInputRef = useMask(telefoneMaskOptions);
 
-  const navigate = useNavigate();
-
   return (
     <Formik
       initialValues={{
@@ -166,7 +163,13 @@ export const EditarDados = () => {
           <br></br>
 
           <div style={{ display: "flex", gap: 60 }}>
-            <div style={{ display: "flex", flexDirection: "column", width: "300px" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "300px",
+              }}
+            >
               <FormikInput
                 name="nome"
                 label="Nome completo"
@@ -315,13 +318,12 @@ export const EditarDados = () => {
               variant="contained"
               fullWidth
               loading={isSubmitting}
-              onClick={() => handleSubmit() }
+              onClick={() => handleSubmit()}
               disabled={isSubmitting}
             >
               Salvar
             </LoadingButton>
           </div>
-
         </Form>
       )}
     </Formik>
