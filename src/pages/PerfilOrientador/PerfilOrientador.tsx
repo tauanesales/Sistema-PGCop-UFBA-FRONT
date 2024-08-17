@@ -5,20 +5,28 @@ import { useEffect, useRef, useState } from "react";
 import { MdLogout, MdOutlinePeopleAlt } from "react-icons/md";
 
 import { Status } from "@/models/Solicitacao";
+import { TarefaBase } from "@/models/TarefaBase";
 import { Aluno, Professor } from "@/models/User";
 import { useAlunosQueries } from "@/queries/alunos";
 import { useProfessoresQueries } from "@/queries/professores";
 import { useSolicitacoesQueries } from "@/queries/solicitacoes";
+import { useTarefasBaseQueries } from "@/queries/tarefasBase";
 import { useUserQueries } from "@/queries/user";
 
 import Solicitacoes from "../../components/Solicitacoes/Solicitacoes";
 import { Button, Card, Container, Modal, ModalFooter, Navbar, Stack, Toast, ToastContainer } from "react-bootstrap";
-import { alunosMock }  from "@/models/mockAlunos";
+import { useNavigate } from "react-router-dom";
 
 function PerfilOrientador() {
   const containerRef = useRef(null);
 
   const { signOut, useGetUser } = useUserQueries();
+
+  const navigate = useNavigate();
+
+  const { useCreateTarefa } = useTarefasBaseQueries();
+
+  const { mutate: createTarefa } = useCreateTarefa();
 
   const { data: userData } = useGetUser();
 
@@ -48,6 +56,14 @@ function PerfilOrientador() {
   const [selectedAluno, setSelectedAluno] = useState<Aluno>();
   const [showSolicitacoes, setShowSolicitacoes] = useState(false);
 
+  /* Const Add Tarefas*/
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [novaTarefaNome, setNovaTarefaNome] = useState("");
+  const [novaTarefaPrazo, setNovaTarefaPrazo] = useState(0);
+  const [novaTarefaDescricao, setNovaTarefaDescricao] = useState("");
+  const [novaTarefaTitulacao, setNovaTarefaTitulacao] =
+    useState<TarefaBase["curso"]>("M");
+
   useEffect(() => {
     if (solicitacoes.length === 0) {
       setShowSolicitacoes(false);
@@ -57,7 +73,10 @@ function PerfilOrientador() {
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
     if (aluno) {
-      window.open(`/perfil-aluno`);
+      console.log('Navegando para aluno:', aluno); // Debug
+      navigate(`/perfil-aluno-orientador/${aluno.id}`, { state: aluno });
+    } else {
+      console.log('Aluno não encontrado'); // Debug
     }
   };
 
@@ -77,6 +96,24 @@ function PerfilOrientador() {
 
   const handleRemoveRequest = (solicitacaoId: number) =>
     updatedSolicitacao({ solicitacaoId, status: Status.RECUSADA });
+
+  const handleAddTarefa = () => {
+    const newTarefa = {
+      nome: novaTarefaNome,
+      prazo_em_meses: novaTarefaPrazo,
+      descricao: novaTarefaDescricao,
+      curso: novaTarefaTitulacao,
+    };
+    createTarefa(newTarefa, {
+      onSuccess: () => {
+        setShowAddModal(false);
+        setNovaTarefaNome("");
+        setNovaTarefaPrazo(0);
+        setNovaTarefaDescricao("");
+        setNovaTarefaTitulacao("M");
+      },
+    });
+  };
 
   const alunosMestrado = alunos.filter((aluno) => aluno.curso === "M");
   const alunosDoutorado = alunos.filter((aluno) => aluno.curso === "D");
