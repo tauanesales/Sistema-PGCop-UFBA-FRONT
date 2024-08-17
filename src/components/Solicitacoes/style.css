@@ -5,6 +5,8 @@
     padding: 10px;
     width: 28em;
     margin-top: -7em;
+    position: relative;
+    z-index: 1000;
   }
   
   .solicitacoes-container li {

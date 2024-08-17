@@ -1,14 +1,14 @@
 import * as d3 from "d3";
 import React, { useEffect, useRef } from "react";
 
-const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
+const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso }) => {
   const svgRef = useRef();
 
   useEffect(() => {
     // Dimensões container
     const margin = { top: 0, right: 40, bottom: 60, left: 40 };
     const width = 1350 - margin.left - margin.right;
-    const height = 150 - margin.top - margin.bottom;
+    const height = 140 - margin.top - margin.bottom;
 
     // Construção da escala horizontal e preparação para zoom
     let currentScale = "mes";
@@ -26,7 +26,12 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
           timeFormat = "%Y";
           break;
         case "mes":
-          timeInterval = d3.timeMonth.every(1);
+          // Ajuste do intervalo baseado no tipo de curso
+          if (curso === "Mestrado") {
+            timeInterval = d3.timeMonth.every(2);
+          } else if (curso === "Doutorado") {
+            timeInterval = d3.timeMonth.every(1);
+          }
           timeFormat = "%b %Y";
           break;
         case "semana":
@@ -84,10 +89,7 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
         .attr("x", d => newXScale(d))
         .attr("transform", d => `rotate(-30, ${newXScale(d)}, ${height + 20})`);
       svg.selectAll(".tarefa-a-fazer")
-        .attr("x", (tarefa, index) => {
-          const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
-          return newXScale(prazo) - 10 + (index * 5);
-        });
+        .attr("x", d => newXScale(new Date(d.data_prazo)) - 15);
 
       svg.selectAll(".barra-progresso")
         .attr("width", width * transform.k)
@@ -96,10 +98,6 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
       svg.selectAll(".progresso")
         .attr("width", progressoWidth * transform.k)
         .attr("transform", `translate(${transform.x},0)`);
-
-      // Atualiza a posição da flagInicio
-      svg.selectAll(".flag-inicio")
-        .attr("x", newXScale(dataDeInicio) - 15);
     }
 
     const svg = d3.select(svgRef.current)
@@ -137,23 +135,18 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
       .enter().append("image")
       .attr("class", "tarefa-a-fazer")
       .attr("cursor", "pointer")
-      .attr("x", (tarefa, index) => {
-        const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
-        return timeScale(prazo) - 10 + (index * 5);
-      })
+      .attr("x", d => timeScale(new Date(d.data_prazo)) - 15)
       .attr("y", height - 60)
       .attr("width", 30)
       .attr("height", 30)
-      .attr("xlink:href", (tarefa) => {
-        const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + tarefa.prazoMeses, dataDeInicio.getDate());
-        return tarefa.feita ? "/assets/flagGreen.png" : (prazo < dataAtual ? "/assets/flagRed.png" : "/assets/flagBlack.png");
+      .attr("xlink:href", d => {
+        return d.concluida ? "/assets/flagGreen.png" : (new Date(d.data_prazo) < dataAtual ? "/assets/flagRed.png" : "/assets/flagBlack.png");
       })
       .on("mouseover", function (event, d) {
-        const prazo = new Date(dataDeInicio.getFullYear(), dataDeInicio.getMonth() + d.prazoMeses, dataDeInicio.getDate());
         const tooltip = d3.select("#tooltip");
         tooltip
           .style("display", "block")
-          .html(`<strong>${d.nome}</strong><br>Data Limite: ${prazo.toLocaleDateString()}`)
+          .html(`<strong>${d.nome}</strong><br>Data Limite: ${new Date(d.data_prazo).toLocaleDateString()}`)
           .style("left", (event.pageX + 10) + "px")
           .style("top", (event.pageY - 60) + "px")
           .style("position", "absolute");
@@ -191,22 +184,30 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas }) => {
     const progressoWidth = progressoPorcentagem * width;
     progresso.attr("width", progressoWidth);
 
-    // Adiciona a imagem no início da barra de progresso e a classifica como flag-inicio
-    svg.append("image")
-      .attr("class", "flag-inicio")
-      .attr("x", timeScale(dataDeInicio) - 15)
-      .attr("y", height - 62)
-      .attr("width", 60)
-      .attr("height", 50)
-      .attr("xlink:href", "/assets/flagInicio.png");
+    svg.append("text")
+      .attr("x", timeScale(dataDeInicio) + 10)
+      .attr("y", height - 30)
+      .attr("text-anchor", "middle")
+      .style("fill", "lightgrey")
+      .style("font-size", "20px")
+      .style("font-weight", "bold")
+      .text("Inicio");
+
+    svg.append("text")
+      .attr("x", timeScale(dataFinal) - 10)
+      .attr("y", height - 30)
+      .attr("text-anchor", "middle")
+      .style("fill", "lightgrey")
+      .style("font-size", "20px")
+      .style("font-weight", "bold")
+      .text("Fim");
 
     return () => {
       d3.select(svgRef.current).selectAll("*").remove();
     };
-  }, [dataAtual, tarefas]);
+  }, [dataAtual, tarefas, curso]);
 
   return <svg ref={svgRef}></svg>;
 };
 
 export default D3Visualization;
-
