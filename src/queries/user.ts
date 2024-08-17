@@ -44,7 +44,7 @@ export const useUserQueries = () => {
   const useUpdateUser = () =>
     useMutation({
       mutationFn: userApi.updateUser,
-      onSuccess: (user) => queryClient.setQueryData<User>(["user"], user),
+      onSuccess: () => queryClient.invalidateQueries({ queryKey: ["user"] }),
       onSettled: () => queryClient.invalidateQueries({ queryKey: ["user"] }),
     });
 
