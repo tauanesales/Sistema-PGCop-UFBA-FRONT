@@ -219,14 +219,15 @@ const CadastroAluno = () => {
       onSubmit={handleSignUp}
     >
       {({ values, setFieldValue, isSubmitting, handleSubmit }) => (
-        <Form className="contain">
-          <div className="containerPrincipal">
+        <Form className="containCad">
+          <div className="containerPrincipalCad">
             <img
               src="assets/logoPgcop.png"
               width={80}
 
             />
-            <h1>Cadastro</h1>
+            
+
             <RadioGroup
               row
               aria-label="tipo-usuario"
@@ -248,8 +249,8 @@ const CadastroAluno = () => {
               />
             </RadioGroup>
 
-            <div style={{ display: "flex", gap: 16 }}>
-              <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ display: "flex", gap: 50 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "-50px", width: "400px" }}>
                 <FormikInput
                   name="nome"
                   label="Nome completo"
@@ -351,7 +352,7 @@ const CadastroAluno = () => {
                 ) : (
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <FormikInput
-                      className="inputRow"
+                      className="inputRowCad"
                       style={{ width: "240px" }}
                       fullWidth
                       variant="standard"
