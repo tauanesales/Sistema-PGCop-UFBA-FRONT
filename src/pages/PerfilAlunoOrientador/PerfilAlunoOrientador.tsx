@@ -3,7 +3,7 @@ import "./styles.css";
 import { addMonths, differenceInDays, format } from "date-fns";
 
 import { Alert, Card, Container, Navbar, Stack } from "react-bootstrap";
-import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
+import { AiOutlineFileExcel } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 
@@ -149,11 +149,6 @@ function PerfilAlunoOrientador() {
                     key={tarefa.id}
                   >
                     <div className="iconeCard">
-                      <AiOutlineEdit
-                        style={{ cursor: "pointer" }}
-                        size={20}
-                        title="Editar"
-                      />
                       <h4>{tarefa.nome}</h4>
                     </div>
                     <p>{tarefa.descricao}</p>
