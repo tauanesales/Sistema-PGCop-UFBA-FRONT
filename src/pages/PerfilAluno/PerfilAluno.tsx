@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { differenceInDays, format, addMonths } from "date-fns";
+import { addMonths, differenceInDays, format } from "date-fns";
 import { useState } from "react";
 import {
   Alert,
@@ -12,14 +12,13 @@ import {
   Stack,
 } from "react-bootstrap";
 import { AiOutlineEdit } from "react-icons/ai";
+import { IoIosCheckbox } from "react-icons/io";
 import { MdEditNote, MdLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { IoIosCheckbox } from 'react-icons/io';
 
 import D3Visualization from "@/components/D3Visualization";
 import { Tarefa } from "@/models/Tarefa";
 import { Aluno, Curso } from "@/models/User";
-import { useProfessoresQueries } from "@/queries/professores";
 import { useTarefasQueries } from "@/queries/tarefas";
 import { useUserQueries } from "@/queries/user";
 
@@ -46,11 +45,7 @@ function PerfilAluno() {
   const { useGetTarefaAluno, useConcluirTarefa } = useTarefasQueries();
   const { data: tarefas = [], refetch } = useGetTarefaAluno();
   const { mutate: concluirTarefa } = useConcluirTarefa();
-  const { useGetProfessores } = useProfessoresQueries();
-  const { data: professores = [] } = useGetProfessores();
-  const nomeOrientador =
-    professores.find((professor) => professor.id === user.orientador_id)
-      ?.nome ?? "-";
+
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState<number | null>(null);
   const [dataSelecionada, setDataSelecionada] = useState(
     new Date().toISOString().split("T")[0],
@@ -85,7 +80,7 @@ function PerfilAluno() {
           },
           onError: () => {
             setTarefaReversao(null);
-            setShowConfirmDialog(false); 
+            setShowConfirmDialog(false);
           },
         },
       );
@@ -118,7 +113,9 @@ function PerfilAluno() {
   const tarefasFeitas = tarefas.filter((tarefa) => tarefa.concluida);
 
   // Verifica se a data de ingresso está definida e válida
-  const dataIngresso = user?.data_ingresso ? new Date(user.data_ingresso) : null;
+  const dataIngresso = user?.data_ingresso
+    ? new Date(user.data_ingresso)
+    : null;
 
   // Gera automaticamente a dataFinal com base no curso
   const dataFinal = dataIngresso
@@ -144,9 +141,7 @@ function PerfilAluno() {
                   </p>
                   <p>
                     <span>Data de início:</span>{" "}
-                    {dataIngresso
-                      ? format(dataIngresso, "dd/MM/yyyy")
-                      : "-"}
+                    {dataIngresso ? format(dataIngresso, "dd/MM/yyyy") : "-"}
                   </p>
                   <p>
                     <span>Status:</span>{" "}
@@ -159,13 +154,11 @@ function PerfilAluno() {
                   </h3>
                   <p>
                     <span>Orientador(a): </span>
-                    {nomeOrientador}
+                    {user.orientador?.nome ?? "-"}
                   </p>
                   <p>
                     <span>Defesa prevista:</span>{" "}
-                    {dataFinal
-                      ? format(dataFinal, "dd/MM/yyyy")
-                      : "-"}
+                    {dataFinal ? format(dataFinal, "dd/MM/yyyy") : "-"}
                   </p>
                   <p>
                     <span>Lattes:</span>
@@ -255,98 +248,104 @@ function PerfilAluno() {
                       : `${-totalDays} dia${-totalDays > 1 ? "s" : ""} em atraso`;
 
                 return (
-                <Alert
-                  style={{ backgroundColor: backgroundColor }}
-                  className="cardTarefa"
-                  id="task"
-                  key={tarefa.id}
-                >
-                  <div className="iconeCard">
-                    <AiOutlineEdit
-                      onClick={() => handleCheckboxChange(tarefa)}
-                      style={{ cursor: "pointer" }}
-                      size={20}
-                      title="Editar"
-                    />
-                    <h4>{tarefa.nome}</h4>
-                    {tarefaEmEdicao === tarefa.id && (
-                      <div className="boxDate">
-                        <Form.Group className="boxDate">
-                          <Form.Label>Data de realização:</Form.Label>
-                          <Form.Control
-                            size="sm"
-                            type="date"
-                            className="dateInput"
-                            value={dataSelecionada}
-                            onChange={(e) => setDataSelecionada(e.target.value)}
-                          />
-                          <Button
-                            variant="primary"
-                            className="saveButton"
-                            onClick={() => salvarDataRealizacao(tarefa)}
-                          >
-                            Salvar
-                          </Button>
-                        </Form.Group>
-                      </div>
-                    )}
-                  </div>
-                  {tarefa.descricao}
-                  <br></br>
+                  <Alert
+                    style={{ backgroundColor: backgroundColor }}
+                    className="cardTarefa"
+                    id="task"
+                    key={tarefa.id}
+                  >
+                    <div className="iconeCard">
+                      <AiOutlineEdit
+                        onClick={() => handleCheckboxChange(tarefa)}
+                        style={{ cursor: "pointer" }}
+                        size={20}
+                        title="Editar"
+                      />
+                      <h4>{tarefa.nome}</h4>
+                      {tarefaEmEdicao === tarefa.id && (
+                        <div className="boxDate">
+                          <Form.Group className="boxDate">
+                            <Form.Label>Data de realização:</Form.Label>
+                            <Form.Control
+                              size="sm"
+                              type="date"
+                              className="dateInput"
+                              value={dataSelecionada}
+                              onChange={(e) =>
+                                setDataSelecionada(e.target.value)
+                              }
+                            />
+                            <Button
+                              variant="primary"
+                              className="saveButton"
+                              onClick={() => salvarDataRealizacao(tarefa)}
+                            >
+                              Salvar
+                            </Button>
+                          </Form.Group>
+                        </div>
+                      )}
+                    </div>
+                    {tarefa.descricao}
+                    <br></br>
                     Data Limite: {format(prazo, "dd/MM/yyyy")} - {statusData}
-                </Alert>
+                  </Alert>
                 );
               })}
             </Card.Body>
           </Card>
           <Card className="boxTarefas">
             <Card.Body>
-              <Card.Title className="titleTarefas">Tarefas concluídas</Card.Title>
-                {tarefasFeitas.length === 0 ? (
-                  <p
-                    style={{
-                      textAlign: "center",
-                      marginTop: "70px",
-                      fontSize: "25px",
-                      fontWeight: "600",
-                      color: "lightgrey",
-                    }}
-                  >
-                    Ainda não existem tarefas concluídas
-                  </p>
-                ) : (
-                  tarefasFeitas.map((tarefa) => {
-                    const prazo = new Date(tarefa.data_prazo);
-                    const realizacao = tarefa.data_conclusao ? new Date(tarefa.data_conclusao) : null;
-                    if (realizacao) {
-                      realizacao.setDate(realizacao.getDate() + 1);
-                    }
+              <Card.Title className="titleTarefas">
+                Tarefas concluídas
+              </Card.Title>
+              {tarefasFeitas.length === 0 ? (
+                <p
+                  style={{
+                    textAlign: "center",
+                    marginTop: "70px",
+                    fontSize: "25px",
+                    fontWeight: "600",
+                    color: "lightgrey",
+                  }}
+                >
+                  Ainda não existem tarefas concluídas
+                </p>
+              ) : (
+                tarefasFeitas.map((tarefa) => {
+                  const prazo = new Date(tarefa.data_prazo);
+                  const realizacao = tarefa.data_conclusao
+                    ? new Date(tarefa.data_conclusao)
+                    : null;
+                  if (realizacao) {
+                    realizacao.setDate(realizacao.getDate() + 1);
+                  }
 
-                    return (
-                      <Alert
-                        style={{
-                          backgroundColor: "#b5ffbd",
-                        }}
-                        className="cardTarefa"
-                        key={tarefa.id}
-                      >
-                        <div className="iconeCard">
-                          <IoIosCheckbox
-                            size={20}
-                            onClick={() => handleCheckboxChange(tarefa)}
-                            style={{ cursor: "pointer" }}
-                          />
-                          <h4>{tarefa.nome}</h4>
-                        </div>
-                        {tarefa.descricao}
-                        Prazo: {format(prazo, "dd/MM/yyyy")}
-                        <br></br>
-                          Realizada em:{" "}
-                          {realizacao ? format(realizacao, "dd/MM/yyyy") : "-"}
-                      </Alert>
-                    );
-                  })
-                )}
+                  return (
+                    <Alert
+                      style={{
+                        backgroundColor: "#b5ffbd",
+                      }}
+                      className="cardTarefa"
+                      key={tarefa.id}
+                    >
+                      <div className="iconeCard">
+                        <IoIosCheckbox
+                          size={20}
+                          onClick={() => handleCheckboxChange(tarefa)}
+                          style={{ cursor: "pointer" }}
+                        />
+                        <h4>{tarefa.nome}</h4>
+                      </div>
+                      {tarefa.descricao}
+                      Prazo: {format(prazo, "dd/MM/yyyy")}
+                      <br></br>
+                      Realizada em:{" "}
+                      {realizacao ? format(realizacao, "dd/MM/yyyy") : "-"}
+                    </Alert>
+                  );
+                })
+              )}
             </Card.Body>
           </Card>
         </div>
@@ -355,12 +354,15 @@ function PerfilAluno() {
           <div className="confirmDialog">
             <p>Tem certeza que deseja reverter a tarefa para "a fazer"?</p>
             <div className="buttonContainer">
-              <Button className="cancelButton" onClick={cancelarReversao}>Cancelar</Button>
-              <Button className="confirmButton" onClick={confirmarReversao}>Reverter</Button>
+              <Button className="cancelButton" onClick={cancelarReversao}>
+                Cancelar
+              </Button>
+              <Button className="confirmButton" onClick={confirmarReversao}>
+                Reverter
+              </Button>
             </div>
           </div>
         )}
-
       </div>
     </div>
   );
