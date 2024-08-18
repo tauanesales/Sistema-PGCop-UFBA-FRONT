@@ -292,10 +292,11 @@ export const EditarDados = () => {
                         as="span"
                         animation="border"
                         size="sm"
+                        variant="dark"
                         role="status"
                         aria-hidden="true"
                       />
-                      {' Carregando...'}
+                      <span>Salvando...</span>
                     </>
                   ) : (
                     'Salvar'

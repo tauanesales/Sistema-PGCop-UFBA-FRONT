@@ -62,8 +62,9 @@
   font-weight: 600;
   border: none;
 }
-.bttnCadastro:active {
-  transform: scale(1.04);
+.bttnCadastro:active, .bttnCadastro:hover {
+  color: #000000 !important;
+  transform: scale(1.04) !important;
 }
 
 .containerButtons{

@@ -138,18 +138,3 @@ li div {
 }
 
 
-.bttn {
-  height: 25px;
-  width: 100px;
-  padding: 0 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-left: 5px;
-  margin-top: 5px;
-  color: #000000;
-  background-color: #d6dde2;
-  font-family: "Raleway", sans-serif;
-  font-size: 0.9em;
-  font-weight: 600;
-  border: none;
-}

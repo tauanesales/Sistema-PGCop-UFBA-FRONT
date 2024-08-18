@@ -133,6 +133,7 @@ function PerfilAluno() {
               </Navbar.Brand>
               <Stack direction="horizontal" gap={3} className="boxAluno">
                 <Stack className="boxInfoAluno">
+                  <p className="saudacaoAluno">Olá, aluno(a)!</p>
                   <h3>
                     <span>{user.nome}</span>
                   </h3>

@@ -51,6 +51,7 @@ function PerfilAlunoOrientador() {
             </Navbar.Brand>
             <Stack direction="horizontal" gap={3} className="boxAluno">
               <Stack className="boxInfoAluno">
+                <p>Perfil do aluno(a):</p>
                 <h3>
                   <span>{aluno.nome}</span>
                 </h3>

@@ -144,6 +144,7 @@ function PerfilOrientador() {
                 </Navbar.Brand>
                 <Stack direction="horizontal" gap={3} className="infoCoordenador">
                       <Stack className="infoCoordenador">
+                          <p className="saudacaoCoordenador">Olá, professor!</p>
                           <h2>{user?.nome}</h2>
                           <h3>Orientandos: {alunos.length}</h3>
                       </Stack>

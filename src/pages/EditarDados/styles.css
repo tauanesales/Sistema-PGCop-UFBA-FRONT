@@ -50,6 +50,11 @@ body, html {
   font-size: 0.9em;
   font-weight: 600;
   border: none;
+
+  span{
+    color: #000000;
+    margin-left: .5em;
+  }
 }
 .bttnCadastro:active {
   transform: scale(1.04);

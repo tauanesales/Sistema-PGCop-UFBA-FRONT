@@ -34,11 +34,16 @@
 .boxInfoAluno {
   padding: 5px 10px;
   display: flex;
-  align-self: flex-start;
   justify-content: center;
   height: 12em;
   max-width: 40%;
 }
+
+.saudacaoAluno{
+  font-size: 1.1em;
+  display: flex;
+}
+
 .boxInfoAluno h2 {
   white-space: nowrap;
 }
