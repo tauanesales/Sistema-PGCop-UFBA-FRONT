@@ -32,11 +32,11 @@ function PerfilAlunoOrientador() {
   const aluno = location.state as Aluno;
   const logoPgcop = "/assets/logoPgcop.png";
 
-  const { useGetTarefaAluno } = useTarefasQueries();
-  const { data: tarefas = [] } = useGetTarefaAluno();
+  const { useGetTarefaOrientando } = useTarefasQueries();
+  const { data: tarefas = [] } = useGetTarefaOrientando(aluno.id);
 
-  const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
-  const tarefasFeitas = tarefas.filter((tarefa) => tarefa.completada);
+  const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.concluida);
+  const tarefasFeitas = tarefas.filter((tarefa) => tarefa.concluida);
 
   return (
     <div className="contain">
