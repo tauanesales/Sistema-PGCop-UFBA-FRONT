@@ -20,17 +20,12 @@ export type Aluno = UserBase & {
   cpf: string;
   telefone: string;
   matricula: string;
-  orientador_id: number | null;
   curso: keyof typeof Curso;
   lattes: string;
   data_ingresso: string;
   data_qualificacao: string | null;
   data_defesa: string | null;
-  orientador: {
-    nome: string;
-    email: string;
-    id: number;
-  };
+  orientador: Professor;
 };
 
 export type Professor = UserBase & {
