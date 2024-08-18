@@ -1,15 +1,15 @@
 import "./styles.css";
 
 import { differenceInDays, format } from "date-fns";
-import { useState } from "react";
-import { Alert, Button, Card, Container, Navbar, Stack } from "react-bootstrap";
+
+import { Alert, Card, Container, Navbar, Stack } from "react-bootstrap";
 import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 
 import D3Visualization from "@/components/D3Visualization";
 import { Aluno, Curso } from "@/models/User";
-import { useProfessoresQueries } from "@/queries/professores";
+
 import { useTarefasQueries } from "@/queries/tarefas";
 import { useUserQueries } from "@/queries/user";
 
@@ -34,13 +34,6 @@ function PerfilAlunoOrientador() {
 
   const { useGetTarefaAluno } = useTarefasQueries();
   const { data: tarefas = [] } = useGetTarefaAluno();
-
-  const { useGetProfessores } = useProfessoresQueries();
-  const { data: professores = [] } = useGetProfessores();
-
-  const nomeOrientador =
-    professores.find((professor) => professor.id === aluno.orientador_id)
-      ?.nome ?? "-";
 
   const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
   const tarefasFeitas = tarefas.filter((tarefa) => tarefa.completada);
@@ -78,7 +71,7 @@ function PerfilAlunoOrientador() {
                 </h3>
                 <p>
                   <span>Orientador(a): </span>
-                  {nomeOrientador}
+                  {aluno.orientador.nome ?? "-"}
                 </p>
                 <p>
                   <span>Término Previsto:</span>{" "}
