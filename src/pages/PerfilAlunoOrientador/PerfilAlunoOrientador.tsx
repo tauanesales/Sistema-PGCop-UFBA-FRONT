@@ -1,6 +1,6 @@
 import "./styles.css";
 
-import { differenceInDays, format } from "date-fns";
+import { addMonths, differenceInDays, format } from "date-fns";
 
 import { Alert, Card, Container, Navbar, Stack } from "react-bootstrap";
 import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
@@ -37,6 +37,16 @@ function PerfilAlunoOrientador() {
 
   const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.concluida);
   const tarefasFeitas = tarefas.filter((tarefa) => tarefa.concluida);
+
+  // Verifica se a data de ingresso está definida e válida
+  const dataIngresso = aluno?.data_ingresso
+    ? new Date(aluno.data_ingresso)
+    : null;
+
+  // Gera automaticamente a dataFinal com base no curso
+  const dataFinal = dataIngresso
+    ? addMonths(dataIngresso, aluno.curso === "M" ? 24 : 48)
+    : null;
 
   return (
     <div className="contain">
@@ -93,14 +103,14 @@ function PerfilAlunoOrientador() {
         </Navbar>
 
         {/* Visualização */}
-        {aluno.data_qualificacao && (
-          <D3Visualization
-            dataDeInicio={new Date(aluno.data_ingresso)}
-            dataFinal={new Date(aluno.data_qualificacao)}
-            dataAtual={new Date()}
-            tarefas={tarefas}
-          />
-        )}
+
+        <D3Visualization
+          dataDeInicio={dataIngresso}
+          dataFinal={dataFinal}
+          dataAtual={new Date()}
+          tarefas={tarefas}
+          curso={Curso[aluno.curso]}
+        />
 
         <div className="tarefasAluno">
           <Card className="boxTarefas">
