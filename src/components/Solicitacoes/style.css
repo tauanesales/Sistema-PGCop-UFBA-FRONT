@@ -3,16 +3,23 @@
     border-radius: 5px;
     background-color: #fff;
     padding: 10px;
+    height: 50em;
+    overflow: hidden;
     width: 28em;
     margin-top: -7em;
     position: relative;
     z-index: 1000;
+    overflow: scroll;
   }
   
   .solicitacoes-container li {
     display: flex;
     align-items: flex-start ;
     margin-bottom: 5px;
+
+    p{
+      font-weight: 600;
+    }
   }
   
   .solicitacoes-container li div {

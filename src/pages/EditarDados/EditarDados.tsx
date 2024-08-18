@@ -12,6 +12,7 @@ import { FormikInput } from "@/components/FormikInput";
 import { TipoUsuario } from "@/models/User";
 import { useProfessoresQueries } from "@/queries/professores";
 import { useUserQueries } from "@/queries/user";
+import { Button, Spinner } from "react-bootstrap";
 
 type Values = {
   nome: string;
@@ -158,171 +159,149 @@ export const EditarDados = () => {
       onSubmit={handleSignUp}
     >
       {({ isSubmitting, handleSubmit }) => (
-        <Form className="containerPrincipal">
-          <img src="/assets/logoPgcop.png" width={90} />
-          <br></br>
+        <Form>
+          <div className="containerPrincipal">
+            <img src="/assets/logoPgcop.png" width={90} alt="LogoPGCOP" className="logoPgcop" />
+            <h1>Editar dados</h1>
 
-          <div style={{ display: "flex", gap: 60 }}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "300px",
-              }}
-            >
-              <FormikInput
-                name="nome"
-                label="Nome completo"
-                fullWidth
-                required
-              />
+            <div className="containInputs">
+              <div className="fisrtColumn">
+                <FormikInput
+                  name="nome"
+                  label="Nome completo"
+                  fullWidth
+                  required
+                />
 
-              <FormikInput
-                name="email"
-                label="E-mail"
-                type="email"
-                fullWidth
-                required
-              />
+                <FormikInput
+                  name="email"
+                  label="E-mail"
+                  type="email"
+                  fullWidth
+                  required
+                />
 
-              <FormikInput
-                inputRef={cpfInputRef}
-                name="cpf"
-                label="CPF"
-                fullWidth
-                required
-              />
+                <FormikInput
+                  inputRef={cpfInputRef}
+                  name="cpf"
+                  label="CPF"
+                  fullWidth
+                  required
+                />
 
-              <FormikInput
-                inputRef={telefoneInputRef}
-                name="telefone"
-                label="Telefone"
-                fullWidth
-                required
-              />
-            </div>
+                <FormikInput
+                  inputRef={telefoneInputRef}
+                  name="telefone"
+                  label="Telefone"
+                  fullWidth
+                  required
+                />
+              </div>
 
-            <div style={{ display: "flex", flexDirection: "column" }}>
               {user!.tipo_usuario === TipoUsuario.ALUNO ? (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <FormikInput
-                    name="matricula"
-                    label="Matrícula"
-                    fullWidth
-                    required
-                  />
+                <div className="fisrtColumn">
+                    <FormikInput
+                      name="matricula"
+                      label="Matrícula"
+                      fullWidth
+                      required
+                    />
 
-                  <FormikInput
-                    name="orientador_id"
-                    label="Orientador"
-                    fullWidth
-                    select
-                    required
-                  >
-                    {professores.map((professor) => (
-                      <MenuItem key={professor.id} value={professor.id}>
-                        {professor.nome}
-                      </MenuItem>
-                    ))}
-                  </FormikInput>
+                    <FormikInput
+                      name="orientador_id"
+                      label="Orientador"
+                      fullWidth
+                      select
+                      required
+                    >
+                      {professores.map((professor) => (
+                        <MenuItem key={professor.id} value={professor.id}>
+                          {professor.nome}
+                        </MenuItem>
+                      ))}
+                    </FormikInput>
 
-                  <FormikInput
-                    fullWidth
-                    variant="standard"
-                    id="select-curso"
-                    name="curso"
-                    label="Titulação do curso"
-                    select
-                    required
-                  >
-                    <MenuItem value="M">Mestrado</MenuItem>
-                    <MenuItem value="D">Doutorado</MenuItem>
-                  </FormikInput>
+                    <FormikInput
+                      fullWidth
+                      variant="standard"
+                      id="select-curso"
+                      name="curso"
+                      label="Titulação do curso"
+                      select
+                      required
+                    >
+                      <MenuItem value="M">Mestrado</MenuItem>
+                      <MenuItem value="D">Doutorado</MenuItem>
+                    </FormikInput>
 
-                  <FormikDateField
-                    required
-                    variant="standard"
-                    name="data_ingresso"
-                    label="Data de ingresso"
-                  />
+                    <FormikDateField
+                      required
+                      variant="standard"
+                      name="data_ingresso"
+                      label="Data de ingresso"
+                    />
 
-                  <FormikInput
-                    name="lattes"
-                    label="Link para o Lattes"
-                    fullWidth
-                    required
-                  />
+                    <FormikInput
+                      name="lattes"
+                      label="Link para o Lattes"
+                      fullWidth
+                      required
+                    />
                 </div>
               ) : (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <FormikInput
-                    className="inputRow"
-                    style={{ width: "240px" }}
-                    fullWidth
-                    variant="standard"
-                    id="select-tipo-usuario"
-                    name="tipo_usuario"
-                    label="Função"
-                    select
-                    required
-                  >
-                    <MenuItem value={TipoUsuario.PROFESSOR}>
-                      Orientador
-                    </MenuItem>
-                    <MenuItem value={TipoUsuario.COORDENADOR}>
-                      Coordenador
-                    </MenuItem>
-                  </FormikInput>
+                <div className="fisrtColumn">
+                    <FormikInput
+                      className="inputRow"
+                      style={{ width: "240px" }}
+                      fullWidth
+                      variant="standard"
+                      id="select-tipo-usuario"
+                      name="tipo_usuario"
+                      label="Função"
+                      select
+                      required
+                    >
+                      <MenuItem value={TipoUsuario.PROFESSOR}>
+                        Orientador
+                      </MenuItem>
+                      <MenuItem value={TipoUsuario.COORDENADOR}>
+                        Coordenador
+                      </MenuItem>
+                    </FormikInput>
                 </div>
               )}
             </div>
-          </div>
 
-          <div
-            className="buttonCadastro"
-            style={{
-              marginTop: "-01em",
-              display: "flex",
-              flexDirection: "row",
-              gap: "0em",
-            }}
-          >
-            <LoadingButton
-              className="bttn"
-              sx={{
-                marginTop: 2,
-                width: 150,
-                color: "#000000",
-                backgroundColor: "#D6DDE2", // cinza claro
-                "&:hover": {
-                  backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
-                },
-              }}
-              variant="contained"
-              onClick={() => navigate(-1)}
+            <div
+              className="containerButtons"
             >
-              Voltar
-            </LoadingButton>
-
-            <LoadingButton
-              className="bttn"
-              sx={{
-                marginTop: 2,
-                width: 150,
-                color: "#000000",
-                backgroundColor: "#D6DDE2", // cinza claro
-                "&:hover": {
-                  backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
-                },
-              }}
-              variant="contained"
-              fullWidth
-              loading={isSubmitting}
-              onClick={() => handleSubmit()}
-              disabled={isSubmitting}
-            >
-              Salvar
-            </LoadingButton>
+              <Button
+                  className="bttnCadastro bttnVermelho"
+                  onClick={() => navigate('/login')}
+                >
+                  Voltar
+                </Button>
+                <Button
+                  className="bttnCadastro bttnVerde"
+                  onClick={() => handleSubmit()}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                      {' Carregando...'}
+                    </>
+                  ) : (
+                    'Salvar'
+                  )}
+                </Button>
+            </div>
           </div>
         </Form>
       )}

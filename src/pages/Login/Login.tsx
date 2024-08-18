@@ -53,7 +53,7 @@ const Login = () => {
           <img src={logoPgcop} width={130} />
 
           <h1>Bem vindo de volta ao PGCop</h1>
-          <div className="inputs">
+          <div className="containerInputs">
             {/* Campo Email */}
             <Input
               label="E-mail"

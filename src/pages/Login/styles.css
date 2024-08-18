@@ -53,7 +53,7 @@ h1 {
   font-weight: 600;
 }
 
-.inputs {
+.containerInputs {
   display: flex;
   width: 100%;
   flex-direction: column;

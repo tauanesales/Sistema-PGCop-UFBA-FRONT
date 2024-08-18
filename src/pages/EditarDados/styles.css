@@ -1,7 +1,6 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%;
   background: linear-gradient(326deg, rgba(246,249,250,1) 0%, rgba(236,240,243,1) 34%);
   height: 100vh;
   width: 100%;
@@ -11,105 +10,54 @@ body, html {
 }
 
 .containerPrincipal {
-  min-width: 60em;
-  height: 40;
+  width: 70vw;
+  min-width: 40em;
+  max-width: 60em;
+  height: 80vh;
   display: flex;
   flex-direction: column;
-  border-radius: 10px; 
   align-items: center;
-  gap: .2em; /* Ajuste conforme necessário */
+  justify-content: space-evenly;
+  border-radius: 10px; 
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
   h1{
-    font-size: 2em;
+    font-size: 1.8em;
     text-align: center;
     font-family: "Raleway", sans-serif;
     padding: .2em;
   }
 }
 
-.inputContainer {
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: center; 
-  margin-bottom: 10px;
+@media (max-height: 633px) {
+  .containerPrincipal {
+    height: 100vh;
+  }
+  .logoPgcop {
+    display: none;
+  }
 }
-.inputData {
-  align-items: center; 
-  width: 10em;
-  background-color: #ffffff; 
-}
-
-.inputData select {
-  width: 9.5vh;
-}
-
-.inputRowCad {
-  display: flex;
-  flex-direction: column; 
-  align-items: start;
-  margin-bottom: 5px;
-}
-
-.inputRowCad > * {
-  margin-bottom: 2px; /* espaçamento entre o label e input */
-  margin-right: 2px; /* margem direita */
-}
-
-
-.inputRowCad:last-child > * {
-  margin-right: 0;
-}
-
-.inputRowCad label {
-  width: auto;
-}
-
-.inputCadastro, .inputSenha {
-  padding: 8px;
-  width: 200px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.inputSenha{
-  width: 250px;
-}
-
-.selectCadastro {
-  padding: 8px;
-  width: 500px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
-
-
-.bttn {
-  color: #000000;
-  background-color: #D6DDE2;
-  font-family: "Raleway", sans-serif;
-  font-size: 1em;
-  font-weight: 700;
-  padding: 10px 10px;
-  border: none;
-  border-radius: 5px;
-  width: 150px;
+.bttnCadastro {
+  background-color: rgba(42, 41, 41, 0.77);
+  width: 9em;
   height: 2.5em;
+  padding: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #000000;
+  font-family: "Raleway", sans-serif;
+  font-size: 0.9em;
+  font-weight: 600;
+  border: none;
+}
+.bttnCadastro:active {
+  transform: scale(1.04);
 }
 
-.buttonCadastro{
+
+.containerButtons{
   display: flex;
   justify-content: space-evenly;
-  padding-bottom: 2em;
   width: 100%;
-}
-
-.field {
-  margin-bottom: 1px; /* Ajuste conforme necessário */
-}
-
-.radioGroup {
-  margin-bottom: 16px; /* Ajuste conforme necessário */
 }
