@@ -77,14 +77,21 @@
   padding: 1px;
   display: flex;
   flex-direction: column;
-  position: relative;
+  color: #000000;
+}
+.iconeCard {
+  display: flex;
+  border: none;
+  gap: .5em;
+  color: #212529;
 }
 .iconeCard h4 {
-  flex: 0.5;
+  flex: 1;
+  align-self: center;
+  justify-content: center;
+  font-size: 1.3em;
 }
-.cardTarefa .iconeCard > * {
-  margin-right: 0em;
-}
+
 .boxDate {
   display: flex;
   align-items: center;
@@ -93,13 +100,24 @@
 
 .saveButton {
   margin-left: auto;
-  padding: 2px 12px;
+  height: 2em;
+  width: 6em;
+  font-weight: 500;
+  font-family: "Raleway", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 17px;
-  background-color: #007bff;
+  font-size: 1em;
+  background-color: #4b9c66;
   color: white;
+}
+
+.saveButton:hover, .saveButton:active {
+  background-color: #4b9c66;
+  transform: scale(1.03);
 }
 
 .tarefasAluno {
@@ -162,7 +180,8 @@
 
 .confirmDialog .buttonContainer {
   display: flex;
-  gap: 10px; /* Espaçamento entre os botões */
+  justify-content: space-evenly;
+  width: 100%;
 }
 
 .confirmDialog button {
@@ -170,14 +189,4 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-}
-
-.confirmDialog .cancelButton {
-  background-color: #007bff;
-  color: white;
-}
-
-.confirmDialog .confirmButton {
-  background-color: #007bff;
-  color: white;
 }
