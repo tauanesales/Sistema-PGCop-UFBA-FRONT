@@ -17,6 +17,7 @@ import Error404 from "@/pages/Erro/Error404";
 import EsqueciSenha from "@/pages/EsqueciSenha/EsqueciSenha";
 import Login from "@/pages/Login/Login";
 import PerfilAluno from "@/pages/PerfilAluno/PerfilAluno";
+import PerfilAlunoOrientador from "@/pages/PerfilAlunoOrientador/PerfilAlunoOrientador";
 import PerfilCoordenador from "@/pages/PerfilCoordenador/PerfilCoordenador";
 import PerfilOrientador from "@/pages/PerfilOrientador/PerfilOrientador";
 import Tarefas from "@/pages/Tarefas/Tarefas";
@@ -29,23 +30,29 @@ const routes = createRoutesFromElements(
     <Route element={<AuthenticationGuard allowedRoles={[TipoUsuario.ALUNO]} />}>
       <Route path="/perfil-aluno" element={<PerfilAluno />} />
 
-      <Route
-        path="/perfil-aluno/editar-dados"
-        element={<EditarDados />}
-      />
+      <Route path="/perfil-aluno/editar-dados" element={<EditarDados />} />
     </Route>
 
     <Route
+      path="/perfil-professor"
       element={<AuthenticationGuard allowedRoles={[TipoUsuario.PROFESSOR]} />}
     >
-      <Route path="/perfil-professor" element={<PerfilOrientador />} />
+      <Route index element={<PerfilOrientador />} />
+      <Route
+        path="perfil-aluno-orientador/:id"
+        element={<PerfilAlunoOrientador />}
+      />
     </Route>
-
     <Route
+      path="/perfil-coordenador"
       element={<AuthenticationGuard allowedRoles={[TipoUsuario.COORDENADOR]} />}
     >
-      <Route path="/perfil-coordenador" element={<PerfilCoordenador />} />
-      <Route path="/tarefas" element={<Tarefas />} />
+      <Route index element={<PerfilCoordenador />} />
+      <Route path="tarefas" element={<Tarefas />} />
+      <Route
+        path="perfil-aluno-orientador/:id"
+        element={<PerfilAlunoOrientador />}
+      />
     </Route>
 
     <Route element={<PublicRoute />}>

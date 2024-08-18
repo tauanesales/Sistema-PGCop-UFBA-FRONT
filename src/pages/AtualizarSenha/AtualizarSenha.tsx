@@ -40,7 +40,7 @@ function AtualizarSenha() {
   return (
     <div className="container">
       <div className="containerCard">
-        <img src={logoPgcop} width={130} />
+        <img src={logoPgcop} width={90} />
         <h1>Atualizar Senha</h1>
         <p>Informe a nova senha para atualizar seu acesso.</p>
 
@@ -91,7 +91,7 @@ function AtualizarSenha() {
               <ButtonSecondary
                 type="submit"
                 label={isPending ? "Carregando..." : "Atualizar Senha"}
-                style={{ width: "12em", alignSelf: "center" }}
+                style={{ width: "10em", alignSelf: "center" }}
                 disabled={isSubmitting || isPending}
                 onClick={() => handleSubmit()}
               />

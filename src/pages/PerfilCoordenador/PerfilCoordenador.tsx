@@ -79,7 +79,10 @@ function PerfilCoordenador() {
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
     if (aluno) {
-      window.open(`/perfil-aluno`);
+      console.log("Navegando para aluno:", aluno); // Debug
+      navigate(`perfil-aluno-orientador/${aluno.id}`, { state: aluno });
+    } else {
+      console.log("Aluno não encontrado"); // Debug
     }
   };
 
@@ -146,7 +149,7 @@ function PerfilCoordenador() {
                   </div>
                 )}
                 <MdOutlineLibraryBooks
-                  onClick={() => navigate("/tarefas")}
+                  onClick={() => navigate("tarefas")}
                   style={{ cursor: "pointer" }}
                   size={35}
                   title="Tarefas"

@@ -30,7 +30,7 @@ export const createProfessor = (data: CreateProfessorRequestData) =>
 type UpdateUserParams = Partial<Omit<User, "id">>;
 
 export const updateUser = (aluno: UpdateUserParams) =>
-  api.put<User>("/usuarios", aluno).then((response) => response.data);
+  api.put<User>("/usuarios/", aluno).then((response) => response.data);
 
 type AuthenticateUserRequestData = {
   username: string;

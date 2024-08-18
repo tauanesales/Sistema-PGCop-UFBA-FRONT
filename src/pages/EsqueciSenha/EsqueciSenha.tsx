@@ -41,13 +41,17 @@ const EsqueciSenha = () => {
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            style={{ marginBottom: ".5em" }}
+            style={{ marginBottom: "1.5em" }}
           />
-          <ButtonSecondary
-            onClick={onClickSend}
-            label={isPending ? "Carregando..." : "Enviar"}
-            style={{ width: "12em" }}
-          />
+          <div
+            style={{ display: "flex", justifyContent: "center", width: "100%" }}
+          >
+            <ButtonSecondary
+              onClick={onClickSend}
+              label={isPending ? "Carregando..." : "Enviar"}
+              style={{ width: "12em" }}
+            />
+          </div>
         </div>
       </div>
     </div>

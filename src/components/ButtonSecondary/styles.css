@@ -1,6 +1,6 @@
 .btnSecondary {
   color: #000000;
-  background-color: #D6DDE2;
+  background-color: #d6dde2;
   font-family: "Raleway", sans-serif;
   font-size: 1em;
   font-weight: 700;
@@ -8,8 +8,7 @@
   border: none;
   border-radius: 5px;
   height: 2.5em;
-
 }
 .btnSecondary:hover {
-  background-color: #E9EAEC; 
+  background-color: #e9eaec;
 }

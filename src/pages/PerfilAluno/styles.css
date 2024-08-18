@@ -1,10 +1,8 @@
-.containerGeral{
+.containerGeral {
   display: flex;
   width: 90%;
   height: 100vh;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .containerAluno {
@@ -15,7 +13,7 @@
   box-shadow: 0px 2px 2px 2px rgba(0, 0, 0, 0.1);
   font-family: "Inter", sans-serif;
 
-  h3{
+  h3 {
     font-size: 1.4em;
   }
 }
@@ -28,10 +26,9 @@
   mix-blend-mode: multiply; /*Remove o fundo branco da imagem */
 }
 
-.boxAluno{
+.boxAluno {
   display: flex;
   width: 100%;
-  
 }
 .boxInfoAluno {
   padding: 5px 10px;
@@ -58,12 +55,6 @@
   align-self: center;
 }
 
-.boxDate{
-  display: flex;
-  justify-content: center;
-  gap: 1em;
-}
-
 .dateInput {
   padding: 3px;
   width: 120px;
@@ -74,39 +65,37 @@
   background-color: #f9f9f9;
 }
 
-.cardTarefa{
+.cardTarefa {
+  border: 1px solid #ddd;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1px;
   display: flex;
   flex-direction: column;
-  color: #000000;
-  h4{
-    font-size: 1.2em;
-
-  }
-  p{
-    line-height: .9em;
-  }
+  position: relative;
 }
-.iconeCard{
-  margin-left: .5em;
+.iconeCard h4 {
+  flex: 0.5;
+}
+.cardTarefa .iconeCard > * {
+  margin-right: 0em;
+}
+.boxDate {
   display: flex;
-  gap: .8em;
+  align-items: center;
+  gap: 1.2em;
 }
 
-.bttnSalvar {
-  height: 30px;
-  max-width: 80px;
-  padding: 0 5px;
+.saveButton {
+  margin-left: auto;
+  padding: 2px 12px;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
-  color: #000000;
-  background-color: #ffffff;
-  font-family: "Raleway", sans-serif;
-  font-size: .9em;
-  font-weight: 600;
-  border: none;
+  font-size: 17px;
+  background-color: #007bff;
+  color: white;
 }
-
-
 
 .tarefasAluno {
   display: flex;
@@ -121,7 +110,7 @@
 .titleTarefas {
   font-size: 1.5em;
   text-align: center;
-  margin-bottom: 1em
+  margin-bottom: 1em;
 }
 
 .boxTarefas {
@@ -129,15 +118,13 @@
   margin-top: -3em;
   border-radius: 5px;
   height: 50vh;
-  
-  width: 87vh;
-  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #task {
   width: 90%;
   margin: 10px auto;
-  border: 1px solid grey;
   padding: 5px;
   border-radius: 3px;
 }
@@ -149,3 +136,43 @@
   background-color: #fff;
 }
 
+.confirmDialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Garante que o modal fique acima de outros elementos */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirmDialog p {
+  margin-bottom: 20px;
+}
+
+.confirmDialog .buttonContainer {
+  display: flex;
+  gap: 10px; /* Espaçamento entre os botões */
+}
+
+.confirmDialog button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirmDialog .cancelButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.confirmDialog .confirmButton {
+  background-color: #007bff;
+  color: white;
+}
