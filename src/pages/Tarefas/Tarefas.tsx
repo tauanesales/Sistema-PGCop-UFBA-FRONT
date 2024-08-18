@@ -116,8 +116,7 @@ function Tarefas() {
         {/* Container de Tarefas de Mestrado*/}
         <div className="listaTarefas">
           <div className="containerLista">
-            <ul className="ultarefas"
-              >
+            <ul className="ultarefas">
               <h2
                 style={{
                   marginTop: "20px",
@@ -152,7 +151,9 @@ function Tarefas() {
                         <label>Descrição</label>
                         <textarea
                           value={editTarefaDescricao}
-                          onChange={(e) => setEditTarefaDescricao(e.target.value)}
+                          onChange={(e) =>
+                            setEditTarefaDescricao(e.target.value)
+                          }
                           placeholder="Descrição"
                           style={{
                             marginBottom: "10px",
@@ -178,7 +179,7 @@ function Tarefas() {
                         />
                       </>
                     ) : (
-                      < div style={{width: "450px" }}>
+                      <div style={{ width: "450px" }}>
                         <strong>{tarefa.nome}</strong> Prazo:{" "}
                         {tarefa.prazo_em_meses} meses
                         <br />
@@ -194,14 +195,23 @@ function Tarefas() {
                       <button
                         className="bttn"
                         onClick={handleEdit}
-                        style={{ marginLeft: "5em", marginTop: "7em", width: "100px", height: "35px" }}
+                        style={{
+                          marginLeft: "5em",
+                          marginTop: "7em",
+                          width: "100px",
+                          height: "35px",
+                        }}
                       >
                         Salvar
                       </button>
                     ) : (
                       <>
                         <MdCreate
-                          style={{  marginLeft: "5em",padding: "10px", cursor: "pointer" }}
+                          style={{
+                            marginLeft: "5em",
+                            padding: "10px",
+                            cursor: "pointer",
+                          }}
                           onClick={() => {
                             setIsEditing(true);
                             setEditTarefaNome(tarefa.nome);
@@ -212,7 +222,11 @@ function Tarefas() {
                           size={45}
                         />
                         <MdDelete
-                          style={{  marginLeft: "5em",cursor: "pointer", padding: "10px" }}
+                          style={{
+                            marginLeft: "5em",
+                            cursor: "pointer",
+                            padding: "10px",
+                          }}
                           onClick={() => {
                             setSelectedTarefa(tarefa);
                             setShowModal(true);
@@ -264,7 +278,9 @@ function Tarefas() {
                         <label>Descrição</label>
                         <textarea
                           value={editTarefaDescricao}
-                          onChange={(e) => setEditTarefaDescricao(e.target.value)}
+                          onChange={(e) =>
+                            setEditTarefaDescricao(e.target.value)
+                          }
                           placeholder="Descrição"
                           style={{
                             marginBottom: "10px",
@@ -290,7 +306,7 @@ function Tarefas() {
                         />
                       </>
                     ) : (
-                      < div style={{width: "450px" }}>
+                      <div style={{ width: "450px" }}>
                         {" "}
                         {/* Exibir em tela*/}
                         <strong>{tarefa.nome}</strong> Prazo:{" "}
@@ -308,14 +324,23 @@ function Tarefas() {
                       <button
                         className="bttn"
                         onClick={handleEdit}
-                        style={{marginLeft: "5em", marginTop: "7em", width: "100px", height: "35px" }}
+                        style={{
+                          marginLeft: "5em",
+                          marginTop: "7em",
+                          width: "100px",
+                          height: "35px",
+                        }}
                       >
                         Salvar
                       </button>
                     ) : (
                       <>
                         <MdCreate
-                          style={{  marginLeft: "5em", padding: "10px", cursor: "pointer" }}
+                          style={{
+                            marginLeft: "5em",
+                            padding: "10px",
+                            cursor: "pointer",
+                          }}
                           onClick={() => {
                             setIsEditing(true);
                             setEditTarefaNome(tarefa.nome);
@@ -326,7 +351,11 @@ function Tarefas() {
                           size={45}
                         />
                         <MdDelete
-                          style={{  marginLeft: "5em",cursor: "pointer", padding: "10px" }}
+                          style={{
+                            marginLeft: "5em",
+                            cursor: "pointer",
+                            padding: "10px",
+                          }}
                           onClick={() => {
                             setSelectedTarefa(tarefa);
                             setShowModal(true);
@@ -348,27 +377,39 @@ function Tarefas() {
             <Card className="modalTarefas">
               <Card.Header as="h3">Nova Tarefa</Card.Header>
               <Card.Body>
-                <Card.Title>Adicionar nova tarefa</Card.Title>  
+                <Card.Title>Adicionar nova tarefa</Card.Title>
                 <Form>
                   <Form.Group className="mb-3">
                     <Form.Label>Nome da Tarefa</Form.Label>
-                    <Form.Control type="text" placeholder="Nome da tarefa" 
+                    <Form.Control
+                      type="text"
+                      placeholder="Nome da tarefa"
                       value={novaTarefaNome}
-                      onChange={(e) => setNovaTarefaNome(e.target.value)} />
+                      onChange={(e) => setNovaTarefaNome(e.target.value)}
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3">
                     <Form.Label>Descrição</Form.Label>
-                    <Form.Control as="textarea" rows={3} 
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
                       value={novaTarefaDescricao}
-                      onChange={(e) => setNovaTarefaDescricao(e.target.value)}/>
+                      onChange={(e) => setNovaTarefaDescricao(e.target.value)}
+                    />
                   </Form.Group>
 
                   <div className="inputContain">
                     <Form.Group className="mb-3">
                       <Form.Label>Curso</Form.Label>
-                      <Form.Select value={novaTarefaTitulacao}
-                        onChange={(e) => setNovaTarefaTitulacao(e.target.value as TarefaBase["curso"])}>
+                      <Form.Select
+                        value={novaTarefaTitulacao}
+                        onChange={(e) =>
+                          setNovaTarefaTitulacao(
+                            e.target.value as TarefaBase["curso"],
+                          )
+                        }
+                      >
                         <option value="M">Mestrado</option>
                         <option value="D">Doutorado</option>
                       </Form.Select>
@@ -376,25 +417,35 @@ function Tarefas() {
 
                     <Form.Group>
                       <Form.Label>Prazo em meses</Form.Label>
-                      <Form.Control type="number" min={0} value={novaTarefaPrazo} onChange={(e) => setNovaTarefaPrazo(Number(e.target.value))} />
+                      <Form.Control
+                        type="number"
+                        min={0}
+                        value={novaTarefaPrazo}
+                        onChange={(e) =>
+                          setNovaTarefaPrazo(Number(e.target.value))
+                        }
+                      />
                     </Form.Group>
                   </div>
-
                 </Form>
 
                 <div className="buttonContainer">
-                  <Button className="bttnCoordenador bttnVermelho"
+                  <Button
+                    className="bttnCoordenador bttnVermelho"
                     onClick={() => setShowAddModal(false)}
                   >
                     Cancelar
                   </Button>
-                  <Button className="bttnCoordenador bttnVerde"
-                    onClick={() => {handleAddTarefa()}}>
+                  <Button
+                    className="bttnCoordenador bttnVerde"
+                    onClick={() => {
+                      handleAddTarefa();
+                    }}
+                  >
                     Adicionar
                   </Button>
-                </div>        
+                </div>
               </Card.Body>
-              
             </Card>
           </div>
         )}
@@ -413,20 +464,22 @@ function Tarefas() {
             >
               <p>Tem certeza que deseja remover essa tarefa da lista?</p>
               <div className="buttonContainer">
-                <Button className="bttnCoordenador bttnVermelho"
+                <Button
+                  className="bttnCoordenador bttnVermelho"
                   onClick={() => setShowModal(false)}
                 >
                   Não
                 </Button>
-                <Button className="bttnCoordenador bttnVerde"
-                  onClick={handleDelete}>
+                <Button
+                  className="bttnCoordenador bttnVerde"
+                  onClick={handleDelete}
+                >
                   Sim
                 </Button>
               </div>
             </div>
           </div>
         )}
-
       </div>
     </div>
   );

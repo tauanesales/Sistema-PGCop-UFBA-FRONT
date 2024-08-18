@@ -58,7 +58,6 @@
   justify-content: end;
 }
 
-
 .confirmationBox {
   display: flex;
   justify-content: center;
@@ -136,7 +135,6 @@ li div {
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.7);
 }
-
 
 .bttn {
   height: 25px;

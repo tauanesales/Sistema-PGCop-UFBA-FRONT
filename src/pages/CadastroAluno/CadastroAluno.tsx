@@ -221,12 +221,7 @@ const CadastroAluno = () => {
       {({ values, setFieldValue, isSubmitting, handleSubmit }) => (
         <Form className="containCad">
           <div className="containerPrincipalCad">
-            <img
-              src="assets/logoPgcop.png"
-              width={80}
-
-            />
-            
+            <img src="assets/logoPgcop.png" width={80} />
 
             <RadioGroup
               row
@@ -250,7 +245,14 @@ const CadastroAluno = () => {
             </RadioGroup>
 
             <div style={{ display: "flex", gap: 50 }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "-50px", width: "400px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "-50px",
+                  width: "400px",
+                }}
+              >
                 <FormikInput
                   name="nome"
                   label="Nome completo"
@@ -374,15 +376,13 @@ const CadastroAluno = () => {
               </div>
             </div>
 
-            <div
-              className="buttonCadastro"
-            >
+            <div className="buttonCadastro">
               <LoadingButton
                 className="bttn"
                 sx={{
                   marginTop: 2,
                   color: "#000000",
-                  backgroundColor: "#D6DDE2", 
+                  backgroundColor: "#D6DDE2",
                   "&:hover": {
                     backgroundColor: "#E9EAEC",
                   },
@@ -419,7 +419,6 @@ const CadastroAluno = () => {
 };
 
 export default CadastroAluno;
-
 
 /*import "./styles.css";
 

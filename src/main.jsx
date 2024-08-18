@@ -1,7 +1,7 @@
 import "@/app/index.css";
 import "primereact/resources/primereact.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
 
 import { PrimeReactProvider } from "primereact/api";
 import React from "react";

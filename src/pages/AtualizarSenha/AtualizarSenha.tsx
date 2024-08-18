@@ -88,7 +88,6 @@ function AtualizarSenha() {
               />
               <ErrorMessage name="confirmPassword" component="div" />
 
-
               <ButtonSecondary
                 type="submit"
                 label={isPending ? "Carregando..." : "Atualizar Senha"}

@@ -1,6 +1,6 @@
 .btnPrimary {
   color: #000000;
-  background-color: #F6F9FA;
+  background-color: #f6f9fa;
   font-family: "Roboto", sans-serif;
   font-size: 1em;
   font-weight: 700;
@@ -11,22 +11,19 @@
   align-items: center;
   width: 11em;
   height: 2.8em;
-
-
 }
 
 .btnPrimary:hover {
-  background-color: #fdfdfd; 
+  background-color: #fdfdfd;
 }
 
-.btnPrimary .alterarDados{
+.btnPrimary .alterarDados {
   width: 1.7em;
   height: 2em;
   object-fit: contain;
 }
-.btnPrimary .logout{
+.btnPrimary .logout {
   width: 1.7em;
   height: 1.2em;
   object-fit: contain;
-
 }
