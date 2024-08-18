@@ -30,10 +30,7 @@ const routes = createRoutesFromElements(
     <Route element={<AuthenticationGuard allowedRoles={[TipoUsuario.ALUNO]} />}>
       <Route path="/perfil-aluno" element={<PerfilAluno />} />
 
-      <Route
-        path="/perfil-aluno/editar-dados"
-        element={<EditarDados />}
-      />
+      <Route path="/perfil-aluno/editar-dados" element={<EditarDados />} />
     </Route>
 
     <Route

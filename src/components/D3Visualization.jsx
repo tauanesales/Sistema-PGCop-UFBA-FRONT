@@ -1,7 +1,13 @@
 import * as d3 from "d3";
 import React, { useEffect, useRef } from "react";
 
-const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso }) => {
+const D3Visualization = ({
+  dataDeInicio,
+  dataFinal,
+  dataAtual,
+  tarefas,
+  curso,
+}) => {
   const svgRef = useRef();
 
   useEffect(() => {
@@ -15,7 +21,8 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso })
     let timeInterval = d3.timeMonth.every(1);
     let timeFormat = "%b %Y";
 
-    const timeScale = d3.scaleTime()
+    const timeScale = d3
+      .scaleTime()
       .domain([dataDeInicio, dataFinal])
       .range([0, width]);
 
@@ -47,24 +54,31 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso })
       svg.selectAll(".date-text").remove();
 
       // Ticks e legenda escala horizontal
-      svg.selectAll(".date-mark")
+      svg
+        .selectAll(".date-mark")
         .data(ticks)
-        .enter().append("line")
+        .enter()
+        .append("line")
         .attr("class", "date-mark")
-        .attr("x1", d => timeScale(d))
+        .attr("x1", (d) => timeScale(d))
         .attr("y1", height)
-        .attr("x2", d => timeScale(d))
+        .attr("x2", (d) => timeScale(d))
         .attr("y2", height + 7)
         .style("stroke", "grey")
         .style("stroke-width", 1);
 
-      svg.selectAll(".date-text")
+      svg
+        .selectAll(".date-text")
         .data(ticks)
-        .enter().append("text")
+        .enter()
+        .append("text")
         .attr("class", "date-text")
-        .attr("x", d => timeScale(d))
+        .attr("x", (d) => timeScale(d))
         .attr("y", height + 20)
-        .attr("transform", d => `rotate(-30, ${timeScale(d)}, ${height + 20})`)
+        .attr(
+          "transform",
+          (d) => `rotate(-30, ${timeScale(d)}, ${height + 20})`,
+        )
         .text(d3.timeFormat(timeFormat))
         .style("fill", "grey")
         .style("font-size", "10px")
@@ -72,35 +86,51 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso })
     }
 
     // Zoom e pan escala horizontal
-    const zoom = d3.zoom()
+    const zoom = d3
+      .zoom()
       .scaleExtent([1, 100])
-      .translateExtent([[0, 0], [width, height]])
-      .extent([[0, 0], [width, height]])
+      .translateExtent([
+        [0, 0],
+        [width, height],
+      ])
+      .extent([
+        [0, 0],
+        [width, height],
+      ])
       .on("zoom", zoomed);
 
     function zoomed(event) {
       const transform = event.transform;
       const newXScale = transform.rescaleX(timeScale);
 
-      svg.selectAll(".date-mark")
-        .attr("x1", d => newXScale(d))
-        .attr("x2", d => newXScale(d));
-      svg.selectAll(".date-text")
-        .attr("x", d => newXScale(d))
-        .attr("transform", d => `rotate(-30, ${newXScale(d)}, ${height + 20})`);
-      svg.selectAll(".tarefa-a-fazer")
-        .attr("x", d => newXScale(new Date(d.data_prazo)) - 15);
+      svg
+        .selectAll(".date-mark")
+        .attr("x1", (d) => newXScale(d))
+        .attr("x2", (d) => newXScale(d));
+      svg
+        .selectAll(".date-text")
+        .attr("x", (d) => newXScale(d))
+        .attr(
+          "transform",
+          (d) => `rotate(-30, ${newXScale(d)}, ${height + 20})`,
+        );
+      svg
+        .selectAll(".tarefa-a-fazer")
+        .attr("x", (d) => newXScale(new Date(d.data_prazo)) - 15);
 
-      svg.selectAll(".barra-progresso")
+      svg
+        .selectAll(".barra-progresso")
         .attr("width", width * transform.k)
         .attr("transform", `translate(${transform.x},0)`);
 
-      svg.selectAll(".progresso")
+      svg
+        .selectAll(".progresso")
         .attr("width", progressoWidth * transform.k)
         .attr("transform", `translate(${transform.x},0)`);
     }
 
-    const svg = d3.select(svgRef.current)
+    const svg = d3
+      .select(svgRef.current)
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .attr("cursor", "ew-resize")
@@ -109,7 +139,8 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso })
       .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
     // Linha escala horizontal
-    svg.append("line")
+    svg
+      .append("line")
       .attr("x1", 0)
       .attr("y1", height)
       .attr("x2", width)
@@ -120,7 +151,8 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso })
     updateTimeScale(currentScale);
 
     // Adicionar o texto de fundo
-    svg.append("text")
+    svg
+      .append("text")
       .attr("x", width / 6)
       .attr("y", height / 2)
       .attr("text-anchor", "middle")
@@ -130,25 +162,33 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso })
       .text("Zoom e Arrastar");
 
     // Adiciona ícones de tarefa conforme a escala
-    svg.selectAll(".tarefa-a-fazer")
+    svg
+      .selectAll(".tarefa-a-fazer")
       .data(tarefas)
-      .enter().append("image")
+      .enter()
+      .append("image")
       .attr("class", "tarefa-a-fazer")
       .attr("cursor", "pointer")
-      .attr("x", d => timeScale(new Date(d.data_prazo)) - 15)
+      .attr("x", (d) => timeScale(new Date(d.data_prazo)) - 15)
       .attr("y", height - 60)
       .attr("width", 30)
       .attr("height", 30)
-      .attr("xlink:href", d => {
-        return d.concluida ? "/assets/flagGreen.png" : (new Date(d.data_prazo) < dataAtual ? "/assets/flagRed.png" : "/assets/flagBlack.png");
+      .attr("xlink:href", (d) => {
+        return d.concluida
+          ? "/assets/flagGreen.png"
+          : new Date(d.data_prazo) < dataAtual
+            ? "/assets/flagRed.png"
+            : "/assets/flagBlack.png";
       })
       .on("mouseover", function (event, d) {
         const tooltip = d3.select("#tooltip");
         tooltip
           .style("display", "block")
-          .html(`<strong>${d.nome}</strong><br>Data Limite: ${new Date(d.data_prazo).toLocaleDateString()}`)
-          .style("left", (event.pageX + 10) + "px")
-          .style("top", (event.pageY - 60) + "px")
+          .html(
+            `<strong>${d.nome}</strong><br>Data Limite: ${new Date(d.data_prazo).toLocaleDateString()}`,
+          )
+          .style("left", event.pageX + 10 + "px")
+          .style("top", event.pageY - 60 + "px")
           .style("position", "absolute");
       })
       .on("mouseout", function () {
@@ -156,7 +196,8 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso })
       });
 
     // Barra temporal curso
-    svg.append("rect")
+    svg
+      .append("rect")
       .attr("class", "barra-progresso")
       .attr("x", 0)
       .attr("y", height - 25)
@@ -169,7 +210,8 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso })
       .style("stroke-width", 0.3);
 
     // Barra de progresso
-    const progresso = svg.append("rect")
+    const progresso = svg
+      .append("rect")
       .attr("class", "progresso")
       .attr("x", 0)
       .attr("y", height - 25)
@@ -180,11 +222,12 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso })
       .style("fill", "#84bf68");
 
     const tempoDecorrido = dataAtual - dataDeInicio;
-    const progressoPorcentagem = (tempoDecorrido / (dataFinal - dataDeInicio));
+    const progressoPorcentagem = tempoDecorrido / (dataFinal - dataDeInicio);
     const progressoWidth = progressoPorcentagem * width;
     progresso.attr("width", progressoWidth);
 
-    svg.append("text")
+    svg
+      .append("text")
       .attr("x", timeScale(dataDeInicio) + 10)
       .attr("y", height - 30)
       .attr("text-anchor", "middle")
@@ -193,7 +236,8 @@ const D3Visualization = ({ dataDeInicio, dataFinal, dataAtual, tarefas, curso })
       .style("font-weight", "bold")
       .text("Inicio");
 
-    svg.append("text")
+    svg
+      .append("text")
       .attr("x", timeScale(dataFinal) - 10)
       .attr("y", height - 30)
       .attr("text-anchor", "middle")

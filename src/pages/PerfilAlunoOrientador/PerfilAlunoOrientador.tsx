@@ -1,15 +1,17 @@
 import "./styles.css";
+
 import { differenceInDays, format } from "date-fns";
+import { useState } from "react";
+import { Alert, Button, Card, Container, Navbar, Stack } from "react-bootstrap";
 import { AiOutlineEdit, AiOutlineFileExcel } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { useLocation } from "react-router-dom";
+
 import D3Visualization from "@/components/D3Visualization";
 import { Aluno, Curso } from "@/models/User";
 import { useProfessoresQueries } from "@/queries/professores";
 import { useTarefasQueries } from "@/queries/tarefas";
 import { useUserQueries } from "@/queries/user";
-import { Button, Card, Stack, Navbar, Container, Alert } from "react-bootstrap";
-import { useState } from "react";
 
 function calculateDifferenceInMonthsAndDays(startDate: Date, endDate: Date) {
   const totalDays = differenceInDays(endDate, startDate);
@@ -36,8 +38,10 @@ function PerfilAlunoOrientador() {
   const { useGetProfessores } = useProfessoresQueries();
   const { data: professores = [] } = useGetProfessores();
 
-  const nomeOrientador = professores.find((professor) => professor.id === aluno.orientador_id)?.nome ?? "-";
-  
+  const nomeOrientador =
+    professores.find((professor) => professor.id === aluno.orientador_id)
+      ?.nome ?? "-";
+
   const tarefasAFazer = tarefas.filter((tarefa) => !tarefa.completada);
   const tarefasFeitas = tarefas.filter((tarefa) => tarefa.completada);
 
@@ -58,10 +62,14 @@ function PerfilAlunoOrientador() {
                   <span>Titulação:</span> {Curso[aluno.curso]}
                 </p>
                 <p>
-                  <span>Data de início:</span> {aluno.data_ingresso ? format(new Date(aluno.data_ingresso), "dd/MM/yyyy") : "-"}
+                  <span>Data de início:</span>{" "}
+                  {aluno.data_ingresso
+                    ? format(new Date(aluno.data_ingresso), "dd/MM/yyyy")
+                    : "-"}
                 </p>
                 <p>
-                  <span>Status:</span> {tarefasAFazer.length > 0 ? "Ativo" : "Concluído"}
+                  <span>Status:</span>{" "}
+                  {tarefasAFazer.length > 0 ? "Ativo" : "Concluído"}
                 </p>
               </Stack>
               <Stack className="boxInfoAluno">
@@ -73,7 +81,10 @@ function PerfilAlunoOrientador() {
                   {nomeOrientador}
                 </p>
                 <p>
-                  <span>Término Previsto:</span> {aluno.data_qualificacao ? format(new Date(aluno.data_qualificacao), "dd/MM/yyyy") : "-"}
+                  <span>Término Previsto:</span>{" "}
+                  {aluno.data_qualificacao
+                    ? format(new Date(aluno.data_qualificacao), "dd/MM/yyyy")
+                    : "-"}
                 </p>
               </Stack>
               <Stack className="botoesToolbarAluno">
@@ -104,7 +115,8 @@ function PerfilAlunoOrientador() {
               <Card.Title className="titleTarefas">Tarefas a fazer</Card.Title>
               {tarefasAFazer.map((tarefa) => {
                 const prazo = new Date(tarefa.data_prazo);
-                const { months, days, totalDays } = calculateDifferenceInMonthsAndDays(new Date(), prazo);
+                const { months, days, totalDays } =
+                  calculateDifferenceInMonthsAndDays(new Date(), prazo);
 
                 let backgroundColor;
                 if (totalDays < 0) {
@@ -142,7 +154,9 @@ function PerfilAlunoOrientador() {
                       <h4>{tarefa.nome}</h4>
                     </div>
                     <p>{tarefa.descricao}</p>
-                    <p>Data Limite: {format(prazo, "dd/MM/yyyy")} - {statusData}</p>
+                    <p>
+                      Data Limite: {format(prazo, "dd/MM/yyyy")} - {statusData}
+                    </p>
                   </Alert>
                 );
               })}
@@ -150,7 +164,9 @@ function PerfilAlunoOrientador() {
           </Card>
           <Card className="boxTarefas">
             <Card.Body>
-              <Card.Title className="titleTarefas">Tarefas concluídas</Card.Title>
+              <Card.Title className="titleTarefas">
+                Tarefas concluídas
+              </Card.Title>
               <Card.Text>
                 {tarefasFeitas.length === 0 ? (
                   <p
@@ -192,7 +208,13 @@ function PerfilAlunoOrientador() {
                         </label>
                         <br />
                         <label style={{ marginLeft: "40px", fontSize: "15px" }}>
-                          Realizada em: {tarefa.data_conclusao ? format(new Date(tarefa.data_conclusao), "dd/MM/yyyy") : "-"}
+                          Realizada em:{" "}
+                          {tarefa.data_conclusao
+                            ? format(
+                                new Date(tarefa.data_conclusao),
+                                "dd/MM/yyyy",
+                              )
+                            : "-"}
                         </label>
                       </div>
                     );

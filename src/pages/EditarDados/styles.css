@@ -1,8 +1,13 @@
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: linear-gradient(326deg, rgba(246,249,250,1) 0%, rgba(236,240,243,1) 34%);
+  background: linear-gradient(
+    326deg,
+    rgba(246, 249, 250, 1) 0%,
+    rgba(236, 240, 243, 1) 34%
+  );
   height: 100vh;
   width: 100%;
   display: flex;
@@ -15,30 +20,30 @@ body, html {
   height: 40;
   display: flex;
   flex-direction: column;
-  border-radius: 10px; 
+  border-radius: 10px;
   align-items: center;
-  gap: .2em; /* Ajuste conforme necessário */
+  gap: 0.2em; /* Ajuste conforme necessário */
   background-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-  h1{
+  h1 {
     font-size: 2em;
     text-align: center;
     font-family: "Raleway", sans-serif;
-    padding: .2em;
+    padding: 0.2em;
   }
 }
 
 .inputContainer {
   display: flex;
-  flex-wrap: wrap; 
-  justify-content: center; 
+  flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 10px;
 }
 .inputData {
-  align-items: center; 
+  align-items: center;
   width: 10em;
-  background-color: #ffffff; 
+  background-color: #ffffff;
 }
 
 .inputData select {
@@ -47,7 +52,7 @@ body, html {
 
 .inputRowCad {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: start;
   margin-bottom: 5px;
 }
@@ -57,7 +62,6 @@ body, html {
   margin-right: 2px; /* margem direita */
 }
 
-
 .inputRowCad:last-child > * {
   margin-right: 0;
 }
@@ -66,14 +70,15 @@ body, html {
   width: auto;
 }
 
-.inputCadastro, .inputSenha {
+.inputCadastro,
+.inputSenha {
   padding: 8px;
   width: 200px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-.inputSenha{
+.inputSenha {
   width: 250px;
 }
 
@@ -85,10 +90,9 @@ body, html {
   margin-bottom: 10px;
 }
 
-
 .bttn {
   color: #000000;
-  background-color: #D6DDE2;
+  background-color: #d6dde2;
   font-family: "Raleway", sans-serif;
   font-size: 1em;
   font-weight: 700;
@@ -99,7 +103,7 @@ body, html {
   height: 2.5em;
 }
 
-.buttonCadastro{
+.buttonCadastro {
   display: flex;
   justify-content: space-evenly;
   padding-bottom: 2em;
