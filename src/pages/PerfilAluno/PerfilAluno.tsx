@@ -18,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 import D3Visualization from "@/components/D3Visualization";
 import { Tarefa } from "@/models/Tarefa";
 import { Aluno, Curso } from "@/models/User";
-import { useProfessoresQueries } from "@/queries/professores";
 import { useTarefasQueries } from "@/queries/tarefas";
 import { useUserQueries } from "@/queries/user";
 
@@ -45,11 +44,7 @@ function PerfilAluno() {
   const { useGetTarefaAluno, useConcluirTarefa } = useTarefasQueries();
   const { data: tarefas = [], refetch } = useGetTarefaAluno();
   const { mutate: concluirTarefa } = useConcluirTarefa();
-  const { useGetProfessores } = useProfessoresQueries();
-  const { data: professores = [] } = useGetProfessores();
-  const nomeOrientador =
-    professores.find((professor) => professor.id === user.orientador_id)
-      ?.nome ?? "-";
+
   const [tarefaEmEdicao, setTarefaEmEdicao] = useState<number | null>(null);
   const [dataSelecionada, setDataSelecionada] = useState(
     new Date().toISOString().split("T")[0],
@@ -125,7 +120,7 @@ function PerfilAluno() {
                   </h3>
                   <p>
                     <span>Orientador(a): </span>
-                    {nomeOrientador}
+                    {user.orientador?.nome ?? "-"}
                   </p>
                   <p>
                     <span>Defesa prevista:</span>{" "}
@@ -267,7 +262,9 @@ function PerfilAluno() {
           </Card>
           <Card className="boxTarefas">
             <Card.Body>
-              <Card.Title className="titleTarefas">Tarefas concluídas</Card.Title>
+              <Card.Title className="titleTarefas">
+                Tarefas concluídas
+              </Card.Title>
               <Card.Text>
                 {tarefasFeitas.length === 0 ? (
                   <p
