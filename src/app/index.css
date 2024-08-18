@@ -1,10 +1,10 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
 
-.container{
+.container {
   background-color: white;
   color: rgba(42, 41, 41, 0.87);
   border-radius: 10px;
@@ -16,14 +16,14 @@ button {
 }
 
 button:focus {
-  outline: none; 
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 button:active {
-  transform: scale(0.95); 
+  transform: scale(0.95);
 }
 
-input{
+input {
   cursor: pointer;
 }
 
@@ -32,11 +32,11 @@ header {
   position: fixed;
   width: 100%;
   top: 0;
- }
- 
- nav ul li {
+}
+
+nav ul li {
   margin-left: 1rem;
- }
+}
 .contain {
   width: 100vw;
   display: flex;

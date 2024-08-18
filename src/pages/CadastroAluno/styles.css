@@ -17,6 +17,7 @@
     font-size: 1.8em;
     text-align: center;
     font-family: "Raleway", sans-serif;
+    padding: .2em;
   }
 }
 
@@ -29,7 +30,6 @@
     display: none;
   }
 }
-
 
 .containInputs{
   display: flex;

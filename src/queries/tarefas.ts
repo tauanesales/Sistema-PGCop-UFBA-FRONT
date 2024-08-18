@@ -7,6 +7,8 @@ import * as tarefasApi from "../services/api/tarefas";
 
 const tarefasKeys = {
   all: ["tarefas"],
+  alunos: () => [...tarefasKeys.all, "aluno"],
+  aluno: (id: number) => [...tarefasKeys.alunos(), id],
 };
 
 export const useTarefasQueries = () => {
@@ -24,6 +26,17 @@ export const useTarefasQueries = () => {
           return response.data;
         }
       },
+      select: (data) =>
+        data?.sort(
+          (a, b) => Date.parse(b.data_prazo) - Date.parse(a.data_prazo),
+        ),
+    });
+
+  const useGetTarefaOrientando = (id: number) =>
+    useQuery({
+      queryKey: tarefasKeys.aluno(id),
+      queryFn: () =>
+        tarefasApi.getTarefasAluno(id).then((response) => response.data),
       select: (data) =>
         data?.sort(
           (a, b) => Date.parse(b.data_prazo) - Date.parse(a.data_prazo),
@@ -60,5 +73,5 @@ export const useTarefasQueries = () => {
       },
     });
 
-  return { useGetTarefaAluno, useConcluirTarefa };
+  return { useGetTarefaAluno, useConcluirTarefa, useGetTarefaOrientando };
 };

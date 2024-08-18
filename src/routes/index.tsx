@@ -30,29 +30,27 @@ const routes = createRoutesFromElements(
     <Route element={<AuthenticationGuard allowedRoles={[TipoUsuario.ALUNO]} />}>
       <Route path="/perfil-aluno" element={<PerfilAluno />} />
 
-      <Route
-        path="/perfil-aluno/editar-dados"
-        element={<EditarDados />}
-      />
+      <Route path="/perfil-aluno/editar-dados" element={<EditarDados />} />
     </Route>
 
     <Route
+      path="/perfil-professor"
       element={<AuthenticationGuard allowedRoles={[TipoUsuario.PROFESSOR]} />}
     >
-      <Route path="/perfil-professor" element={<PerfilOrientador />} />
+      <Route index element={<PerfilOrientador />} />
       <Route
-        path="/perfil-aluno-orientador/:id"
+        path="perfil-aluno-orientador/:id"
         element={<PerfilAlunoOrientador />}
       />
     </Route>
-
     <Route
+      path="/perfil-coordenador"
       element={<AuthenticationGuard allowedRoles={[TipoUsuario.COORDENADOR]} />}
     >
-      <Route path="/perfil-coordenador" element={<PerfilCoordenador />} />
-      <Route path="/tarefas" element={<Tarefas />} />
+      <Route index element={<PerfilCoordenador />} />
+      <Route path="tarefas" element={<Tarefas />} />
       <Route
-        path="/perfil-aluno-orientador/:id"
+        path="perfil-aluno-orientador/:id"
         element={<PerfilAlunoOrientador />}
       />
     </Route>

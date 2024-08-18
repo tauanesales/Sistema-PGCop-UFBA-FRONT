@@ -1,4 +1,3 @@
-
 import "./styles.css";
 
 import { useState } from "react";
@@ -80,14 +79,15 @@ const ConfirmarEnvioEmail = () => {
           />
           {error && <p className="error">{error}</p>}
         </div>
-        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-        <ButtonSecondary
-          onClick={handleNext}
-          label={isPending ? "Carregando..." : "Continuar"}
-          style={{ width: "12em", justifyContent: "center" }}
-        />
+        <div
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+        >
+          <ButtonSecondary
+            onClick={handleNext}
+            label={isPending ? "Carregando..." : "Continuar"}
+            style={{ width: "12em", justifyContent: "center" }}
+          />
         </div>
-
       </div>
     </div>
   );
