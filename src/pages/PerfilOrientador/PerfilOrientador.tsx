@@ -163,11 +163,17 @@ function PerfilOrientador() {
                           onClick={() => handleSolicitacoesClick()}
                           style={{
                             cursor: "pointer",
-                            color: solicitacoes.length > 0 ? "red" : "inherit",
+                            color: solicitacoes.length > 0 ? " #eb4536" : "inherit",
+                            position: "relative",
                           }}
                           size={35}
                           title="Solicitações"
                         />
+                        {solicitacoes.length > 0 && (
+                          <span className="solicitacoes-badge-prof">
+                            {solicitacoes.length}
+                          </span>
+                        )}
                         {showSolicitacoes && (
                           <div ref={containerRef} className="solicitacoesContainer" >
                             <Solicitacoes
