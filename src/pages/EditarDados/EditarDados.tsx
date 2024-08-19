@@ -12,6 +12,7 @@ import { FormikInput } from "@/components/FormikInput";
 import { TipoUsuario } from "@/models/User";
 import { useProfessoresQueries } from "@/queries/professores";
 import { useUserQueries } from "@/queries/user";
+import { Button, Spinner } from "react-bootstrap";
 
 type Values = {
   nome: string;
@@ -36,6 +37,8 @@ const telefoneMaskOptions = {
 };
 
 export const EditarDados = () => {
+  const navigate = useNavigate();
+
   const { useGetUser, useUpdateUser } = useUserQueries();
 
   const { mutate: updateUser } = useUpdateUser();
@@ -62,26 +65,26 @@ export const EditarDados = () => {
       email,
     } = values;
 
-    updateUser(
-      {
-        nome,
-        email,
-        ...(user!.tipo_usuario === TipoUsuario.ALUNO && {
-          orientador_id: orientador_id as number,
-          curso: curso as "M" | "D",
-          data_ingresso: (data_ingresso as Date).toISOString().split("T")[0],
-          data_defesa: null,
-          data_qualificacao: null,
-          lattes,
-          matricula,
-          telefone: unformat(telefone, telefoneMaskOptions),
-          cpf: unformat(cpf, cpfMaskOptions),
-        }),
+    const payload = {
+      nome,
+      email,
+      ...(user!.tipo_usuario === TipoUsuario.ALUNO && {
+        orientador_id: orientador_id as number,
+        curso: curso as "M" | "D",
+        data_ingresso: (data_ingresso as Date).toISOString().split("T")[0],
+        lattes,
+        matricula,
+        telefone: unformat(telefone, telefoneMaskOptions),
+        cpf: unformat(cpf, cpfMaskOptions),
+      }),
+    };
+
+    updateUser(payload, {
+      onSettled: () => {
+        formikHelpers.setSubmitting(false);
+        navigate(-1); // Redireciona para a página anterior
       },
-      {
-        onSettled: () => formikHelpers.setSubmitting(false),
-      },
-    );
+    });
   };
 
   const validationSchema = Yup.object().shape({
@@ -131,8 +134,6 @@ export const EditarDados = () => {
 
   const telefoneInputRef = useMask(telefoneMaskOptions);
 
-  const navigate = useNavigate();
-
   return (
     <Formik
       initialValues={{
@@ -158,166 +159,151 @@ export const EditarDados = () => {
       onSubmit={handleSignUp}
     >
       {({ isSubmitting, handleSubmit }) => (
-        <Form className="containerPrincipal">
-          <img src="/assets/logoPgcop.png" width={70} />
+        <Form>
+          <div className="containerPrincipal">
+            <img src="/assets/logoPgcop.png" width={90} alt="LogoPGCOP" className="logoPgcop" />
+            <h1>Editar dados</h1>
 
-          <div style={{ display: "flex", gap: 60 }}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <FormikInput
-                name="nome"
-                label="Nome completo"
-                fullWidth
-                required
-              />
+            <div className="containInputs">
+              <div className="fisrtColumn">
+                <FormikInput
+                  name="nome"
+                  label="Nome completo"
+                  fullWidth
+                  required
+                />
 
-              <FormikInput
-                name="email"
-                label="E-mail"
-                type="email"
-                fullWidth
-                required
-              />
+                <FormikInput
+                  name="email"
+                  label="E-mail"
+                  type="email"
+                  fullWidth
+                  required
+                />
 
-              <FormikInput
-                inputRef={cpfInputRef}
-                name="cpf"
-                label="CPF"
-                fullWidth
-                required
-              />
+                <FormikInput
+                  inputRef={cpfInputRef}
+                  name="cpf"
+                  label="CPF"
+                  fullWidth
+                  required
+                />
 
-              <FormikInput
-                inputRef={telefoneInputRef}
-                name="telefone"
-                label="Telefone"
-                fullWidth
-                required
-              />
-            </div>
+                <FormikInput
+                  inputRef={telefoneInputRef}
+                  name="telefone"
+                  label="Telefone"
+                  fullWidth
+                  required
+                />
+              </div>
 
-            <div style={{ display: "flex", flexDirection: "column" }}>
               {user!.tipo_usuario === TipoUsuario.ALUNO ? (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <FormikInput
-                    name="matricula"
-                    label="Matrícula"
-                    fullWidth
-                    required
-                  />
+                <div className="fisrtColumn">
+                    <FormikInput
+                      name="matricula"
+                      label="Matrícula"
+                      fullWidth
+                      required
+                    />
 
-                  <FormikInput
-                    name="orientador_id"
-                    label="Orientador"
-                    fullWidth
-                    select
-                    required
-                  >
-                    {professores.map((professor) => (
-                      <MenuItem key={professor.id} value={professor.id}>
-                        {professor.nome}
-                      </MenuItem>
-                    ))}
-                  </FormikInput>
+                    <FormikInput
+                      name="orientador_id"
+                      label="Orientador"
+                      fullWidth
+                      select
+                      required
+                    >
+                      {professores.map((professor) => (
+                        <MenuItem key={professor.id} value={professor.id}>
+                          {professor.nome}
+                        </MenuItem>
+                      ))}
+                    </FormikInput>
 
-                  <FormikInput
-                    fullWidth
-                    variant="standard"
-                    id="select-curso"
-                    name="curso"
-                    label="Titulação do curso"
-                    select
-                    required
-                  >
-                    <MenuItem value="M">Mestrado</MenuItem>
-                    <MenuItem value="D">Doutorado</MenuItem>
-                  </FormikInput>
+                    <FormikInput
+                      fullWidth
+                      variant="standard"
+                      id="select-curso"
+                      name="curso"
+                      label="Titulação do curso"
+                      select
+                      required
+                    >
+                      <MenuItem value="M">Mestrado</MenuItem>
+                      <MenuItem value="D">Doutorado</MenuItem>
+                    </FormikInput>
 
-                  <FormikDateField
-                    required
-                    variant="standard"
-                    name="data_ingresso"
-                    label="Data de ingresso"
-                  />
+                    <FormikDateField
+                      required
+                      variant="standard"
+                      name="data_ingresso"
+                      label="Data de ingresso"
+                    />
 
-                  <FormikInput
-                    name="lattes"
-                    label="Link para o Lattes"
-                    fullWidth
-                    required
-                  />
+                    <FormikInput
+                      name="lattes"
+                      label="Link para o Lattes"
+                      fullWidth
+                      required
+                    />
                 </div>
               ) : (
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <FormikInput
-                    className="inputRow"
-                    style={{ width: "240px" }}
-                    fullWidth
-                    variant="standard"
-                    id="select-tipo-usuario"
-                    name="tipo_usuario"
-                    label="Função"
-                    select
-                    required
-                  >
-                    <MenuItem value={TipoUsuario.PROFESSOR}>
-                      Orientador
-                    </MenuItem>
-                    <MenuItem value={TipoUsuario.COORDENADOR}>
-                      Coordenador
-                    </MenuItem>
-                  </FormikInput>
+                <div className="fisrtColumn">
+                    <FormikInput
+                      className="inputRow"
+                      style={{ width: "240px" }}
+                      fullWidth
+                      variant="standard"
+                      id="select-tipo-usuario"
+                      name="tipo_usuario"
+                      label="Função"
+                      select
+                      required
+                    >
+                      <MenuItem value={TipoUsuario.PROFESSOR}>
+                        Orientador
+                      </MenuItem>
+                      <MenuItem value={TipoUsuario.COORDENADOR}>
+                        Coordenador
+                      </MenuItem>
+                    </FormikInput>
                 </div>
               )}
             </div>
-          </div>
 
-          <div
-            className="buttonCadastro"
-            style={{
-              marginTop: "-1em",
-              display: "flex",
-              flexDirection: "row",
-              gap: "3em",
-            }}
-          >
-            <LoadingButton
-              className="bttn"
-              sx={{
-                marginTop: 2,
-                width: 150,
-                color: "#000000",
-                backgroundColor: "#D6DDE2", // cinza claro
-                "&:hover": {
-                  backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
-                },
-              }}
-              variant="contained"
-              onClick={() => navigate(-1)}
+            <div
+              className="containerButtons"
             >
-              Voltar
-            </LoadingButton>
-
-            <LoadingButton
-              className="bttn"
-              sx={{
-                marginTop: 2,
-                width: 150,
-                color: "#000000",
-                backgroundColor: "#D6DDE2", // cinza claro
-                "&:hover": {
-                  backgroundColor: "#E9EAEC", // cor cinza um pouco mais escura ao passar o mouse
-                },
-              }}
-              variant="contained"
-              fullWidth
-              loading={isSubmitting}
-              onClick={() => handleSubmit()}
-              disabled={isSubmitting}
-            >
-              Salvar
-            </LoadingButton>
+              <Button
+                  className="bttnCadastro bttnVermelho"
+                  onClick={() => navigate('/login')}
+                >
+                  Voltar
+                </Button>
+                <Button
+                  className="bttnCadastro bttnVerde"
+                  onClick={() => handleSubmit()}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        variant="dark"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                      <span>Salvando...</span>
+                    </>
+                  ) : (
+                    'Salvar'
+                  )}
+                </Button>
+            </div>
           </div>
-
         </Form>
       )}
     </Formik>

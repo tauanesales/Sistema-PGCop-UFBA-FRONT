@@ -1,7 +1,9 @@
 ﻿# Front-End: Sistema de Monitoramento de Alunos do PGCOMP-UFBA
+
 Projeto da disciplina: MATE85 - Tópicos em Sistemas de Informação e Web I
 
 ## Tabela de Conteúdos:
+
 - [Sobre o Projeto](#sobre-o-projeto)
 - [Autores](#autores)
 - [Linguagem e Tecnologias](#linguagem-e-tecnologias)
@@ -11,9 +13,11 @@ Projeto da disciplina: MATE85 - Tópicos em Sistemas de Informação e Web I
 <hr>
 
 ## Sobre o Projeto:
+
 Repositório com o front-end da aplicação do sistema de monitoramento de alunos do PGCOMP-UFBA — projeto relacionado à disciplina Tópicos em Sistemas de Informação Web I.
 
 ### Autores:
+
 - Davi Reis
 - Letícia Costa
 - Pablo Henrique
@@ -23,12 +27,15 @@ Repositório com o front-end da aplicação do sistema de monitoramento de aluno
 - Vanessa Oliveira
 
 ### Tutorial de instalação e execução da aplicação
+
 Acesse o documento [aqui](https://docs.google.com/document/d/1YcuaeqOL8hw_qZtkXWW5xiz_TFoLFvJ-SSdYZ21bH0w/edit) para saber como configurar, instalar e executar a aplicação.
 
 ### Linguagem e Tecnologias:
+
 - React (JavaScript)
 
 ### Links:
+
 - [Aplicação em Produção](https://front.mate85.tauane.artadevs.tech)
 - [Gestão do Projeto (Trello)](https://trello.com/templates/project-management/gestão-de-projetos-fn73Cyyt)
 - [Documento de Requisitos](https://docs.google.com/document/d/1pyL5qi0StpbdY4Hxs0oPhLO5XkQL6UaDdRmx9OWwfYU/edit)

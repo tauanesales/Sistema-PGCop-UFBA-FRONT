@@ -8,9 +8,9 @@ export interface Tokens {
 }
 
 const initialState: Tokens = {
-  accessToken: '',
-  tokenType: ''
-}
+  accessToken: "",
+  tokenType: "",
+};
 
 export const useTokensStore = create<Tokens>()(
   persist(() => initialState, {

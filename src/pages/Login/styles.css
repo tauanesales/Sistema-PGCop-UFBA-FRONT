@@ -36,7 +36,8 @@
   font-family: "Raleway", sans-serif;
   display: flex;
   flex-direction: column;
-  gap: 0.2em;
+  gap: 1em;
+  overflow: hidden;
 
   img {
     align-self: center;
@@ -51,7 +52,7 @@ h1 {
   font-weight: 600;
 }
 
-.inputs {
+.containerInputs {
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -62,7 +63,6 @@ h1 {
 .links {
   display: flex;
   flex-direction: column;
-  gap: 0.8em;
 }
 
 .conectado {
@@ -78,7 +78,6 @@ h1 {
 }
 
 a {
-  margin-left: 2px;
   color: #000000;
 }
 

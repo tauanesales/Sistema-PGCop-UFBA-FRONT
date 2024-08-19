@@ -53,7 +53,7 @@ const Login = () => {
           <img src={logoPgcop} width={130} />
 
           <h1>Bem vindo de volta ao PGCop</h1>
-          <div className="inputs">
+          <div className="containerInputs">
             {/* Campo Email */}
             <Input
               label="E-mail"
@@ -86,11 +86,8 @@ const Login = () => {
           {/* Links Cadastro e Recuperação de senha */}
           <div className="links">
             <p className="text">
-              <a href="/cadastro-aluno" >
-                Cadastre-se
-              </a>
-            </p>
-            <p className="text">
+              <a href="/cadastro-aluno">Cadastre-se</a>
+              <br></br>
               Esqueceu a senha? Clique
               <a href="/esqueci-senha"> aqui.</a>
             </p>

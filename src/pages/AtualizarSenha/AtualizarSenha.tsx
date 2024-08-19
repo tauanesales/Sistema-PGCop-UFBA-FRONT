@@ -40,7 +40,7 @@ function AtualizarSenha() {
   return (
     <div className="container">
       <div className="containerCard">
-        <img src={logoPgcop} width={130} />
+        <img src={logoPgcop} width={90} />
         <h1>Atualizar Senha</h1>
         <p>Informe a nova senha para atualizar seu acesso.</p>
 
@@ -52,7 +52,13 @@ function AtualizarSenha() {
           validationSchema={validationSchema}
           onSubmit={handleResetPassword}
         >
-          {({ isSubmitting, handleSubmit }) => (
+          {({
+            isSubmitting,
+            handleSubmit,
+            handleChange,
+            handleBlur,
+            values,
+          }) => (
             <div className="containInput">
               {/* Campo Nova Senha */}
               <Input
@@ -62,6 +68,9 @@ function AtualizarSenha() {
                 placeholder="Digite a nova senha"
                 required
                 style={{ marginBottom: ".5em" }}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
               />
               <ErrorMessage name="password" component="div" />
 
@@ -73,13 +82,16 @@ function AtualizarSenha() {
                 placeholder="Digite a senha novamente"
                 required
                 style={{ marginBottom: ".5em" }}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.confirmPassword}
               />
               <ErrorMessage name="confirmPassword" component="div" />
 
               <ButtonSecondary
                 type="submit"
                 label={isPending ? "Carregando..." : "Atualizar Senha"}
-                style={{ width: "12em", alignSelf: "center" }}
+                style={{ width: "10em", alignSelf: "center" }}
                 disabled={isSubmitting || isPending}
                 onClick={() => handleSubmit()}
               />
