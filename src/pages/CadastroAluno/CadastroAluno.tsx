@@ -233,7 +233,7 @@ const CadastroAluno = () => {
             <h1>Cadastro</h1>
             
 
-            {/* <RadioGroup
+            <RadioGroup
               row
               aria-label="tipo-usuario"
               name="tipo-usuario"
@@ -252,7 +252,7 @@ const CadastroAluno = () => {
                 control={<Radio color="primary" />}
                 label="Professor"
               />
-            </RadioGroup> */}
+            </RadioGroup>
 
             <div className="containInputs">
               <div className="fisrtColumn">
@@ -355,10 +355,8 @@ const CadastroAluno = () => {
                     />
                   </div>
                 ) : (
-                  <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div className="fisrtColumn">
                     <FormikInput
-                      className="inputRowCad"
-                      style={{ width: "240px" }}
                       fullWidth
                       variant="standard"
                       id="select-tipo-usuario"
