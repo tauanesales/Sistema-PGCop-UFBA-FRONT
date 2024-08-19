@@ -24,16 +24,10 @@ function Tarefas() {
   } = useTarefasBaseQueries();
 
   const { data: tarefasMestrado = [] } = useGetTarefasCurso("M");
-
   const { data: tarefasDoutorado = [] } = useGetTarefasCurso("D");
-
   const { mutate: createTarefa } = useCreateTarefa();
-
   const { mutate: updateTarefa } = useUpdateTarefa();
-
   const { mutate: deleteTarefa } = useDeleteTarefa();
-
-  /*Const Att Tarefas */
 
   const [showModal, setShowModal] = useState(false);
   const [selectedTarefa, setSelectedTarefa] = useState<TarefaBase>();
@@ -42,7 +36,6 @@ function Tarefas() {
   const [editTarefaPrazo, setEditTarefaPrazo] = useState(0);
   const [editTarefaDescricao, setEditTarefaDescricao] = useState("");
 
-  /* Const Add Tarefas*/
   const [showAddModal, setShowAddModal] = useState(false);
   const [novaTarefaNome, setNovaTarefaNome] = useState("");
   const [novaTarefaPrazo, setNovaTarefaPrazo] = useState(0);
@@ -54,24 +47,26 @@ function Tarefas() {
     deleteTarefa(selectedTarefa!.id, {
       onSuccess: () => {
         setShowModal(false);
+        setSelectedTarefa(undefined);
       },
     });
 
   const handleEdit = () => {
-    const tarefa = {
-      ...selectedTarefa,
-      id: selectedTarefa!.id,
-      nome: editTarefaNome,
-      prazo_em_meses: editTarefaPrazo,
-      descricao: editTarefaDescricao,
-    };
+    if (selectedTarefa) {
+      const tarefa = {
+        ...selectedTarefa,
+        nome: editTarefaNome,
+        prazo_em_meses: editTarefaPrazo,
+        descricao: editTarefaDescricao,
+      };
 
-    updateTarefa(tarefa, {
-      onSuccess: () => {
-        setIsEditing(false);
-        setSelectedTarefa(undefined);
-      },
-    });
+      updateTarefa(tarefa, {
+        onSuccess: () => {
+          setIsEditing(false);
+          setSelectedTarefa(undefined);
+        },
+      });
+    }
   };
 
   const handleAddTarefa = () => {
@@ -93,18 +88,27 @@ function Tarefas() {
     });
   };
 
+  // Função para validar e limitar o prazo
+  const handlePrazoChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setPrazo: React.Dispatch<React.SetStateAction<number>>,
+  ) => {
+    const value = Number(e.target.value);
+    if (value >= 0 && value <= 99) {
+      setPrazo(value);
+    }
+  };
+
   return (
     <div className="contain">
       <div className="containerGeralTarefas">
         <div className="botoesTarefas">
-          {/* Botão Adicionar Tarefa */}
           <MdOutlineLibraryAdd
             onClick={() => setShowAddModal(true)}
             style={{ cursor: "pointer", marginRight: "30px" }}
             size={35}
             title="Adicionar Tarefa"
           />
-          {/* Botão retornar */}
           <MdArrowBack
             onClick={() => navigate(-1)}
             style={{ cursor: "pointer", marginRight: "10px" }}
@@ -113,7 +117,6 @@ function Tarefas() {
           />
         </div>
 
-        {/* Container de Tarefas de Mestrado*/}
         <div className="listaTarefas">
           <div className="containerLista">
             <ul className="ultarefas">
@@ -124,17 +127,15 @@ function Tarefas() {
                   marginLeft: "20px",
                 }}
               >
-                Tarefas Mestrado
+                Tarefas de Mestrado
               </h2>
               {tarefasMestrado.map((tarefa) => (
                 <li className="litarefas" key={tarefa.id}>
-                  {/* Edição das tarefas*/}
                   <div>
-                    {" "}
                     {isEditing &&
                     selectedTarefa &&
                     selectedTarefa.id === tarefa.id ? (
-                      <>
+                      <div>
                         <label className="labeltarefas">Nome da Tarefa</label>
                         <input
                           className="inputContainer"
@@ -144,7 +145,7 @@ function Tarefas() {
                           placeholder="Nome da tarefa"
                           style={{
                             marginBottom: "10px",
-                            width: "29em",
+                            width: "35em",
                             padding: "8px",
                           }}
                         />
@@ -168,7 +169,7 @@ function Tarefas() {
                           type="number"
                           value={editTarefaPrazo}
                           onChange={(e) =>
-                            setEditTarefaPrazo(Number(e.target.value))
+                            handlePrazoChange(e, setEditTarefaPrazo)
                           }
                           placeholder="Prazo em meses"
                           style={{
@@ -177,7 +178,24 @@ function Tarefas() {
                             padding: "8px",
                           }}
                         />
-                      </>
+                        <div className="buttonContainer">
+                          <Button
+                            className="bttnCoordenador bttnVermelho"
+                            onClick={() => {
+                              setIsEditing(false);
+                              setSelectedTarefa(undefined);
+                            }}
+                          >
+                            Cancelar
+                          </Button>
+                          <Button
+                            className="bttnCoordenador bttnVerde"
+                            onClick={handleEdit}
+                          >
+                            Salvar
+                          </Button>
+                        </div>
+                      </div>
                     ) : (
                       <div style={{ width: "450px" }}>
                         <strong>{tarefa.nome}</strong> Prazo:{" "}
@@ -187,16 +205,15 @@ function Tarefas() {
                       </div>
                     )}
                   </div>
-                  {/* Ação dos botões e ícones - salvar, editar e deletar*/}
                   <div>
-                    {isEditing &&
+                    {!isEditing &&
                     selectedTarefa &&
                     selectedTarefa.id === tarefa.id ? (
                       <button
                         className="bttn"
                         onClick={handleEdit}
                         style={{
-                          marginLeft: "5em",
+                          marginLeft: "2em",
                           marginTop: "7em",
                           width: "100px",
                           height: "35px",
@@ -241,7 +258,6 @@ function Tarefas() {
             </ul>
           </div>
 
-          {/*Container de Tarefas de Doutorado */}
           <div className="containerLista">
             <ul className="ultarefas">
               <h2
@@ -251,17 +267,15 @@ function Tarefas() {
                   marginLeft: "20px",
                 }}
               >
-                Tarefas Doutorado
+                Tarefas de Doutorado
               </h2>
               {tarefasDoutorado.map((tarefa) => (
                 <li className="litarefas" key={tarefa.id}>
-                  {/* Edição das tarefas */}
                   <div>
-                    {" "}
                     {isEditing &&
                     selectedTarefa &&
                     selectedTarefa.id === tarefa.id ? (
-                      <>
+                      <div>
                         <label>Nome da Tarefa</label>
                         <input
                           className="inputContainer"
@@ -271,7 +285,7 @@ function Tarefas() {
                           placeholder="Nome da tarefa"
                           style={{
                             marginBottom: "10px",
-                            width: "29em",
+                            width: "35em",
                             padding: "8px",
                           }}
                         />
@@ -295,7 +309,7 @@ function Tarefas() {
                           type="number"
                           value={editTarefaPrazo}
                           onChange={(e) =>
-                            setEditTarefaPrazo(Number(e.target.value))
+                            handlePrazoChange(e, setEditTarefaPrazo)
                           }
                           placeholder="Prazo em meses"
                           style={{
@@ -304,11 +318,26 @@ function Tarefas() {
                             padding: "8px",
                           }}
                         />
-                      </>
+                        <div className="buttonContainer">
+                          <Button
+                            className="bttnCoordenador bttnVermelho"
+                            onClick={() => {
+                              setIsEditing(false);
+                              setSelectedTarefa(undefined);
+                            }}
+                          >
+                            Cancelar
+                          </Button>
+                          <Button
+                            className="bttnCoordenador bttnVerde"
+                            onClick={handleEdit}
+                          >
+                            Salvar
+                          </Button>
+                        </div>
+                      </div>
                     ) : (
                       <div style={{ width: "450px" }}>
-                        {" "}
-                        {/* Exibir em tela*/}
                         <strong>{tarefa.nome}</strong> Prazo:{" "}
                         {tarefa.prazo_em_meses} meses
                         <br />
@@ -316,16 +345,15 @@ function Tarefas() {
                       </div>
                     )}
                   </div>
-                  {/*Ação dos botões e ícones - salvar, editar e deletar*/}
                   <div>
-                    {isEditing &&
+                    {!isEditing &&
                     selectedTarefa &&
                     selectedTarefa.id === tarefa.id ? (
                       <button
                         className="bttn"
                         onClick={handleEdit}
                         style={{
-                          marginLeft: "5em",
+                          marginLeft: "2em",
                           marginTop: "7em",
                           width: "100px",
                           height: "35px",
@@ -422,7 +450,7 @@ function Tarefas() {
                         min={0}
                         value={novaTarefaPrazo}
                         onChange={(e) =>
-                          setNovaTarefaPrazo(Number(e.target.value))
+                          handlePrazoChange(e, setNovaTarefaPrazo)
                         }
                       />
                     </Form.Group>
