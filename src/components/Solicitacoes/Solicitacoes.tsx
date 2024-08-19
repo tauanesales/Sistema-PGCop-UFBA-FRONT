@@ -16,12 +16,10 @@ function Solicitacoes({
   return (
     <div className="solicitacoes-container">
       <h2 style={{ marginLeft: "10px" }}>Solicitações</h2>
-      <ul>
+      <ul className="containerSolicitacoes">
         {solicitacoes.map((solicitacao, index) => (
           <li key={index}>
-            <div>
-              <strong>{solicitacao.nome_aluno}</strong>
-            </div>
+            <p>{solicitacao.nome_aluno}</p>
             <div>
               <button onClick={() => handleAcceptRequest(solicitacao.id)}>
                 Aceitar

@@ -4,8 +4,6 @@
   height: 100vh;
   flex-direction: column;
   align-items: center;
-  /*justify-content: center;
-  gap: 2em;*/
   justify-content: space-around;
 }
 
@@ -41,12 +39,18 @@
 .infoCoordenador {
   display: flex;
   justify-content: center;
-  gap: 0.5em;
   width: 100%;
 }
 .infoCoordenador h2 {
   white-space: nowrap;
   font-weight: 700;
+}
+
+.saudacaoCoordenador{
+  font-size: 1.1em;
+  display: flex;
+  align-items: start;
+  
 }
 
 .listaAlunosCoord {
@@ -118,22 +122,20 @@
   font-size: 0.9em;
   font-weight: 600;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.bttnCoordenador:hover {
-  color: #000000;
-  transform: scale(1.04);
+.bttnCoordenador:active, .bttnCoordenador:hover {
+  color: #000000 !important;
+  transform: scale(1.04) !important;
 }
 
-.bttnVerde {
-  background-color: #b2e6ad;
+.bttnVerde, .bttnVerde:hover, .bttnVerde:active {
+  color: #000000 !important;
+  background-color: #b2e6ad !important;
 }
-
-.bttnVermelho {
-  background-color: #f8bebe;
-}
-.bttnVerde:hover {
-  background-color: #b2e6ad;
-}
-.bttnVermelho:hover {
-  background-color: #f8bebe;
+.bttnVermelho, .bttnVermelho:hover, .bttnVermelho:active {
+  color: #000000 !important;
+  background-color: #f8bebe !important;
 }
