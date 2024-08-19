@@ -267,7 +267,9 @@ function PerfilAluno() {
           </Card>
           <Card className="boxTarefas">
             <Card.Body>
-              <Card.Title className="titleTarefas">Tarefas concluídas</Card.Title>
+              <Card.Title className="titleTarefas">
+                Tarefas concluídas
+              </Card.Title>
               <Card.Text>
                 {tarefasFeitas.length === 0 ? (
                   <p

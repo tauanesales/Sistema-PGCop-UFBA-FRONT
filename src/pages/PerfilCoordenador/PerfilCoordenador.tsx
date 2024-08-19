@@ -79,10 +79,10 @@ function PerfilCoordenador() {
   const handleDoubleClick = (matricula) => {
     const aluno = alunos.find((aluno) => aluno.matricula === matricula);
     if (aluno) {
-      console.log('Navegando para aluno:', aluno); // Debug
+      console.log("Navegando para aluno:", aluno); // Debug
       navigate(`/perfil-aluno-orientador/${aluno.id}`, { state: aluno });
     } else {
-      console.log('Aluno não encontrado'); // Debug
+      console.log("Aluno não encontrado"); // Debug
     }
   };
 
