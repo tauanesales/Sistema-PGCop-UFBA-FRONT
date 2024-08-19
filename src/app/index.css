@@ -3,11 +3,6 @@
   padding: 0;
 }
 
-/* Cor branca dos buttons*/
-button {
-  color: rgba(246, 245, 245, 0.87);
-  font-size: 14px;
-}
 
 .container {
   background-color: white;
@@ -19,10 +14,7 @@ button {
 button {
   transition: all 0.3s ease;
 }
-button:hover {
-  background-color: #0a0a0a;
-  transform: scale(1.01);
-}
+
 button:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -46,6 +38,7 @@ nav ul li {
   margin-left: 1rem;
 }
 .contain {
+  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;

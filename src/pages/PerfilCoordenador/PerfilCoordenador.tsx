@@ -126,6 +126,7 @@ function PerfilCoordenador() {
             </Navbar.Brand>
             <Stack direction="horizontal" gap={3} className="infoCoordenador">
               <Stack className="infoCoordenador">
+                <p className="saudacaoCoordenador">Olá, coordenador!</p>
                 <h2>{user?.nome}</h2>
                 <h3>Orientandos: {alunos.length}</h3>
               </Stack>
@@ -134,11 +135,17 @@ function PerfilCoordenador() {
                   onClick={handleSolicitacoesClick}
                   style={{
                     cursor: "pointer",
-                    color: solicitacoes.length > 0 ? "red" : "inherit",
+                    color: solicitacoes.length > 0 ? " #eb4536" : "inherit",
+                    position: "relative",
                   }}
                   size={35}
                   title="Solicitações"
                 />
+                {solicitacoes.length > 0 && (
+                  <span className="solicitacoes-badge">
+                    {solicitacoes.length}
+                  </span>
+                )}
                 {showSolicitacoes && (
                   <div ref={containerRef} className="solicitacoesContainer">
                     <Solicitacoes

@@ -148,44 +148,51 @@ function PerfilOrientador() {
     <div className="contain">
       <div className="containerGeral">
         <Navbar className="containerCoordenador bg-body-tertiary">
-          <Container fluid>
-            <Navbar.Brand href="/perfil-aluno">
-              <img src={logoPgcop} alt="Logo" />
-            </Navbar.Brand>
-            <Stack direction="horizontal" gap={3} className="infoCoordenador">
-              <Stack className="infoCoordenador">
-                <h2>{user?.nome}</h2>
-                <h3>Orientandos: {alunos.length}</h3>
-              </Stack>
-              <Stack className="botoesToolbarAluno">
-                <MdOutlinePeopleAlt
-                  onClick={() => handleSolicitacoesClick()}
-                  style={{
-                    cursor: "pointer",
-                    color: solicitacoes.length > 0 ? "red" : "inherit",
-                  }}
-                  size={35}
-                  title="Solicitações"
-                />
-                {showSolicitacoes && (
-                  <div ref={containerRef} className="solicitacoesContainer">
-                    <Solicitacoes
-                      solicitacoes={solicitacoes}
-                      handleAcceptRequest={handleAcceptRequest}
-                      handleRemoveRequest={handleRemoveRequest}
-                    />
-                  </div>
-                )}
-                <MdLogout
-                  onClick={signOut}
-                  style={{ cursor: "pointer" }}
-                  size={35}
-                  title="Sair"
-                />
-              </Stack>
-            </Stack>
-          </Container>
-        </Navbar>
+              <Container fluid>
+                <Navbar.Brand href="/perfil-aluno">
+                  <img src={logoPgcop} alt="Logo" />
+                </Navbar.Brand>
+                <Stack direction="horizontal" gap={3} className="infoCoordenador">
+                      <Stack className="infoCoordenador">
+                          <p className="saudacaoCoordenador">Olá, professor!</p>
+                          <h2>{user?.nome}</h2>
+                          <h3>Orientandos: {alunos.length}</h3>
+                      </Stack>
+                      <Stack className="botoesToolbarAluno" >
+                        <MdOutlinePeopleAlt
+                          onClick={() => handleSolicitacoesClick()}
+                          style={{
+                            cursor: "pointer",
+                            color: solicitacoes.length > 0 ? " #eb4536" : "inherit",
+                            position: "relative",
+                          }}
+                          size={35}
+                          title="Solicitações"
+                        />
+                        {solicitacoes.length > 0 && (
+                          <span className="solicitacoes-badge-prof">
+                            {solicitacoes.length}
+                          </span>
+                        )}
+                        {showSolicitacoes && (
+                          <div ref={containerRef} className="solicitacoesContainer" >
+                            <Solicitacoes
+                              solicitacoes={solicitacoes}
+                              handleAcceptRequest={handleAcceptRequest}
+                              handleRemoveRequest={handleRemoveRequest}
+                            />
+                          </div>
+                        )}
+                        <MdLogout
+                          onClick={signOut}
+                          style={{ cursor: "pointer" }}
+                          size={35}
+                          title="Sair"
+                        />
+                      </Stack>
+                </Stack>
+              </Container>
+          </Navbar>
 
         <h2>Lista de Orientandos</h2>
         <div className="listaAlunosCoord">

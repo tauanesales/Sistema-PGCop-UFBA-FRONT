@@ -133,6 +133,7 @@ function PerfilAluno() {
               </Navbar.Brand>
               <Stack direction="horizontal" gap={3} className="boxAluno">
                 <Stack className="boxInfoAluno">
+                  <p className="saudacaoAluno">Olá, aluno(a)!</p>
                   <h3>
                     <span>{user.nome}</span>
                   </h3>
@@ -254,14 +255,15 @@ function PerfilAluno() {
                     id="task"
                     key={tarefa.id}
                   >
-                    <div className="iconeCard">
-                      <AiOutlineEdit
-                        onClick={() => handleCheckboxChange(tarefa)}
-                        style={{ cursor: "pointer" }}
-                        size={20}
-                        title="Editar"
-                      />
-                      <h4>{tarefa.nome}</h4>
+                      <div className="iconeCard">
+                        <AiOutlineEdit
+                          onClick={() => handleCheckboxChange(tarefa)}
+                          style={{ cursor: "pointer" }}
+                          size={20}
+                          title="Editar"
+                        />
+                        <h4>{tarefa.nome}</h4>
+                      </div>
                       {tarefaEmEdicao === tarefa.id && (
                         <div className="boxDate">
                           <Form.Group className="boxDate">
@@ -276,7 +278,6 @@ function PerfilAluno() {
                               }
                             />
                             <Button
-                              variant="primary"
                               className="saveButton"
                               onClick={() => salvarDataRealizacao(tarefa)}
                             >
@@ -285,10 +286,13 @@ function PerfilAluno() {
                           </Form.Group>
                         </div>
                       )}
-                    </div>
-                    {tarefa.descricao}
-                    <br></br>
-                    Data Limite: {format(prazo, "dd/MM/yyyy")} - {statusData}
+                  
+                      <p>
+                        {tarefa.descricao}
+                      </p>
+                      <p>
+                        Data Limite: {format(prazo, "dd/MM/yyyy")} - {statusData}
+                      </p>
                   </Alert>
                 );
               })}
@@ -337,11 +341,18 @@ function PerfilAluno() {
                         />
                         <h4>{tarefa.nome}</h4>
                       </div>
-                      {tarefa.descricao}
-                      Prazo: {format(prazo, "dd/MM/yyyy")}
-                      <br></br>
-                      Realizada em:{" "}
-                      {realizacao ? format(realizacao, "dd/MM/yyyy") : "-"}
+                      <p>
+                        {tarefa.descricao}  
+                      </p>
+                      <div className="iconeCard">
+                        <p>
+                          Prazo: {format(prazo, "dd/MM/yyyy")} -
+                        </p>
+                        <p>
+                          Realizada em:{" "}
+                          {realizacao ? format(realizacao, "dd/MM/yyyy") : "-"}
+                        </p>
+                      </div>
                     </Alert>
                   );
                 })
@@ -352,12 +363,12 @@ function PerfilAluno() {
 
         {showConfirmDialog && (
           <div className="confirmDialog">
-            <p>Tem certeza que deseja reverter a tarefa para "a fazer"?</p>
+            <p>Tem certeza que deseja reverter a tarefa para "Tarefas a fazer"?</p>
             <div className="buttonContainer">
-              <Button className="cancelButton" onClick={cancelarReversao}>
+              <Button className="bttnCoordenador bttnVermelho" onClick={cancelarReversao}>
                 Cancelar
               </Button>
-              <Button className="confirmButton" onClick={confirmarReversao}>
+              <Button className="bttnCoordenador bttnVerde" onClick={confirmarReversao}>
                 Reverter
               </Button>
             </div>
